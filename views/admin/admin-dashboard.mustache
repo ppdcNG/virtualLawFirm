@@ -1,0 +1,198 @@
+{{> header }}
+<header>
+  <!--Navbar -->
+  <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+    <a class="navbar-brand default-color p-3" href="#">A&E Virtual Law</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+      aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+      <em>Welcome Admin</em>
+
+      <ul class="navbar-nav ml-auto nav-flex-icons">
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="/">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!--/.Navbar -->
+</header>
+
+<main>
+  <div class="container-fluid">
+        <ul class="nav nav-tabs md-tabs" id="myTabEx" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active show" id="home-tab-ex" data-toggle="tab" href="#home-ex" role="tab" aria-controls="home-ex"
+        aria-selected="true">Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab-ex" data-toggle="tab" href="#profile-ex" role="tab" aria-controls="profile-ex"
+        aria-selected="false">Cases</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="contact-tab-ex" data-toggle="tab" href="#contact-ex" role="tab" aria-controls="contact-ex"
+        aria-selected="false">Requests</a>
+    </li>
+  </ul>
+  <div class="tab-content pt-5" id="myTabContentEx">
+    <div class="tab-pane fade active show" id="home-ex" role="tabpanel" aria-labelledby="home-tab-ex">
+        <p class="h5 text-uppercase">overview</p>
+        <hr/>
+        <div class="row m-5 text-center">
+          <div class="col-md-4">
+            <div class="card shadow p-5">{{laywers_no}} Laywers</div>
+          </div>
+          <div class="col-md-4">
+            <div class="card shadow p-5">{{cases_no}} Cases</div>
+          </div>
+          <div class="col-md-4">
+            <div class="card shadow p-5">{{clients_no}} Clients</div>
+          </div>
+      </div>  
+
+      <p class="h5 text-uppercase">Laywers</p>
+      <hr/>
+
+      <table class="table table-bordered tale-striped">
+        <thead class="black white-text">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Bruce wayne</td>
+            <td>Pending</td>
+            <td><button class="btn"></button></td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Thor odinson</td>
+            <td>Active</td>
+            <td><button class="btn"></button></td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Barry allen</td>
+            <td>Active</td>
+            <td><button class="btn"></button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="profile-ex" role="tabpanel" aria-labelledby="profile-tab-ex">
+      <!--Accordion wrapper-->
+<div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
+
+<div class="container-fluid pb-5 mb-5">
+
+  <!-- Accordion card -->
+  <div class="card">
+
+    <!-- Card header -->
+    <div class="card-header" role="tab" id="headingTwo1">
+      <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo1"
+        aria-expanded="false" aria-controls="collapseTwo1">
+        <h5 class="mb-0">
+          New (Pending) <i class="fas fa-angle-down rotate-icon"></i>
+        </h5>
+      </a>
+    </div>
+
+    <!-- Card body -->
+    <div id="collapseTwo1" class="collapse" role="tabpanel" aria-labelledby="headingTwo1"
+      data-parent="#accordionEx1">
+      <div class="card-body">
+        <ul>
+          <li>Case 11 <span><a class="btn blue-text">View</a></span></li>
+          <li>Case 12 <span><a class="btn blue-text">View</a></span></li>
+          <li>Case 13 <span><a class="btn blue-text">View</a></span></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+  <!-- Accordion card -->
+
+  <!-- Accordion card -->
+  <div class="card">
+
+    <!-- Card header -->
+    <div class="card-header" role="tab" id="headingTwo2">
+      <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo21"
+        aria-expanded="false" aria-controls="collapseTwo21">
+        <h5 class="mb-0">
+          Active <i class="fas fa-angle-down rotate-icon"></i>
+        </h5>
+      </a>
+    </div>
+
+    <!-- Card body -->
+    <div id="collapseTwo21" class="collapse" role="tabpanel" aria-labelledby="headingTwo21"
+      data-parent="#accordionEx1">
+      <div class="card-body">
+        <table class="table table-bordered tale-striped">
+        <thead class="black white-text">
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Client</th>
+            <th scope="col">Assigned Lawyer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Lorem ipsum</td>
+            <td>John doe</td>
+            <td>Harvey specter</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Lorem ipsum</td>
+            <td>Jane doe</td>
+            <td>Mike ross</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+  </div>
+  <!-- Accordion card -->
+</div>
+
+</div>
+<!-- Accordion wrapper -->
+    </div>
+    <div class="tab-pane fade" id="contact-ex" role="tabpanel" aria-labelledby="contact-tab-ex">
+      <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro
+        fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone
+        skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings
+        gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork
+        biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl
+        craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+    </div>
+  </div>
+  </div>
+
+
+</main>
+
+{{> footer}}

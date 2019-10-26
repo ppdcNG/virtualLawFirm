@@ -1,0 +1,39 @@
+{{> header}}
+
+<div class="container">
+<div class="jumbotron"></div>
+    <h2 class="text-center">What's the Issue? Let's help</h2>
+    <hr/>
+    <div class="d-flex justify-content-center">
+        <!-- Material form group -->
+        <form class="w-100 border p-3">
+            <!-- Material input -->
+            <div class="md-form form-group mt-5">
+                <input type="text" class="form-control" id="subject">
+                <label for="subject">Subject</label>
+            </div>
+  
+            <div class="md-form mb-4 pink-textarea active-pink-textarea-2">
+                <i class="fas fa-pencil-alt prefix"></i>
+                <textarea id="form23" class="md-textarea form-control" rows="3"></textarea>
+                <label for="form23">Type your issue here</label>
+            </div>
+
+            <div class="md-form">
+            <span class="text-muted">Select Tags Below</span>
+                <select class="form-control selectpicker white" multiple>
+                    <option value=""></option>
+                    <option value="1">Tag 1</option>
+                    <option value="2">Tag 2</option>
+                    <option value="3">Tag 3</option>
+                </select>
+            </div>
+            <div class="md-form text-right">
+                <button type="submit" class="btn btn-primary">Next <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </form>
+        <!-- Material form group -->
+    </div>
+</div>
+
+{{> footer}}

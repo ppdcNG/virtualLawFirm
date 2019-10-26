@@ -1,0 +1,80 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet"> 
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Data-aos -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    {{! Bootstrap multi select }}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+
+  <style type="text/css">
+    body {font-family: 'Lato', sans-serif; scroll-behavior: smooth;}
+    div.parent-box { display: table; width:100%;}
+    div.child-box { display: table-cell; vertical-align: middle; font-size: xx-large; }
+  </style>
+
+  <title> {{title}} </title>
+</head>
+
+<body>
+
+{{! doctype html
+html
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+
+    link(href="https://fonts.googleapis.com/css?family=Lato&display=swap", rel="stylesheet") 
+    link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.8.2/css/all.css")
+    link(href="https://unpkg.com/aos@2.3.1/dist/aos.css", rel="stylesheet")
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css", rel="stylesheet")
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css", rel="stylesheet")
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+    //- JQuery
+    script(type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+    //- Data-aos
+    script(src="https://unpkg.com/aos@2.3.1/dist/aos.js")
+    //- Bootstrap tooltips
+    script(type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js")
+    //- Bootstrap core JavaScript
+    script(type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js")
+    //- MDB core JavaScript
+    script(type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js")
+
+  body
+    header
+      //- <!--Navbar -->
+      nav(class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color")
+        a(class="navbar-brand default-color p-3", href="#") A&E Virtual Law
+        button(class="navbar-toggler", type="button", data-toggle="collapse", data-target="#navbarSupportedContent-333",
+          aria-controls="navbarSupportedContent-333", aria-expanded="false", aria-label="Toggle navigation")
+          span(class="navbar-toggler-icon")
+        div(class="collapse navbar-collapse", id="navbarSupportedContent-333")
+
+          ul(class="navbar-nav mr-auto")
+            li(class=(path==='/' ? 'nav-item active' : 'nav-item' ))
+              a(class="nav-link", href="/") Home
+                span(class="sr-only", (current))
+            li(class="nav-item")
+              a(class="nav-link", href="#") About Us
+            li(class="nav-item")
+              a(class="nav-link", href="#") FAQs
+
+          ul(class="navbar-nav ml-auto nav-flex-icons")
+            li(class="nav-item")
+              a(href="/join" class="nav-link waves-effect waves-light default-color")
+                i(class="fas fa-sign-in-alt")  Register
+            li(class="nav-item")
+              a(class="nav-link waves-effect waves-light", data-toggle="modal", data-target="#loginFormModal") Login
+
+  block content }}
