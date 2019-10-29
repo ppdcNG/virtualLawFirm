@@ -1,0 +1,39 @@
+{{> header}}
+
+
+<div class="container">
+    <div class="card mt-5 mb-5">
+        <h5 class="card-header special-color white-text text-center py-4">
+            <strong>Sign up</strong>
+        </h5>
+
+        <div class="card-body px-lg-5">
+
+            <form method = "POST" class="text-center" style="color: #757575;" id="newUser">
+                <div class="md-form mt-0">
+                    <input type="email" id="mail" name="email" class="form-control">
+                    <label for="email">Email</label>
+                </div>
+
+                 <div class="md-form mt-0">
+                    <input type="password" id="pwd" name="password" class="form-control">
+                    <label for="pwd">Password</label>
+                </div>
+
+                <button class="btn btn-outline-dark btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Create</button>
+
+                <hr>
+
+            </form>
+            <!-- Form -->
+
+        </div>
+
+    </div>
+</div>
+
+{{> footer}}
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/form2js.js"></script>
+<script src="{{ABS_PATH}}js/admin_auth.js"></script>

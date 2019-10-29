@@ -1,0 +1,63 @@
+{{> header}}
+<header>
+  <!--Navbar -->
+  <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+    <a class="navbar-brand default-color p-3" href="#">A&E Virtual Law</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+      aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+  <!--/.Navbar -->
+</header>
+
+<main>
+    <div class="container">
+        <div class="card mt-5 mb-5">
+            <h5 class="card-header default-color white-text text-center py-4">
+                <strong>Login as Admin</strong>
+            </h5>
+
+            <div class="card-body px-lg-5">
+
+                <form class="text-center" style="color: #757575;" method="post" id="adminLogin">
+
+                    <div class="md-form mt-0">
+                        <input type="text" name="email" class="form-control" required>
+                        <label for="uname">Email</label>
+                    </div>
+                    
+                    <div class="md-form mt-0">
+                        <input type="password" name="password" class="form-control" required>
+                        <label for="pwd">Password</label>
+                    </div>
+
+                    <button class="btn btn-outline-dark btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Login</button>
+
+                    <hr>
+
+                </form>
+                <!-- Form -->
+
+            </div>
+
+        </div>
+    </div>
+</main>
+
+{{> footer}}
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/form2js.js"></script>
+<script src="{{ABS_PATH}}js/admin_auth.js"></script>
