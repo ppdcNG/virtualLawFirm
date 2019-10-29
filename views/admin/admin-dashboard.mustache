@@ -65,6 +65,11 @@
       <p class="h5 text-uppercase">Laywers</p>
       <hr/>
 
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-default float-right" data-toggle="modal" data-target="#lawyerModal">
+        Add Lawyer
+      </button>
+
       <table class="table table-bordered tale-striped">
         <thead class="black white-text">
           <tr>
@@ -79,19 +84,19 @@
             <th scope="row">1</th>
             <td>Bruce wayne</td>
             <td>Pending</td>
-            <td><button class="btn"></button></td>
+            <td><a class="btn btn-sm text-dark">View</a></td>
           </tr>
           <tr>
             <th scope="row">2</th>
             <td>Thor odinson</td>
-            <td>Active</td>
-            <td><button class="btn"></button></td>
+            <td>Unactivated</td>
+            <td><a class="btn btn-sm text-dark">View</a></td>
           </tr>
           <tr>
             <th scope="row">3</th>
             <td>Barry allen</td>
-            <td>Active</td>
-            <td><button class="btn"></button></td>
+            <td>Verified</td>
+            <td><a class="btn btn-sm text-dark">View</a></td>
           </tr>
         </tbody>
       </table>
@@ -195,4 +200,65 @@
 
 </main>
 
+{{! add lawyer modal }}
+<!-- Modal -->
+<div class="modal fade" id="lawyerModal" tabindex="-1" role="dialog" aria-labelledby="lawyerModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="lawyerModalLabel">Add Lawyer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="card-body px-lg-5 pt-0">
+
+            <form class="text-center" style="color: #757575;" id="adminAddLawyer">
+                <div class="form-row">
+                    <div class="col">
+                        <div class="md-form">
+                            <input type="text" id="fname" class="form-control">
+                            <label for="fname">First name</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input type="text" id="lname" class="form-control">
+                            <label for="lname">Last name</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md-form mt-0">
+                    <input type="email" id="email" class="form-control">
+                    <label for="email">E-mail</label>
+                </div>
+
+                <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Add</button>
+
+                <hr>
+
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 {{> footer}}
+<script>
+  $(function() {
+    $('#adminAddLawyer').submit(function(e) {
+      e.preventDefault();
+
+      $.ajax({})
+
+    })
+  })
+
+</script>
