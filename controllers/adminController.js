@@ -22,7 +22,7 @@ exports.adminLogin = async (req, res)=>{
     let sessionCookie = await admin.auth().createSessionCookie(token,{expiresIn});
     const options = {maxAge: expiresIn, httpOnly: true}
     res.cookie('session', sessionCookie,options);
-    let response = {status: "success", message: "User Logged IN success fully"}
+    let response = {status: "success", message: "User Logged IN successfully"}
     res.send(response);
 }
 
