@@ -13,4 +13,21 @@ var firebaseConfig = {
   firebase.analytics();
 
 
-  var ABS_PATH;
+  var ABS_PATH = "http://localhost:3000/";
+
+  function ajaxrequest(modal, json_data, to_url, call_back) {
+    var dataObject = { data: json_data }
+    $.ajax({
+        type: "post",
+        data: dataObject,
+        url: to_url,
+        content: "application/json",
+        success: call_back,
+        complete: function(){},
+        beforSend: function(){}
+    });
+
+    
+}
+
+const is_empty = (object)=>{return !Object.keys(object).length > 0}
