@@ -1,4 +1,6 @@
 {{> header}}
+
+
 <div class="container">
     <div class="card mt-5 mb-5">
         <h5 class="card-header special-color white-text text-center py-4">
@@ -7,15 +9,14 @@
 
         <div class="card-body px-lg-5">
 
-            <form class="text-center" style="color: #757575;" action="#!">
-
+            <form method = "POST" class="text-center" style="color: #757575;" id="newUser">
                 <div class="md-form mt-0">
-                    <input type="text" id="username" class="form-control">
-                    <label for="username">Username</label>
+                    <input type="email" id="mail" name="email" class="form-control">
+                    <label for="email">Email</label>
                 </div>
 
                  <div class="md-form mt-0">
-                    <input type="password" id="pwd" class="form-control">
+                    <input type="password" id="pwd" name="password" class="form-control">
                     <label for="pwd">Password</label>
                 </div>
 
@@ -30,3 +31,9 @@
 
     </div>
 </div>
+
+{{> footer}}
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/form2js.js"></script>
+<script src="{{ABS_PATH}}js/admin_auth.js"></script>

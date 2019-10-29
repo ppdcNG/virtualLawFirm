@@ -31,15 +31,15 @@
 
             <div class="card-body px-lg-5">
 
-                <form class="text-center" style="color: #757575;" action="/admin/auth" method="post">
+                <form class="text-center" style="color: #757575;" method="post" id="adminLogin">
 
                     <div class="md-form mt-0">
-                        <input type="text" name="uname" class="form-control">
-                        <label for="uname">Username</label>
+                        <input type="text" name="email" class="form-control" required>
+                        <label for="uname">Email</label>
                     </div>
                     
                     <div class="md-form mt-0">
-                        <input type="password" name="pwd" class="form-control">
+                        <input type="password" name="password" class="form-control" required>
                         <label for="pwd">Password</label>
                     </div>
 
@@ -57,3 +57,7 @@
 </main>
 
 {{> footer}}
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/form2js.js"></script>
+<script src="{{ABS_PATH}}js/admin_auth.js"></script>
