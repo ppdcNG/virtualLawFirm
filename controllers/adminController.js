@@ -26,7 +26,7 @@ exports.adminLogin = async (req, res)=>{
     res.send(response);
 }
 
-exports.createUser = (req, res)=>{
+exports.createUser = async (req, res)=>{
     let {username, password} = req.body;
     if(!username && !password){
         let response = {status: "failed", message: "Invalid Parameters provided"}
