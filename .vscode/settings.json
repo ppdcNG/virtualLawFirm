@@ -1,3 +1,5 @@
 {
-    "deko-comments.highlightPlainText": true
+    "deko-comments.highlightPlainText": true,
+    "editor.autoClosingBrackets": "always",
+    "editor.formatOnSave": true
 }

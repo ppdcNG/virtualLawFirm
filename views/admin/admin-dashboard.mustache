@@ -41,10 +41,6 @@
       <a class="nav-link" id="profile-tab-ex" data-toggle="tab" href="#profile-ex" role="tab" aria-controls="profile-ex"
         aria-selected="false">Cases</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" id="contact-tab-ex" data-toggle="tab" href="#contact-ex" role="tab" aria-controls="contact-ex"
-        aria-selected="false">Requests</a>
-    </li>
   </ul>
   <div class="tab-content pt-5" id="myTabContentEx">
     <div class="tab-pane fade active show" id="home-ex" role="tabpanel" aria-labelledby="home-tab-ex">
@@ -70,7 +66,24 @@
         Add Lawyer
       </button>
 
-      <table class="table table-bordered tale-striped">
+<!-- Search form -->
+<form class="form-inline md-form form-sm mt-0">
+  <i class="fas fa-search" aria-hidden="true"></i>
+  <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
+    aria-label="Search">
+
+  {{! dropdown }}
+  <button class="btn btn-light dropdown-toggle mr-4" type="button" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">Filter</button>
+
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Pending</a>
+    <a class="dropdown-item" href="#">Unactivated</a>
+  </div>
+</form>
+
+
+      <table class="table table-bordered tale-striped" id="lawyersTable">
         <thead class="black white-text">
           <tr>
             <th scope="col">#</th>
@@ -98,6 +111,66 @@
             <td>Verified</td>
             <td><a class="btn btn-sm text-dark">View</a></td>
           </tr>
+                    <tr>
+            <th scope="row">3</th>
+            <td>Barry allen</td>
+            <td>Verified</td>
+            <td><a class="btn btn-sm text-dark">View</a></td>
+          </tr>
+                    <tr>
+            <th scope="row">3</th>
+            <td>Barry allen</td>
+            <td>Verified</td>
+            <td><a class="btn btn-sm text-dark">View</a></td>
+          </tr>
+                    <tr>
+            <th scope="row">3</th>
+            <td>Barry allen</td>
+            <td>Verified</td>
+            <td><a class="btn btn-sm text-dark">View</a></td>
+          </tr>
+                    <tr>
+            <th scope="row">3</th>
+            <td>Barry allen</td>
+            <td>Verified</td>
+            <td><a class="btn btn-sm text-dark">View</a></td>
+          </tr>
+                    <tr>
+            <th scope="row">3</th>
+            <td>Barry allen</td>
+            <td>Verified</td>
+            <td><a class="btn btn-sm text-dark">View</a></td>
+          </tr>
+                    <tr>
+            <th scope="row">3</th>
+            <td>Barry allen</td>
+            <td>Verified</td>
+            <td><a class="btn btn-sm text-dark">View</a></td>
+          </tr>
+                    <tr>
+            <th scope="row">3</th>
+            <td>Barry allen</td>
+            <td>Verified</td>
+            <td><a class="btn btn-sm text-dark">View</a></td>
+          </tr>
+                    <tr>
+            <th scope="row">3</th>
+            <td>Barry allen</td>
+            <td>Verified</td>
+            <td><a class="btn btn-sm text-dark">View</a></td>
+          </tr>
+                    <tr>
+            <th scope="row">3</th>
+            <td>Barry allen</td>
+            <td>Verified</td>
+            <td><a class="btn btn-sm text-dark">View</a></td>
+          </tr>
+                    <tr>
+            <th scope="row">3</th>
+            <td>Barry allen</td>
+            <td>Verified</td>
+            <td><a class="btn btn-sm text-dark">View</a></td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -106,94 +179,42 @@
 <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
 
 <div class="container-fluid pb-5 mb-5">
-
-  <!-- Accordion card -->
-  <div class="card">
-
-    <!-- Card header -->
-    <div class="card-header" role="tab" id="headingTwo1">
-      <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo1"
-        aria-expanded="false" aria-controls="collapseTwo1">
-        <h5 class="mb-0">
-          New (Pending) <i class="fas fa-angle-down rotate-icon"></i>
-        </h5>
-      </a>
-    </div>
-
-    <!-- Card body -->
-    <div id="collapseTwo1" class="collapse" role="tabpanel" aria-labelledby="headingTwo1"
-      data-parent="#accordionEx1">
-      <div class="card-body">
-        <ul>
-          <li>Case 11 <span><a class="btn blue-text">View</a></span></li>
-          <li>Case 12 <span><a class="btn blue-text">View</a></span></li>
-          <li>Case 13 <span><a class="btn blue-text">View</a></span></li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-  <!-- Accordion card -->
-
-  <!-- Accordion card -->
-  <div class="card">
-
-    <!-- Card header -->
-    <div class="card-header" role="tab" id="headingTwo2">
-      <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo21"
-        aria-expanded="false" aria-controls="collapseTwo21">
-        <h5 class="mb-0">
-          Active <i class="fas fa-angle-down rotate-icon"></i>
-        </h5>
-      </a>
-    </div>
-
-    <!-- Card body -->
-    <div id="collapseTwo21" class="collapse" role="tabpanel" aria-labelledby="headingTwo21"
-      data-parent="#accordionEx1">
-      <div class="card-body">
-        <table class="table table-bordered tale-striped">
-        <thead class="black white-text">
-          <tr>
-            <th scope="col">id</th>
-            <th scope="col">Title</th>
-            <th scope="col">Client</th>
-            <th scope="col">Assigned Lawyer</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Lorem ipsum</td>
-            <td>John doe</td>
-            <td>Harvey specter</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Lorem ipsum</td>
-            <td>Jane doe</td>
-            <td>Mike ross</td>
-          </tr>
-        </tbody>
-      </table>
-      </div>
-    </div>
-
-  </div>
-  <!-- Accordion card -->
+  <p class="h5 text-uppercase">cases</p>
+  <hr/>
+  <table class="table table-bordered tale-striped" id="casesTable">
+    <thead class="black white-text">
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Title</th>
+        <th scope="col">Client</th>
+        <th scope="col">Status</th>
+        <th scope="col">Assigned Lawyer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Lorem ipsum</td>
+        <td>John doe</td>
+        <td></td>
+        <td>Harvey specter</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Lorem ipsum</td>
+        <td>Jane doe</td>
+        <td></td>
+        <td>Mike ross</td>
+      </tr>
+    </tbody>
+  </table>
+  
 </div>
 
 </div>
 <!-- Accordion wrapper -->
-    </div>
-    <div class="tab-pane fade" id="contact-ex" role="tabpanel" aria-labelledby="contact-tab-ex">
-      <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro
-        fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone
-        skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings
-        gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork
-        biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl
-        craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
-    </div>
+  </div>
+    
   </div>
   </div>
 
@@ -259,6 +280,7 @@
       $.ajax({})
 
     })
-  })
+    
+  });
 
 </script>
