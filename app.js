@@ -8,6 +8,7 @@ var mustacheExpress = require('mustache-express');
 const indexRouter = require('./routes/index');
 const adminRoutes = require('./routes/admin.js');
 const clientRoutes = require('./routes/client');
+const lawyerRoutes = require('./routes/lawyers');
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use('/', indexRouter);
 app.use('/admin', adminRoutes);
 app.use('/client', clientRoutes);
+app.use('/lawyer', lawyerRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
