@@ -1,5 +1,7 @@
 {
     "deko-comments.highlightPlainText": true,
     "editor.autoClosingBrackets": "always",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "git.enabled": false,
+    "git.autofetch": false
 }
