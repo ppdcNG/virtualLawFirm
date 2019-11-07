@@ -11,7 +11,14 @@ admin.initializeApp({
   databaseURL: "https://virtuallawfirm-2478e.firebaseio.com"
 });
 
-exports.adminPage = (req, res) => {
+exports.adminPage = async (req, res) => {
+  let cookie = req.cookies.session;
+  await admin
+    .auth()
+    .verifySessionCookie(cookie, true)
+    .catch(e => {
+      console.log(e);
+    });
   res.render("admin/admin-dashboard", { title: "Admin", ABS_PATH });
 };
 
@@ -94,6 +101,12 @@ exports.verifyLawyerEmail = async () => {
     .catch(e => {
       console.log(e);
       console.log(e.message);
+      obj = {
+        err: e,
+        status: "failed",
+        message: e.message
+      };
+      res.send(obj);
     });
   let { email } = userDetails;
   let user = await admin
@@ -102,6 +115,12 @@ exports.verifyLawyerEmail = async () => {
     .catch(e => {
       console.log(e);
       console.log(e.message);
+      obj = {
+        err: e,
+        status: "failed",
+        message: e.message
+      };
+      res.send(obj);
     });
   console.log(user);
   let lawyer = {
