@@ -51,8 +51,13 @@
 
         <ul class="navbar-nav ml-auto nav-flex-icons">
           <li class="nav-item">
+            <a class="nav-link waves-effect waves-light unique-color" data-toggle="modal" data-target="#lawyerRegModal">
+              <i class="fas fa-sign-in-alt"></i>Lawyer Signup
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link waves-effect waves-light default-color" href="/client/join">
-              <i class="fas fa-sign-in-alt"></i> Register
+              <i class="fas fa-sign-in-alt"></i> Client Register
             </a>
           </li>
           <li class="nav-item">
@@ -98,6 +103,10 @@
             </button>
           </div>
           <div class="modal-body mx-3">
+            <p class="dark-link text-center">Go to <a class="dark-link" href="/lawyer/login">Lawyer Login</a></p>
+            <hr/>
+            <p class="text-center h5">Login as client</p>
+            <hr width="50"/>
             <div class="md-form mb-5">
               <i class="fas fa-envelope prefix grey-text"></i>
               <input type="email" id="email" class="form-control validate">
@@ -122,89 +131,57 @@
       </div>
     </div>
 
+<!-- lawyer Reg modal -->
+    <div class="modal fade" id="lawyerRegModal" tabindex="-1" role="dialog" aria-labelledby="lawyerRegModal"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">Signup for your virtual law office</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body mx-3">
+            <p class="text-center">Already have an account? <a href="/lawyer/login">Log in here</a></p>
+            <div class="md-form mb-5">
+              <i class="fas fa-user prefix grey-text"></i>
+              <input type="text" id="firstName" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="firstName">Your First Name</label>
+            </div>
+
+            <div class="md-form mb-5">
+              <i class="fas fa-user prefix grey-text"></i>
+              <input type="text" id="lastName" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="lastName">Last Name</label>
+            </div>
+
+            <div class="md-form mb-5">
+              <i class="fas fa-envelope prefix grey-text"></i>
+              <input type="email" id="email" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="email">Your email</label>
+            </div>
+
+            <div class="md-form mb-4">
+              <i class="fas fa-phone-square prefix grey-text"></i>
+              <input type="number" id="number" class="form-control validate">
+              <label data-error="wrong" data-success="right" for="number">Your phone number</label>
+            </div>
+
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button class="btn btn-default" type="submit">Register</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <!-- Footer -->
-<footer class="page-footer font-small default-color pt-4">
-  <div class="container-fluid text-center text-md-left">
-
-    <!-- Grid row -->
-    <div class="row">
-
-      <!-- Grid column -->
-      <div class="col-md-6 mt-md-0 mt-3">
-
-        <!-- Content -->
-        <h5 class="text-uppercase">Footer Content</h5>
-        <p>Here you can use rows and columns to organize your footer content.</p>
-
-      </div>
-      <!-- Grid column -->
-
-      <hr class="clearfix w-100 d-md-none pb-3">
-
-      <!-- Grid column -->
-      <div class="col-md-3 mb-md-0 mb-3">
-
-        <!-- Links -->
-        <h5 class="text-uppercase">Links</h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <a href="#!">Link 1</a>
-          </li>
-          <li>
-            <a href="#!">Link 2</a>
-          </li>
-          <li>
-            <a href="#!">Link 3</a>
-          </li>
-          <li>
-            <a href="#!">Link 4</a>
-          </li>
-        </ul>
-
-      </div>
-      <!-- Grid column -->
-
-      <!-- Grid column -->
-      <div class="col-md-3 mb-md-0 mb-3">
-
-        <!-- Links -->
-        <h5 class="text-uppercase">Links</h5>
-
-        <ul class="list-unstyled">
-          <li>
-            <a href="#!">Link 1</a>
-          </li>
-          <li>
-            <a href="#!">Link 2</a>
-          </li>
-          <li>
-            <a href="#!">Link 3</a>
-          </li>
-          <li>
-            <a href="#!">Link 4</a>
-          </li>
-        </ul>
-
-      </div>
-      <!-- Grid column -->
-
-    </div>
-    <!-- Grid row -->
-
-  </div>
-  <!-- Footer Links -->
-
-  <!-- Copyright -->
-  <div class="footer-copyright text-center special-color py-3">© 2020 Copyright:
-    <a href="">PPDC</a>
-  </div>
-  <!-- Copyright -->
-
-</footer>
-<!-- Footer -->
+  {{> footer}}
+  <!-- Footer -->
 
   <!-- JQuery -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
