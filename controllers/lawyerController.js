@@ -1,5 +1,5 @@
 exports.signupPage = (req, res) => {
-    res.render('lawyer/register', { title: 'Lawyer register', name: 'Sadiq' })
+    res.render("lawyer/register", { title: "Lawyer register", name: "Sadiq" });
 };
 
 exports.details = (req, res) => {
