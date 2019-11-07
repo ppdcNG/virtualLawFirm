@@ -1,5 +1,3 @@
-const ABS_PATH = require('../../config/index');
-
 $("#laywerConfirm").submit(e => {
     e.preventDefault();
 

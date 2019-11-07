@@ -92,22 +92,12 @@ exports.sendLawyerInvite = async (req, res) => {
   res.send({ status: "success" });
 };
 
-exports.verifyLawyerEmail = async () => {
+exports.verifyLawyerEmail = async (req, res) => {
   let { password, token } = req.body;
   let userDetails = await admin
     .firestore()
     .collection("lawyerTemp")
     .doc(token)
-    .catch(e => {
-      console.log(e);
-      console.log(e.message);
-      let obj = {
-        err: e,
-        status: "failed",
-        message: e.message
-      };
-      res.send(obj);
-    });
   if (!userDetails) {
     let obj = {
       err: "token not valid",
@@ -121,8 +111,8 @@ exports.verifyLawyerEmail = async () => {
     .auth()
     .createUser({ email, password })
     .catch(e => {
-      console.log(e);
-      console.log(e.message);
+      // console.log(e);
+      // console.log(e.message);
       let obj = {
         err: e,
         status: "failed",
@@ -130,11 +120,13 @@ exports.verifyLawyerEmail = async () => {
       };
       res.send(obj);
     });
-  console.log(user);
+  // console.log(user);
   let lawyer = {
-    auth: user,
+    name: userDetails.firstname + ' ' + userDetails.lastname,
+    email: userDetails.email,
     authId: user.uid
   };
+  console.log(lawyer);
   await admin
     .firestore()
     .collection("lawyers")
