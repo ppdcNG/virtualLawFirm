@@ -191,7 +191,7 @@ exports.welcomeEmail = option => {
                 
         <div style="color: #000000; line-height: 140%; text-align: left; word-wrap: break-word;">
             <p style="font-size: 14px; line-height: 140%;">&nbsp;</p>
-        <p style="font-size: 14px; line-height: 140%; text-align: left;"><strong><span style="font-size: 18px; line-height: 25.2px;">&nbsp;&nbsp;&nbsp; </span><span style="font-size: 22px; line-height: 30.8px;">Hello ${obj.name},</span></strong></p>
+        <p style="font-size: 14px; line-height: 140%; text-align: left;"><strong><span style="font-size: 18px; line-height: 25.2px;">&nbsp;&nbsp;&nbsp; </span><span style="font-size: 22px; line-height: 30.8px;">Hello ${option.name},</span></strong></p>
         </div>
 
             </td>
