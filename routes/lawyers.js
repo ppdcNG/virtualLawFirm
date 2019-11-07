@@ -8,4 +8,6 @@ router.get('/details', lawyerController.details);
 
 router.get('/login', lawyerController.login);
 
+router.get('/confirm', lawyerController.confirm);
+
 module.exports = router;

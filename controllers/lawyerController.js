@@ -9,3 +9,7 @@ exports.details = (req, res) => {
 exports.login = (req, res) => {
     res.render('lawyer/login');
 };
+
+exports.confirm = (req, res) => {
+    res.render('lawyer/lawyer-confirm');
+};
