@@ -1,12 +1,20 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const adminController = require('../controllers/adminController');
+const adminController = require("../controllers/adminController");
+var sendmail = require("../helpers/mail").sendmail;
 
-router.get('/', adminController.adminPage);
-router.post('/auth', adminController.adminLogin);
-router.post('/createUser', adminController.createUser);
+router.get("/", adminController.adminPage);
+router.post("/auth", adminController.adminLogin);
+router.post("/createUser", adminController.createUser);
 
-router.get('/login', adminController.loginPage);
-router.get('/newUser', adminController.newUSer);
+router.get("/login", adminController.loginPage);
+router.get("/newUser", adminController.newUSer);
+
+router.post("/testmail", (req, res) => {
+  const message = req.body;
+  console.log(message);
+  sendmail(message);
+});
+router.post("/createLawyer", adminController.createLawyer);
 
 module.exports = router;
