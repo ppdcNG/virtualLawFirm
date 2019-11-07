@@ -1,4 +1,4 @@
-$("#adminLogin").submit(function(e) {
+$("#adminLogin").submit(function (e) {
   e.preventDefault();
   let form = form2js("adminLogin", ".");
 
@@ -22,7 +22,7 @@ const signIn = async (email, password) => {
       url: url,
       data: req,
       type: "POST",
-      success: function(response) {
+      success: function (response) {
         console.log(response);
         if (response.status == "success") {
           window.location = ABS_PATH + "admin";
@@ -44,7 +44,7 @@ $("#newUser").submit(e => {
     url: ABS_PATH + "admin/createUser",
     data: form,
     type: "POST",
-    success: function(response) {
+    success: function (response) {
       console.log(response);
       if (!response.err) {
         $.notify("User created successfully", { type: "success" });
