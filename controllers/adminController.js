@@ -101,13 +101,21 @@ exports.verifyLawyerEmail = async () => {
     .catch(e => {
       console.log(e);
       console.log(e.message);
-      obj = {
+      let obj = {
         err: e,
         status: "failed",
         message: e.message
       };
       res.send(obj);
     });
+  if (!userDetails) {
+    let obj = {
+      err: "token not valid",
+      status: "failed",
+      message: "token is not valid"
+    };
+    res.send(obj);
+  }
   let { email } = userDetails;
   let user = await admin
     .auth()
@@ -115,7 +123,7 @@ exports.verifyLawyerEmail = async () => {
     .catch(e => {
       console.log(e);
       console.log(e.message);
-      obj = {
+      let obj = {
         err: e,
         status: "failed",
         message: e.message
