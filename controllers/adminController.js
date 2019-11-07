@@ -11,7 +11,14 @@ admin.initializeApp({
   databaseURL: "https://virtuallawfirm-2478e.firebaseio.com"
 });
 
-exports.adminPage = (req, res) => {
+exports.adminPage = async (req, res) => {
+  let cookie = req.cookies.session;
+  await admin
+    .auth()
+    .verifySessionCookie(cookie, true)
+    .catch(e => {
+      console.log(e);
+    });
   res.render("admin/admin-dashboard", { title: "Admin", ABS_PATH });
 };
 
@@ -94,7 +101,21 @@ exports.verifyLawyerEmail = async () => {
     .catch(e => {
       console.log(e);
       console.log(e.message);
+      let obj = {
+        err: e,
+        status: "failed",
+        message: e.message
+      };
+      res.send(obj);
     });
+  if (!userDetails) {
+    let obj = {
+      err: "token not valid",
+      status: "failed",
+      message: "token is not valid"
+    };
+    res.send(obj);
+  }
   let { email } = userDetails;
   let user = await admin
     .auth()
@@ -102,6 +123,12 @@ exports.verifyLawyerEmail = async () => {
     .catch(e => {
       console.log(e);
       console.log(e.message);
+      let obj = {
+        err: e,
+        status: "failed",
+        message: e.message
+      };
+      res.send(obj);
     });
   console.log(user);
   let lawyer = {
