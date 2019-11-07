@@ -15,6 +15,6 @@ router.post("/testmail", (req, res) => {
   console.log(message);
   sendmail(message);
 });
-router.post("/createLawyer", adminController.createLawyer);
+router.post("/sendLawyerInvite", adminController.sendLawyerInvite);
 
 module.exports = router;

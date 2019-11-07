@@ -3,13 +3,13 @@ exports.signupPage = (req, res) => {
 };
 
 exports.details = (req, res) => {
-    res.render('lawyer/lawyer-details');
+    res.render("lawyer/lawyer-details");
 };
 
 exports.login = (req, res) => {
-    res.render('lawyer/login');
+    res.render("lawyer/login");
 };
 
 exports.confirm = (req, res) => {
-    res.render('lawyer/lawyer-confirm');
+    res.render("lawyer/lawyer-confirm");
 };

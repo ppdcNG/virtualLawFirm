@@ -63,7 +63,7 @@
 
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-default float-right" data-toggle="modal" data-target="#lawyerModal">
-        Add Lawyer
+        Send Lawyer Invite
       </button>
 
       <!-- Search form -->
@@ -181,24 +181,24 @@
       </div>
       <div class="modal-body">
           <div class="card-body px-lg-5 pt-0">
-            <form class="text-center" style="color: #757575;" id="adminAddLawyer">
+            <form class="text-center" style="color: #757575;" id="lawyerInvite">
                 <div class="form-row">
                     <div class="col">
                         <div class="md-form">
-                            <input type="text" id="fname" class="form-control">
+                            <input type="text" id="fname" name="firstname" class="form-control">
                             <label for="fname">First name</label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="md-form">
-                            <input type="text" id="lname" class="form-control">
+                            <input type="text" id="lname" name="lastname" class="form-control">
                             <label for="lname">Last name</label>
                         </div>
                     </div>
                 </div>
                 
                 <div class="md-form mt-0">
-                    <input type="email" id="email" class="form-control">
+                    <input type="email" id="mail" name="email" class="form-control">
                     <label for="email">E-mail</label>
                 </div>
 
@@ -250,3 +250,6 @@
     </div>
   </div>
 </div>
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/form2js.js"></script>
+<script src="{{ABS_PATH}}js/admin_dashboard.js"></script>
