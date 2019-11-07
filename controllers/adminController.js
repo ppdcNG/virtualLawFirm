@@ -98,6 +98,7 @@ exports.verifyLawyerEmail = async () => {
     .firestore()
     .collection("lawyerTemp")
     .doc(token)
+    .get()
     .catch(e => {
       console.log(e);
       console.log(e.message);
