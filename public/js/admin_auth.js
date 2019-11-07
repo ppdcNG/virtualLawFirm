@@ -10,10 +10,11 @@ var uservar;
 const signIn = async (email, password) => {
   try {
     let res = await firebase.auth().signInWithEmailAndPassword(email, password);
-
+    console.log(res);
+    let uid = res.user.uid;
     let idToken = await res.user.getIdToken();
 
-    let req = { idToken };
+    let req = { idToken, uid };
 
     console.log(idToken);
     let url = ABS_PATH + "admin/auth";

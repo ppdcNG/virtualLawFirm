@@ -2,6 +2,7 @@ const sendgrid = require("@sendgrid/mail");
 const SENDGRID_API_KEY = require("../config/dev").SEND_GRID_API_KEY;
 var ABS_PATH = require("../config").ABS_PATH;
 const { welcomeTemplate } = require("../views/templates/welcomeTemplate");
+const { welcomeEmail } = require("../views/templates/welcome");
 
 sendgrid.setApiKey(SENDGRID_API_KEY);
 
@@ -16,7 +17,7 @@ exports.welcomeMail = (options, res) => {
     name,
     link
   };
-  let html = welcomeTemplate(templateOptions).toString();
+  let html = welcomeEmail(templateOptions).toString();
   let messageOptions = {
     to,
     subject: "Welcome To A $ E Law",

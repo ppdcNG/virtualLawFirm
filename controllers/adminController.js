@@ -24,16 +24,15 @@ exports.newUSer = (req, res) => {
 };
 
 exports.adminLogin = async (req, res) => {
-  let token = req.body.idToken;
-  console.log(token);
+  let { idToken, uid } = req.body;
+  console.log(uid);
   let expiresIn = 60 * 60 * 24 * 5 * 1000;
-  let user = admin.auth().verifyIdToken(token);
   let sessionCookie = await admin
     .auth()
-    .createSessionCookie(user.uid, { expiresIn });
+    .createSessionCookie(idToken, { expiresIn });
   const options = { maxAge: expiresIn, httpOnly: true };
   res.cookie("session", sessionCookie, options);
-  let response = { status: "success", message: "User Logged IN successfully" };
+  let response = { status: "success", message: "User Logged In successfully" };
   res.send(response);
 };
 
@@ -55,7 +54,7 @@ exports.createUser = async (req, res) => {
   }
 };
 
-exports.createLawyer = async (req, res) => {
+exports.sendLawyerInvite = async (req, res) => {
   let { email, firstname, lastname } = req.body;
   let data = { email, firstname, lastname };
   let tok = token();
@@ -69,7 +68,7 @@ exports.createLawyer = async (req, res) => {
       console.log(e.message);
     });
 
-  let clickLink = ABS_PATH + "lawyer/verify/?token=" + tok;
+  let clickLink = ABS_PATH + "lawyer/confirm/?token=" + tok;
   let mailOptions = {
     name: `${firstname} ${lastname}`,
     link: clickLink,
