@@ -54,4 +54,8 @@ exports.signup = async (req, res) => {
     };
     welcomeMail(mailOptions, res);
     res.send({ status: "success" });
-}
+};
+
+exports.home = (req, res) => {
+    res.render("lawyer/home", { ABS_PATH });
+};

@@ -10,4 +10,6 @@ router.get('/login', lawyerController.login);
 
 router.get('/confirm', lawyerController.confirm);
 
+router.get('/home', lawyerController.home);
+
 module.exports = router;
