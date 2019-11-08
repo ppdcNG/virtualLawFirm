@@ -1,5 +1,14 @@
 var ABS_PATH = require("../config").ABS_PATH;
 
+const { sendmail, welcomeMail } = require("../helpers/mail");
+const { token } = require("../helpers");
+
+var admin = require("firebase-admin");
+// var auth = admin.auth();
+// var firestore = admin.firestore();
+
+var serviceAccount = require("../config/firebaseservice.json");
+
 exports.signupPage = (req, res) => {
     res.render("lawyer/register", { title: "Lawyer register", name: "Sadiq", ABS_PATH });
 };
@@ -54,7 +63,19 @@ exports.signup = async (req, res) => {
     };
     welcomeMail(mailOptions, res);
     res.send({ status: "success" });
-};
+}
+exports.lawyerLogin = async (req, res) => {
+    let { idToken, uid } = req.body;
+    console.log(uid);
+    let expiresIn = 60 * 60 * 24 * 5 * 1000;
+    let sessionCookie = await admin
+        .auth()
+        .createSessionCookie(idToken, { expiresIn });
+    const options = { maxAge: expiresIn, httpOnly: true };
+    res.cookie("session", sessionCookie, options);
+    let response = { status: "success", message: "User Logged In successfully" };
+    res.send(response);
+}
 
 exports.home = (req, res) => {
     res.render("lawyer/home", { ABS_PATH });

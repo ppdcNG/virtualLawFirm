@@ -9,6 +9,7 @@ router.get('/details', lawyerController.details);
 router.get('/login', lawyerController.login);
 
 router.get('/confirm', lawyerController.confirm);
+router.post('/lawyerLogin', lawyerController.lawyerLogin)
 
 router.get('/home', lawyerController.home);
 
