@@ -25,7 +25,7 @@ exports.welcomeMail = (options, res) => {
     text: "Welcome to A & E Law",
     html
   };
-  console.log(messageOptions);
+
   sendgrid.send(messageOptions).catch(e => {
     console.log(e);
     console.log(e.message);
