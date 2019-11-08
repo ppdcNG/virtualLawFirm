@@ -16,7 +16,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
 
   <style type="text/css">
-    body {font-family: 'Lato', sans-serif; scroll-behavior: smooth;}
+    body {font-family: 'Lato', sans-serif; scroll-behavior: smooth;padding:0;margin:0;width:100vw !important}
     div.parent-box { display: table; width:100%;}
     div.child-box { display: table-cell; vertical-align: middle; font-size: xx-large; }
   </style>
@@ -146,25 +146,25 @@
             <p class="text-center">Already have an account? <a href="/lawyer/login">Log in here</a></p>
             <div class="md-form mb-5">
               <i class="fas fa-user prefix grey-text"></i>
-              <input type="text" id="firstName" class="form-control validate">
+              <input type="text" id="fname" name="firstName" class="form-control validate">
               <label data-error="wrong" data-success="right" for="firstName">Your First Name</label>
             </div>
 
             <div class="md-form mb-5">
               <i class="fas fa-user prefix grey-text"></i>
-              <input type="text" id="lastName" class="form-control validate">
+              <input type="text" id="lname" name="lastName" class="form-control validate">
               <label data-error="wrong" data-success="right" for="lastName">Last Name</label>
             </div>
 
             <div class="md-form mb-5">
               <i class="fas fa-envelope prefix grey-text"></i>
-              <input type="email" id="email" class="form-control validate">
+              <input type="email" id="mail" name="email" class="form-control validate">
               <label data-error="wrong" data-success="right" for="email">Your email</label>
             </div>
 
             <div class="md-form mb-4">
               <i class="fas fa-phone-square prefix grey-text"></i>
-              <input type="number" id="number" class="form-control validate">
+              <input type="number" id="phone" name="phone" class="form-control validate">
               <label data-error="wrong" data-success="right" for="number">Your phone number</label>
             </div>
 
