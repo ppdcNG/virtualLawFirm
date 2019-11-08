@@ -17,7 +17,7 @@ exports.confirm = (req, res) => {
     console.log(req);
 };
 
-exports.signup = (req, res) => {
+exports.signup = async (req, res) => {
     let { email, firstname, lastname } = req.body;
     let data = { email, firstname, lastname };
     let tok = token();
