@@ -10,6 +10,7 @@ router.get('/login', lawyerController.login);
 
 router.get('/confirm', lawyerController.confirm);
 router.post('/lawyerLogin', lawyerController.lawyerLogin)
+router.post('/lawyerRegister', lawyerController.signup);
 
 router.get('/home', lawyerController.home);
 

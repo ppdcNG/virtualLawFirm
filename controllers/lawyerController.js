@@ -27,8 +27,8 @@ exports.confirm = (req, res) => {
 };
 
 exports.signup = async (req, res) => {
-    let { email, firstname, lastname } = req.body;
-    let data = { email, firstname, lastname };
+    let { email, firstname, lastname, phone } = req.body;
+    let data = { email, firstname, lastname, phone };
     let tok = token();
     let user = await admin.auth().getUserByEmail(email).catch((e) => {
         let error = { err: e, message: e.message, status: 'failed' }

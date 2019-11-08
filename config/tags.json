@@ -1,0 +1,317 @@
+[
+    {
+        "tagName": "antitrust and competition"
+    },
+    {
+        "tagName": "asset management and finance management"
+    },
+    {
+        "tagName": "aviation law"
+    },
+    {
+        "tagName": "banking and finance litigation"
+    },
+    {
+        "tagName": "blockchain"
+    },
+    {
+        "tagName": "capital market"
+    },
+    {
+        "tagName": "commercial"
+    },
+    {
+        "tagName": "contract"
+    },
+    {
+        "tagName": "communications"
+    },
+    {
+        "tagName": "consumer protection"
+    },
+    {
+        "tagName": "copyright"
+    },
+    {
+        "tagName": "corporate"
+    },
+    {
+        "tagName": "cyber security"
+    },
+    {
+        "tagName": "cyber threats"
+    },
+    {
+        "tagName": "designs"
+    },
+    {
+        "tagName": "industrial designs"
+    },
+    {
+        "tagName": "education"
+    },
+    {
+        "tagName": "employment dispute"
+    },
+    {
+        "tagName": "labour dispute"
+    },
+    {
+        "tagName": "energy"
+    },
+    {
+        "tagName": "electricity tariff dispute"
+    },
+    {
+        "tagName": "environment and natural resources"
+    },
+    {
+        "tagName": "employee benefits"
+    },
+    {
+        "tagName": "food law"
+    },
+    {
+        "tagName": "sports betting"
+    },
+    {
+        "tagName": "Sports contracts"
+    },
+    {
+        "tagName": "government contracts"
+    },
+    {
+        "tagName": "government relations"
+    },
+    {
+        "tagName": "public administration"
+    },
+    {
+        "tagName": "health Policy"
+    },
+    {
+        "tagName": "Medical Negligence"
+    },
+    {
+        "tagName": "immigration"
+    },
+    {
+        "tagName": "infrastructure"
+    },
+    {
+        "tagName": "energy resources"
+    },
+    {
+        "tagName": "big projects"
+    },
+    {
+        "tagName": "insurance"
+    },
+    {
+        "tagName": "intellectual property"
+    },
+    {
+        "tagName": "international arbitration"
+    },
+    {
+        "tagName": "international trade"
+    },
+    {
+        "tagName": "international investment"
+    },
+    {
+        "tagName": "IP and technology transactions"
+    },
+    {
+        "tagName": "joint venture agreement"
+    },
+    {
+        "tagName": "litigation"
+    },
+    {
+        "tagName": "marketing and advertising"
+    },
+    {
+        "tagName": "medical device and technology regulation"
+    },
+    {
+        "tagName": "mergers-and-acquisitions"
+    },
+    {
+        "tagName": "patent"
+    },
+    {
+        "tagName": "pension"
+    },
+    {
+        "tagName": "pharmaceuticals and biotech regulation"
+    },
+    {
+        "tagName": "privacy and data protection"
+    },
+    {
+        "tagName": "private equity"
+    },
+    {
+        "tagName": "public procurement"
+    },
+    {
+        "tagName": "Public Private partnership"
+    },
+    {
+        "tagName": "real estate"
+    },
+    {
+        "tagName": "securities"
+    },
+    {
+        "tagName": "trade secrets and disclosure"
+    },
+    {
+        "tagName": "trademark and branding"
+    },
+    {
+        "tagName": "startup law"
+    },
+    {
+        "tagName": "property sale"
+    },
+    {
+        "tagName": "property purchase"
+    },
+    {
+        "tagName": "Tax"
+    },
+    {
+        "tagName": "Tax dispute"
+    },
+    {
+        "tagName": "hire purchase agreement"
+    },
+    {
+        "tagName": "wills"
+    },
+    {
+        "tagName": "inheritance dispute"
+    },
+    {
+        "tagName": "property dispute"
+    },
+    {
+        "tagName": "Arson"
+    },
+    {
+        "tagName": "assault"
+    },
+    {
+        "tagName": "battery"
+    },
+    {
+        "tagName": "bribery"
+    },
+    {
+        "tagName": "burglary"
+    },
+    {
+        "tagName": "child abuse"
+    },
+    {
+        "tagName": "child welfare"
+    },
+    {
+        "tagName": "child custody and visitation"
+    },
+    {
+        "tagName": "credit card fraud"
+    },
+    {
+        "tagName": "computer fraud"
+    },
+    {
+        "tagName": "homicide"
+    },
+    {
+        "tagName": "Alimony"
+    },
+    {
+        "tagName": "discrimination"
+    },
+    {
+        "tagName": "human rights"
+    },
+    {
+        "tagName": "employee rights"
+    },
+    {
+        "tagName": "Criminal"
+    },
+    {
+        "tagName": "Enforcement of contract"
+    },
+    {
+        "tagName": "adoption"
+    },
+    {
+        "tagName": "domestic violence"
+    },
+    {
+        "tagName": "election-law"
+    },
+    {
+        "tagName": "maritime and ships"
+    },
+    {
+        "tagName": "entertainment law"
+    },
+    {
+        "tagName": "class actions"
+    },
+    {
+        "tagName": "arbitration"
+    },
+    {
+        "tagName": "mediation"
+    },
+    {
+        "tagName": "Islamic law"
+    },
+    {
+        "tagName": "Islamic finance"
+    },
+    {
+        "tagName": "Islamic banking"
+    },
+    {
+        "tagName": "community property"
+    },
+    {
+        "tagName": "food poisoning"
+    },
+    {
+        "tagName": "workplace injuries"
+    },
+    {
+        "tagName": "Wrongful-death"
+    },
+    {
+        "tagName": "landlord and tenants"
+    },
+    {
+        "tagName": "taxation"
+    },
+    {
+        "tagName": "property law"
+    },
+    {
+        "tagName": "software licensing"
+    },
+    {
+        "tagName": "patent-licensing"
+    },
+    {
+        "tagName": "copyright licensing"
+    },
+    {
+        "tagName": "trademark licensing"
+    }
+]
