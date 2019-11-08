@@ -3,6 +3,8 @@ const { sendmail, welcomeMail } = require("../helpers/mail");
 const { token } = require("../helpers");
 
 var admin = require("firebase-admin");
+// var auth = admin.auth();
+// var firestore = admin.firestore();
 
 var serviceAccount = require("../config/firebaseservice.json");
 
@@ -55,7 +57,7 @@ exports.createUser = async (req, res) => {
     res.send(user);
   } catch (err) {
     console.log(err);
-    let obj = { err: err };
+    let obj = { err: err, message: err.message, status: 'failed' };
 
     res.send(obj);
   }
@@ -65,12 +67,20 @@ exports.sendLawyerInvite = async (req, res) => {
   let { email, firstname, lastname } = req.body;
   let data = { email, firstname, lastname };
   let tok = token();
-  console.log(tok);
-  let db = admin.firestore();
-  await db
-    .collection("lawyersTemp")
-    .doc(tok)
-    .set(data)
+  let user = await admin.auth().getUserByEmail(email).catch((e) => {
+    let error = { err: e, message: e.message, status: 'failed' }
+  });
+  if (user) {
+
+    res.send({
+      err: "error",
+      status: "failed",
+      message: "A user with this email already exists"
+    });
+    return;
+  }
+
+  await admin.firestore().collection("lawyersTemp").doc(tok).set(data)
     .catch(e => {
       console.log(e.message);
     });
@@ -96,7 +106,7 @@ exports.verifyLawyerEmail = async (req, res) => {
   let { password, token } = req.body;
   let userDetails = await admin
     .firestore()
-    .collection("lawyerTemp")
+    .collection("lawyersTemp")
     .doc(token)
     .get()
     .catch(e => {
@@ -109,15 +119,17 @@ exports.verifyLawyerEmail = async (req, res) => {
       };
       res.send(obj);
     });
-  if (!userDetails) {
+  if (!userDetails.exists) {
     let obj = {
       err: "token not valid",
       status: "failed",
       message: "token is not valid"
     };
     res.send(obj);
+    return;
   }
-  let { email } = userDetails;
+  let data = userDetails.data();
+  let { email, firstname, lastname } = data;
   let user = await admin
     .auth()
     .createUser({ email, password })
@@ -130,11 +142,12 @@ exports.verifyLawyerEmail = async (req, res) => {
         message: e.message
       };
       res.send(obj);
+      return;
     });
   // console.log(user);
   let lawyer = {
-    name: userDetails.firstname + " " + userDetails.lastname,
-    email: userDetails.email,
+    name: firstname + " " + lastname,
+    email: email,
     authId: user.uid
   };
   console.log(lawyer);
@@ -145,7 +158,7 @@ exports.verifyLawyerEmail = async (req, res) => {
     .set(lawyer);
   await admin.auth().setCustomUserClaims(user.uid, { lawyer: true });
   let returnObj = {
-    message: "Lawyer Email has been verified",
+    message: "You account hae been verified, you may now login to your dashboard",
     status: "success"
   };
   res.send(returnObj);
