@@ -9,8 +9,8 @@
 
         <div class="card-body px-lg-5">
 
-            <form method = "POST" class="text-center" style="color: #757575;" id="newUser">
-                <div class="md-form mt-0">
+            <form method = "POST" class="text-center" style="color: #757575;" id="lawyerLogin">
+                <div class="md-form mt-3">
                     <input type="email" id="mail" name="email" class="form-control">
                     <label for="email">Email</label>
                 </div>
@@ -32,7 +32,9 @@
     </div>
 </div>
 
-{{> footer}}
+<div style="position: fixed;bottom:0;width:100vw;">
+    {{> footer}}
+</div>
 
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/form2js.js"></script>

@@ -76,3 +76,7 @@ exports.lawyerLogin = async (req, res) => {
     let response = { status: "success", message: "User Logged In successfully" };
     res.send(response);
 }
+
+exports.home = (req, res) => {
+    res.render("lawyer/home", { ABS_PATH });
+};
