@@ -78,7 +78,9 @@ exports.lawyerLogin = async (req, res) => {
 }
 
 exports.dashboard = (req, res) => {
-    res.render("lawyer/dashboard", { title: 'Lawyer homepage', ABS_PATH });
+    let user = req.user;
+    let photoUrl = user.photoUrl ? user.photoUrl : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
+    res.render("lawyer/dashboard", { title: 'Lawyer homepage', ABS_PATH, photoUrl });
 };
 
 exports.updateContact = async (req, res) => {
