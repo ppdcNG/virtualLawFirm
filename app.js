@@ -4,6 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mustacheExpress = require('mustache-express');
+var admin = require("firebase-admin");
+var serviceAccount = require("./config/firebaseservice.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://virtuallawfirm-2478e.firebaseio.com"
+});
 
 const indexRouter = require('./routes/index');
 const adminRoutes = require('./routes/admin.js');
@@ -31,12 +38,12 @@ app.use('/client', clientRoutes);
 app.use('/lawyer', lawyerRoutes);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

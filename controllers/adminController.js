@@ -1,26 +1,10 @@
 var ABS_PATH = require("../config").ABS_PATH;
 const { sendmail, welcomeMail } = require("../helpers/mail");
 const { token } = require("../helpers");
-
-var admin = require("firebase-admin");
-// var auth = admin.auth();
-// var firestore = admin.firestore();
-
-var serviceAccount = require("../config/firebaseservice.json");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://virtuallawfirm-2478e.firebaseio.com"
-});
+const admin = require('firebase-admin');
 
 exports.adminPage = async (req, res) => {
-  let cookie = req.cookies.session;
-  await admin
-    .auth()
-    .verifySessionCookie(cookie, true)
-    .catch(e => {
-      console.log(e);
-    });
+
   res.render("admin/admin-dashboard", { title: "Admin", ABS_PATH });
 };
 
@@ -144,11 +128,13 @@ exports.verifyLawyerEmail = async (req, res) => {
       res.send(obj);
       return;
     });
-  // console.log(user);
+  await admin.auth().updateUser(user.uid, { emailVerified: true, displayName: fullname + " " + lastname });
+  let dateRegistered = new Date().getTime()
   let lawyer = {
     name: firstname + " " + lastname,
     email: email,
-    authId: user.uid
+    authId: user.uid,
+    dateRegistered
   };
   console.log(lawyer);
   await admin
@@ -158,7 +144,7 @@ exports.verifyLawyerEmail = async (req, res) => {
     .set(lawyer);
   await admin.auth().setCustomUserClaims(user.uid, { lawyer: true });
   let returnObj = {
-    message: "You account hae been verified, you may now login to your dashboard",
+    message: "You account has been verified, you may now login to your dashboard",
     status: "success"
   };
   res.send(returnObj);
