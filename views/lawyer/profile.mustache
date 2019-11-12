@@ -115,7 +115,7 @@
                     <h3> Profile </h3>
                     <hr/>
 
-                    <form id="lawyerContact">
+                    <form id="lawyerContact" >
                         <img id="uploadedPic" src="https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1" alt="profile pic" class="rounded-circle mx-auto d-block" width="100" />
                         <div class="md-form">
                             <div class="custom-file">
@@ -314,6 +314,10 @@
 </section>
 
 {{> footer}}
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/lawyer/lawyerDashboard.js"></script>
+
 <script>
     $(document).ready(function () {
         var navListItems = $('div.setup-panel div a'),
