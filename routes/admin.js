@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router();
 const adminController = require("../controllers/adminController");
 var sendmail = require("../helpers/mail").sendmail;
+var admin = require("firebase-admin");
+const requireLogin = require('../middlewares/requireLogin');
 
-router.get("/", adminController.adminPage);
+router.get("/", requireLogin, adminController.adminPage);
 router.post("/auth", adminController.adminLogin);
 router.post("/createUser", adminController.createUser);
 

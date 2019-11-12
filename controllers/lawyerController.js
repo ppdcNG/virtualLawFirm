@@ -80,3 +80,34 @@ exports.lawyerLogin = async (req, res) => {
 exports.dashboard = (req, res) => {
     res.render("lawyer/dashboard", { title: 'Lawyer homepage', ABS_PATH });
 };
+
+exports.updateContact = async (req, res) => {
+    let { photoUrl, name, address, country, lga, briefProfile } = req.body;
+    let user = await admin.firestore().collection('lawyers').doc(req.user.uid).catch((e) => {
+        console.log(e);
+        let returnObj = {
+            err: e,
+            message: e.message,
+            status: "success"
+        };
+        return res.status(400).send(returnObj);
+    });
+    if (user.exists) {
+        user = user.data();
+        user.contact = { photoUrl, name, address, country, lga, briefProfile };
+        await admin.firestore().collection('lawyers').doc(req.user.uid).set(user).catch((e) => {
+            console.log(e);
+            let returnObj = {
+                err: e,
+                message: e.message,
+                status: "success"
+            };
+            return res.status(400).send(returnObj);
+        });
+        let returnObj = {
+            message: "User Contact has been updated Successfully",
+            status: "success"
+        };
+        res.status(200).send(returnObj);
+    }
+}
