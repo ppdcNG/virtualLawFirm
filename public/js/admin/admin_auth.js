@@ -47,8 +47,10 @@ $("#newUser").submit(e => {
     success: function (response) {
       console.log(response);
       if (!response.err) {
+        $('#create').html('<span>Create</span>').removeClass('disabled');
         $.notify("User created successfully", { type: "success" });
       } else {
+        $('#create').html('<span>Create</span>').removeClass('disabled');
         $.notify(response.err.message, { type: "warning" });
       }
     },

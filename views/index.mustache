@@ -16,7 +16,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
 
   <style type="text/css">
-    body {font-family: 'Lato', sans-serif; scroll-behavior: smooth;padding:0;margin:0;width:100vw !important}
+    body {font-family: 'Lato', sans-serif; scroll-behavior: smooth;padding:0;margin:0;width:100vw !important;overflow-x:hidden}
     div.parent-box { display: table; width:100%;}
     div.child-box { display: table-cell; vertical-align: middle; font-size: xx-large; }
   </style>
@@ -103,9 +103,9 @@
             </button>
           </div>
           <div class="modal-body mx-3">
-            <p class="dark-link text-center">Go to <a class="dark-link" href="/lawyer/login">Lawyer Login</a></p>
-            <hr/>
             <p class="text-center h5">Login as client</p>
+            <hr/>
+            <p class="dark-link text-center h6">Or go to <a class="dark-link" href="/lawyer/login">Lawyer Login</a></p>
             <hr width="50"/>
             <div class="md-form mb-5">
               <i class="fas fa-envelope prefix grey-text"></i>
@@ -138,40 +138,44 @@
         <div class="modal-content">
           <div class="modal-header text-center">
             <h4 class="modal-title w-100 font-weight-bold">Signup for your virtual law office</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body mx-3">
             <p class="text-center">Already have an account? <a href="/lawyer/login">Log in here</a></p>
-            <div class="md-form mb-5">
-              <i class="fas fa-user prefix grey-text"></i>
-              <input type="text" id="fname" name="firstName" class="form-control validate">
-              <label data-error="wrong" data-success="right" for="firstName">Your First Name</label>
-            </div>
 
-            <div class="md-form mb-5">
-              <i class="fas fa-user prefix grey-text"></i>
-              <input type="text" id="lname" name="lastName" class="form-control validate">
-              <label data-error="wrong" data-success="right" for="lastName">Last Name</label>
-            </div>
+            <form id="lawyerRegisterForm">
+              <div class="md-form mb-5">
+                <i class="fas fa-user prefix grey-text"></i>
+                <input type="text" id="fname" name="firstname" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="firstName">Your First Name</label>
+              </div>
 
-            <div class="md-form mb-5">
-              <i class="fas fa-envelope prefix grey-text"></i>
-              <input type="email" id="mail" name="email" class="form-control validate">
-              <label data-error="wrong" data-success="right" for="email">Your email</label>
-            </div>
+              <div class="md-form mb-5">
+                <i class="fas fa-user prefix grey-text"></i>
+                <input type="text" id="lname" name="lastname" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="lastName">Last Name</label>
+              </div>
 
-            <div class="md-form mb-4">
-              <i class="fas fa-phone-square prefix grey-text"></i>
-              <input type="number" id="phone" name="phone" class="form-control validate">
-              <label data-error="wrong" data-success="right" for="number">Your phone number</label>
-            </div>
+              <div class="md-form mb-5">
+                <i class="fas fa-envelope prefix grey-text"></i>
+                <input type="email" id="mail" name="email" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="email">Your email</label>
+              </div>
+
+              <div class="md-form mb-4">
+                <i class="fas fa-phone-square prefix grey-text"></i>
+                <input type="number" id="phone" name="phone" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="number">Your phone number</label>
+              </div>
 
           </div>
-          <div class="modal-footer d-flex justify-content-center">
-            <button class="btn btn-default" type="submit">Register</button>
-          </div>
+
+            <div class="modal-footer d-flex justify-content-center">
+              <button class="btn btn-default" id="signup" type="submit">Sign Up</button>
+            </div>
+          </form>
 
         </div>
       </div>
@@ -182,20 +186,19 @@
   <!-- Footer -->
   {{> footer}}
   <!-- Footer -->
-
-  <!-- JQuery -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <!-- Data-aos -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <!-- Bootstrap tooltips -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-  <!-- Bootstrap core JavaScript -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <!-- MDB core JavaScript -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
   
   <script>
     AOS.init();
+  </script>
+  
+  <script src="{{ABS_PATH}}js/auth.js"></script>
+  <script src="{{ABS_PATH}}js/form2js.js"></script>
+  <script src="{{ABS_PATH}}js/lawyerScript.js"></script>
+
+  <script>
+    $('#signup').click(function() {
+      $('#signup').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+    });
   </script>
 
 </body>

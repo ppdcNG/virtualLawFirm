@@ -1,6 +1,5 @@
 {{> header}}
 
-
 <div class="container">
     <div class="card mt-5 mb-5">
         <h5 class="card-header special-color white-text text-center py-4">
@@ -9,7 +8,7 @@
 
         <div class="card-body px-lg-5">
 
-            <form method = "POST" class="text-center" style="color: #757575;" id="newUser">
+            <form class="text-center mt-3" style="color: #757575;" id="newUser">
                 <div class="md-form mt-0">
                     <input type="email" id="mail" name="email" class="form-control">
                     <label for="email">Email</label>
@@ -20,7 +19,7 @@
                     <label for="pwd">Password</label>
                 </div>
 
-                <button class="btn btn-outline-dark btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Create</button>
+                <button class="btn btn-outline-dark btn-rounded btn-block my-4 waves-effect z-depth-0" id="create" type="submit">Create</button>
 
                 <hr>
 
@@ -32,8 +31,16 @@
     </div>
 </div>
 
-{{> footer}}
+<div style="position: fixed;bottom:0;width:100vw;">
+    {{> footer}}
+</div>
 
 <script src="{{ABS_PATH}}js/auth.js"></script>
-<script src="{{ABS_PATH}}js/form2js.js"></script>
-<script src="{{ABS_PATH}}js/admin_auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_auth.js"></script>
+
+<script>
+  $('#create').click(function() {
+    $('#create').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+  });
+</script>

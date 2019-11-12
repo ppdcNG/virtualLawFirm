@@ -33,7 +33,7 @@
 
                 <form class="text-center" style="color: #757575;" method="post" id="adminLogin">
 
-                    <div class="md-form mt-0">
+                    <div class="md-form mt-3">
                         <input type="text" name="email" class="form-control" required>
                         <label for="uname">Email</label>
                     </div>
@@ -43,7 +43,7 @@
                         <label for="pwd">Password</label>
                     </div>
 
-                    <button class="btn btn-outline-dark btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Login</button>
+                    <button class="btn btn-outline-dark btn-rounded btn-block my-4 waves-effect z-depth-0" id="login" type="submit">Login</button>
 
                     <hr>
 
@@ -56,8 +56,16 @@
     </div>
 </main>
 
-{{> footer}}
+<div style="position: fixed;bottom:0;width:100vw;">
+  {{> footer}}
+</div>
 
 <script src="{{ABS_PATH}}js/auth.js"></script>
-<script src="{{ABS_PATH}}js/form2js.js"></script>
-<script src="{{ABS_PATH}}js/admin_auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_auth.js"></script>
+
+<script>
+  $('#login').click(function() {
+    $('#login').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+  });
+</script>

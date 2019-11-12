@@ -10,7 +10,7 @@ var admin = require("firebase-admin");
 var serviceAccount = require("../config/firebaseservice.json");
 
 exports.signupPage = (req, res) => {
-    res.render("lawyer/register", { title: "Lawyer register", name: "Sadiq", ABS_PATH });
+    res.render("lawyer/profile", { title: "Lawyer profile", name: "Sadiq", ABS_PATH });
 };
 
 exports.details = (req, res) => {
@@ -77,6 +77,6 @@ exports.lawyerLogin = async (req, res) => {
     res.send(response);
 }
 
-exports.home = (req, res) => {
-    res.render("lawyer/home", { ABS_PATH });
+exports.dashboard = (req, res) => {
+    res.render("lawyer/dashboard", { title: 'Lawyer homepage', ABS_PATH });
 };

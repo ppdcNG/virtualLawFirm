@@ -1,0 +1,81 @@
+{{> header}}
+
+<header>
+<!--Navbar -->
+<nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+    <a class="navbar-brand default-color p-3" href="#">A&E Virtual Law</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+    aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+        <a class="nav-link" href="/">Home
+            <span class="sr-only">(current)</span>
+        </a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="#">About Us</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="#">FAQs</a>
+        </li>
+    </ul>
+
+    </div>
+</nav>
+<!--/.Navbar -->
+</header>
+
+<main>
+    <div class="row pt-5 h-75">
+        <div class="col-md-4" style="border-right: 1px solid grey">
+            <img src="https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1" width="150" class="rounded-circle mx-auto d-block" alt="profile_pic">
+            <hr/>
+            <div class="text-center">
+                <h3>John Doe, Esq</h3>
+                <hr/>
+                <a class="btn text-dark" href="/lawyer/profile">Complete your profile</a>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="container">
+                <h4>Cases</h4>
+                <hr/>
+                <p class="text-muted h3">You have no cases</p>
+                <table class="table table-bordered tale-striped" id="casesTable">
+                    <thead class="black white-text">
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">Client</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{! <tr>
+                            <th scope="row">1</th>
+                            <td>John doe</td>
+                            <td>A vs B</td>
+                            <td><button class="btn btn-warning">Close</button></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Jane doe</td>
+                            <td>Theft case</td>
+                            <td><button class="btn btn-dark" disabled>Closed</button></td>
+                        </tr> }}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<div style="position: fixed;bottom:0;width:100vw;">
+    {{> footer}}
+</div>

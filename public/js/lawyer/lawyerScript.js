@@ -60,3 +60,30 @@ const signIn = async (email, password) => {
     $.notify(e.message, { type: "danger" });
   }
 };
+
+
+$("#lawyerRegisterForm").submit(e => {
+  e.preventDefault();
+  var form = form2js("lawyerRegisterForm", ".");
+
+  $.ajax({
+    url: ABS_PATH + "lawyer/lawyerRegister",
+    data: form,
+    type: "POST",
+    success: function (response) {
+      $("#lawyerRegisterForm").trigger("reset");
+
+      console.log(response);
+      if (!response.err) {
+        $("#close").trigger("click");
+        $.notify("Check your email to continue", { type: "success" });
+        $('#signup').html('<span>Sign up</span>').removeClass('disabled');
+      } else {
+        $("#close").trigger("click");
+        $.notify(response.message, { type: "warning" });
+        $('#signup').html('<span>Sign up</span>').removeClass('disabled');
+      }
+    },
+    error: e => console.log(e)
+  });
+});

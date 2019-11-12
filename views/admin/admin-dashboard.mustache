@@ -174,7 +174,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="lawyerModalLabel">Add Lawyer</h5>
+        <h5 class="modal-title" id="lawyerModalLabel">Send Lawyer Invite</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -202,7 +202,7 @@
                     <label for="email">E-mail</label>
                 </div>
 
-                <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Add</button>
+                <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" id="sendInvite" type="submit">Add</button>
 
                 <hr>
 
@@ -210,7 +210,7 @@
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" id="close" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -251,5 +251,11 @@
   </div>
 </div>
 <script src="{{ABS_PATH}}js/auth.js"></script>
-<script src="{{ABS_PATH}}js/form2js.js"></script>
-<script src="{{ABS_PATH}}js/admin_dashboard.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
+
+<script>
+  $('#sendInvite').click(function() {
+    $('#sendInvite').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+  });
+</script>

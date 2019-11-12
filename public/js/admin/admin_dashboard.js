@@ -11,6 +11,7 @@ const fetchCases = () => {
 ///add Lawyer Form Submit
 $("#lawyerInvite").submit(function (e) {
   e.preventDefault();
+
   var form = form2js("lawyerInvite", ".");
   this.reset()
   $.ajax({
@@ -18,10 +19,13 @@ $("#lawyerInvite").submit(function (e) {
     type: "POST",
     data: form,
     success: function (response) {
-
       if (!response.err) {
+        $("#close").trigger("click");
+        $('#sendInvite').html('<span>Add</span>').removeClass('disabled');
         $.notify("Invitation sent!", { type: "success" });
       } else {
+        $("#close").trigger("click");
+        $('#sendInvite').html('<span>Add</span>').removeClass('disabled');
         $.notify(response.message, { type: "warning" });
       }
     },
