@@ -50,7 +50,7 @@ const signIn = async (email, password) => {
         console.log(response);
         if (response.status == "success") {
           $.notify("Logging in", { type: "success" });
-          setTimeout(function () { window.location = ABS_PATH + 'lawyer/home' }, 2000);
+          setTimeout(function () { window.location = ABS_PATH + 'lawyer/dashboard' }, 2000);
         }
       },
       error: e => console.log(e)
