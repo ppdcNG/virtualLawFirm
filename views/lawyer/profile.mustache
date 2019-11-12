@@ -109,43 +109,42 @@
         
         <p class="text-center blue-text">Click on any number to return to a section</p>
         
-        <form role="form" class="needs-validation" novalidate>
             <div class="row setup-content" id="step-1">
                 <div class="col-md-12">
                     <h3> Profile </h3>
                     <hr/>
 
-                    <form id="lawyerContact">
+                    <form id="lawyerContact" role="form" class="needs-validation" novalidate>
                         <img id="uploadedPic" src="https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1" alt="profile pic" class="rounded-circle mx-auto d-block" width="100" />
                         <div class="md-form">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="profilePic"">
-                                <label class="custom-file-label" for="profile_pic" data-browse="Select">Select a profile picture</label>
+                                <input type="file" class="custom-file-input" id="profilePic" required>
+                                <label class="custom-file-label" for="profilePic" data-browse="Select">Select a profile picture</label>
                             </div>
                         </div>
 
                         <div class="md-form">
-                            <input type="text" class="form-control" required/>
-                            <label class="label">Name:</label>
+                            <input type="text" class="form-control" name="name" required/>
+                            <label for="name" class="label">Name:</label>
                         </div>
 
                         <div class="md-form">
-                            <input type="text" class="form-control" required/>
-                            <label class="label">Address:</label>
+                            <input type="text" class="form-control" name="address" required/>
+                            <label for="address" class="label">Address:</label>
                         </div>
 
                         <div class="md-form">
-                            <input type="text" class="form-control" required/>
-                            <label class="label">Country:</label>
+                            <input type="text" class="form-control" name="country" required/>
+                            <label for="country" class="label">Country:</label>
                         </div>
 
                         <div class="md-form">
-                            <input type="text" class="form-control" required/>
-                            <label class="label">LGA:</label>
+                            <input type="text" class="form-control" name="lga" required/>
+                            <label for="lga" class="label">LGA:</label>
                         </div>
 
                         <div class="md-form">
-                            <textarea id="briefProfile" class="md-textarea form-control" rows="3"></textarea>
+                            <textarea name="briefProfile" class="md-textarea form-control" rows="3" required></textarea>
                             <label for="briefProfile">Brief profile (200 words)</label>
                         </div>
                         
@@ -308,12 +307,12 @@
                 </div>
             {{! </div> }}
             </div>
-        </form>
         
     </div>
 </section>
 
 {{> footer}}
+
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
 <script src="{{ABS_PATH}}js/lawyer/lawyerDashboard.js"></script>
@@ -402,3 +401,4 @@
         readURL(this);
     });
 </script>
+
