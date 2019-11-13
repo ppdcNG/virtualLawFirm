@@ -1,7 +1,8 @@
 $("#lawyerContact").submit(async function (e) {
+
     console.log("lawyer Contact")
     e.preventDefault();
-    var form = form2js("lawyerContact", ".");
+    let form = form2js("lawyerContact", ".");
     let uid = $("#uid").val();
     console.log(uid);
     let file = $("#profilePic")[0].files[0];
@@ -17,8 +18,16 @@ $("#lawyerContact").submit(async function (e) {
 
     form.photoUrl = url;
 
-
-
-
+    $.ajax({
+        url: ABS_PATH + "lawyer/updateContact",
+        data: form,
+        type: "POST",
+        success: function () {
+            $.notify("Saved!", { type: "success" });
+        },
+        error: e => {
+            console.log('error', e);
+        }
+    })
 
 });
