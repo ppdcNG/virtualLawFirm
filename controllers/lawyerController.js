@@ -1,7 +1,8 @@
 var ABS_PATH = require("../config").ABS_PATH;
 
 const { sendmail, welcomeMail } = require("../helpers/mail");
-const { token } = require("../helpers");
+const { token, tagOptions } = require("../helpers");
+
 
 var admin = require("firebase-admin");
 // var auth = admin.auth();
@@ -9,11 +10,12 @@ var admin = require("firebase-admin");
 
 var serviceAccount = require("../config/firebaseservice.json");
 
-exports.signupPage = (req, res) => {
+exports.profile = (req, res) => {
     let user = req.user;
     let photoUrl = user.photoUrl ? user.photoUrl : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
-    console.log(user);
-    res.render("lawyer/profile", { title: "Lawyer profile", name: "Sadiq", ABS_PATH, photoUrl, uid: user.uid });
+    let tags = tagOptions();
+    console.log(tags);
+    res.render("lawyer/profile", { title: "Lawyer profile", name: "Sadiq", ABS_PATH, photoUrl, uid: user.uid, tags });
 };
 
 exports.details = (req, res) => {
@@ -147,5 +149,27 @@ exports.updateRecord = async (req, res) => {
 }
 
 exports.updateUploads = async (req, res) => {
-
+    let data = JSON.parse(req.body.data);
+    let { specialization, workExperience, consultationFee, documents } = data;
+    console.log(accountDetails);
+    let user = await admin.firestore().collection('lawyers').doc(req.user.uid).get().catch((e) => {
+        console.log(e);
+        let returnObj = {
+            err: e,
+            message: e.message,
+            status: "failed"
+        };
+        return res.status(400).send(returnObj);
+    });
+    if (user.exists) {
+        user = user.data();
+        user.record = { courtEnrollmentNumber, yearOfEnrollment, criminalRecord, criminalInvestigation, misconductIndictment, misconductInvestigation };
+        user.accountDetails = accountDetails
+        await admin.firestore().collection('lawyers').doc(req.user.uid).set(user);
+        let returnObj = {
+            message: "User Contact Info has been updated Successfully",
+            status: "success"
+        };
+        res.status(200).send(returnObj);
+    }
 }

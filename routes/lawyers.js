@@ -3,7 +3,7 @@ const router = express.Router();
 const lawyerController = require('../controllers/lawyerController');
 const requireLogin = require('../middlewares/requireLogin');
 
-router.get('/profile', requireLogin, lawyerController.signupPage);
+router.get('/profile', requireLogin, lawyerController.profile);
 
 router.get('/details', lawyerController.details);
 
