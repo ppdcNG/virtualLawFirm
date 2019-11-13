@@ -133,7 +133,6 @@ exports.updateRecord = async (req, res) => {
     });
     if (user.exists) {
         user = user.data();
-        await admin.auth().updateUser(req.user.uid, { photoUrl });
         user.record = { courtEnrollmentNumber, yearOfEnrollment, criminalRecord, criminalInvestigation, misconductIndictment, misconductInvestigation };
         user.accountDetails = accountDetails
         await admin.firestore().collection('lawyers').doc(req.user.uid).set(user);
