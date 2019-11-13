@@ -1,3 +1,6 @@
+var documents = [];
+
+
 $("#lawyerContact").submit(async function (e) {
     console.log("lawyer Contact")
     e.preventDefault();
@@ -67,4 +70,14 @@ $("#updateRecord").submit(async function (e) {
     })
 
 });
+
+$("#selectDoc").submit(function (e) {
+    e.preventDefault();
+
+});
+
+
+const renderDocument = document => {
+
+}
 
