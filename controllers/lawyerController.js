@@ -121,7 +121,9 @@ exports.updateContact = async (req, res) => {
 }
 
 exports.updateRecord = async (req, res) => {
-    let { courtEnrollmentNumber, yearOfEnrollment, criminalRecord, criminalInvestigation, misconductIndictment, misconductInvestigation, accountDetails } = req.body;
+    let data = JSON.parse(req.body.data);
+    let { courtEnrollmentNumber, yearOfEnrollment, criminalRecord, criminalInvestigation, misconductIndictment, misconductInvestigation, accountDetails } = data;
+    console.log(accountDetails);
     let user = await admin.firestore().collection('lawyers').doc(req.user.uid).get().catch((e) => {
         console.log(e);
         let returnObj = {

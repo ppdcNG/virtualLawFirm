@@ -169,9 +169,9 @@
                             <label class="label">Supreme Court Enrollment Number:</label>
                         </div>
 
-                        <div class="md-form">
-                            <input placeholder="Selected date" type="date" name="yearOfEnrollment" id="date" class="form-control datepicker">
-                            <label for="date">Year of Enrollment</label>
+                        <div class="md-form mt-2">
+                            <input type="number" name="yearOfEnrollment" id="year" class="form-control">
+                            <label for="yearOfEnrollment">Year of Enrollment</label>
                         </div>
 
                         <hr/>
@@ -179,24 +179,48 @@
                         <fieldset class="border p-2">
                             <legend>Questionaire (Toggle the checkbox)</legend>
 
-                            <div class="custom-control custom-switch my-4">
-                                <input type="checkbox" class="custom-control-input" name="criminalRecord" id="criminalRecord">
-                                <label class="custom-control-label" for="criminalRecord">Do you have a criminal record?</label>
+                            <span>Do you have a criminal record?</span>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" value="yes" id="criminalRecord" name="criminalRecord">
+                                <label class="custom-control-label" for="criminalRecord">Yes</label>
                             </div>
 
-                            <div class="custom-control custom-switch my-4">
-                                <input type="checkbox" class="custom-control-input" name="criminalInvestigation" id="criminalInvestigation">
-                                <label class="custom-control-label" for="criminalInvestigation">Are you the subject of any ongoing criminal investigation?</label>
+                            <div class="custom-control custom-radio mb-2">
+                                <input type="radio" class="custom-control-input" value="no" id="criminalRecord2" name="criminalRecord" checked>
+                                <label class="custom-control-label" for="criminalRecord">No</label>
                             </div>
 
-                            <div class="custom-control custom-switch my-4">
-                                <input type="checkbox" class="custom-control-input" name="misconductIndictment" id="misconductIndictment">
-                                <label class="custom-control-label" for="misconductIndictment">Have you ever been indicted for professional misconduct?</label>
+                            <span>Are you the subject of any ongoing criminal investigation?</span>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" value="yes" id="criminalInvestigation" name="criminalInvestigation">
+                                <label class="custom-control-label" for="criminalInvestigation">Yes</label>
                             </div>
 
-                            <div class="custom-control custom-switch my-4">
-                                <input type="checkbox" class="custom-control-input" name="misconductInvestigation" id="misconductInvestigation">
-                                <label class="custom-control-label" for="misconductInvestigation">Do you have against you an ongoing investigation for misconduct?</label>
+                            <div class="custom-control custom-radio mb-2">
+                                <input type="radio" class="custom-control-input" value="no" id="criminalInvestigation2" name="criminalInvestigation" checked>
+                                <label class="custom-control-label" for="criminalInvestigation">No</label>
+                            </div>
+
+                            <span>Have you ever been indicted for professional misconduct?</span>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" value="yes" id="misconductIndictment" name="misconductIndictment">
+                                <label class="custom-control-label" for="misconductIndictment">Yes</label>
+                            </div>
+
+                            <div class="custom-control custom-radio mb-2">
+                                <input type="radio" class="custom-control-input" value="no" id="misconductIndictment2" name="misconductIndictment" checked>
+                                <label class="custom-control-label" for="misconductIndictment">No</label>
+                            </div>
+
+                            <span>Do you have against you an ongoing investigation for misconduct?</span>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" value="yes" id="misconductInvestigation" name="misconductInvestigation">
+                                <label class="custom-control-label" for="misconductInvestigation">Yes</label>
+                            </div>
+
+                            <div class="custom-control custom-radio mb-2">
+                                <input type="radio" class="custom-control-input" value="no" id="misconductInvestigation2" name="misconductInvestigation" checked>
+                                <label class="custom-control-label" for="misconductInvestigation">No</label>
                             </div>
 
                         </fieldset>

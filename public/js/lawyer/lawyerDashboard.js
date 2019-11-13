@@ -43,11 +43,12 @@ $("#lawyerContact").submit(async function (e) {
 
 $("#updateRecord").submit(async function (e) {
     e.preventDefault();
-    let form = form2js("updateRecord", ".");
-
+    let form = form2js("updateRecord", ".", false);
+    console.log(form);
+    form = JSON.stringify(form);
     $.ajax({
         url: ABS_PATH + "lawyer/updateRecord",
-        data: form,
+        data: { data: form },
         type: "POST",
         success: function (response) {
             console.log(response);
