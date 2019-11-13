@@ -162,63 +162,74 @@
                 <div class="col-md-12">
                     <h3> Record</h3>
                     <hr/>
-                    <form>
+
+                    <form id="updateRecord">
                         <div class="md-form">
-                            <input type="text" class="form-control" required/>
+                            <input type="number" class="form-control" name="courtEnrollmentNumber" required/>
                             <label class="label">Supreme Court Enrollment Number:</label>
                         </div>
 
+                        <div class="md-form">
+                            <input placeholder="Selected date" type="date" name="yearOfEnrollment" id="date" class="form-control datepicker">
+                            <label for="date">Year of Enrollment</label>
+                        </div>
+
                         <hr/>
+
                         <fieldset class="border p-2">
-                            <legend>Questionaire</legend>
+                            <legend>Questionaire (Toggle the checkbox)</legend>
 
-                            <div class="md-form">
-                                <input type="text" class="form-control" required/>
-                                <label class="label">Do you have a criminal record?:</label>
+                            <div class="custom-control custom-switch my-4">
+                                <input type="checkbox" class="custom-control-input" name="criminalRecord" id="criminalRecord">
+                                <label class="custom-control-label" for="criminalRecord">Do you have a criminal record?</label>
                             </div>
 
-                            <div class="md-form">
-                                <input type="text" class="form-control" required/>
-                                <label class="label">Are you the subject of any ongoing criminal investigation?:</label>
+                            <div class="custom-control custom-switch my-4">
+                                <input type="checkbox" class="custom-control-input" name="criminalInvestigation" id="criminalInvestigation">
+                                <label class="custom-control-label" for="criminalInvestigation">Are you the subject of any ongoing criminal investigation?</label>
                             </div>
 
-                            <div class="md-form">
-                                <input type="text" class="form-control" required/>
-                                <label class="label">Have you ever been indicted for professional misconduct?:</label>
+                            <div class="custom-control custom-switch my-4">
+                                <input type="checkbox" class="custom-control-input" name="misconductIndictment" id="misconductIndictment">
+                                <label class="custom-control-label" for="misconductIndictment">Have you ever been indicted for professional misconduct?</label>
                             </div>
 
-                            <div class="md-form">
-                                <input type="text" class="form-control" required/>
-                                <label class="label">Do you have against you an ongoing investigation for misconduct?:</label>
+                            <div class="custom-control custom-switch my-4">
+                                <input type="checkbox" class="custom-control-input" name="misconductInvestigation" id="misconductInvestigation">
+                                <label class="custom-control-label" for="misconductInvestigation">Do you have against you an ongoing investigation for misconduct?</label>
                             </div>
+
                         </fieldset>
 
                         <hr/>
+
                         <fieldset class="border p-2">
                             <legend>Account Details</legend>
                             <div class="form-row">
                                 <div class="col-md-2 mb-3 md-form">
                                     <label for="bankname">Bank Name</label>
-                                    <input type="text" class="form-control" id="bankname" required>
+                                    <input type="text" class="form-control" name="accountDetails.bankName" id="bankname" required>
                                 </div>
                                 <div class="col-md-3 mb-3 md-form">
                                     <label for="account">Account Number</label>
-                                    <input type="text" class="form-control" id="account" required>
+                                    <input type="text" class="form-control" id="account" name="accountDetails.accountNumber" required>
                                 </div>
                                 <div class="col-md-3 mb-3 md-form">
                                     <label for="bvn">BVN</label>
-                                    <input type="number" class="form-control" id="bvn" required>
+                                    <input type="number" class="form-control" id="bvn" name="accountDetails.bvn" required>
                                 </div>
 
                                 <div class="col-md-4 mb-3 md-form">
                                     <label for="accountName">Account Holder Name</label>
-                                    <input type="number" class="form-control" name="accountname" required>
+                                    <input type="text" class="form-control" name="accountDetails.accountName" required>
                                 </div>
                             </div>
                         </fieldset>
 
+                        <button class="btn btn-info btn-lg pull-right" id="saveRecord" type="submit">Save</button>
                         <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
                     </form>
+
                 </div>
             </div>
 
@@ -276,11 +287,6 @@
                 {{! / upload docs end }}
 
                 <div class="md-form">
-                    <input placeholder="Selected date" type="text" id="date" class="form-control datepicker">
-                    <label for="date">Year of Enrollment</label>
-                </div>
-
-                <div class="md-form">
                     <input type="text" class="form-control" required/>
                     <label class="label">Two areas of specialization</label>
                 </div>
@@ -296,7 +302,6 @@
                 </div>
 
                 <div class="md-form">
-                    <i class="fas fa-pencil-alt prefix"></i>
                     <textarea id="work" class="md-textarea form-control" rows="3"></textarea>
                     <label for="work">Work experience</label>
                 </div>
@@ -319,8 +324,9 @@
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
 <script src="{{ABS_PATH}}js/lawyer/lawyerDashboard.js"></script>
-<script src="{{ABS_PATH}}js/lawyer/profileScript.js"></script>
+<script src="{{ABS_PATH}}js/lawyer/profileFormScript.js"></script>
 
 <script>
     loadBtn('saveContact');
+    loadBtn('saveRecord');
 </script>

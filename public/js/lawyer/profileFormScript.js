@@ -29,7 +29,7 @@ $(document).ready(function () {
         $(".form-group").removeClass("has-error");
         for (var i = 0; i < curInputs.length; i++) {
             if (!curInputs[i].validity.valid) {
-                isValid = false;
+                isValid = true;
                 $(curInputs[i]).closest(".form-group").addClass("has-error");
             }
         }
@@ -46,7 +46,6 @@ $(document).ready(function () {
 (function () {
     'use strict';
     window.addEventListener('load', function () {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
         var forms = document.getElementsByClassName('needs-validation');
         // Loop over them and prevent submission
         var validation = Array.prototype.filter.call(forms, function (form) {

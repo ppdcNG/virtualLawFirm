@@ -40,3 +40,29 @@ $("#lawyerContact").submit(async function (e) {
     })
 
 });
+
+$("#updateRecord").submit(async function (e) {
+    e.preventDefault();
+    let form = form2js("updateRecord", ".");
+
+    $.ajax({
+        url: ABS_PATH + "lawyer/updateRecord",
+        data: form,
+        type: "POST",
+        success: function (response) {
+            console.log(response);
+            if (!response.err) {
+                clearLoad('saveRecord', 'Save');
+                $.notify("Saved!", { type: "success" });
+            } else {
+                clearLoad('saveRecord', 'Save');
+                $.notify(response.message, { type: "warning" });
+            }
+        },
+        error: e => {
+            clearLoad('saveRecord', 'Save');
+            console.log('error', e);
+        }
+    })
+
+});
