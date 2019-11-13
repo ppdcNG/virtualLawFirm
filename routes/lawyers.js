@@ -13,6 +13,7 @@ router.get('/confirm', lawyerController.confirm);
 router.post('/lawyerLogin', lawyerController.lawyerLogin)
 router.post('/lawyerRegister', lawyerController.signup);
 router.post('/updateContact/', requireLogin, lawyerController.updateContact);
+router.post('/updateRecord', requireLogin, lawyerController.updateRecord);
 
 router.get('/dashboard', requireLogin, lawyerController.dashboard);
 

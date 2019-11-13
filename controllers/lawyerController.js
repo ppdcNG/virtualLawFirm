@@ -121,7 +121,7 @@ exports.updateContact = async (req, res) => {
 }
 
 exports.updateRecord = async (req, res) => {
-    let { courtEnrollmentNumber, criminalRecord, criminalInvestigation, misconductIndictment, misconductInvestigation, accountDetails } = req.body;
+    let { courtEnrollmentNumber, yearOfEnrollment, criminalRecord, criminalInvestigation, misconductIndictment, misconductInvestigation, accountDetails } = req.body;
     let user = await admin.firestore().collection('lawyers').doc(req.user.uid).get().catch((e) => {
         console.log(e);
         let returnObj = {
@@ -134,7 +134,7 @@ exports.updateRecord = async (req, res) => {
     if (user.exists) {
         user = user.data();
         await admin.auth().updateUser(req.user.uid, { photoUrl });
-        user.record = { courtEnrollmentNumber, criminalRecord, criminalInvestigation, misconductIndictment, misconductInvestigation };
+        user.record = { courtEnrollmentNumber, yearOfEnrollment, criminalRecord, criminalInvestigation, misconductIndictment, misconductInvestigation };
         user.accountDetails = accountDetails
         await admin.firestore().collection('lawyers').doc(req.user.uid).set(user);
         let returnObj = {
