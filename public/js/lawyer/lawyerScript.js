@@ -4,6 +4,8 @@ $("#laywerConfirm").submit(function (e) {
   var form = form2js("laywerConfirm", ".");
   if (form.password !== form.confirmPassword) {
     $.notify("Passwords must match", { type: "warning" });
+    clearLoad('continue', 'Continue');
+
     return false;
   }
   $(this)[0].reset();
@@ -18,9 +20,13 @@ $("#laywerConfirm").submit(function (e) {
         setTimeout(function () { window.location = ABS_PATH + 'lawyer/login' }, 2000);
       } else {
         $.notify(response.message, { type: "warning" });
+        clearLoad('continue', 'Continue');
       }
     },
-    error: e => console.log(e)
+    error: e => {
+      console.log(e);
+      clearLoad('continue', 'Continue');
+    }
   });
 });
 

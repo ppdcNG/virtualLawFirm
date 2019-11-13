@@ -22,8 +22,13 @@ $("#lawyerContact").submit(async function (e) {
         url: ABS_PATH + "lawyer/updateContact",
         data: form,
         type: "POST",
-        success: function () {
-            $.notify("Saved!", { type: "success" });
+        success: function (response) {
+            console.log(response);
+            if (!response.err) {
+                $.notify("Saved!", { type: "success" });
+            } else {
+                $.notify(response.message, { type: "warning" });
+            }
         },
         error: e => {
             console.log('error', e);
