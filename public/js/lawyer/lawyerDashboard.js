@@ -1,5 +1,4 @@
 $("#lawyerContact").submit(async function (e) {
-
     console.log("lawyer Contact")
     e.preventDefault();
     let form = form2js("lawyerContact", ".");
@@ -9,6 +8,8 @@ $("#lawyerContact").submit(async function (e) {
     let validImages = ['image/png', 'image/jpg', 'image/jpeg'];
     if (validImages.indexOf(file.type) < 0) {
         $.notify('Invalid File type provided. Valid Files' + validImages.join(' '), { type: "warning" });
+        clearLoad('saveContact', 'Save');
+
         return false;
     }
 
@@ -26,12 +27,15 @@ $("#lawyerContact").submit(async function (e) {
             console.log(response);
             if (!response.err) {
                 $.notify("Saved!", { type: "success" });
+                clearLoad('saveContact', 'Save');
             } else {
+                clearLoad('saveContact', 'Save');
                 $.notify(response.message, { type: "warning" });
             }
         },
         error: e => {
             console.log('error', e);
+            clearLoad('saveContact', 'Save');
         }
     })
 
