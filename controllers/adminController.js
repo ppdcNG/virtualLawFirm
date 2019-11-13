@@ -88,6 +88,15 @@ exports.sendLawyerInvite = async (req, res) => {
 
 exports.verifyLawyerEmail = async (req, res) => {
   let { password, token } = req.body;
+  if (!password || !token) {
+    let obj = {
+      err: "Invalid Parameters",
+      status: "failed",
+      message: "Invalid Parameters Provided"
+    };
+    res.send(obj)
+    return;
+  }
   let userDetails = await admin
     .firestore()
     .collection("lawyersTemp")
@@ -128,7 +137,7 @@ exports.verifyLawyerEmail = async (req, res) => {
       res.send(obj);
       return;
     });
-  await admin.auth().updateUser(user.uid, { emailVerified: true, displayName: fullname + " " + lastname });
+  await admin.auth().updateUser(user.uid, { emailVerified: true, displayName: firstname + " " + lastname });
   let dateRegistered = new Date().getTime()
   let lawyer = {
     name: firstname + " " + lastname,

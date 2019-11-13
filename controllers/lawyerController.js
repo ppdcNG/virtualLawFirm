@@ -89,7 +89,7 @@ exports.dashboard = (req, res) => {
 
 exports.updateContact = async (req, res) => {
     let { photoUrl, name, address, country, lga, briefProfile } = req.body;
-    let user = await admin.firestore().collection('lawyers').doc(req.user.uid).catch((e) => {
+    let user = await admin.firestore().collection('lawyers').doc(req.user.uid).get().catch((e) => {
         console.log(e);
         let returnObj = {
             err: e,
@@ -101,17 +101,9 @@ exports.updateContact = async (req, res) => {
     if (user.exists) {
         user = user.data();
         user.contact = { photoUrl, name, address, country, lga, briefProfile };
-        await admin.firestore().collection('lawyers').doc(req.user.uid).set(user).catch((e) => {
-            console.log(e);
-            let returnObj = {
-                err: e,
-                message: e.message,
-                status: "success"
-            };
-            return res.status(400).send(returnObj);
-        });
+        await admin.firestore().collection('lawyers').doc(req.user.uid).set(user);
         let returnObj = {
-            message: "User Contact has been updated Successfully",
+            message: "User Contact Info has been updated Successfully",
             status: "success"
         };
         res.status(200).send(returnObj);
