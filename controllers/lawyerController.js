@@ -89,17 +89,27 @@ exports.dashboard = (req, res) => {
 
 exports.updateContact = async (req, res) => {
     let { photoUrl, name, address, country, lga, briefProfile } = req.body;
+    if (!photoUrl || !name || address || !country || !lga || briefProfile) {
+        console.log(e);
+        let returnObj = {
+            err: "error",
+            message: "Some fields are missiong",
+            status: "success"
+        };
+        return res.status(400).send(returnObj);
+    }
     let user = await admin.firestore().collection('lawyers').doc(req.user.uid).get().catch((e) => {
         console.log(e);
         let returnObj = {
             err: e,
             message: e.message,
-            status: "success"
+            status: "failed"
         };
         return res.status(400).send(returnObj);
     });
     if (user.exists) {
         user = user.data();
+        await admin.auth().updateUser(req.user.uid, { photoUrl });
         user.contact = { photoUrl, name, address, country, lga, briefProfile };
         await admin.firestore().collection('lawyers').doc(req.user.uid).set(user);
         let returnObj = {
@@ -108,4 +118,33 @@ exports.updateContact = async (req, res) => {
         };
         res.status(200).send(returnObj);
     }
+}
+
+exports.updateRecord = async (req, res) => {
+    let { courtEnrollmentNumber, criminalRecord, criminalInvestigation, misconductIndictment, misconductInvestigation, accountDetails } = req.body;
+    let user = await admin.firestore().collection('lawyers').doc(req.user.uid).get().catch((e) => {
+        console.log(e);
+        let returnObj = {
+            err: e,
+            message: e.message,
+            status: "failed"
+        };
+        return res.status(400).send(returnObj);
+    });
+    if (user.exists) {
+        user = user.data();
+        await admin.auth().updateUser(req.user.uid, { photoUrl });
+        user.record = { courtEnrollmentNumber, criminalRecord, criminalInvestigation, misconductIndictment, misconductInvestigation };
+        user.accountDetails = accountDetails
+        await admin.firestore().collection('lawyers').doc(req.user.uid).set(user);
+        let returnObj = {
+            message: "User Contact Info has been updated Successfully",
+            status: "success"
+        };
+        res.status(200).send(returnObj);
+    }
+}
+
+exports.updateUploads = async (req, res) => {
+
 }
