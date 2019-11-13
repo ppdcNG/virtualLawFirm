@@ -84,6 +84,9 @@ $("#selectDoc").submit(async function (e) {
     documents.push(doc);
     renderDocuments();
 
+    clearLoad('saveDoc', 'Save');
+    $("#selectDoc").trigger("reset");
+
 });
 
 
@@ -93,7 +96,7 @@ const renderDocument = (i, document) => {
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title"><a>${document.title}</a></h4>
-                    <a href="" onclick="removeDocument('${i}')" class="btn btn-danger">Delete</a>
+                    <button onclick="removeDocument('${i}')" class="btn btn-danger">Delete</button>
                 </div>
             </div>
         </div>
@@ -105,11 +108,12 @@ const renderDocuments = () => {
     documents.map((doc, i) => {
         docHTML += renderDocument(i, doc);
     });
-    $("#uploadedDocs");
+    $("#uploadedDocs").html(docHTML);
 }
 
 const removeDocument = async i => {
     let doc = documents[i];
+    let uid = $("#uid").val();
     let path = 'lawyerdocs/' + uid + '/' + doc.title;
     await firebase.storage().ref(path).delete();
     documents.splice(i, 1);
