@@ -67,3 +67,4 @@ $("#updateRecord").submit(async function (e) {
     })
 
 });
+

@@ -9,7 +9,7 @@ var admin = require("firebase-admin");
 
 var serviceAccount = require("../config/firebaseservice.json");
 
-exports.signupPage = (req, res) => {
+exports.profile = (req, res) => {
     let user = req.user;
     let photoUrl = user.photoUrl ? user.photoUrl : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
     console.log(user);

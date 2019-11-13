@@ -264,75 +264,93 @@
                 <hr/>
 
                 {{! upload docs }}
-                <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#document">
-  Upload Document
-</button>
+                <div id="uploaded-docs">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <!-- Card -->
+                                <div class="card">
+                                    <!-- Card image -->
 
-<hr/>
-<div id="uploaded-docs">
-</div>
-<hr/>
-
-<!-- Modal -->
-<div class="modal fade" id="document" tabindex="-1" role="dialog" aria-labelledby="docModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Choose document</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <div class="modal-body">
-
-            <div class="mb-3 md-form">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" required>
-            </div>
-
-            <div class="md-form">
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input">
-                    <label class="custom-file-label" for="upload_doc" data-browse="Upload">Upload document</label>
+                                    <!-- Card content -->
+                                    <div class="card-body">
+                                        <h4 class="card-title"><a>Doc title</a></h4>
+                                        <a href="#" class="btn btn-danger">Delete</a>
+                                    </div>
+                                </div>
+                                <!-- Card -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <hr/>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
-      </div>
-    </div>
-  </div>
-</div>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#document">
+                  Upload Document
+                </button>
+
+                <hr/>
+
+                <!-- Modal -->
+                <div class="modal fade" id="document" tabindex="-1" role="dialog" aria-labelledby="docModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Choose document</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                            <div class="mb-3 md-form">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+
+                            <div class="md-form">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input">
+                                    <label class="custom-file-label" for="upload_doc" data-browse="Upload">Upload document</label>
+                                </div>
+                            </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
                 {{! / upload docs end }}
 
                 <div class="md-form">
-                    <input type="text" class="form-control" required/>
-                    <label class="label">Two areas of specialization</label>
+                    <input type="text" name="specialization" class="form-control" required/>
+                    <label class="label">Areas of specialization</label>
                 </div>
 
                 <div class="md-form">
-                <span class="text-muted">Select Tags Below</span>
-                    <select class="form-control selectpicker white" multiple>
-                        <option value=""></option>
-                        <option value="1">Tag 1</option>
-                        <option value="2">Tag 2</option>
-                        <option value="3">Tag 3</option>
+                    <span class="text-muted mb-2">Select Tags</span>
+                    <select class="tags form-control mt-2" name="tags" multiple="multiple">
+                        <option value="AL">a</option>
+                        <option value="AL">b</option>
+                        <option value="AL">c</option>
+                        <option value="WY">d</option>
                     </select>
                 </div>
 
                 <div class="md-form">
-                    <textarea id="work" class="md-textarea form-control" rows="3"></textarea>
+                    <textarea id="work" name="workExperience" class="md-textarea form-control border border-top-0 border-left-0" rows="3" style="box-sizing: border-box"></textarea>
                     <label for="work">Work experience</label>
                 </div>
 
-                <div class="col-md-4 mb-3 md-form">
+                <div class="mb-3 md-form">
                     <label for="fee">Consultation Fee (Naira)</label>
-                    <input type="number" class="form-control" id="fee" required>
+                    <input type="number" name="consultationFee" class="form-control" id="fee" required>
                 </div>
 
                 <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
@@ -353,4 +371,6 @@
 <script>
     loadBtn('saveContact');
     loadBtn('saveRecord');
+
+    $('.tags').select2();
 </script>
