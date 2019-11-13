@@ -77,7 +77,16 @@ $("#selectDoc").submit(function (e) {
 });
 
 
-const renderDocument = document => {
-
+const renderDocument = (i, document) => {
+    return `
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><a>${document.title}</a></h4>
+                    <a href="" onclick="removeDocument('${i}')" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    `
 }
 
