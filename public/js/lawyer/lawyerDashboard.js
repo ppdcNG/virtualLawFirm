@@ -71,7 +71,7 @@ $("#updateRecord").submit(async function (e) {
 
 });
 
-$("#selectDoc").submit(function (e) {
+$("#selectDoc").submit(async function (e) {
     e.preventDefault();
     let doc = form2js("selectDoc", '.');
     let uid = $("#uid").val();
@@ -108,7 +108,7 @@ const renderDocuments = () => {
     $("#uploadedDocs");
 }
 
-const removeDocument = i => {
+const removeDocument = async i => {
     let doc = documents[i];
     let path = 'lawyerdocs/' + uid + '/' + doc.title;
     await firebase.storage().ref(path).delete();
