@@ -15,5 +15,10 @@ router.get('/join', function (req, res) {
   })
 });
 
+router.get('/logout', (req, res) => {
+  res.clearCookie('session');
+  res.redirect('/');
+})
+
 
 module.exports = router;

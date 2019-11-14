@@ -150,7 +150,7 @@ exports.updateRecord = async (req, res) => {
 
 exports.updateUploads = async (req, res) => {
     let data = JSON.parse(req.body.data);
-    let { specialization, workExperience, consultationFee, documents } = data;
+    let { specialization, workExperience, tags, consultationFee, documents } = data;
     console.log(accountDetails);
     let user = await admin.firestore().collection('lawyers').doc(req.user.uid).get().catch((e) => {
         console.log(e);
@@ -163,7 +163,7 @@ exports.updateUploads = async (req, res) => {
     });
     if (user.exists) {
         user = user.data();
-        user.portfolio = { specialization, workExperience, consultationFee };
+        user.portfolio = { specialization, tags, workExperience, consultationFee };
         user.docs = documents
         await admin.firestore().collection('lawyers').doc(req.user.uid).set(user);
         let returnObj = {
