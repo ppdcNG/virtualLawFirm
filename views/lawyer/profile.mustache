@@ -67,7 +67,7 @@
       <ul class="navbar-nav ml-auto nav-flex-icons">
         <li class="nav-item avatar">
             <a class="nav-link p-0" href="#">
-            <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" class="rounded-circle z-depth-0"
+            <img src="{{ photoUrl }}" class="rounded-circle z-depth-0"
                 alt="avatar image" height="40">
             </a>
         </li>
@@ -308,8 +308,8 @@
                     </div>
 
                     <div class="md-form">
-                        <textarea id="work" name="workExperience" class="md-textarea form-control border border-top-0 border-left-0" rows="3" style="box-sizing: border-box"></textarea>
-                        <label for="work">Work experience</label>
+                        <input type="number" name="workExperience" class="form-control" id="fee" required>
+                        <label for="workExperience">Work experience (years)</label>
                     </div>
 
                     <div class="mb-3 md-form">
@@ -317,7 +317,7 @@
                         <input type="number" name="consultationFee" class="form-control" id="fee" required>
                     </div>
 
-                    <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
+                    <button class="btn btn-success btn-lg pull-right" id="saveUpload" type="submit">Submit</button>
                 </form>
             </div>
         {{! </div> }}
@@ -349,7 +349,7 @@ aria-hidden="true">
 
             <div class="md-form">
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="docFile" required>
+                    <input id = "docFile" type="file" class="custom-file-input">
                     <label class="custom-file-label" for="upload_doc" data-browse="Upload">Upload document</label>
                 </div>
             </div>
@@ -374,6 +374,7 @@ aria-hidden="true">
     loadBtn('saveContact');
     loadBtn('saveRecord');
     loadBtn('saveDoc');
+    loadBtn('saveUpload');
 
     $('.tags').select2({
         maximumSelectionLength: 3

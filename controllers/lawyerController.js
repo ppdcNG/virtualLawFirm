@@ -14,7 +14,6 @@ exports.profile = (req, res) => {
     let user = req.user;
     let photoUrl = user.photoUrl ? user.photoUrl : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
     let tags = tagOptions();
-    console.log(tags);
     res.render("lawyer/profile", { title: "Lawyer profile", name: "Sadiq", ABS_PATH, photoUrl, uid: user.uid, tags });
 };
 
@@ -84,15 +83,17 @@ exports.lawyerLogin = async (req, res) => {
 
 exports.dashboard = (req, res) => {
     let user = req.user;
-    let photoUrl = user.photoUrl ? user.photoUrl : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
+    let photoUrl = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
     console.log(user);
-    res.render("lawyer/dashboard", { title: 'Lawyer homepage', ABS_PATH, photoUrl, uid: user.uid });
+    console.table(req.user)
+    res.render("lawyer/dashboard", {
+        title: 'Lawyer homepage', ABS_PATH, photoUrl, uid: user.uid, name: user.displayName
+    });
 };
 
 exports.updateContact = async (req, res) => {
     let { photoUrl, name, address, country, lga, briefProfile } = req.body;
-    if (!photoUrl || !name || address || !country || !lga || briefProfile) {
-        console.log(e);
+    if (!photoUrl) {
         let returnObj = {
             err: "error",
             message: "Some fields are missiong",
@@ -151,7 +152,7 @@ exports.updateRecord = async (req, res) => {
 exports.updateUploads = async (req, res) => {
     let data = JSON.parse(req.body.data);
     let { specialization, workExperience, consultationFee, documents } = data;
-    console.log(accountDetails);
+
     let user = await admin.firestore().collection('lawyers').doc(req.user.uid).get().catch((e) => {
         console.log(e);
         let returnObj = {

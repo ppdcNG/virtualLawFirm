@@ -1,6 +1,5 @@
 var documents = [];
 
-
 $("#lawyerContact").submit(async function (e) {
     console.log("lawyer Contact")
     e.preventDefault();
@@ -74,12 +73,14 @@ $("#updateRecord").submit(async function (e) {
 $("#selectDoc").submit(async function (e) {
     e.preventDefault();
     let doc = form2js("selectDoc", '.');
+    console.log(doc);
     let uid = $("#uid").val();
     let path = 'lawyerdocs/' + uid + '/' + doc.title;
     let file = $("#docFile")[0].files[0];
     let task = await firebase.storage().ref(path).put(file);
     console.log(task);
-    let url = await task.ref.getDownloadURL();
+    let url = await task.ref.getDownloadURL()
+    console.log(url);
     doc.url = url;
     documents.push(doc);
     renderDocuments();
@@ -120,3 +121,35 @@ const removeDocument = async i => {
     renderDocuments();
 }
 
+$("#updateUpload").submit(async function (e) {
+    e.preventDefault();
+    let form = form2js("updateUpload", ".");
+    form.documents = documents;
+    form = JSON.stringify(form);
+
+    if (!documents.length < 1) {
+        $.ajax({
+            url: ABS_PATH + "lawyer/updateUploads",
+            data: { data: form },
+            type: "POST",
+            success: function (response) {
+                console.log(response);
+                if (!response.err) {
+                    clearLoad('saveUpload', 'Submit');
+                    $.notify("Saved!", { type: "success" });
+                } else {
+                    clearLoad('saveUpload', 'Submit');
+                    $.notify(response.message, { type: "warning" });
+                }
+            },
+            error: e => {
+                clearLoad('saveUpload', 'Submit');
+                console.log('error', e);
+            }
+        })
+    } else {
+        clearLoad('saveUpload', 'Submit');
+        $.notify("You have not uploaded any document", { type: "warning" });
+    }
+
+});
