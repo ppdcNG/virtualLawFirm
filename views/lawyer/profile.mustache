@@ -67,12 +67,12 @@
       <ul class="navbar-nav ml-auto nav-flex-icons">
         <li class="nav-item avatar">
             <a class="nav-link p-0" href="#">
-            <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg" class="rounded-circle z-depth-0"
+            <img src="{{ photoUrl }}" class="rounded-circle z-depth-0"
                 alt="avatar image" height="40">
             </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link waves-effect waves-light" href="#">
+          <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
             <i class="fas fa-sign-out-alt"></i> Logout
           </a>
         </li>
@@ -302,14 +302,14 @@
 
                     <div class="md-form">
                     <span class="text-muted">Select Tags</span>
-                        <select class="tags form-control mt-2" name="tags" multiple="multiple">
+                        <select class="tags form-control mt-2" id="tags" name="tags[]" multiple="multiple">
                             {{{tags}}}
                         </select>
                     </div>
 
                     <div class="md-form">
-                        <textarea id="work" name="workExperience" class="md-textarea form-control border border-top-0 border-left-0" rows="3" style="box-sizing: border-box"></textarea>
-                        <label for="work">Work experience</label>
+                        <input type="number" name="workExperience" class="form-control" id="fee" required>
+                        <label for="workExperience">Work experience (years)</label>
                     </div>
 
                     <div class="mb-3 md-form">
@@ -317,7 +317,7 @@
                         <input type="number" name="consultationFee" class="form-control" id="fee" required>
                     </div>
 
-                    <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
+                    <button class="btn btn-success btn-lg pull-right" id="saveUpload" type="submit">Submit</button>
                 </form>
             </div>
         {{! </div> }}
@@ -375,6 +375,7 @@ aria-hidden="true">
     loadBtn('saveContact');
     loadBtn('saveRecord');
     loadBtn('saveDoc');
+    loadBtn('saveUpload');
 
     $('.tags').select2({
         maximumSelectionLength: 3

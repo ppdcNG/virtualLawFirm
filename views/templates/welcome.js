@@ -1,5 +1,5 @@
 exports.welcomeEmail = option => {
-  return `   
+    return `   
         <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
         <head>
@@ -264,25 +264,6 @@ exports.welcomeEmail = option => {
         <!--[if (mso)|(IE)]><table width="73" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-collapse:collapse;" align="center"><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; mso-table-lspace: 0pt;mso-table-rspace: 0pt; width:73px;"><tr><![endif]-->
         
             
-            <!--[if (mso)|(IE)]><td width="32" style="width:32px; padding-right: 5px;" valign="top"><![endif]-->
-            <table align="left" border="0" cellspacing="0" cellpadding="0" width="32" height="32" style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;Margin-right: 5px">
-            <tbody><tr style="vertical-align: top"><td align="left" valign="middle" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
-                <a href="https://twitter.com/" title="Twitter" target="_blank">
-                <img src="${option.ABS}images/twitter.png" alt="Twitter" title="Twitter" width="32" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;max-width: 32px !important">
-                </a>
-            </td></tr>
-            </tbody></table>
-            <!--[if (mso)|(IE)]></td><![endif]-->
-            
-            <!--[if (mso)|(IE)]><td width="32" style="width:32px; padding-right: 0px;" valign="top"><![endif]-->
-            <table align="left" border="0" cellspacing="0" cellpadding="0" width="32" height="32" style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;Margin-right: 0px">
-            <tbody><tr style="vertical-align: top"><td align="left" valign="middle" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
-                <a href="https://linkedin.com/" title="LinkedIn" target="_blank">
-                <img src="${option.ABS}images/linkedin.png" alt="LinkedIn" title="LinkedIn" width="32" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;max-width: 32px !important">
-                </a>
-            </td></tr>
-            </tbody></table>
-            <!--[if (mso)|(IE)]></td><![endif]-->
             
             
             <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
@@ -340,11 +321,6 @@ exports.welcomeEmail = option => {
         </div>
 
 
-            <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
-            </td>
-        </tr>
-        </tbody>
-        </table>
         <!--[if (mso)|(IE)]></div><![endif]-->
         </body>
 
@@ -353,3 +329,29 @@ exports.welcomeEmail = option => {
     
     `;
 };
+
+
+// < !--[if (mso)| (IE)]> <td width="32" style="width:32px; padding-right: 5px;" valign="top"><![endif]-->
+// <table align="left" border="0" cellspacing="0" cellpadding="0" width="32" height="32" style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;Margin-right: 5px">
+//         <tbody><tr style="vertical-align: top"><td align="left" valign="middle" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
+//             <a href="https://twitter.com/" title="Twitter" target="_blank">
+//                 <img src="${option.ABS}images/twitter.png" alt="Twitter" title="Twitter" width="32" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;max-width: 32px !important">
+//     </a>
+// </td></tr>
+// </tbody></table>
+//         <!--[if (mso)|(IE)]></td><![endif]-->
+
+// <!--[if (mso)|(IE)]><td width="32" style="width:32px; padding-right: 0px;" valign="top"><![endif]-->
+// <table align="left" border="0" cellspacing="0" cellpadding="0" width="32" height="32" style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;Margin-right: 0px">
+//             <tbody><tr style="vertical-align: top"><td align="left" valign="middle" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
+//                 <a href="https://linkedin.com/" title="LinkedIn" target="_blank">
+//                     <img src="${option.ABS}images/linkedin.png" alt="LinkedIn" title="LinkedIn" width="32" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;max-width: 32px !important">
+//     </a>
+// </td></tr>
+// </tbody></table>
+//             <!--[if (mso)|(IE)]></td><![endif]-->
+// < !--[if (mso)| (IE)]></td ></tr ></table >< ![endif]-- >
+// </td >
+// </tr >
+// </tbody >
+// </table >

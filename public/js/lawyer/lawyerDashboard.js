@@ -1,7 +1,4 @@
-
-
 var documents = [];
-
 
 $("#lawyerContact").submit(async function (e) {
     console.log("lawyer Contact")
@@ -124,6 +121,38 @@ const removeDocument = async i => {
     renderDocuments();
 }
 
+$("#updateUpload").submit(async function (e) {
+    e.preventDefault();
+    let form = form2js("updateUpload", ".");
+    form.documents = documents;
+    form = JSON.stringify(form);
+
+    if (!documents.length < 1) {
+        $.ajax({
+            url: ABS_PATH + "lawyer/updateUploads",
+            data: { data: form },
+            type: "POST",
+            success: function (response) {
+                console.log(response);
+                if (!response.err) {
+                    clearLoad('saveUpload', 'Submit');
+                    $.notify("Saved!", { type: "success" });
+                } else {
+                    clearLoad('saveUpload', 'Submit');
+                    $.notify(response.message, { type: "warning" });
+                }
+            },
+            error: e => {
+                clearLoad('saveUpload', 'Submit');
+                console.log('error', e);
+            }
+        })
+    } else {
+        clearLoad('saveUpload', 'Submit');
+        $.notify("You have not uploaded any document", { type: "warning" });
+    }
+
+});
 
 $(document).ready(() => {
     let url = ABS_PATH + 'lawyer/lawyerDetails';
@@ -149,6 +178,8 @@ const updateContactForm = contact => {
         return;
     }
     js2form('lawyerContact', contact, '.');
+    $('#lawyerContact input').trigger('change');
+    $('#lawyerContact textarea').trigger('change');
 }
 
 const updateRecordForm = (record, accountDetails) => {
@@ -157,6 +188,8 @@ const updateRecordForm = (record, accountDetails) => {
     }
     record.accountDetails = accountDetails;
     js2form('updateRecord', record, '.');
+    $('#updateRecord input').trigger('change');
+
 }
 
 const updateUploadForm = portfolio => {
@@ -165,5 +198,6 @@ const updateUploadForm = portfolio => {
     }
     js2form('updateUpload', portfolio, '.');
     renderDocuments();
+    $('#updateUpload input').trigger('change');
+    $('#updateUpload select').trigger('change');
 }
-
