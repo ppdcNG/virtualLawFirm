@@ -1,5 +1,3 @@
-import { is_empty } from "../../../helpers";
-
 var documents = [];
 
 $("#lawyerContact").submit(async function (e) {
