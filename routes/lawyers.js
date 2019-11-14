@@ -14,7 +14,12 @@ router.post('/lawyerLogin', lawyerController.lawyerLogin)
 router.post('/lawyerRegister', lawyerController.signup);
 router.post('/updateContact/', requireLogin, lawyerController.updateContact);
 router.post('/updateRecord', requireLogin, lawyerController.updateRecord);
+<<<<<<< HEAD
 router.post('/updateUploads', requireLogin, lawyerController.updateUploads);
+=======
+router.post('./upateUploads', requireLogin, lawyerController.updateUploads);
+router.post('/lawyerDetails', requireLogin, lawyerController.lawyerProfile);
+>>>>>>> f0e28792d19ab7ac36fcf4178efac8f975054417
 
 router.get('/dashboard', requireLogin, lawyerController.dashboard);
 
