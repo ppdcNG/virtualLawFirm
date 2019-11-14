@@ -90,7 +90,7 @@ exports.dashboard = (req, res) => {
 
 exports.updateContact = async (req, res) => {
     let { photoUrl, name, address, country, lga, briefProfile } = req.body;
-    if (!photoUrl || !name || address || !country || !lga || briefProfile) {
+    if (!photoUrl || !name || address || !country || !lga || !briefProfile) {
         console.log(e);
         let returnObj = {
             err: "error",
@@ -99,6 +99,7 @@ exports.updateContact = async (req, res) => {
         };
         return res.status(400).send(returnObj);
     }
+    await admin.auth().updateUser(req.user.uid, { emailVerified: true, displayName: name });
     let user = await admin.firestore().collection('lawyers').doc(req.user.uid).get().catch((e) => {
         console.log(e);
         let returnObj = {
@@ -170,5 +171,23 @@ exports.updateUploads = async (req, res) => {
             status: "success"
         };
         res.status(200).send(returnObj);
+    }
+}
+
+exports.lawyerProfile = async (req, res) => {
+    let uid = req.user.uid;
+    let lawyer = await admin.firestore().collection('lawyers').doc(uid).get().catch((e) => {
+        console.log(e);
+        let returnObj = {
+            err: e,
+            message: e.message,
+            status: "failed"
+        };
+        return res.status(400).send(returnObj);
+
+    });
+    if (lawyer.exists) {
+        lawyerdetails = lawyer.data();
+        res.status(200).send(lawyerdetails);
     }
 }

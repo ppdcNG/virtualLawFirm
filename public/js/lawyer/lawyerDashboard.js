@@ -1,3 +1,5 @@
+import { is_empty } from "../../../helpers";
+
 var documents = [];
 
 
@@ -119,6 +121,49 @@ const removeDocument = async i => {
     let path = 'lawyerdocs/' + uid + '/' + doc.title;
     await firebase.storage().ref(path).delete();
     documents.splice(i, 1);
+    renderDocuments();
+}
+
+
+$(document).ready(() => {
+    let url = ABS_PATH + 'lawyer/lawyerDetails';
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: "data",
+        success: function (response) {
+            console.log(response);
+            let { accountDetails, record, contact, portfolio, docs } = response;
+            documents = is_empty(docs) ? [] : docs;
+            updateContactForm(contact);
+            updateRecordForm(record, accountDetails);
+            updateUploadForm(portfolio)
+
+
+        }
+    });
+});
+
+const updateContactForm = contact => {
+    if (!contact) {
+        return;
+    }
+    js2form('lawyerContact', contact, '.');
+}
+
+const updateRecordForm = (record, accountDetails) => {
+    if (!record || !accountDetails) {
+        return;
+    }
+    record.accountDetails = accountDetails;
+    js2form('updateRecord', record, '.');
+}
+
+const updateUploadForm = portfolio => {
+    if (!portfolio) {
+        return;
+    }
+    js2form('updateUpload', portfolio, '.');
     renderDocuments();
 }
 
