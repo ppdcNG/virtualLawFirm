@@ -12,9 +12,9 @@ var serviceAccount = require("../config/firebaseservice.json");
 
 exports.profile = (req, res) => {
     let user = req.user;
-    let photoUrl = user.photoUrl ? user.photoUrl : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
+    let photoUrl = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
     let tags = tagOptions();
-    res.render("lawyer/profile", { title: "Lawyer profile", name: "Sadiq", ABS_PATH, photoUrl, uid: user.uid, tags });
+    res.render("lawyer/profile", { title: "Lawyer profile", ABS_PATH, photoUrl, uid: user.uid, tags });
 };
 
 exports.details = (req, res) => {
@@ -152,7 +152,7 @@ exports.updateRecord = async (req, res) => {
 
 exports.updateUploads = async (req, res) => {
     let data = JSON.parse(req.body.data);
-    let { specialization, workExperience, consultationFee, documents } = data;
+    let { specialization, workExperience, tags, consultationFee, documents } = data;
 
     let user = await admin.firestore().collection('lawyers').doc(req.user.uid).get().catch((e) => {
         console.log(e);
@@ -165,7 +165,7 @@ exports.updateUploads = async (req, res) => {
     });
     if (user.exists) {
         user = user.data();
-        user.portfolio = { specialization, workExperience, consultationFee };
+        user.portfolio = { specialization, tags, workExperience, consultationFee };
         user.docs = documents
         await admin.firestore().collection('lawyers').doc(req.user.uid).set(user);
         let returnObj = {

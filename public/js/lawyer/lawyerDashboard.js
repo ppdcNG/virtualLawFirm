@@ -178,6 +178,8 @@ const updateContactForm = contact => {
         return;
     }
     js2form('lawyerContact', contact, '.');
+    $('#lawyerContact input').trigger('change');
+    $('#lawyerContact textarea').trigger('change');
 }
 
 const updateRecordForm = (record, accountDetails) => {
@@ -186,6 +188,8 @@ const updateRecordForm = (record, accountDetails) => {
     }
     record.accountDetails = accountDetails;
     js2form('updateRecord', record, '.');
+    $('#updateRecord input').trigger('change');
+
 }
 
 const updateUploadForm = portfolio => {
@@ -194,5 +198,6 @@ const updateUploadForm = portfolio => {
     }
     js2form('updateUpload', portfolio, '.');
     renderDocuments();
+    $('#updateUpload input').trigger('change');
+    $('#updateUpload select').trigger('change');
 }
-

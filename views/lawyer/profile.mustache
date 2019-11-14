@@ -72,7 +72,7 @@
             </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link waves-effect waves-light" href="#">
+          <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
             <i class="fas fa-sign-out-alt"></i> Logout
           </a>
         </li>
@@ -302,7 +302,7 @@
 
                     <div class="md-form">
                     <span class="text-muted">Select Tags</span>
-                        <select class="tags form-control mt-2" name="tags" multiple="multiple">
+                        <select class="tags form-control mt-2" id="tags" name="tags[]" multiple="multiple">
                             {{{tags}}}
                         </select>
                     </div>
