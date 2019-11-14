@@ -86,11 +86,23 @@ $("#selectDoc").submit(async function (e) {
     documents.push(doc);
     renderDocuments();
 
+    clearLoad('saveDoc', 'Save');
+    $("#selectDoc").trigger("reset");
+
 });
 
 
 const renderDocument = (i, document) => {
-
+    return `
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><a>${document.title}</a></h4>
+                    <button onclick="removeDocument('${i}')" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    `
 }
 
 const renderDocuments = () => {
