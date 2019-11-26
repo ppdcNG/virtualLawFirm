@@ -1,11 +1,11 @@
 var ABS_PATH = require("../config").ABS_PATH;
 const { sendmail, welcomeMail } = require("../helpers/mail");
-const { token } = require("../helpers");
+const { token, tagOptions } = require("../helpers");
 const admin = require('firebase-admin');
 
 exports.adminPage = async (req, res) => {
-
-  res.render("admin/admin-dashboard", { title: "Admin", ABS_PATH });
+  let tags = tagOptions();
+  res.render("admin/admin-dashboard", { title: "Admin", ABS_PATH, tags });
 };
 
 exports.loginPage = (req, res) => {
