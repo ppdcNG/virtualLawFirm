@@ -11,6 +11,7 @@ router.post("/createUser", adminController.createUser);
 
 router.get("/login", adminController.loginPage);
 router.get("/newUser", adminController.newUSer);
+router.get("/testLawyers", adminController.fetchLawyers);
 
 router.post("/testmail", (req, res) => {
   const message = req.body;
