@@ -38,8 +38,8 @@ const numberOfFields = (obj) => {
 
 exports.percentageComplete = (obj) => {
   let count = numberOfFields(obj);
+  console.log('count', count)
   let total = 30
-  let percent = Math.ceil(count / total);
-  console.log(percent);
-  return percent * 100
+  let percent = (count / total) * 100
+  return percent.toFixed(2);
 }
