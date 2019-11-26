@@ -1,7 +1,7 @@
 var ABS_PATH = require("../config").ABS_PATH;
 
 const { sendmail, welcomeMail } = require("../helpers/mail");
-const { token, tagOptions } = require("../helpers");
+const { token, tagOptions, percentageComplete } = require("../helpers");
 
 
 var admin = require("firebase-admin");
@@ -10,11 +10,26 @@ var admin = require("firebase-admin");
 
 var serviceAccount = require("../config/firebaseservice.json");
 
-exports.profile = (req, res) => {
+exports.profile = async (req, res) => {
     let user = req.user;
+    let uid = req.user.uid;
+    let lawyer = await admin.firestore().collection('lawyers').doc(uid).get().catch((e) => {
+        console.log(e);
+        let returnObj = {
+            err: e,
+            message: e.message,
+            status: "failed"
+        };
+        return res.status(400).send(returnObj);
+
+    });
+    if (lawyer.exists) {
+        lawyerdetails = lawyer.data();
+        let progress = percentageComplete(lawyerdetails);
+    }
     let photoUrl = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
     let tags = tagOptions();
-    res.render("lawyer/profile", { title: "Lawyer profile", ABS_PATH, photoUrl, uid: user.uid, tags });
+    res.render("lawyer/profile", { title: "Lawyer profile", ABS_PATH, photoUrl, uid: user.uid, tags, progress });
 };
 
 exports.details = (req, res) => {

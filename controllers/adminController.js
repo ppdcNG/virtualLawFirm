@@ -158,3 +158,22 @@ exports.verifyLawyerEmail = async (req, res) => {
   };
   res.send(returnObj);
 };
+
+exports.fetchLawyers = async () => {
+  try {
+    let lawyers = await admin.firestore().collection('lawyers').where('record.criminalRecord', '==', 'yes').get();
+    if (lawyers.empty) {
+      console.log('snapshot empty');
+    }
+    else {
+      lawyers.forEach((law) => {
+        console.log(law.id, law.doc);
+      })
+    }
+  }
+  catch (e) {
+    console.log(e.message);
+  }
+
+
+}

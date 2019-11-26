@@ -21,3 +21,25 @@ exports.tagOptions = () => {
 
   return tagsHTML;
 }
+
+
+const numberOfFields = (obj) => {
+  let count = 0;
+  for (let key in obj) {
+    if (typeof obj[key] === 'object') {
+      count += numberOfFields(obj[key])
+    }
+    else {
+      count += 1;
+    }
+  }
+  return count;
+}
+
+exports.percentageComplete = (obj) => {
+  let count = numberOfFields(obj);
+  let total = 30
+  let percent = Math.ceil(count / total);
+  console.log(percent);
+  return percent * 100
+}
