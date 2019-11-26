@@ -58,39 +58,51 @@
           </div>
       </div>  
 
-      <p class="h5 text-uppercase">Laywers</p>
+      <div class="row justify-content-between">
+        <div class="col-4">
+          <p class="h4 text-uppercase">Laywers</p>
+        </div>
+
+        <div class="col-4">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-default float-right" data-toggle="modal" data-target="#lawyerModal">
+            Send Lawyer Invite
+          </button>
+        </div>
+      </div>
+
       <hr/>
 
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-default float-right" data-toggle="modal" data-target="#lawyerModal">
-        Send Lawyer Invite
-      </button>
-
       <!-- Search form -->
-      <form class="form-inline md-form form-sm mt-0 border pl-1">
-        <i class="fas fa-search" aria-hidden="true"></i>
-        <input class="form-control form-control-sm ml-3 w-50" type="text" placeholder="Search"
-          aria-label="Search">
+      <div class="d-flex justify-content-center mt-2 mb-2">
+        <div class="card w-50 text-center">
+          <form class="md-form mt-0 border p-2">
+            <div class="md-form form-inline">
+              <i class="fas fa-search" aria-hidden="true"></i>
+              <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search Name"
+              aria-label="Search">
+            </div>
 
-        {{! dropdown }}
-        <button class="btn dropdown-toggle mr-4" type="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">Filter</button>
+            <div class="md-form">
+              <span class="text-muted">Search by Status</span>
+              <select class="status form-control" id="status" name="status">
+                <option selected>Select</option>
+                <option>Pending</option>
+                <option>Activated</option>
+              </select>          
+            </div>
 
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Pending</a>
-          <a class="dropdown-item" href="#">Unactivated</a>
+            <div class="md-form">
+              <span class="text-muted">Search by Tags</span>
+              <select class="tags form-control mt-2" id="tags" name="tags">
+                  {{{tags}}}
+              </select>
+            </div>
+        
+          </form>
         </div>
+      </div>
 
-        <button class="btn dropdown-toggle mr-4" type="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">Tags</button>
-
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Commercial</a>
-          <a class="dropdown-item" href="#">Contract</a>
-        </div>
-
-        <button class="btn btn-outline-default waves-effect btn-block">Search</button>
-      </form>
 
 
       <table class="table table-bordered tale-striped" id="lawyersTable">
@@ -165,7 +177,21 @@
 
 </main>
 
+
 {{> footer}}
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
+
+<script>
+  $('#sendInvite').click(function() {
+    $('#sendInvite').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+  });
+
+  $('.tags').select2();
+  $('.status').select2();
+</script>
 
 {{! add lawyer modal }}
 <!-- Modal -->
@@ -250,12 +276,3 @@
     </div>
   </div>
 </div>
-<script src="{{ABS_PATH}}js/auth.js"></script>
-<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
-<script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
-
-<script>
-  $('#sendInvite').click(function() {
-    $('#sendInvite').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
-  });
-</script>
