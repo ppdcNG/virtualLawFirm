@@ -23,10 +23,10 @@ exports.profile = async (req, res) => {
         return res.status(400).send(returnObj);
 
     });
-    if (lawyer.exists) {
-        lawyerdetails = lawyer.data();
-        let progress = percentageComplete(lawyerdetails);
-    }
+
+    let lawyerdetails = lawyer.data();
+    let progress = percentageComplete(lawyerdetails);
+
     let photoUrl = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
     let tags = tagOptions();
     res.render("lawyer/profile", { title: "Lawyer profile", ABS_PATH, photoUrl, uid: user.uid, tags, progress });
