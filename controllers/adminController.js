@@ -1,11 +1,11 @@
 var ABS_PATH = require("../config").ABS_PATH;
 const { sendmail, welcomeMail } = require("../helpers/mail");
-const { token, tagOptions } = require("../helpers");
+const { token, is_empty } = require("../helpers");
 const admin = require('firebase-admin');
 
 exports.adminPage = async (req, res) => {
-  let tags = tagOptions();
-  res.render("admin/admin-dashboard", { title: "Admin", ABS_PATH, tags });
+
+  res.render("admin/admin-dashboard", { title: "Admin", ABS_PATH });
 };
 
 exports.loginPage = (req, res) => {
@@ -143,7 +143,8 @@ exports.verifyLawyerEmail = async (req, res) => {
     name: firstname + " " + lastname,
     email: email,
     authId: user.uid,
-    dateRegistered
+    dateRegistered,
+    status: 'pending'
   };
   console.log(lawyer);
   await admin
@@ -159,21 +160,40 @@ exports.verifyLawyerEmail = async (req, res) => {
   res.send(returnObj);
 };
 
-exports.fetchLawyers = async () => {
-  try {
-    let lawyers = await admin.firestore().collection('lawyers').where('record.criminalRecord', '==', 'yes').get();
-    if (lawyers.empty) {
-      console.log('snapshot empty');
-    }
-    else {
-      lawyers.forEach((law) => {
-        console.log(law.id, law.doc);
-      })
+exports.fetchLawyers = async (req, res) => {
+  let { status, name, tags, page, limit, last } = req.body;
+  let lawyersList = {};
+  if (is_empty(status) && is_empty(tags) && is_empty(name)) {
+    if (last) {
+      let snapshot = await admin.firestore().collection('lawyers').startAfter(last).limit(limit).get().catch((e) => { console.log(e) });
+      snapshot.forEach((snap) => {
+        lawyersList[snap.id] = snap.data();;
+      });
     }
   }
-  catch (e) {
-    console.log(e.message);
+  if (is_empty(name) && is_empty()) {
+
   }
+
+  else {
+    try {
+      let lawyers = await admin.firestore().collection('lawyers').
+        where('record.criminalRecord', '==', 'yes').
+        get();
+      if (lawyers.empty) {
+        console.log('snapshot empty');
+      }
+      else {
+        lawyers.forEach((law) => {
+          console.log(law.id, law.doc);
+        })
+      }
+    }
+    catch (e) {
+      console.log(e.message);
+    }
+  }
+
 
 
 }
