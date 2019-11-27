@@ -9,7 +9,15 @@ var filter = {
 }
 
 const fetchLawyers = () => {
-  return "";
+  $.ajax({
+    url: ABS_PATH + fetchLawyersEndPoint,
+    type: "POST",
+    data: filter,
+    success: function () {
+
+    },
+    error: err => console.log("error", err)
+  })
 };
 
 const fetchCases = () => {
@@ -39,4 +47,26 @@ $("#lawyerInvite").submit(function (e) {
     },
     error: e => console.log("error", e)
   });
+});
+
+
+$("#searchName").on('change keyup', function (e) {
+  e.preventDefault();
+  console.log($(this).val())
+});
+
+$("#status").change(function (e) {
+  e.preventDefault();
+  filter.param = 'status';
+  filter.paramValue = $(this).val();
+
+  fetchLawyers();
+});
+
+$("#tags").change(function (e) {
+  e.preventDefault();
+  filter.param = 'tag';
+  filter.paramValue = $(this).val();
+
+  fetchLawyers();
 });

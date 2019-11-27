@@ -8,12 +8,12 @@ const renderCases = (cases) => {
 
 }
 
-const renderTable = (data) => {
+const renderTable = () => {
     return `
         <tr>
             <th scope="row">1</th>
-            <td>${data.fullName}</td>
-            <td>${data.status}</td>
+            <td>Sadiq test</td>
+            <td>Pending</td>
             <td>
                 <a onclick="" class="btn btn-sm text-dark" data-toggle="modal" data-target="#detailsModal">View</a>
             </td>
