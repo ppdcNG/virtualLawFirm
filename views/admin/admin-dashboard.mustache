@@ -110,25 +110,8 @@
             <th scope="col">Action</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Bruce wayne</td>
-            <td>Pending</td>
-            <td><a class="btn btn-sm text-dark" data-toggle="modal" data-target="#detailsModal">View</a></td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Thor odinson</td>
-            <td>Unactivated</td>
-            <td><a class="btn btn-sm text-dark" data-toggle="modal" data-target="#detailsModal">View</a></td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Barry allen</td>
-            <td>Verified</td>
-            <td><a class="btn btn-sm text-dark" data-toggle="modal" data-target="#detailsModal">View</a></td>
-          </tr>
+        <tbody id="lawyersTable">
+
         </tbody>
       </table>
     </div>
@@ -187,6 +170,8 @@
 
   $('.tags').select2();
   $('.status').select2();
+
+  $("#lawyersTable").html(renderTable());
 </script>
 
 {{! add lawyer modal }}
