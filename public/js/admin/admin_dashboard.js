@@ -8,18 +8,63 @@ var filter = {
   lastId: ''
 }
 
+var lawyers = "";
+
 const fetchLawyers = () => {
+  $.notify("Loading lawyers", { type: "success" });
+
   $.ajax({
     url: ABS_PATH + fetchLawyersEndPoint,
     type: "POST",
     data: filter,
     success: function (response) {
-      console.log(response);
+      lawyers = response;
+      console.log(lawyers);
+
+      for (var i in lawyers) {
+        $("#lawyersTable").append(renderTable(i, lawyers[i]));
+      }
+
     },
     error: err => console.log("error", err)
   })
-};
+}
 fetchLawyers();
+
+const viewSummary = (id) => {
+  let name = id;
+  for (var i in lawyers) {
+    if (id === lawyers[i].authId) {
+
+      // set location
+      let location = "";
+      if (lawyers[i].contact) {
+        location = `${lawyers[i].contact.lga}, ${lawyers[i].contact.country}`
+      } else {
+        location = "N/A"
+      }
+      // set experience yrs
+      let expYears = "";
+      let consultationFee = "";
+      if (lawyers[i].portfolio) {
+        expYears = lawyers[i].portfolio.workExperience
+        consultationFee = lawyers[i].portfolio.consultationFee
+      } else {
+        expYears = "N/A";
+        consultationFee = "N/A";
+      }
+
+      // update the ui
+      $("#name").text(lawyers[i].name);
+      $("#loc").text(location);
+      $("#exp").text(expYears);
+      $("#fee").text(consultationFee);
+
+      $("#link").html(`<a href="/lawyer/details?id=${id}">Go to full details <i class="fas fa-caret-right"></i></a>`)
+
+    }
+  }
+}
 
 const fetchCases = () => {
   return "";
@@ -60,7 +105,7 @@ $("#status").change(function (e) {
   e.preventDefault();
   filter.param = 'status';
   filter.paramValue = $(this).val();
-  $.notify("Search!", { type: "success" });
+  $.notify("Searching..", { type: "success" });
 
   fetchLawyers();
 });
@@ -69,6 +114,8 @@ $("#tag").change(function (e) {
   e.preventDefault();
   filter.param = 'tag';
   filter.paramValue = $(this).val();
+
+  $.notify("Searching..", { type: "success" });
 
   fetchLawyers();
 });
