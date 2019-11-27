@@ -161,39 +161,80 @@ exports.verifyLawyerEmail = async (req, res) => {
 };
 
 exports.fetchLawyers = async (req, res) => {
-  let { status, name, tags, page, limit, last } = req.body;
-  let lawyersList = {};
-  if (is_empty(status) && is_empty(tags) && is_empty(name)) {
-    if (last) {
-      let snapshot = await admin.firestore().collection('lawyers').startAfter(last).limit(limit).get().catch((e) => { console.log(e) });
-      snapshot.forEach((snap) => {
-        lawyersList[snap.id] = snap.data();;
-      });
-    }
-  }
-  if (is_empty(name) && is_empty()) {
-
-  }
-
-  else {
-    try {
-      let lawyers = await admin.firestore().collection('lawyers').
-        where('record.criminalRecord', '==', 'yes').
-        get();
-      if (lawyers.empty) {
-        console.log('snapshot empty');
+  let { param, paramValue, limit, lastId } = req.body;
+  let lawyerList = {};
+  let lawyersRef = admin.firestore().collection('lawyers')
+  switch (param) {
+    case 'status':
+      if (lastId) {
+        let lastDoc = await lawyersRef.doc(lastId).get().catch((e) => { console.log(e) });
+        let snapshot = await lawyersRef.where('status', '==', paramValue).
+          orderBy('dateRegistered', 'desc')
+          .startAfter(lastDoc)
+          .limit(limit).get().catch((e) => { console.log(e) });
+        if (!snapshot.empty) {
+          snapshot.forEach((lawyer) => {
+            lawyerList[lawyer.id] = lawyer.data();
+          })
+        }
       }
       else {
-        lawyers.forEach((law) => {
-          console.log(law.id, law.doc);
-        })
+        let snapshot = await lawyersRef.where('status', '==', paramValue).orderBy('dateRegistered', 'desc')
+          .limit(limit).get().catch((e) => { console.log(e) })
+        if (!snapshot.empty) {
+          snapshot.forEach((lawyer) => {
+            lawyerList[lawyer.id] = lawyer.data();
+          })
+        }
+
       }
-    }
-    catch (e) {
-      console.log(e.message);
-    }
+      break;
+    case 'tag':
+      if (lastId) {
+        let lastDoc = await lawyersRef.doc(lastId).get().catch((e) => { console.log(e) });
+        let snapshot = await lawyersRef.where('status', '==', paramValue).
+          orderBy('dateRegistered', 'desc')
+          .startAfter(lastDoc)
+          .limit(limit).get().catch((e) => { console.log(e) });
+        if (!snapshot.empty) {
+          snapshot.forEach((lawyer) => {
+            lawyerList[lawyer.id] = lawyer.data();
+          })
+        }
+      }
+      else {
+        let snapshot = await lawyersRef.where('status', '==', paramValue).orderBy('dateRegistered', 'desc')
+          .limit(limit).get().catch((e) => { console.log(e) })
+        if (!snapshot.empty) {
+          snapshot.forEach((lawyer) => {
+            lawyerList[lawyer.id] = lawyer.data();
+          })
+        }
+
+      }
+      break;
+
+    default:
+      if (lastId) {
+        let lastDoc = await lawyersRef.doc(lastId).get().catch((e) => { console.log(e) })
+        let snapshot = await lawyersRef.startAfter(lastDoc).limit(limit);
+        if (!snapshot.empty) {
+          snapshot.forEach((lawyer) => {
+            lawyerList[lawyer.id] = lawyer.data();
+          })
+        }
+      }
+      else {
+        let snapshot = await lawyersRef.orderBy('dateRegistered', 'desc').limit(limit).get().catch((e) => { console.log(e) })
+        if (!snapshot.empty) {
+          snapshot.forEach((lawyer) => {
+            lawyerList[lawyer.id] = lawyer.data();
+          })
+        }
+      }
+
+      break;
   }
 
-
-
+  res.status(200).send(lawyerList);
 }
