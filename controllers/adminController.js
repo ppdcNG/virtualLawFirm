@@ -190,9 +190,10 @@ exports.fetchLawyers = async (req, res) => {
       }
       break;
     case 'tag':
+      let tags = paramValue.split(',');
       if (lastId) {
         let lastDoc = await lawyersRef.doc(lastId).get().catch((e) => { console.log(e) });
-        let snapshot = await lawyersRef.where('status', '==', paramValue).
+        let snapshot = await lawyersRef.where('portfolio.tags', 'array-contains', tags).
           orderBy('dateRegistered', 'desc')
           .startAfter(lastDoc)
           .limit(limit).get().catch((e) => { console.log(e) });
@@ -203,7 +204,7 @@ exports.fetchLawyers = async (req, res) => {
         }
       }
       else {
-        let snapshot = await lawyersRef.where('status', '==', paramValue).orderBy('dateRegistered', 'desc')
+        let snapshot = await lawyersRef.where('portfolio.tags', 'array-contains', tags).orderBy('dateRegistered', 'desc')
           .limit(limit).get().catch((e) => { console.log(e) })
         if (!snapshot.empty) {
           snapshot.forEach((lawyer) => {
