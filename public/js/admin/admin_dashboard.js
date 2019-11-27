@@ -1,5 +1,5 @@
 const sendLawyerInviteEndPoint = "admin/sendLawyerInvite";
-const fetchLawyersEndPoint = 'admin/fetchLawyer';
+const fetchLawyersEndPoint = 'admin/fetchLawyers';
 
 var filter = {
   param: '',
@@ -14,11 +14,12 @@ const fetchLawyers = () => {
     type: "POST",
     data: filter,
     success: function () {
-
+      console.log('success', filter)
     },
     error: err => console.log("error", err)
   })
 };
+fetchLawyers();
 
 const fetchCases = () => {
   return "";
@@ -59,11 +60,12 @@ $("#status").change(function (e) {
   e.preventDefault();
   filter.param = 'status';
   filter.paramValue = $(this).val();
+  $.notify("Search!", { type: "success" });
 
-  fetchLawyers();
+  // fetchLawyers();
 });
 
-$("#tags").change(function (e) {
+$("#tag").change(function (e) {
   e.preventDefault();
   filter.param = 'tag';
   filter.paramValue = $(this).val();
