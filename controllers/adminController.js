@@ -162,6 +162,8 @@ exports.verifyLawyerEmail = async (req, res) => {
 
 exports.fetchLawyers = async (req, res) => {
   let { param, paramValue, limit, lastId } = req.body;
+  console.log(limit);
+  limit = parseInt(limit)
   let lawyerList = {};
   let lawyersRef = admin.firestore().collection('lawyers')
   switch (param) {

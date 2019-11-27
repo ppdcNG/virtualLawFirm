@@ -13,8 +13,8 @@ const fetchLawyers = () => {
     url: ABS_PATH + fetchLawyersEndPoint,
     type: "POST",
     data: filter,
-    success: function () {
-      console.log('success', filter)
+    success: function (response) {
+      console.log(response);
     },
     error: err => console.log("error", err)
   })
