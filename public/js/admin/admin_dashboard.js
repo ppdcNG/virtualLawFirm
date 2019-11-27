@@ -1,4 +1,12 @@
 const sendLawyerInviteEndPoint = "admin/sendLawyerInvite";
+const fetchLawyersEndPoint = 'admin/fetchLawyer';
+
+var filter = {
+  param: '',
+  paramValue: '',
+  limit: 10,
+  lastId: ''
+}
 
 const fetchLawyers = () => {
   return "";
