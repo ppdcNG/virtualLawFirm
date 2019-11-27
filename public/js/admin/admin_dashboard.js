@@ -62,7 +62,7 @@ $("#status").change(function (e) {
   filter.paramValue = $(this).val();
   $.notify("Search!", { type: "success" });
 
-  // fetchLawyers();
+  fetchLawyers();
 });
 
 $("#tag").change(function (e) {
