@@ -1,5 +1,5 @@
 const sendLawyerInviteEndPoint = "admin/sendLawyerInvite";
-const fetchLawyersEndPoint = 'admin/fetchLawyer';
+const fetchLawyersEndPoint = 'admin/fetchLawyers';
 
 var filter = {
   param: '',
@@ -13,8 +13,8 @@ const fetchLawyers = () => {
     url: ABS_PATH + fetchLawyersEndPoint,
     type: "POST",
     data: filter,
-    success: function () {
-
+    success: function (response) {
+      console.log(response);
     },
     error: err => console.log("error", err)
   })
