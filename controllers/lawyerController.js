@@ -32,9 +32,7 @@ exports.profile = async (req, res) => {
     res.render("lawyer/profile", { title: "Lawyer profile", ABS_PATH, photoUrl, uid: user.uid, tags, progress });
 };
 
-exports.details = (req, res) => {
-    res.render("lawyer/lawyer-details", { ABS_PATH });
-};
+
 
 exports.login = (req, res) => {
     res.render("lawyer/login", { ABS_PATH });

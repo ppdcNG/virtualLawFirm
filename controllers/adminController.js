@@ -241,3 +241,20 @@ exports.fetchLawyers = async (req, res) => {
 
   res.status(200).send(lawyerList);
 }
+
+exports.details = async (req, res) => {
+  let { id } = req.body;
+  let snapshot = await admin.firestore().collection('lawyers').doc('id').get().catch((e) => {
+    console.log(e);
+  });
+  if (!snapshot.exists) {
+    res.send({
+      err: "error",
+      status: "failed",
+      message: "There is no user with this id"
+    });
+    return;
+  }
+  let lawyer = snapshot.data();
+  res.render("lawyer/lawyer-details", { ABS_PATH, lawyer });
+};

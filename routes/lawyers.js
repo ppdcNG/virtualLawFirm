@@ -5,8 +5,6 @@ const requireLogin = require('../middlewares/requireLogin');
 
 router.get('/profile', requireLogin, lawyerController.profile);
 
-router.get('/details', lawyerController.details);
-
 router.get('/login', lawyerController.login);
 
 router.get('/confirm', lawyerController.confirm);
