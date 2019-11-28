@@ -1,5 +1,3 @@
-
-
 const renderLawyers = (lawyers) => {
     // lawyers = [{ fullname, status, id.....}...]
 }

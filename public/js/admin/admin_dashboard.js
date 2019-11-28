@@ -11,7 +11,7 @@ var filter = {
 var lawyers = "";
 
 const fetchLawyers = () => {
-  $.notify("Loading lawyers", { type: "success" });
+  $.notify("Loading..", { type: "success" });
 
   $.ajax({
     url: ABS_PATH + fetchLawyersEndPoint,

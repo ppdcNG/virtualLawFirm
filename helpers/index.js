@@ -10,7 +10,8 @@ exports.token = function () {
   return rand() + rand(); // to make it longer
 };
 
-exports.is_empty = (object) => { return !Object.keys(object).length > 0 }
+var is_empty = (object) => { return !Object.keys(object).length > 0 }
+exports.is_empty = is_empty;
 
 exports.tagOptions = () => {
   let tagsHTML = '';
@@ -42,4 +43,26 @@ exports.percentageComplete = (obj) => {
   let total = 30
   let percent = (count / total) * 100
   return percent.toFixed(2);
+}
+
+exports.renderDocuments = docs => {
+  var html = "";
+  if (docs == undefined || is_empty(docs)) {
+    return `<li class="list-group-item">No Documents</li>`;
+  }
+  for (var i in docs) {
+    html += renderDocument(docs[i]);
+  }
+  return html;
+}
+
+const renderDocument = doc => {
+  return `
+      <li class="list-group-item mr-2">
+        <div class="md-v-line">
+          <i class="fas fa-file-alt mr-1 pr-1"></i>
+          <a href="${doc.url}" target="_blank">${doc.title} <i class="fas fa-angle-double-right"></i></a>
+        </div>
+      </li>
+    `
 }
