@@ -1,6 +1,6 @@
 var ABS_PATH = require("../config").ABS_PATH;
 const { sendmail, welcomeMail } = require("../helpers/mail");
-const { token, tagOptions, is_empty } = require("../helpers");
+const { token, tagOptions, is_empty, renderDocuments } = require("../helpers");
 const admin = require('firebase-admin');
 
 exports.adminPage = async (req, res) => {
@@ -330,7 +330,10 @@ exports.details = async (req, res) => {
     return;
   }
   let lawyer = snapshot.data();
-  res.render("lawyer/lawyer-details", { ABS_PATH, lawyer });
+  let documents = renderDocuments(lawyer.docs);
+  console.log('documents', documents)
+  res.render("lawyer/lawyer-details", { ABS_PATH, lawyer, documents, title: 'Lawyer Details' });
+
 }
 
 exports.verifyLawyer = async (req, res) => {
@@ -359,5 +362,7 @@ exports.verifyLawyer = async (req, res) => {
     message: "Lawyer status has been updated"
   });
 }
+
+
 
 
