@@ -75,24 +75,24 @@
 
       <!-- Search form -->
       <form class="md-form form-inline mt-0 border p-2 row">
-        <div class="md-form col-4">
+        <div class="md-form col-md-4">
           <i class="fas fa-search" aria-hidden="true"></i>
           <input id="searchName" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by Name"
           aria-label="Search">
         </div>
 
-        <div class="md-form col-4">
+        <div class="md-form col-md-4">
           <span class="text-muted">Search by Status</span>
-          <select class="status form-control w-100" id="status" name="status">
+          <select class="status form-control w-75" id="status" name="status">
             <option selected>Select</option>
             <option>Pending</option>
             <option>Activated</option>
           </select>          
         </div>
 
-        <div class="md-form col-4">
+        <div class="md-form col-md-4">
           <span class="text-muted">Search by Tags</span>
-          <select class="tags form-control mt-2 w-100" id="tags" name="tags">
+          <select class="tags form-control mt-2 w-75" id="tag" name="tag">
               {{{tags}}}
           </select>
         </div>
@@ -236,21 +236,21 @@
       </div>
       <div class="modal-body mx-3">
         <ul class="list-group">
-          <li class="list-group-item active">
-            <div class="md-v-line"></div><i class="fas fa-user mr-4 pr-3"></i>Bruce wayne
+          <li class="list-group-item default-color">
+            <div class="md-v-line"></div><i class="fas fa-user mr-3"></i><span id="name"></span>
           </li>
           <li class="list-group-item">
-            <div class="md-v-line"></div><i class="fas fa-map-marker-alt mr-4 pr-3"></i>Abuja, Nigeria
+            <div class="md-v-line"></div><i class="fas fa-map-marker-alt mr-3"></i><span id="loc"></span>
           </li>
           <li class="list-group-item">
-            <div class="md-v-line"></div><i class="fas fa-briefcase mr-4 pr-2"></i>10+ experience years
+            <div class="md-v-line"></div><i class="fas fa-briefcase mr-3"></i><b>Years of Experience</b> <span id="exp"></span>
           </li>
           <li class="list-group-item">
-            <div class="md-v-line"></div><i class="far fa-money-bill-wave mr-4 pr-2"></i>100,000
+            <div class="md-v-line"></div><i class="fas fa-money-bill-wave mr-3"></i><b>Fee</b> <span id="fee"></span>
           </li>
         </ul>
         <div class="text-center">
-          <p><a href="/lawyer/details">Go to full details <i class="fas fa-caret-right"></i></a></p>
+          <p id="link"></p>
         </div>
 
       </div>
