@@ -159,6 +159,79 @@ exports.verifyLawyerEmail = async (req, res) => {
   };
   res.send(returnObj);
 };
+exports.verifyUserEmail = async (req, res) => {
+  let { password, token } = req.body;
+  if (!password || !token) {
+    let obj = {
+      err: "Invalid Parameters",
+      status: "failed",
+      message: "Invalid Parameters Provided"
+    };
+    res.send(obj)
+    return;
+  }
+  let userDetails = await admin
+    .firestore()
+    .collection("usersTemp")
+    .doc(token)
+    .get()
+    .catch(e => {
+      console.log(e);
+      console.log(e.message);
+      let obj = {
+        err: e,
+        status: "failed",
+        message: e.message
+      };
+      res.send(obj);
+    });
+  if (!userDetails.exists) {
+    let obj = {
+      err: "token not valid",
+      status: "failed",
+      message: "token is not valid"
+    };
+    res.send(obj);
+    return;
+  }
+  let data = userDetails.data();
+  let { email, firstname, lastname } = data;
+  let dateRegistered = new Date().getTime()
+  let displayName = firstname + " " + lastname;
+  let user = await admin
+    .auth()
+    .createUser({ email, password, emailVerified: true, displayName, })
+    .catch(e => {
+      // console.log(e);
+      // console.log(e.message);
+      let obj = {
+        err: e,
+        status: "failed",
+        message: e.message
+      };
+      res.send(obj);
+      return;
+    });
+
+  let client = {
+    name: firstname + " " + lastname,
+    email: email,
+    authId: user.uid,
+    dateRegistered
+  };
+  console.log(client);
+  await admin
+    .firestore()
+    .collection("clients")
+    .doc(user.uid)
+    .set(client);
+  await admin.auth().setCustomUserClaims(user.uid, { client: true });
+  let returnObj = {
+    message: "You account has been verified, you may now login to your dashboard",
+    status: "success"
+  };
+  res.send(returnObj);
+};
 
 exports.fetchLawyers = async (req, res) => {
   let { param, paramValue, limit, lastId } = req.body;
@@ -258,6 +331,38 @@ exports.details = async (req, res) => {
   }
   let lawyer = snapshot.data();
   let documents = renderDocuments(lawyer.docs);
-  console.log('documents',documents)
+  console.log('documents', documents)
   res.render("lawyer/lawyer-details", { ABS_PATH, lawyer, documents, title: 'Lawyer Details' });
-};
+
+}
+
+exports.verifyLawyer = async (req, res) => {
+  let { id } = req.query;
+  let snapshot = await admin.firestore().collection('lawyers').doc(id).get().catch((e) => { console.log(e) });
+  if (!snapshot.exists) {
+    res.send({
+      err: "error",
+      status: "failed",
+      message: "There is no user with this id"
+    });
+    return;
+  }
+  let lawyer = snapshot.data();
+  let newlawyer = { ...lawyer, status: 'verified' }
+  await admin.firestore().collection('lawyers').doc(id).set(newlawyer).catch((e) => {
+    console.log(e);
+    res.status(400).send({
+      err: "error",
+      status: "failed",
+      message: e.message
+    });
+  });
+  res.status(200).send({
+    status: "success",
+    message: "Lawyer status has been updated"
+  });
+}
+
+
+
+

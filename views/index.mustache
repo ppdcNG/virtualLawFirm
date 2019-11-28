@@ -102,31 +102,33 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <form id = "clientLogin">
           <div class="modal-body mx-3">
+          
             <p class="text-center h5">Login as client</p>
             <hr/>
             <p class="dark-link text-center h6">Or go to <a class="dark-link" href="/lawyer/login">Lawyer Login</a></p>
             <hr width="50"/>
             <div class="md-form mb-5">
               <i class="fas fa-envelope prefix grey-text"></i>
-              <input type="email" id="email" class="form-control validate">
+              <input type="email" id="email" class="form-control validate" required>
               <label data-error="wrong" data-success="right" for="email">Your email</label>
             </div>
 
             <div class="md-form mb-4">
               <i class="fas fa-lock prefix grey-text"></i>
-              <input type="password" id="pass" class="form-control validate">
+              <input type="password" name = "password" id="pass" class="form-control validate" required>
               <label data-error="wrong" data-success="right" for="pass">Your password</label>
             </div>
 
             <div class="text-center">
               <p>Don't have an account? <a href="/client/join">Register now</a></p>
             </div>
-
           </div>
           <div class="modal-footer d-flex justify-content-center">
-            <button class="btn btn-default">Login</button>
+            <button class="btn btn-default" type = "submit">Login</button>
           </div>
+          </form>
         </div>
       </div>
     </div>
@@ -194,6 +196,7 @@
   <script src="{{ABS_PATH}}js/auth.js"></script>
   <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
   <script src="{{ABS_PATH}}js/lawyer/lawyerScript.js"></script>
+  <script src="{{ABS_PATH}}js/client/clientScript.js"></script>
 
   <script>
     $('#signup').click(function() {
