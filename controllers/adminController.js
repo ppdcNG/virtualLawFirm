@@ -162,7 +162,7 @@ exports.verifyLawyerEmail = async (req, res) => {
 
 exports.fetchLawyers = async (req, res) => {
   let { param, paramValue, limit, lastId } = req.body;
-  console.log(limit);
+
   limit = parseInt(limit)
   let lawyerList = {};
   let lawyersRef = admin.firestore().collection('lawyers')
@@ -181,6 +181,7 @@ exports.fetchLawyers = async (req, res) => {
         }
       }
       else {
+        console.log()
         let snapshot = await lawyersRef.where('status', '==', paramValue).orderBy('dateRegistered', 'desc')
           .limit(limit).get().catch((e) => { console.log(e) })
         if (!snapshot.empty) {
@@ -243,8 +244,8 @@ exports.fetchLawyers = async (req, res) => {
 }
 
 exports.details = async (req, res) => {
-  let { id } = req.body;
-  let snapshot = await admin.firestore().collection('lawyers').doc('id').get().catch((e) => {
+  let { id } = req.query;
+  let snapshot = await admin.firestore().collection('lawyers').doc(id).get().catch((e) => {
     console.log(e);
   });
   if (!snapshot.exists) {
