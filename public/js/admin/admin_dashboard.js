@@ -38,10 +38,14 @@ const viewSummary = (id) => {
 
       // set location
       let location = "";
+      let photoUrl = "";
+
       if (lawyers[i].contact) {
-        location = `${lawyers[i].contact.lga}, ${lawyers[i].contact.country}`
+        location = `${lawyers[i].contact.lga}, ${lawyers[i].contact.country}`;
+        photoUrl = lawyers[i].contact.photoUrl;
       } else {
-        location = "N/A"
+        location = "N/A";
+        photoUrl = 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
       }
       // set experience yrs
       let expYears = "";
@@ -55,12 +59,13 @@ const viewSummary = (id) => {
       }
 
       // update the ui
+      $("#profilePic").attr("src", photoUrl);
       $("#name").text(lawyers[i].name);
       $("#loc").text(location);
       $("#exp").text(expYears);
       $("#fee").text(consultationFee);
 
-      $("#link").html(`<a href="/lawyer/details?id=${id}">Go to full details <i class="fas fa-caret-right"></i></a>`)
+      $("#link").html(`<a href="/admin/details?id=${id}">Go to full details <i class="fas fa-caret-right"></i></a>`)
 
     }
   }
