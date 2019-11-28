@@ -60,7 +60,7 @@ const viewSummary = (id) => {
       $("#exp").text(expYears);
       $("#fee").text(consultationFee);
 
-      $("#link").html(`<a href="/lawyer/details?id=${id}">Go to full details <i class="fas fa-caret-right"></i></a>`)
+      $("#link").html(`<a href="/admin/details?id=${id}">Go to full details <i class="fas fa-caret-right"></i></a>`)
 
     }
   }
