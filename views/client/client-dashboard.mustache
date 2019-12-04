@@ -133,25 +133,25 @@
                   <h4 class="mb-2">Messages</h4>
                   <section class="client__chat">
                     <div class="container">
-                      <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:50;">
+                      <img src="" alt="Avatar" style="width:50;">
                       <p>Hello. How are you today?</p>
                       <span class="time-right">11:00</span>
                     </div>
 
                     <div class="container darker">
-                      <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:50;">
+                      <img src="" alt="Avatar" class="right" style="width:50;">
                       <p>Hey! I'm fine. Thanks for asking!</p>
                       <span class="time-left">11:01</span>
                     </div>
 
                     <div class="container">
-                      <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:50;">
+                      <img src="" alt="Avatar" style="width:50;">
                       <p>Sweet! So, who do you wanna sue today?</p>
                       <span class="time-right">11:02</span>
                     </div>
 
                     <div class="container darker">
-                      <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:50;">
+                      <img src="" alt="Avatar" class="right" style="width:50;">
                       <p>Nah, I dunno. My ex?</p>
                       <span class="time-left">11:05</span>
                     </div>
@@ -164,8 +164,6 @@
         </div>
     </div>
 </main>
-
-{{> footer}}
 
 <!-- Modal -->
 <div class="modal fade" id="updateProfileModal" tabindex="-1" role="dialog" aria-labelledby="updateProfileModalTitle"
@@ -185,26 +183,28 @@
       <div class="modal-body">
 
             <form id="" class="text-center container">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/6-col/img%20(131).jpg" style="width:150;height:150" class="rounded-circle mx-auto d-block" alt="profile_pic">
+                <img id="chosenPic" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/6-col/img%20(131).jpg" style="width:100;height:100" class="rounded-circle mx-auto d-block" alt="profile_pic">
                 <hr/>
                 <div class="md-form">
                     <div class="custom-file">
                       <input type="file" class="custom-file-input" id="profilePic" accept="image/x-png,image/jpg,image/jpeg" required>
                       <label class="custom-file-label" for="profilePic" data-browse="Select">Select a profile picture</label>
                     </div>
+                <button type="button" class="btn btn-info mt-3" id="uploadPic">Upload</button>
                 </div>
-                <hr/>
-                <div class="card p-3">ID</div>
-                <hr/>
+
+                <hr class="border"/>
+
+                <div class="text-center">
+                  <img id="chosenIdDoc" src="https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png" width="100" />
+                </div>
                 <div class="md-form">
                   <div class="custom-file">
                     <input type="file" class="custom-file-input" id="profilePic" accept="image/x-png,image/jpg,image/jpeg" required>
-                    <label class="custom-file-label" for="profilePic" data-browse="Select">Upload ID</label>
+                    <label class="custom-file-label" for="profilePic" data-browse="Select">Select ID</label>
                   </div>
+                <button type="button" class="btn btn-info mt-3">Upload</button>
                 </div>
-
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
 
             </form>
 
@@ -274,3 +274,15 @@
     </div>
   </div>
 </div>
+
+{{> footer}}
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/libraries/js2form.js"></script>
+<script src="{{ABS_PATH}}js/client/clientScript.js"></script>
+<script src="{{ABS_PATH}}js/client/clientDashboard.js"></script>
+
+<script>
+  loadBtn("uploadPcic");
+</script>
