@@ -21,12 +21,12 @@ exports.legalDocsPage = (req, res) => {
     res.render('client/legal-docs', { title: 'Legal Documents', ABS_PATH })
 }
 exports.confirm = (req, res) => {
-    res.render("lawyer/client-confirm", { token: req.query.token, ABS_PATH });
-    console.log(req);
+    res.render("client/client-confirm", { token: req.query.token, ABS_PATH });
 };
 
 exports.signup = async (req, res) => {
     let { email, firstname, lastname, phone } = req.body;
+    phone = "+234" + phone.substr(1, phone.length - 1);
     let data = { email, firstname, lastname, phone };
     let tok = token();
     let user = await admin.auth().getUserByEmail(email).catch((e) => {
@@ -77,7 +77,14 @@ exports.userLogin = async (req, res) => {
 }
 
 exports.dashboard = (req, res) => {
-    res.render('client/client-dashboard', { ABS_PATH, title: "Client Dashboard" });
+    let user = req.user;
+    console.log(user);
+    console.table(req.user);
+    let { uid, displayName, photoURL, email } = user;
+    photoURL = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
+    res.render('client/client-dashboard', {
+        title: 'Lawyer homepage', ABS_PATH, photoURL, uid, displayName, title: "Client Dashboard", email
+    });
 }
 
 exports.lawyerList = (req, res) => {
