@@ -71,6 +71,8 @@
                             <h3>Sadiq Abu</h3>
                             <p>sadiasg@gmail.com</p>
                             <a class="btn text-dark" data-toggle="modal" data-target="#updateProfileModal">Update profile</a>
+                            <hr/>
+                            <a class="btn btn-dark mt-3" data-toggle="modal" data-target="#changeSettingsModal">Change settings</a>
                         </div>
                       </div>
                   </div>
@@ -78,7 +80,7 @@
                   <div class="col-md-8">
                     <a class="default-color btn float-right" href="/client/findLawyer">Find a Lawyer</a>
                     <br/>
-                    <h4>My Cases</h4>
+                    <h4>My Matters</h4>
                     <hr/>
                     <table class="table table-bordered tale-striped" id="casesTable">
                         <thead class="black white-text">
@@ -185,6 +187,12 @@
             <form id="" class="text-center container">
                 <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/6-col/img%20(131).jpg" style="width:150;height:150" class="rounded-circle mx-auto d-block" alt="profile_pic">
                 <hr/>
+                <div class="md-form">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="profilePic" accept="image/x-png,image/jpg,image/jpeg" required>
+                      <label class="custom-file-label" for="profilePic" data-browse="Select">Select a profile picture</label>
+                    </div>
+                </div>
                 <div class="form-row">
                     <div class="col">
                         <div class="md-form">
@@ -200,6 +208,39 @@
                     </div>
                 </div>
 
+                <hr/>
+                <div class="card p-3">ID</div>
+                <hr/>
+
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+
+            </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- change settings modal -->
+<div class="modal fade" id="changeSettingsModal" tabindex="-1" role="dialog" aria-labelledby="changeSettingsModalTitle"
+  aria-hidden="true">
+
+  <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+  <div class="modal-dialog modal-lg" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="changeSettingsModalTitle">Settings</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+            <form id="" class="text-center container">
                 <div class="md-form mt-0">
                     <input type="number" id="pnumber" name="number" class="form-control">
                     <label for="number">Phone number</label>
@@ -214,10 +255,6 @@
                     <input type="text" id="pswd" name="password" class="form-control">
                     <label for="password">Password</label>
                 </div>
-
-                <hr/>
-                <div class="card p-3">ID</div>
-                <hr/>
 
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary">Save changes</button>

@@ -10,5 +10,6 @@ router.post('/login', clientController.userLogin)
 router.post('/signup', clientController.signup);
 
 router.get('/dashboard', clientController.dashboard);
+router.get('/lawyerList', clientController.lawyerList);
 
 module.exports = router;
