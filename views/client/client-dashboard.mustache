@@ -21,7 +21,7 @@
       <ul class="navbar-nav ml-auto nav-flex-icons">
         <li class="nav-item avatar">
             <a class="nav-link p-0" href="#">
-            <img src="" class="rounded-circle z-depth-0"
+            <img src="{{photoURL}}" class="rounded-circle z-depth-0"
                 alt="avatar image" height="40">
             </a>
         </li>
@@ -65,11 +65,11 @@
 
                   <div class="col-md-4">
                     <div class="border py-2">
-                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/6-col/img%20(131).jpg" style="width:150;height:150" class="rounded-circle mx-auto d-block" alt="profile_pic">
+                        <img src="{{photoURL}}" style="width:150;height:150" class="rounded-circle mx-auto d-block" alt="profile_pic">
                         <div class="text-center mt-2">
                             <hr width="50%">
-                            <h3>Sadiq Abu</h3>
-                            <p>sadiasg@gmail.com</p>
+                            <h3>{{displayName}}</h3>
+                            <p>{{email}}</p>
                             <a class="btn text-dark" data-toggle="modal" data-target="#updateProfileModal">Update profile</a>
                         </div>
                       </div>
@@ -78,7 +78,7 @@
                   <div class="col-md-8">
                     <a class="default-color btn float-right" href="/client/findLawyer">Find a Lawyer</a>
                     <br/>
-                    <h4>My Cases</h4>
+                    <h4>My Matter</h4>
                     <hr/>
                     <table class="table table-bordered tale-striped" id="casesTable">
                         <thead class="black white-text">

@@ -195,12 +195,12 @@ exports.verifyUserEmail = async (req, res) => {
     return;
   }
   let data = userDetails.data();
-  let { email, firstname, lastname } = data;
+  let { email, firstname, lastname, phone } = data;
   let dateRegistered = new Date().getTime()
   let displayName = firstname + " " + lastname;
   let user = await admin
     .auth()
-    .createUser({ email, password, emailVerified: true, displayName, })
+    .createUser({ email, password, emailVerified: true, displayName, phoneNumber: phone })
     .catch(e => {
       // console.log(e);
       // console.log(e.message);

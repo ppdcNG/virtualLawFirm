@@ -9,15 +9,16 @@ $("#clientConfirm").submit(function (e) {
         return false;
     }
     $(this)[0].reset();
+    buttonLoad('continue');
     $.ajax({
-        url: ABS_PATH + "admin/verifyLawyerEmail",
+        url: ABS_PATH + "admin/verifyUserEmail",
         data: form,
         type: "POST",
         success: function (response) {
             console.log(response);
             if (!response.err) {
-                $.notify("User created successfully", { type: "success" });
-                setTimeout(function () { window.location = ABS_PATH + 'lawyer/login' }, 2000);
+                $.notify(response.message, { type: "success" });
+                setTimeout(function () { window.location = ABS_PATH }, 2000);
             } else {
                 $.notify(response.message, { type: "warning" });
                 clearLoad('continue', 'Continue');
@@ -56,7 +57,7 @@ const clientSignIn = async (email, password) => {
                 console.log(response);
                 if (response.status == "success") {
                     $.notify("Logging in", { type: "success" });
-                    setTimeout(function () { window.location = ABS_PATH + 'lawyer/dashboard' }, 2000);
+                    setTimeout(function () { window.location = ABS_PATH + 'client/dashboard' }, 2000);
                 }
             },
             error: e => console.log(e)
@@ -72,6 +73,12 @@ $("#clientRegisterForm").submit(e => {
     e.preventDefault();
     var form = form2js("clientRegisterForm", ".");
 
+    if (form.email !== form.emailconfirm) {
+        $.notify('Your email do not match.. Please Try again', { type: 'warning' });
+        return;
+    }
+    buttonLoad('signup');
+
     $.ajax({
         url: ABS_PATH + "client/signup",
         data: form,
@@ -83,12 +90,11 @@ $("#clientRegisterForm").submit(e => {
             if (!response.err) {
                 $("#close").trigger("click");
                 $.notify("Check your email to continue", { type: "success" });
-                $('#signup').html('<span>Sign up</span>').removeClass('disabled');
             } else {
                 $("#close").trigger("click");
                 $.notify(response.message, { type: "warning" });
-                $('#signup').html('<span>Sign up</span>').removeClass('disabled');
             }
+            clearLoad('signup', 'Register');
         },
         error: e => console.log(e)
     });
