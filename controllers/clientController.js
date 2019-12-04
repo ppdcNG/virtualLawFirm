@@ -8,12 +8,12 @@ var admin = require("firebase-admin");
 
 
 
-exports.clientLandingPage = (req, res) => {
-    res.render('client/client-landing', { title: 'Client page', ABS_PATH })
+exports.findLawyer = (req, res) => {
+    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH })
 };
 
 exports.registrationPage = (req, res) => {
-    res.render('auth/client-join', { title: 'Register', ABS_PATH })
+    res.render('client/client-join', { title: 'Register', ABS_PATH })
 };
 
 exports.legalDocsPage = (req, res) => {
@@ -73,4 +73,8 @@ exports.userLogin = async (req, res) => {
     res.cookie("session", sessionCookie, options);
     let response = { status: "success", message: "User Logged In successfully" };
     res.send(response);
+}
+
+exports.dashboard = (req, res) => {
+    res.render('client/client-dashboard', { ABS_PATH, title: "Client Dashboard" });
 }

@@ -11,8 +11,6 @@ var filter = {
 var lawyers = "";
 
 const fetchLawyers = () => {
-  $.notify("Loading..", { type: "success" });
-
   $.ajax({
     url: ABS_PATH + fetchLawyersEndPoint,
     type: "POST",
@@ -124,3 +122,19 @@ $("#tag").change(function (e) {
 
   fetchLawyers();
 });
+
+function clearLoad(id, text) {
+  $('#' + id).html('<span>' + text + '</span >');
+}
+
+const verifyLawyer = id => {
+  $.ajax({
+    url: `${ABS_PATH}admin/verifyLawyer?id=${id}`,
+    type: "POST",
+    success: function (response) {
+      clearLoad("verify", "verified");
+      $.notify("Lawyer verified!", { type: "success" });
+    },
+    error: err => console.log("error", err)
+  });
+}

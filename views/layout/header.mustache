@@ -23,9 +23,58 @@
   <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 
   <style type="text/css">
-    body {font-family: 'Lato', sans-serif; scroll-behavior: smooth;}
+    body {font-family: 'Lato', sans-serif; scroll-behavior: smooth;margin:0;padding:0; overflow-x: hidden}
     div.parent-box { display: table; width:100%;}
     div.child-box { display: table-cell; vertical-align: middle; font-size: xx-large; }
+    #client--main .nav-link.active {background-color: #49bcad;}
+    @media only screen and (max-width: 600px) {
+      #client--dashboard__links > a { display: inline; }
+    }
+
+/* client chat */
+.client__chat .container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.client__chat .darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+.client__chat .container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.client__chat .container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.client__chat .container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.client__chat .time-right {
+  float: right;
+  color: #aaa;
+}
+
+.client__chat .time-left {
+  float: left;
+  color: #999;
+}
+/* end client chat */
   </style>
 
   <title> {{title}} </title>

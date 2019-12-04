@@ -107,7 +107,7 @@
                                     <li class="list-group-item"><b>N/A</b></li>                                                                            
                                 {{/lawyer.portfolio}}
                                 <hr/>
-                                <li class="list-group-item text-uppercase"><b>Status:</b> {{lawyer.status}}</li>
+                                <li class="list-group-item text-uppercase"><b>Status:</b> <span id="status">{{lawyer.status}}</span></li>
                             </ul>
                         </div>
                     </div>
@@ -213,7 +213,7 @@
 
                 {{! buttons }}
                 <div class="mt-3">
-                    <button class="btn btn-success">Verify</button>
+                    <button class="btn btn-success" onclick="verifyLawyer('{{lawyer.authId}}')" id="verify">Verify</button>
                     <button class="btn btn-danger">Delete</button>
                     <button class="btn btn-primary" data-toggle="modal" data-target="#msgModal">Send Message</button>
                 </button>
@@ -230,6 +230,14 @@
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/admin/admin_dashboard_render.js"></script>
 <script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
+
+<script>
+  loadBtn("verify");
+
+  if ($("#status").text() === 'verified') {
+      $("#verify").text('verified').addClass('disabled');
+  }
+</script>
 
 
 <!-- message modal -->

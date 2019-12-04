@@ -1,0 +1,230 @@
+{{> header}}
+
+<header>
+  <!--Navbar -->
+  <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+    <a class="navbar-brand default-color p-3" href="#">A&E Virtual Law</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+      aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto nav-flex-icons">
+        <li class="nav-item avatar">
+            <a class="nav-link p-0" href="#">
+            <img src="" class="rounded-circle z-depth-0"
+                alt="avatar image" height="40">
+            </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </li>
+      </ul>
+
+        
+    </div>
+  </nav>
+  <!--/.Navbar -->
+</header>
+
+
+<main class="h-75 mt-3 pl-3 pr-3" id="client--main">
+
+    <div class="d-flex justify-content-center">
+    <ul class="nav nav-tabs md-tabs" id="myTabEx" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active show" id="dashboard-tab-ex" data-toggle="tab" href="#dashboard-ex" role="tab" aria-controls="dashboard-ex"
+            aria-selected="true">DASHBOARD</a>
+        </li>
+        {{! <li class="nav-item">
+            <a class="nav-link" id="profile-tab-ex" data-toggle="tab" href="#profile-ex" role="tab" aria-controls="profile-ex"
+            aria-selected="false">PROFILE</a>
+        </li> }}
+        <li class="nav-item">
+            <a class="nav-link" id="chat-tab-ex" data-toggle="tab" href="#chat-ex" role="tab" aria-controls="chat-ex"
+            aria-selected="false">CHAT</a>
+        </li>
+    </ul>
+    </div>
+    <div class="tab-content pt-3" id="myTabContentEx">
+        <div class="tab-pane fade active show" id="dashboard-ex" role="tabpanel" aria-labelledby="dashboard-tab-ex">
+              <hr/>
+              <div class="container-fluid">
+                <div class="row mt-3">
+
+                  <div class="col-md-4">
+                    <div class="border py-2">
+                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/6-col/img%20(131).jpg" style="width:150;height:150" class="rounded-circle mx-auto d-block" alt="profile_pic">
+                        <div class="text-center mt-2">
+                            <hr width="50%">
+                            <h3>Sadiq Abu</h3>
+                            <p>sadiasg@gmail.com</p>
+                            <a class="btn text-dark" data-toggle="modal" data-target="#updateProfileModal">Update profile</a>
+                        </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-8">
+                    <a class="default-color btn float-right" href="/client/findLawyer">Find a Lawyer</a>
+                    <br/>
+                    <h4>My Cases</h4>
+                    <hr/>
+                    <table class="table table-bordered tale-striped" id="casesTable">
+                        <thead class="black white-text">
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">Subject</th>
+                                <th scope="col">Lawyer</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>A vs B</td>
+                            <td>John doe</td>
+                            <td>Closed</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">2</th>
+                              <td>Theft case</td>
+                              <td>Jane doe</td>
+                              <td>Closed</td>
+                          </tr>
+                        </tbody>
+                    </table>
+
+                  </div>
+
+                </div>
+              </div>
+
+        </div>
+
+        {{! <div class="tab-pane fade" id="profile-ex" role="tabpanel" aria-labelledby="profile-tab-ex">
+            <p>Profile.</p>
+        </div> }}
+
+        <div class="tab-pane fade" id="chat-ex" role="tabpanel" aria-labelledby="chat-tab-ex">
+          <div class="container-fluid">
+          
+            <div class="row">
+              <div class="col-md-2 px-3 default-color">
+                <a class="card my-2 p-2">Person 1</a>
+                <a class="card my-2 p-2">Person 2</a>
+                <a class="card my-2 p-2">Person 3</a>
+                <a class="card my-2 p-2">Person 4</a>
+              </div>
+              <div class="col-md-10">
+                <div class="border">
+                  <h4 class="mb-2">Messages</h4>
+                  <section class="client__chat">
+                    <div class="container">
+                      <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:50;">
+                      <p>Hello. How are you today?</p>
+                      <span class="time-right">11:00</span>
+                    </div>
+
+                    <div class="container darker">
+                      <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:50;">
+                      <p>Hey! I'm fine. Thanks for asking!</p>
+                      <span class="time-left">11:01</span>
+                    </div>
+
+                    <div class="container">
+                      <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:50;">
+                      <p>Sweet! So, who do you wanna sue today?</p>
+                      <span class="time-right">11:02</span>
+                    </div>
+
+                    <div class="container darker">
+                      <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:50;">
+                      <p>Nah, I dunno. My ex?</p>
+                      <span class="time-left">11:05</span>
+                    </div>
+                  </section>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</main>
+
+{{> footer}}
+
+<!-- Modal -->
+<div class="modal fade" id="updateProfileModal" tabindex="-1" role="dialog" aria-labelledby="updateProfileModalTitle"
+  aria-hidden="true">
+
+  <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+  <div class="modal-dialog modal-lg" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateProfileModalTitle">Profile</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+            <form id="" class="text-center container">
+                <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/6-col/img%20(131).jpg" style="width:150;height:150" class="rounded-circle mx-auto d-block" alt="profile_pic">
+                <hr/>
+                <div class="form-row">
+                    <div class="col">
+                        <div class="md-form">
+                            <input type="text" id="fname" nmae="firstName" class="form-control">
+                            <label for="firstName">First name</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input type="text" id="lname" name="lastName" class="form-control">
+                            <label for="lastName">Last name</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md-form mt-0">
+                    <input type="number" id="pnumber" name="number" class="form-control">
+                    <label for="number">Phone number</label>
+                </div>
+                
+                <div class="md-form mt-0">
+                    <input type="email" id="email" name="email" class="form-control">
+                    <label for="email">E-mail</label>
+                </div>
+
+                 <div class="md-form mt-0">
+                    <input type="text" id="pswd" name="password" class="form-control">
+                    <label for="password">Password</label>
+                </div>
+
+                <hr/>
+                <div class="card p-3">ID</div>
+                <hr/>
+
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+
+            </form>
+
+      </div>
+    </div>
+  </div>
+</div>
