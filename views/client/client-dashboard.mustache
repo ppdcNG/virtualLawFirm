@@ -80,11 +80,7 @@
                   <div class="col-md-8">
                     <a class="default-color btn float-right" href="/client/findLawyer">Find a Lawyer</a>
                     <br/>
-<<<<<<< HEAD
                     <h4>My Matters</h4>
-=======
-                    <h4>My Matter</h4>
->>>>>>> 6f37121c2167ead00302096e9990a41dde37643e
                     <hr/>
                     <table class="table table-bordered tale-striped" id="casesTable">
                         <thead class="black white-text">
@@ -197,24 +193,15 @@
                       <label class="custom-file-label" for="profilePic" data-browse="Select">Select a profile picture</label>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="col">
-                        <div class="md-form">
-                            <input type="text" id="fname" nmae="firstName" class="form-control">
-                            <label for="firstName">First name</label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="md-form">
-                            <input type="text" id="lname" name="lastName" class="form-control">
-                            <label for="lastName">Last name</label>
-                        </div>
-                    </div>
-                </div>
-
                 <hr/>
                 <div class="card p-3">ID</div>
                 <hr/>
+                <div class="md-form">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="profilePic" accept="image/x-png,image/jpg,image/jpeg" required>
+                    <label class="custom-file-label" for="profilePic" data-browse="Select">Upload ID</label>
+                  </div>
+                </div>
 
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary">Save changes</button>
@@ -245,6 +232,21 @@
       <div class="modal-body">
 
             <form id="" class="text-center container">
+                <div class="form-row">
+                    <div class="col">
+                        <div class="md-form">
+                            <input type="text" id="fname" nmae="firstName" class="form-control">
+                            <label for="firstName">First name</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input type="text" id="lname" name="lastName" class="form-control">
+                            <label for="lastName">Last name</label>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="md-form mt-0">
                     <input type="number" id="pnumber" name="number" class="form-control">
                     <label for="number">Phone number</label>
