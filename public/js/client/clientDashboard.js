@@ -1,9 +1,10 @@
-function readURL(input) {
+function readURL(input, id) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            $('#chosenPic').attr('src', e.target.result);
+            // $('#chosenPic').attr('src', e.target.result);
+            $('#' + id).attr('src', e.target.result);
         }
 
         reader.readAsDataURL(input.files[0]);
@@ -11,7 +12,11 @@ function readURL(input) {
 }
 
 $("#profilePic").change(function () {
-    readURL(this);
+    readURL(this, 'chosenPic');
+});
+
+$("#idcard").change(function () {
+    readURL(this, 'chosenIdDoc');
 });
 
 // upload profile pic
@@ -38,7 +43,7 @@ $("#uploadPic").submit(async function (e) {
     console.table(form)
 
     $.ajax({
-        url: ABS_PATH + "/client/updateProfile",
+        url: ABS_PATH + "client/updateProfile",
         data: form,
         type: "POST",
         success: function (response) {
@@ -46,9 +51,11 @@ $("#uploadPic").submit(async function (e) {
             if (!response.err) {
                 $.notify("Saved!", { type: "success" });
             } else {
-                clearLoad('uploadPicBtn', 'Upload');
                 $.notify(response.message, { type: "warning" });
             }
+
+            clearLoad('uploadPicBtn', 'Upload');
+            location.reload();
         },
         error: err => {
             console.error('error', err);
@@ -67,7 +74,7 @@ $("#uploadID").submit(async function (e) {
     console.log(uid);
 
     let file = $("#idcard")[0].files[0];
-    let validImages = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf'];
+    let validImages = ['image/png', 'image/jpg', 'image/jpeg'];
     if (validImages.indexOf(file.type) < 0) {
         $.notify('Invalid File type provided. Valid Files' + validImages.join(' '), { type: "warning" });
         clearLoad('uploadIdBtn', 'Upload');
@@ -83,7 +90,7 @@ $("#uploadID").submit(async function (e) {
     console.table(form)
 
     $.ajax({
-        url: ABS_PATH + "/client/updateProfile",
+        url: ABS_PATH + "client/updateProfile",
         data: form,
         type: "POST",
         success: function (response) {
@@ -91,9 +98,10 @@ $("#uploadID").submit(async function (e) {
             if (!response.err) {
                 $.notify("Saved!", { type: "success" });
             } else {
-                clearLoad('uploadIdBtn', 'Upload');
                 $.notify(response.message, { type: "warning" });
             }
+            clearLoad('uploadIdBtn', 'Upload');
+            location.reload();
         },
         error: err => {
             console.error('error', err);
