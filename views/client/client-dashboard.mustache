@@ -263,12 +263,10 @@
                 </div>
 
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" type = "submit">Save changes</button>
+              <button type="submit" id = "submitprofile" class="btn btn-primary" type = "submit">Save changes</button>
 
             </form>
-            <script>
-            $("#settingsForm input").trigger('change');
-            </script>
+      
 
       </div>
     </div>
@@ -276,7 +274,7 @@
 </div>
 
 {{> footer}}
-<script>
+<script type = "text/javascript">
             $("#settingsForm input").trigger('change');
 </script>
 <script src="{{ABS_PATH}}js/auth.js"></script>
