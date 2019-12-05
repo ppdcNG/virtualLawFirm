@@ -9,7 +9,8 @@ var admin = require("firebase-admin");
 
 
 exports.findLawyer = (req, res) => {
-    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH })
+    let tags = tagOptions();
+    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, tags })
 };
 
 exports.registrationPage = (req, res) => {

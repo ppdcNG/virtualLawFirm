@@ -42,15 +42,15 @@
     <hr/>
     <div class="d-flex justify-content-center">
         <!-- Material form group -->
-        <form class="w-100 border p-3">
+        <form class="w-100 border p-3" id="findLawyerForm">
             <!-- Material input -->
             <div class="md-form form-group mt-5">
-                <input type="text" class="form-control" id="subject">
+                <input type="text" class="form-control" name="subject" id="subject">
                 <label for="subject">Subject</label>
             </div>
   
             <div class="md-form mb-4 pink-textarea active-pink-textarea-2">
-                <textarea id="form23" class="md-textarea form-control" rows="3"></textarea>
+                <textarea id="form23" class="md-textarea form-control" name="message" rows="3"></textarea>
                 <label for="form23">Type your issue here</label>
             </div>
 
@@ -61,7 +61,7 @@
                 </select>
             </div>
             <div class="md-form text-right">
-                <a href="/client/lawyerList" class="btn btn-primary">Next <i class="fas fa-arrow-right"></i></a>
+                <button type="submit" id="next" class="btn btn-primary">Next <i class="fas fa-arrow-right"></i></button>
             </div>
         </form>
         <!-- Material form group -->
@@ -73,6 +73,7 @@
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
 <script src="{{ABS_PATH}}js/client/clientScript.js"></script>
+<script src="{{ABS_PATH}}js/client/clientDashboard.js"></script>
 
 <script>
     $('#tags').select2();

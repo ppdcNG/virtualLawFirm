@@ -47,6 +47,7 @@ $("#uploadPic").submit(async function (e) {
         data: form,
         type: "POST",
         success: function (response) {
+            $("#closeProfileModal").trigger("click");
             console.log(response);
             if (!response.err) {
                 $.notify("Saved!", { type: "success" });
@@ -136,5 +137,35 @@ $("#settingsForm").submit(function (e) {
             clearLoad('submitprofile', 'Save Changes');
         }
     });
+
+});
+
+//find lawyer
+$("#findLawyerForm").submit(async function (e) {
+    e.preventDefault();
+
+    let form = form2js("findLawyerForm", ".");
+    form = JSON.stringify(form);
+
+    let data = { data: form }
+    console.log(data);
+
+    $.ajax({
+        url: ABS_PATH + "client/findLawyers",
+        data: { data: form },
+        type: "POST",
+        success: function (response) {
+            if (!response.err) {
+                $.notify("User created successfully", { type: "success" });
+                setTimeout(function () { window.location = ABS_PATH + 'client/lawyerList' }, 2000);
+            } else {
+                $.notify(response.message, { type: "warning" });
+            }
+        },
+        error: e => {
+            clearLoad('saveUpload', 'Submit');
+            console.log('error', e);
+        }
+    })
 
 });
