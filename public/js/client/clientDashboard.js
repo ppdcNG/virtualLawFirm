@@ -14,6 +14,7 @@ $("#profilePic").change(function () {
     readURL(this);
 });
 
+// upload profile pic
 $("#uploadPic").submit(async function (e) {
     e.preventDefault();
 
@@ -24,14 +25,14 @@ $("#uploadPic").submit(async function (e) {
     let validImages = ['image/png', 'image/jpg', 'image/jpeg'];
     if (validImages.indexOf(file.type) < 0) {
         $.notify('Invalid File type provided. Valid Files' + validImages.join(' '), { type: "warning" });
-        clearLoad('uploadPic', 'Upload');
+        clearLoad('uploadPicBtn', 'Upload');
         return false;
     }
 
     let task = await firebase.storage().ref('userfiles/' + uid).put(file);
     let url = await task.ref.getDownloadURL();
 
-    form.photoUrl = url;
+    form.url = url;
     form.type = "profilePic"
 
     console.table(form)
@@ -45,17 +46,63 @@ $("#uploadPic").submit(async function (e) {
             if (!response.err) {
                 $.notify("Saved!", { type: "success" });
             } else {
-                clearLoad('saveContact', 'Save');
+                clearLoad('uploadPicBtn', 'Upload');
                 $.notify(response.message, { type: "warning" });
             }
         },
         error: err => {
             console.error('error', err);
-            clearLoad('uploadPic', 'Upload');
+            clearLoad('uploadPicBtn', 'Upload');
         }
     })
 
 });
+
+// upload id card
+$("#uploadID").submit(async function (e) {
+    e.preventDefault();
+
+    let form = form2js("uploadID", ".");
+    let uid = $("#uid").val();
+    console.log(uid);
+
+    let file = $("#idcard")[0].files[0];
+    let validImages = ['image/png', 'image/jpg', 'image/jpeg', 'application/pdf'];
+    if (validImages.indexOf(file.type) < 0) {
+        $.notify('Invalid File type provided. Valid Files' + validImages.join(' '), { type: "warning" });
+        clearLoad('uploadIdBtn', 'Upload');
+        return false;
+    }
+
+    let task = await firebase.storage().ref('idcards/' + uid).put(file);
+    let url = await task.ref.getDownloadURL();
+
+    form.url = url;
+    form.type = "idCard"
+
+    console.table(form)
+
+    $.ajax({
+        url: ABS_PATH + "/client/updateProfile",
+        data: form,
+        type: "POST",
+        success: function (response) {
+            console.log(response);
+            if (!response.err) {
+                $.notify("Saved!", { type: "success" });
+            } else {
+                clearLoad('uploadIdBtn', 'Upload');
+                $.notify(response.message, { type: "warning" });
+            }
+        },
+        error: err => {
+            console.error('error', err);
+            clearLoad('uploadIdBtn', 'Upload');
+        }
+    })
+
+});
+
 
 $("#settingsForm").submit(function (e) {
     e.preventDefault();

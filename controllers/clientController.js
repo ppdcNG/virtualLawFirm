@@ -77,12 +77,13 @@ exports.userLogin = async (req, res) => {
 
 exports.dashboard = (req, res) => {
     let user = req.user;
-    //console.table(req.user);
+    // console.table(req.user);
     let { uid, displayName, photoURL, phoneNumber, email } = user;
     console.log(phoneNumber);
     let name = displayName.split(" ");
+    console.log(name)
     let firstname = name[0];
-    let lastname = name[1];
+    let lastname = name[name.length - 1];
     photoURL = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
     res.render('client/client-dashboard', {
         title: 'Lawyer homepage', ABS_PATH, photoURL, uid, displayName, title: "Client Dashboard", email, firstname, lastname, phoneNumber
