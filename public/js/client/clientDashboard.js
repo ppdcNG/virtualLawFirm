@@ -156,14 +156,13 @@ $("#findLawyerForm").submit(async function (e) {
         type: "POST",
         success: function (response) {
             if (!response.err) {
-                $.notify("User created successfully", { type: "success" });
+                $.notify("Loading..", { type: "success" });
                 setTimeout(function () { window.location = ABS_PATH + 'client/lawyerList' }, 2000);
             } else {
                 $.notify(response.message, { type: "warning" });
             }
         },
         error: e => {
-            clearLoad('saveUpload', 'Submit');
             console.log('error', e);
         }
     })
