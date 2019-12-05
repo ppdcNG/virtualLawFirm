@@ -36,24 +36,48 @@ $("#uploadPic").submit(async function (e) {
 
     console.table(form)
 
-    // $.ajax({
-    //     url: ABS_PATH + "/client/updateProfile",
-    //     data: form,
-    //     type: "POST",
-    //     success: function (response) {
-    //         // console.log(response);
-    //         // if (!response.err) {
-    //         //     $.notify("Saved!", { type: "success" });
-    //         //     clearLoad('saveContact', 'Save');
-    //         // } else {
-    //         //     clearLoad('saveContact', 'Save');
-    //         //     $.notify(response.message, { type: "warning" });
-    //         // }
-    //     },
-    //     error: err => {
-    //         console.error('error', err);
-    //         clearLoad('uploadPic', 'Upload');
-    //     }
-    // })
+    $.ajax({
+        url: ABS_PATH + "/client/updateProfile",
+        data: form,
+        type: "POST",
+        success: function (response) {
+            console.log(response);
+            if (!response.err) {
+                $.notify("Saved!", { type: "success" });
+            } else {
+                clearLoad('saveContact', 'Save');
+                $.notify(response.message, { type: "warning" });
+            }
+        },
+        error: err => {
+            console.error('error', err);
+            clearLoad('uploadPic', 'Upload');
+        }
+    })
+
+});
+
+$("#settingsForm").submit(function (e) {
+    e.preventDefault();
+    let settings = form2js('settingsForm', '.', false);
+    console.log(settings);
+    $.ajax({
+        url: ABS_PATH + "client/updateSettings",
+        data: settings,
+        type: "POST",
+        success: function (response) {
+            console.log(response);
+            if (!response.err) {
+                $.notify(response.message, { type: "success" });
+
+            } else {
+                $.notify(response.message, { type: "warning" });
+            }
+        },
+        error: e => {
+            console.log('error', e);
+            clearLoad('uploadPic', 'Upload');
+        }
+    });
 
 });

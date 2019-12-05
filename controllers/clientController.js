@@ -9,8 +9,7 @@ var admin = require("firebase-admin");
 
 
 exports.findLawyer = (req, res) => {
-    let tags = tagOptions();
-    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, tags })
+    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH })
 };
 
 exports.registrationPage = (req, res) => {
@@ -78,15 +77,62 @@ exports.userLogin = async (req, res) => {
 
 exports.dashboard = (req, res) => {
     let user = req.user;
-    console.log(user);
-    console.table(req.user);
-    let { uid, displayName, photoURL, email } = user;
+    //console.table(req.user);
+    let { uid, displayName, photoURL, phoneNumber, email } = user;
+    console.log(phoneNumber);
+    let name = displayName.split(" ");
+    let firstname = name[0];
+    let lastname = name[1];
     photoURL = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
     res.render('client/client-dashboard', {
-        title: 'Lawyer homepage', ABS_PATH, photoURL, uid, displayName, title: "Client Dashboard", email
+        title: 'Lawyer homepage', ABS_PATH, photoURL, uid, displayName, title: "Client Dashboard", email, firstname, lastname, phoneNumber
     });
 }
 
-exports.lawyerList = (req, res) => {
-    res.render('client/lawyer-list', { ABS_PATH, title: 'Lawyer List' });
+exports.updateProfile = async (req, res) => {
+    let { firstname, lastname, password, email, phoneNumber } = req.body;
+    let updateObj = {
+        displayName: firstname + " " + lastname,
+        email,
+        phoneNumber,
+    }
+    if (password) updateObj.password = password;
+    let user = await admin.auth().updateUser(req.user.uid, updateObj);
+    let dbuser = await admin.firestore().collection('clients').doc(req.user.uid).get().catch((e) => {
+        console.log(e);
+        let returnObj = {
+            err: e,
+            message: e.message,
+            status: "failed"
+        };
+        return res.status(400).send(returnObj);
+    });
+    if (dbuser.exists) {
+        dbuser = user.data();
+        let newobj = { ...dbuser, ...user, name: user.displayName }
+        await admin.firestore().collection('clients').doc(req.user.uid).set(newobj);
+        let returnObj = {
+            message: "User information updated Successfully",
+            status: "success"
+        };
+        res.status(200).send(returnObj);
+    }
+}
+
+exports.lawyerProfile = async (req, res) => {
+    let uid = req.user.uid;
+    let lawyer = await admin.firestore().collection('lawyers').doc(uid).get().catch((e) => {
+        console.log(e);
+        let returnObj = {
+            err: e,
+            message: e.message,
+            status: "failed"
+        };
+        return res.status(400).send(returnObj);
+
+    });
+    if (lawyer.exists) {
+        lawyerdetails = lawyer.data();
+        res.status(200).send(lawyerdetails);
+    }
 }
