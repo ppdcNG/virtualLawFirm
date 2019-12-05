@@ -108,12 +108,14 @@ $("#settingsForm").submit(function (e) {
     e.preventDefault();
     let settings = form2js('settingsForm', '.', false);
     console.log(settings);
+    buttonLoad('submitprofile');
     $.ajax({
         url: ABS_PATH + "client/updateSettings",
         data: settings,
         type: "POST",
         success: function (response) {
             console.log(response);
+            clearLoad('submitprofile', 'Save Changes');
             if (!response.err) {
                 $.notify(response.message, { type: "success" });
 
@@ -123,7 +125,7 @@ $("#settingsForm").submit(function (e) {
         },
         error: e => {
             console.log('error', e);
-            clearLoad('uploadPic', 'Upload');
+            clearLoad('submitprofile', 'Save Changes');
         }
     });
 

@@ -90,10 +90,11 @@ exports.dashboard = (req, res) => {
     });
 }
 
-exports.updateProfile = async (req, res) => {
+exports.updateSettings = async (req, res) => {
     let { firstname, lastname, password, email, phoneNumber } = req.body;
+    let displayName = firstname + " " + lastname;
     let updateObj = {
-        displayName: firstname + " " + lastname,
+        displayName,
         email,
         phoneNumber,
     }
@@ -109,8 +110,9 @@ exports.updateProfile = async (req, res) => {
         return res.status(400).send(returnObj);
     });
     if (dbuser.exists) {
-        dbuser = user.data();
-        let newobj = { ...dbuser, ...user, name: user.displayName }
+        let userdata = dbuser.data();
+        let newobj = { ...userdata, email, phoneNumber, name: displayName }
+        console.log(newobj);
         await admin.firestore().collection('clients').doc(req.user.uid).set(newobj);
         let returnObj = {
             message: "User information updated Successfully",
@@ -120,9 +122,46 @@ exports.updateProfile = async (req, res) => {
     }
 }
 
-exports.lawyerProfile = async (req, res) => {
+exports.updateProfile = async (req, res) => {
+    let { url, type } = req.body;
+    switch (type) {
+        case 'profilePic':
+            let obj = { photoURL: url };
+            await admin.auth().updateUser(req.user.uid, obj);
+            let returnObj = {
+                message: "Profile picture updated successfully.",
+                status: "success"
+            };
+            res.status(200).send(returnObj);
+            break;
+        case 'idCard':
+            let dbuser = await admin.firestore().collection('clients').doc(req.user.uid).get().catch((e) => {
+                console.log(e);
+                let returnObj = {
+                    err: e,
+                    message: e.message,
+                    status: "failed"
+                };
+                return res.status(400).send(returnObj);
+            });
+            if (dbuser.exists) {
+                let userdata = dbuser.data();
+                let newobj = { ...userdata, idCardURL: url }
+                console.log(newobj);
+                await admin.firestore().collection('clients').doc(req.user.uid).set(newobj);
+                let returnObj = {
+                    message: "User Id card updated Successfully",
+                    status: "success"
+                };
+                res.status(200).send(returnObj);
+            }
+            break;
+    }
+}
+
+exports.clientProfile = async (req, res) => {
     let uid = req.user.uid;
-    let lawyer = await admin.firestore().collection('lawyers').doc(uid).get().catch((e) => {
+    let lawyer = await admin.firestore().collection('clients').doc(uid).get().catch((e) => {
         console.log(e);
         let returnObj = {
             err: e,
