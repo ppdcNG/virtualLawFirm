@@ -181,3 +181,53 @@ exports.clientProfile = async (req, res) => {
         res.status(200).send(lawyerdetails);
     }
 }
+
+exports.fetchLawyers = async (req, res) => {
+    let { subject, issue, tags } = JSON.parse(req.body.data);
+    let obj = {
+        subject, issue, tags
+    }
+    let lawyers = {};
+    await admin.firestore().collection('issuesTemp').doc(req.user.uid).set(obj).catch((e) => {
+        console.log(e);
+        let returnObj = {
+            err: e,
+            message: e.message,
+            status: "failed"
+        };
+        return res.status(400).send(returnObj);
+    });
+
+    let data = await admin.firestore().collection('lawyers').where('portfolio.tags', 'array-contains-any', tags).get().catch((e) => {
+        console.log(e);
+        let returnObj = {
+            err: e,
+            message: e.message,
+            status: "failed"
+        };
+    });
+    if (data.empty) {
+        let returnObj = {
+            data: [],
+            message: "No lawyer found",
+            status: "success"
+        };
+        return res.status(200).send(returnObj);
+    }
+    data.forEach(lawyer => {
+        lawyers[lawyer.id] = lawyer.data();
+    });
+
+    let returnObj = {
+        data: lawyers,
+        message: "No lawyer found",
+        status: "success"
+    };
+    return res.status(200).send(returnObj);
+
+
+
+
+
+
+}
