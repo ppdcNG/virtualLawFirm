@@ -90,9 +90,15 @@ exports.dashboard = (req, res) => {
 }
 
 exports.updateProfile = async (req, res) => {
-    let data = JSON.parse(req.body.data);
-    let { specialization, workExperience, tags, consultationFee, documents } = data;
-    let user = await admin.firestore().collection('lawyers').doc(req.user.uid).get().catch((e) => {
+    let { firstname, lastname, password, email, phoneNumber } = req.body;
+    let updateObj = {
+        displayName: firstname + " " + lastname,
+        email,
+        phoneNumber,
+    }
+    if (password) updateObj.password = password;
+    let user = await admin.auth().updateUser(req.user.uid, updateObj);
+    let dbuser = await admin.firestore().collection('clients').doc(req.user.uid).get().catch((e) => {
         console.log(e);
         let returnObj = {
             err: e,
@@ -101,11 +107,10 @@ exports.updateProfile = async (req, res) => {
         };
         return res.status(400).send(returnObj);
     });
-    if (user.exists) {
-        user = user.data();
-        user.portfolio = { specialization, tags, workExperience, consultationFee };
-        user.docs = documents
-        await admin.firestore().collection('lawyers').doc(req.user.uid).set(user);
+    if (dbuser.exists) {
+        dbuser = user.data();
+        let newobj = { ...dbuser, ...user, name: user.displayName }
+        await admin.firestore().collection('clients').doc(req.user.uid).set(newobj);
         let returnObj = {
             message: "User information updated Successfully",
             status: "success"

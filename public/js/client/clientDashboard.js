@@ -51,6 +51,31 @@ $("#uploadPic").on("click", async function (e) {
             console.log('error', e);
             clearLoad('uploadPic', 'Upload');
         }
-    })
+    });
+
+});
+
+$("#settingsForm").submit(function (e) {
+    e.preventDefault();
+    let settings = form2js('settingsForm', '.', false);
+    console.log(settings);
+    $.ajax({
+        url: ABS_PATH + "client/updateSettings",
+        data: settings,
+        type: "POST",
+        success: function (response) {
+            console.log(response);
+            if (!response.err) {
+                $.notify(response.message, { type: "success" });
+
+            } else {
+                $.notify(response.message, { type: "warning" });
+            }
+        },
+        error: e => {
+            console.log('error', e);
+            clearLoad('uploadPic', 'Upload');
+        }
+    });
 
 });

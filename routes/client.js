@@ -12,6 +12,8 @@ router.post('/signup', clientController.signup);
 
 router.get('/dashboard', requireLogin, clientController.dashboard);
 //router.get('/lawyerList', clientController.lawyerList);
+router.post('/updateSetting', requireLogin, clientController.updateProfile);
+router.post('/')
 
 
 module.exports = router;
