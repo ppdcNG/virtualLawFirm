@@ -14,6 +14,7 @@ router.get('/dashboard', requireLogin, clientController.dashboard);
 // router.get('/lawyerList', clientController.lawyerList);
 router.post('/updateSettings', requireLogin, clientController.updateSettings);
 router.post('/updateProfile', requireLogin, clientController.updateProfile);
+router.post('/fetchLawyers', requireLogin, clientController.fetchLawyers);
 
 
 
