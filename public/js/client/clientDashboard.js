@@ -14,7 +14,7 @@ $("#profilePic").change(function () {
     readURL(this);
 });
 
-$("#uploadPic").on("click", async function (e) {
+$("#uploadPic").submit(async function (e) {
     e.preventDefault();
 
     let form = form2js("uploadPic", ".");
@@ -24,7 +24,7 @@ $("#uploadPic").on("click", async function (e) {
     let validImages = ['image/png', 'image/jpg', 'image/jpeg'];
     if (validImages.indexOf(file.type) < 0) {
         $.notify('Invalid File type provided. Valid Files' + validImages.join(' '), { type: "warning" });
-        // clearLoad('uploadPic', 'Upload');
+        clearLoad('uploadPic', 'Upload');
         return false;
     }
 
@@ -32,25 +32,28 @@ $("#uploadPic").on("click", async function (e) {
     let url = await task.ref.getDownloadURL();
 
     form.photoUrl = url;
+    form.type = "profilePic"
 
-    $.ajax({
-        url: ABS_PATH + "",
-        data: form,
-        type: "POST",
-        success: function (response) {
-            // console.log(response);
-            // if (!response.err) {
-            //     $.notify("Saved!", { type: "success" });
-            //     clearLoad('saveContact', 'Save');
-            // } else {
-            //     clearLoad('saveContact', 'Save');
-            //     $.notify(response.message, { type: "warning" });
-            // }
-        },
-        error: e => {
-            console.log('error', e);
-            clearLoad('uploadPic', 'Upload');
-        }
-    })
+    console.table(form)
+
+    // $.ajax({
+    //     url: ABS_PATH + "/client/updateProfile",
+    //     data: form,
+    //     type: "POST",
+    //     success: function (response) {
+    //         // console.log(response);
+    //         // if (!response.err) {
+    //         //     $.notify("Saved!", { type: "success" });
+    //         //     clearLoad('saveContact', 'Save');
+    //         // } else {
+    //         //     clearLoad('saveContact', 'Save');
+    //         //     $.notify(response.message, { type: "warning" });
+    //         // }
+    //     },
+    //     error: err => {
+    //         console.error('error', err);
+    //         clearLoad('uploadPic', 'Upload');
+    //     }
+    // })
 
 });
