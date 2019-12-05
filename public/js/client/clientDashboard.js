@@ -38,7 +38,7 @@ $("#uploadPic").submit(async function (e) {
     console.table(form)
 
     $.ajax({
-        url: ABS_PATH + "/client/updateProfile",
+        url: ABS_PATH + "client/updateProfile",
         data: form,
         type: "POST",
         success: function (response) {
@@ -83,7 +83,7 @@ $("#uploadID").submit(async function (e) {
     console.table(form)
 
     $.ajax({
-        url: ABS_PATH + "/client/updateProfile",
+        url: ABS_PATH + "client/updateProfile",
         data: form,
         type: "POST",
         success: function (response) {
