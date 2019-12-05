@@ -75,18 +75,22 @@ exports.userLogin = async (req, res) => {
     res.send(response);
 }
 
-exports.dashboard = (req, res) => {
+exports.dashboard = async (req, res) => {
     let user = req.user;
     // console.table(req.user);
     let { uid, displayName, photoURL, phoneNumber, email } = user;
     console.log(phoneNumber);
     let name = displayName.split(" ");
+    let userdb = await admin.firestore().collection('clients').doc(req.user.uid).get();
+    let userdata = userdb.data();
+    let { idCardURL } = userdata;
     console.log(name)
     let firstname = name[0];
     let lastname = name[name.length - 1];
     photoURL = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
+    idCardURL = idCardURL ? idCardURL : 'https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png';
     res.render('client/client-dashboard', {
-        title: 'Lawyer homepage', ABS_PATH, photoURL, uid, displayName, title: "Client Dashboard", email, firstname, lastname, phoneNumber
+        title: 'Lawyer homepage', ABS_PATH, photoURL, idCardURL, uid, displayName, title: "Client Dashboard", email, firstname, lastname, phoneNumber
     });
 }
 
