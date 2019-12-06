@@ -157,7 +157,8 @@ $("#findLawyerForm").submit(async function (e) {
         success: function (response) {
             if (!response.err) {
                 $.notify("Loading..", { type: "success" });
-                setTimeout(function () { window.location = ABS_PATH + 'client/lawyerList' }, 2000);
+                $("#findLawyersSection").css('display', 'none');
+                $("#fetchLawyersSection").css('display', 'block');
             } else {
                 $.notify(response.message, { type: "warning" });
             }
@@ -168,3 +169,8 @@ $("#findLawyerForm").submit(async function (e) {
     })
 
 });
+
+$("#prev").click(async function (e) {
+    $("#fetchLawyersSection").css('display', 'none');
+    $("#findLawyersSection").css('display', 'block');
+})
