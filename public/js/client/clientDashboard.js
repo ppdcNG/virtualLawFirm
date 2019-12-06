@@ -145,26 +145,40 @@ $("#findLawyerForm").submit(async function (e) {
     e.preventDefault();
 
     let form = form2js("findLawyerForm", ".");
-    form = JSON.stringify(form);
+    console.log(form);
+    // form = JSON.stringify(form);
 
-    let data = { data: form }
+    // let data = { data: form }
+    // console.log(data);
+    let data = {};
+    let lawyers = await firebase.firestore().collection('lawyers').where('portfolio.tags', 'array-contains-any', form.tags).get().catch((e) => {
+        console.log(e);
+    });
+    console.log('firbae done')
+    console.log(lawyers);
+    lawyers.forEach(lawyer => {
+        data[lawyer.id] = lawyer.data();
+    });
+
     console.log(data);
 
-    $.ajax({
-        url: ABS_PATH + "client/findLawyers",
-        data: { data: form },
-        type: "POST",
-        success: function (response) {
-            if (!response.err) {
-                $.notify("Loading..", { type: "success" });
-                setTimeout(function () { window.location = ABS_PATH + 'client/lawyerList' }, 2000);
-            } else {
-                $.notify(response.message, { type: "warning" });
-            }
-        },
-        error: e => {
-            console.log('error', e);
-        }
-    })
+
+    // $.ajax({
+    //     url: ABS_PATH + "client/fetchLawyers",
+    //     data: { data: form },
+    //     type: "POST",
+    //     success: function (response) {
+    //         console.log(response);
+    //         if (!response.err) {
+    //             $.notify("Loading..", { type: "success" });
+
+    //         } else {
+    //             $.notify(response.message, { type: "warning" });
+    //         }
+    //     },
+    //     error: e => {
+    //         console.log('error', e);
+    //     }
+    // })
 
 });

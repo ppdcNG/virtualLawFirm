@@ -1,4 +1,5 @@
 const fs = require('fs');
+const admin = require('firebase-admin');
 
 var rand = function () {
   return Math.random()
@@ -65,4 +66,15 @@ const renderDocument = doc => {
         </div>
       </li>
     `
+}
+
+exports.copyLawyers = async () => {
+  let batch = admin.firestore().batch();
+  let lawyers = await admin.firestore().collection('lawyers').get();
+  lawyers.forEach((lawyer) => {
+    let docref = admin.firestore().collection('lawyersList').doc(lawyer.id);
+    batch.set(docref, lawyer.data());
+  })
+  batch.commit();
+  console.log('successfully written');
 }
