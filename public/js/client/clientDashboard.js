@@ -154,7 +154,7 @@ $("#findLawyerForm").submit(async function (e) {
     let lawyers = await firebase.firestore().collection('lawyers').where('portfolio.tags', 'array-contains-any', form.tags).get().catch((e) => {
         console.log(e);
     });
-    console.log('firbae done')
+    console.log('firbase done')
     console.log(lawyers);
     lawyers.forEach(lawyer => {
         data[lawyer.id] = lawyer.data();
@@ -162,23 +162,25 @@ $("#findLawyerForm").submit(async function (e) {
 
     console.log(data);
 
-    $.ajax({
-        url: ABS_PATH + "client/fetchLawyers",
-        data: { data: form },
-        type: "POST",
-        success: function (response) {
-            if (!response.err) {
-                $.notify("Loading..", { type: "success" });
-                $("#findLawyersSection").css('display', 'none');
-                $("#fetchLawyersSection").css('display', 'block');
-            } else {
-                $.notify(response.message, { type: "warning" });
-            }
-        },
-        error: e => {
-            console.log('error', e);
-        }
-    })
+    $("#findLawyersSection").css('display', 'none');
+    $("#fetchLawyersSection").css('display', 'block');
+
+    // $.ajax({
+    //     url: ABS_PATH + "client/fetchLawyers",
+    //     data: { data: form },
+    //     type: "POST",
+    //     success: function (response) {
+    //         if (!response.err) {
+    //             $.notify("Loading..", { type: "success" });
+
+    //         } else {
+    //             $.notify(response.message, { type: "warning" });
+    //         }
+    //     },
+    //     error: e => {
+    //         console.log('error', e);
+    //     }
+    // })
 
 });
 
