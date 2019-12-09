@@ -1,3 +1,5 @@
+let lawyersList = {};
+
 function readURL(input, id) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -156,51 +158,28 @@ $("#findLawyerForm").submit(async function (e) {
     });
     console.log('firbase done')
     console.log(lawyers);
+    let lawyersHTML = '';
     lawyers.forEach(lawyer => {
-        data[lawyer.id] = lawyer.data();
+        lawyersList[lawyer.id] = lawyer.data();
+        lawyersHTML += renderFoundLawyer(lawyer.data());
     });
-
-    console.log(data);
-
+    $("#fetchlawyersList").html(lawyersHTML);
     $("#findLawyersSection").css('display', 'none');
     $("#fetchLawyersSection").css('display', 'block');
     clearLoad("next", "Next");
-
-    let newSection = "";
-
-    for (let i in data) {
-        let { name, contact, portfolio } = data[i];
-
-        newSection +=
-            `<li class="list-group-item d-flex justify-content-between align-items-center">
-                <img src="${contact.photoUrl}" class="rounded-circle mr-1" alt="profile_pic" width="40"/>
-                <span class="flex-fill">${name}</span><br/>
-                <span class="badge badge-info badge-pill p-3">&#8358;<span style="font-size:larger">${portfolio.consultationFee}</span></span>
-                <a class="btn blue-text ml-4">select</a>
-            </li>
-            `
-    }
-    $("#fetchlawyersList").empty();
-    $("#fetchlawyersList").append(newSection);
-
-    // $.ajax({
-    //     url: ABS_PATH + "client/fetchLawyers",
-    //     data: { data: form },
-    //     type: "POST",
-    //     success: function (response) {
-    //         if (!response.err) {
-    //             $.notify("Loading..", { type: "success" });
-
-    //         } else {
-    //             $.notify(response.message, { type: "warning" });
-    //         }
-    //     },
-    //     error: e => {
-    //         console.log('error', e);
-    //     }
-    // })
-
 });
+
+const renderFoundLawyer = lawyer => {
+    let { contact, portfolio, name, authId } = lawyer;
+    return `<li class="list-group-item d-flex justify-content-between align-items-center">
+    <img src="${contact.photoUrl}" class="rounded-circle mr-1" alt="profile_pic" width="40"/>
+    <span class="flex-fill">${name}</span><br/>
+    <span class="badge badge-info badge-pill p-3">&#8358;<span style="font-size:larger">${portfolio.consultationFee}</span></span>
+    <a class="btn blue-text ml-4" onclick = "selectLawyer('${authId}')">select</a>
+</li>
+`
+}
+
 
 $("#prev").click(async function (e) {
     $("#fetchLawyersSection").css('display', 'none');
