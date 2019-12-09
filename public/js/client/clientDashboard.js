@@ -164,6 +164,24 @@ $("#findLawyerForm").submit(async function (e) {
 
     $("#findLawyersSection").css('display', 'none');
     $("#fetchLawyersSection").css('display', 'block');
+    clearLoad("next", "Next");
+
+    let newSection = "";
+
+    for (let i in data) {
+        let { name, contact, portfolio } = data[i];
+
+        newSection +=
+            `<li class="list-group-item d-flex justify-content-between align-items-center">
+                <img src="${contact.photoUrl}" class="rounded-circle mr-1" alt="profile_pic" width="40"/>
+                <span class="flex-fill">${name}</span><br/>
+                <span class="badge badge-info badge-pill p-3">&#8358;<span style="font-size:larger">${portfolio.consultationFee}</span></span>
+                <a class="btn blue-text ml-4">select</a>
+            </li>
+            `
+    }
+    $("#fetchlawyersList").empty();
+    $("#fetchlawyersList").append(newSection);
 
     // $.ajax({
     //     url: ABS_PATH + "client/fetchLawyers",
