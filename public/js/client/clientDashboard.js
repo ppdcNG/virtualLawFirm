@@ -171,10 +171,15 @@ $("#findLawyerForm").submit(async function (e) {
 
 const renderFoundLawyer = lawyer => {
     let { contact, portfolio, name, authId } = lawyer;
+    console.log(lawyer)
+    let fee = accounting.formatNumber(portfolio.consultationFee);
+
     return `<li class="list-group-item d-flex justify-content-between align-items-center">
     <img src="${contact.photoUrl}" class="rounded-circle mr-1" alt="profile_pic" width="40"/>
     <span class="flex-fill">${name}</span><br/>
-    <span class="badge badge-info badge-pill p-3">&#8358;<span style="font-size:larger">${portfolio.consultationFee}</span></span>
+    <span class="flex-fill"><b>Specialization: </b>${portfolio.specialization}</span>
+    <span class="flex-fill"><b>Experience: ${portfolio.workExperience} Years</b></span>
+    <span class="badge badge-info badge-pill p-3" style="width:100px">&#8358;<span style="font-size:larger">${fee}</span></span>
     <a class="btn blue-text ml-4" onclick = "selectLawyer('${authId}')">select</a>
 </li>
 `
