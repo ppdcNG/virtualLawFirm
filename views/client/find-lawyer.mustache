@@ -53,18 +53,18 @@
         <form class="w-100 border p-3" id="findLawyerForm">
             <!-- Material input -->
             <div class="md-form form-group mt-5">
-                <input type="text" class="form-control" name="subject" id="subject">
+                <input type="text" class="form-control" name="subject" id="subject" required>
                 <label for="subject">Subject</label>
             </div>
   
             <div class="md-form mb-4 pink-textarea active-pink-textarea-2">
-                <textarea id="form23" class="md-textarea form-control" name="issue" rows="3"></textarea>
+                <textarea id="issues" class="md-textarea form-control" name="issue" rows="3" required></textarea>
                 <label for="form23">Type your issue here</label>
             </div>
 
               <div class="md-form">
               <span class="text-muted">Select Tags Below</span>
-                  <select class="tags form-control mt-2" id="tags" name="tags[]" multiple="multiple">
+                  <select class="tags form-control mt-2" id="tags" name="tags[]" multiple="multiple" required>
                       {{{tags}}}
                   </select>
               </div>
@@ -119,5 +119,5 @@
       maximumSelectionLength: 3
     });
 
-    loadBtn('next')
+    loadBtn('next');
 </script>

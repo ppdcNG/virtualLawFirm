@@ -148,6 +148,9 @@ $("#findLawyerForm").submit(async function (e) {
 
     let form = form2js("findLawyerForm", ".");
     console.log(form);
+
+    // $.notify(response.message, { type: "Searching Lawyers.." });
+
     // form = JSON.stringify(form);
 
     // let data = { data: form }
@@ -184,6 +187,10 @@ const renderFoundLawyer = lawyer => {
 </li>
 `
 }
+
+$("#subject").on("change keyup", function () {
+    clearLoad("next", "Next");
+})
 
 
 $("#prev").click(async function (e) {
