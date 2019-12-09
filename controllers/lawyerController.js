@@ -154,7 +154,11 @@ exports.updateRecord = async (req, res) => {
         user = user.data();
         user.record = { courtEnrollmentNumber, yearOfEnrollment, criminalRecord, criminalInvestigation, misconductIndictment, misconductInvestigation };
         user.accountDetails = accountDetails
-        await admin.firestore().collection('lawyers').doc(req.user.uid).set(user);
+        let docref = admin.firestore().collection('lawyersList').doc(req.user.uid);
+        let docref2 = admin.firestore().collection('lawyers').doc(req.user.uid);
+        batch.set(docref, user);
+        batch.set(docref2, user);
+        await batch.commit();
         let returnObj = {
             message: "User Contact information has been updated Successfully",
             status: "success"
@@ -164,6 +168,7 @@ exports.updateRecord = async (req, res) => {
 }
 
 exports.updateUploads = async (req, res) => {
+    let batch = admin.firestore().batch();
     let data = JSON.parse(req.body.data);
     let { specialization, workExperience, tags, consultationFee, documents } = data;
     let user = await admin.firestore().collection('lawyers').doc(req.user.uid).get().catch((e) => {
@@ -179,7 +184,11 @@ exports.updateUploads = async (req, res) => {
         user = user.data();
         user.portfolio = { specialization, tags, workExperience, consultationFee };
         user.docs = documents
-        await admin.firestore().collection('lawyers').doc(req.user.uid).set(user);
+        let docref = admin.firestore().collection('lawyersList').doc(req.user.uid);
+        let docref2 = admin.firestore().collection('lawyers').doc(req.user.uid);
+        batch.set(docref, user);
+        batch.set(docref2, user);
+        await batch.commit();
         let returnObj = {
             message: "User information updated Successfully",
             status: "success"
