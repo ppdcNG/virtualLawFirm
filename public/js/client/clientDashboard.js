@@ -164,10 +164,9 @@ $("#findLawyerForm").submit(async function (e) {
 
     $("#findLawyersSection").css('display', 'none');
     $("#fetchLawyersSection").css('display', 'block');
-    clearLoad("next");
+    clearLoad("next", "Next");
 
     let newSection = "";
-
 
     for (let i in data) {
         let { name, contact, portfolio } = data[i];
