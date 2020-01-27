@@ -196,4 +196,33 @@ $("#subject").on("change keyup", function () {
 $("#prev").click(async function (e) {
     $("#fetchLawyersSection").css('display', 'none');
     $("#findLawyersSection").css('display', 'block');
-})
+});
+
+$("#clientInvite").submit(function (e) {
+    e.preventDefault();
+
+    let data = form2js('clientInvite', '.', true);
+
+    loadBtn('submitInvite');
+
+    $.ajax({
+        url: ABS_PATH + "client/invite",
+        data: data,
+        type: "POST",
+        success: function (response) {
+            console.log(response);
+            clearLoad('submitInvite', 'Send');
+            if (!response.err) {
+                $.notify(response.message, { type: "success" });
+
+            } else {
+                $.notify(response.message, { type: "warning" });
+            }
+        },
+        error: e => {
+            console.log('error', e);
+            clearLoad('submitInvite', 'Send');
+        }
+    });
+
+});
