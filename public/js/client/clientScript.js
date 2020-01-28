@@ -42,6 +42,7 @@ $("#clientLogin").submit(function (e) {
 var uservar;
 const clientSignIn = async (email, password) => {
     try {
+        buttonLoad('clientLoginButton')
         let res = await firebase.auth().signInWithEmailAndPassword(email, password);
         let uid = res.user.uid;
         let idToken = await res.user.getIdToken();
@@ -57,7 +58,10 @@ const clientSignIn = async (email, password) => {
                 console.log(response);
                 if (response.status == "success") {
                     $.notify("Logging in", { type: "success" });
-                    setTimeout(function () { window.location = ABS_PATH + 'client/dashboard' }, 2000);
+                    setTimeout(function () {
+                        window.location = ABS_PATH + 'client/dashboard';
+                        clearLoad('clientLoginButton', 'Login');
+                    }, 2000);
                 }
             },
             error: e => console.log(e)

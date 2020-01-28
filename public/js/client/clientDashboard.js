@@ -1,5 +1,7 @@
-let lawyersList = {};
 
+
+let lawyersList = {};
+var ISSUE = '1';
 function readURL(input, id) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -148,6 +150,7 @@ $("#findLawyerForm").submit(async function (e) {
 
     let form = form2js("findLawyerForm", ".");
     console.log(form);
+    ISSUE = JSON.stringify(form);
 
     // $.notify(response.message, { type: "Searching Lawyers.." });
 
@@ -183,7 +186,7 @@ const renderFoundLawyer = lawyer => {
     <span class="flex-fill"><b>Specialization: </b>${portfolio.specialization}</span>
     <span class="flex-fill"><b>Experience: ${portfolio.workExperience} Years</b></span>
     <span class="badge badge-info badge-pill p-3" style="width:100px">&#8358;<span style="font-size:larger">${fee}</span></span>
-    <a class="btn blue-text ml-4" onclick = "selectLawyer('${authId}')">select</a>
+    <a class="btn blue-text ml-4" onclick = "selectLawyer('${authId}')">Consult</a>
 </li>
 `
 }
@@ -197,3 +200,69 @@ $("#prev").click(async function (e) {
     $("#fetchLawyersSection").css('display', 'none');
     $("#findLawyersSection").css('display', 'block');
 })
+
+const selectLawyer = authId => {
+    console.log(authId);
+    let lawyer = lawyersList[authId];
+
+    let payload = {};
+    payload.email = lawyer.email
+    payload.amount = lawyer.portfolio.consultationFee * 100;
+    payload.ref = '' + Math.floor((Math.random() * 1000000000) + 1);
+    payload.issue = ISSUE;
+
+
+}
+
+function payWithPaystack({ email, amount, ref }) {
+    var handler = PaystackPop.setup({
+        key: PAYSTACK_KEY,
+        email: 'customer@email.com',
+        amount: 10000,
+        currency: "NGN",
+        ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+        metadata: {
+            custom_fields: [
+                {
+                    display_name: "Mobile Number",
+                    variable_name: "mobile_number",
+                    value: "+2348012345678"
+                }
+            ]
+        },
+        callback: function (response) {
+            alert('success. transaction ref is ' + response.reference);
+            confirmPayment(response.reference);
+        },
+        onClose: function () {
+            alert('window closed');
+        }
+    });
+    handler.openIframe();
+}
+
+const confirmPayment = ref => {
+    let url = ABS_PATH + "client/confirmConsultationFee"
+    $.ajax({
+        url: url,
+        data: { ref },
+        type: "POST",
+        success: function (response) {
+            console.log(response);
+            //clearLoad('submitprofile', 'Save Changes');
+            if (!response.err) {
+                $.notify(response.message, { type: "success" });
+                setTimeout(() => {
+                    window.location = ABS_PATH + 'client/dashboard';
+                }, 2000);
+
+            } else {
+                $.notify(response.message, { type: "warning" });
+            }
+        },
+        error: e => {
+            console.log('error', e);
+            //clearLoad('submitprofile', 'Save Changes');
+        }
+    });
+}

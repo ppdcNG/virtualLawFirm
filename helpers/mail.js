@@ -31,3 +31,21 @@ exports.welcomeMail = (options, res) => {
     console.log(e.message);
   });
 };
+
+exports.inviteEmail = async (options, res) => {
+  let { email } = options;
+  let templateOptions = {
+    email,
+    ABS_PATH,
+  }
+  let inviteTemplate = "We are inviting you to Lawtrella your one stop for legal service";
+  let messageOptoins = {
+    to: email,
+    subject: "Welcome to LawTrella",
+    admin: "mark@lawtrella.com",
+    text: inviteTemplate
+  }
+  await sendgrid.send(messageOptions).catch(e => {
+    console.log(e.message);
+  })
+}
