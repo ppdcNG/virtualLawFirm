@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+const AppName = require("../config").AppName;
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
   let authId = req.user ? req.user.authId : false
@@ -8,6 +10,7 @@ router.get('/', function (req, res, next) {
   res.render('index', {
     title: "A&E VL",
     path: "/",
+    AppName,
     authId,
     link
   });

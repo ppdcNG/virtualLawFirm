@@ -1,4 +1,5 @@
 var ABS_PATH = require("../config").ABS_PATH;
+const AppName = require("../config").AppName;
 
 const { sendmail, welcomeMail, inviteEmail } = require("../helpers/mail");
 const { token, tagOptions, percentageComplete } = require("../helpers");
@@ -92,7 +93,7 @@ exports.dashboard = async (req, res) => {
     photoURL = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
     let idCardURL = userdata.idCardURL ? userdata.idCardURL : 'https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png';
     res.render('client/client-dashboard', {
-        title: 'Lawyer homepage', ABS_PATH, photoURL, idCardURL, uid, displayName, title: "Client Dashboard", email, firstname, lastname, phoneNumber
+        title: 'Lawyer homepage', ABS_PATH, AppName, photoURL, idCardURL, uid, displayName, title: "Client Dashboard", email, firstname, lastname, phoneNumber
     });
 }
 
