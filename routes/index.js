@@ -1,11 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
+const AppName = require("../config").AppName;
+
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', {
     title: "A&E VL",
-    path: "/"
+    path: "/",
+    AppName
   });
 });
 
