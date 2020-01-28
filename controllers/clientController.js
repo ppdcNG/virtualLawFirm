@@ -1,7 +1,7 @@
 var ABS_PATH = require("../config").ABS_PATH;
 const AppName = require("../config").AppName;
 
-const { sendmail, welcomeMail } = require("../helpers/mail");
+const { sendmail, welcomeMail, inviteEmail } = require("../helpers/mail");
 const { token, tagOptions, percentageComplete } = require("../helpers");
 
 
@@ -228,5 +228,13 @@ exports.fetchLawyers = async (req, res) => {
 
 
 
+
+}
+
+exports.sendInvite = async (req, res) => {
+    let { email } = req.body
+
+    await inviteEmail(email)
+    res.status(200).send({ status: 'success', message: `Invite has been sent to ${email}` });
 
 }

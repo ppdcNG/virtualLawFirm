@@ -1,4 +1,6 @@
 {{> header}}
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=285056175476062&autoLogAppEvents=1"></script>
 
 <header>
   <!--Navbar -->
@@ -197,16 +199,25 @@
             </form>
 
             <hr class="border"/>
-
-            <form id="uploadID" class="text-center">
-              <img id="chosenIdDoc" src="{{idCardURL}}" width="100" />
-              <div class="md-form">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="idcard" accept="image/x-png,image/jpg,image/jpeg" required>
-                  <label class="custom-file-label" for="idcard" data-browse="Select">Select ID</label>
+            <form class="container">
+                <div class="md-form">
+                    <input type="text" name="address" class="form-control" required>
+                    <label for="address">Address</label>
                 </div>
-              <button type="submit" class="btn btn-info mt-3" id="uploadIdBtn">Upload</button>
-              </div>
+
+                 <div class="md-form">
+                    <input type="text" name="street" class="form-control" required>
+                    <label for="street">Street</label>
+                </div>
+
+                <div class="md-form">
+                    <input type="text" name="lga" class="form-control" required>
+                    <label for="lga">L.G.A</label>
+                </div>
+
+                <div class="text-center">
+                  <button type="submit" class="btn btn-info mt-3" id="">Save</button>
+                </div>
             </form>
 
       </div>
@@ -287,8 +298,10 @@
       </div>
       <div class="modal-body">
         <div class="d-flex justify-content-center">
-          <button class="btn btn-primary">Share to Facbook <i class="fab fa-facebook"></i></button>
-          <button class="btn btn-info">Share to Twitter <i class="fab fa-twitter"></i></button>
+          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fprocurementmonitor.org%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore" ><button class="btn btn-primary fb-share-button"   data-href="https://procurementmonitor.org" data-layout="button" data-size="small">
+          Share to Facebook <i class="fab fa-facebook"></i>
+          </button></a>
+          <a class="twitter-share-button" href="https://twitter.com/intent/tweet"><button class="btn btn-info">Share to Twitter <i class="fab fa-twitter"></i></button></a>
         </div>
 
         <hr/>

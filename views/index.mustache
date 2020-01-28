@@ -85,7 +85,7 @@
       <div class="container text-center">
         <h3>What would you like to do?</h3>
         <hr width="100"/>
-        <a class="btn btn-elegant" href="/client"><i class="fas fa-gavel"></i> Find a Lawyer<br/><span class="text-muted">Login or Register to meet your lawyer</span></a>
+        <a class="btn btn-elegant" href="/client/{{link}}"><i class="fas fa-gavel"></i> Find a Lawyer<br/><span class="text-muted">Login or Register to meet your lawyer</span></a>
         <button class="btn btn-elegant"><i class="fas fa-comment"></i> Free Legal Advice<br/><span class="text-muted">Get to access free limited legal advice</span></button>
         <a class="btn btn-elegant" href="/client/docs"><i class="fas fa-file-alt"></i> Legal Documents<br/><span class="text-muted">Registered users, login for a discount</span></a>
       </div>
@@ -126,7 +126,7 @@
             </div>
           </div>
           <div class="modal-footer d-flex justify-content-center">
-            <button class="btn btn-default" type = "submit">Login</button>
+            <button id = "clientLoginButton" class="btn btn-default" type = "submit">Login</button>
           </div>
           </form>
         </div>

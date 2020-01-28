@@ -14,7 +14,7 @@ firebase.analytics();
 
 
 var ABS_PATH = "http://localhost:3000/";
-
+const PAYSTACK_KEY = 'pk_test_90906c497a5030ec77dddecb2abb511ff903977b';
 function ajaxrequest(modal, json_data, to_url, call_back) {
   var dataObject = { data: json_data }
   $.ajax({

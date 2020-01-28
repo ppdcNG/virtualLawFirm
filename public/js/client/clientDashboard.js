@@ -1,5 +1,7 @@
-let lawyersList = {};
 
+
+let lawyersList = {};
+var ISSUE = '1';
 function readURL(input, id) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -148,6 +150,7 @@ $("#findLawyerForm").submit(async function (e) {
 
     let form = form2js("findLawyerForm", ".");
     console.log(form);
+    ISSUE = JSON.stringify(form);
 
     // $.notify(response.message, { type: "Searching Lawyers.." });
 
@@ -183,7 +186,7 @@ const renderFoundLawyer = lawyer => {
     <span class="flex-fill"><b>Specialization: </b>${portfolio.specialization}</span>
     <span class="flex-fill"><b>Experience: ${portfolio.workExperience} Years</b></span>
     <span class="badge badge-info badge-pill p-3" style="width:100px">&#8358;<span style="font-size:larger">${fee}</span></span>
-    <a class="btn blue-text ml-4" onclick = "selectLawyer('${authId}')">select</a>
+    <a class="btn blue-text ml-4" onclick = "selectLawyer('${authId}')">Consult</a>
 </li>
 `
 }
