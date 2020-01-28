@@ -199,62 +199,24 @@ $("#subject").on("change keyup", function () {
 $("#prev").click(async function (e) {
     $("#fetchLawyersSection").css('display', 'none');
     $("#findLawyersSection").css('display', 'block');
-})
+});
 
-const selectLawyer = authId => {
-    console.log(authId);
-    let lawyer = lawyersList[authId];
+$("#clientInvite").submit(function (e) {
+    e.preventDefault();
 
-    let payload = {};
-    payload.email = lawyer.email
-    payload.amount = lawyer.portfolio.consultationFee * 100;
-    payload.ref = '' + Math.floor((Math.random() * 1000000000) + 1);
-    payload.issue = ISSUE;
+    let data = form2js('clientInvite', '.', true);
 
+    loadBtn('submitInvite');
 
-}
-
-function payWithPaystack({ email, amount, ref }) {
-    var handler = PaystackPop.setup({
-        key: PAYSTACK_KEY,
-        email: 'customer@email.com',
-        amount: 10000,
-        currency: "NGN",
-        ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-        metadata: {
-            custom_fields: [
-                {
-                    display_name: "Mobile Number",
-                    variable_name: "mobile_number",
-                    value: "+2348012345678"
-                }
-            ]
-        },
-        callback: function (response) {
-            alert('success. transaction ref is ' + response.reference);
-            confirmPayment(response.reference);
-        },
-        onClose: function () {
-            alert('window closed');
-        }
-    });
-    handler.openIframe();
-}
-
-const confirmPayment = ref => {
-    let url = ABS_PATH + "client/confirmConsultationFee"
     $.ajax({
-        url: url,
-        data: { ref },
+        url: ABS_PATH + "client/invite",
+        data: data,
         type: "POST",
         success: function (response) {
             console.log(response);
-            //clearLoad('submitprofile', 'Save Changes');
+            clearLoad('submitInvite', 'Send');
             if (!response.err) {
                 $.notify(response.message, { type: "success" });
-                setTimeout(() => {
-                    window.location = ABS_PATH + 'client/dashboard';
-                }, 2000);
 
             } else {
                 $.notify(response.message, { type: "warning" });
@@ -262,7 +224,8 @@ const confirmPayment = ref => {
         },
         error: e => {
             console.log('error', e);
-            //clearLoad('submitprofile', 'Save Changes');
+            clearLoad('submitInvite', 'Send');
         }
     });
-}
+
+});

@@ -1,6 +1,6 @@
 var ABS_PATH = require("../config").ABS_PATH;
 
-const { sendmail, welcomeMail } = require("../helpers/mail");
+const { sendmail, welcomeMail, inviteEmail } = require("../helpers/mail");
 const { token, tagOptions, percentageComplete } = require("../helpers");
 
 
@@ -227,5 +227,13 @@ exports.fetchLawyers = async (req, res) => {
 
 
 
+
+}
+
+exports.sendInvite = async (req, res) => {
+    let { email } = req.body
+    let obj = { email }
+    await inviteEmail(obj, res)
+    res.status(200).send({ status: 'success' });
 
 }
