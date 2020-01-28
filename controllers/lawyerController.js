@@ -32,7 +32,7 @@ exports.profile = async (req, res) => {
     let tags = tagOptions();
     let states = '<option></option><option>State A</option><option>State B</option>';
 
-    res.render("lawyer/profile", { title: "Lawyer profile", ABS_PATH, photoUrl, uid: user.uid, tags, states, progress });
+    res.render("lawyer/profile", { title: "Lawyer profile", ABS_PATH, AppName, photoUrl, uid: user.uid, tags, states, progress });
 };
 
 
@@ -103,7 +103,7 @@ exports.dashboard = (req, res) => {
     console.log(user);
     console.table(req.user)
     res.render("lawyer/dashboard", {
-        title: 'Lawyer homepage', ABS_PATH, AppName, photoUrl, uid: user.uid, name: user.displayName
+        title: 'Lawyer dashboard', ABS_PATH, AppName, photoUrl, uid: user.uid, name: user.displayName
     });
 };
 
