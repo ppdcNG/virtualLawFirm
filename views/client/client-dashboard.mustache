@@ -205,14 +205,14 @@
                     <label for="address">Address</label>
                 </div>
 
-                 <div class="md-form">
-                    <input type="text" name="street" class="form-control" required>
-                    <label for="street">Street</label>
-                </div>
-
                 <div class="md-form">
                     <input type="text" name="lga" class="form-control" required>
                     <label for="lga">L.G.A</label>
+                </div>
+
+                 <div class="md-form">
+                    <input type="text" name="state" class="form-control" required>
+                    <label for="state">State</label>
                 </div>
 
                 <div class="text-center">
@@ -292,7 +292,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Share to Friends</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" id="closeInviteBtn" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -309,7 +309,7 @@
         <p class="text-center">Or send Email Invite</p>
         <form class="text-center" id="clientInvite">
           <div class="md-form">
-            <input type="email" name="email">
+            <input type="email" name="email" id="inviteEmail">
             <button type="submit" id="submitInvite" class="btn btn-elegant">Send</button>
           </div>
         </form>

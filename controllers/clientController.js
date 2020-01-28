@@ -22,7 +22,8 @@ exports.legalDocsPage = (req, res) => {
     res.render('client/legal-docs', { title: 'Legal Documents', ABS_PATH })
 }
 exports.confirm = (req, res) => {
-    res.render("client/client-confirm", { token: req.query.token, ABS_PATH });
+    let idCardURL = 'https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png';
+    res.render("client/client-confirm", { token: req.query.token, ABS_PATH, idCardURL });
 };
 
 exports.signup = async (req, res) => {
