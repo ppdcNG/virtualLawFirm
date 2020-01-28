@@ -1,4 +1,6 @@
 {{> header}}
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=285056175476062&autoLogAppEvents=1"></script>
 
 <header>
   <!--Navbar -->
@@ -287,8 +289,10 @@
       </div>
       <div class="modal-body">
         <div class="d-flex justify-content-center">
-          <button class="btn btn-info">Share to Facbook <i class="fab fa-facebook"></i></button>
-          <button class="btn btn-primary">Share to Twitter <i class="fab fa-twitter"></i></button>
+          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fprocurementmonitor.org%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore" ><button class="btn btn-info fb-share-button"   data-href="https://procurementmonitor.org" data-layout="button" data-size="small">
+          Share to Facebook <i class="fab fa-facebook"></i>
+          </button></a>
+          <a class="twitter-share-button" href="https://twitter.com/intent/tweet"><button class="btn btn-primary">Share to Twitter <i class="fab fa-twitter"></i></button></a>
         </div>
 
         <hr/>

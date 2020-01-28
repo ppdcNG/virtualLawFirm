@@ -232,8 +232,8 @@ exports.fetchLawyers = async (req, res) => {
 
 exports.sendInvite = async (req, res) => {
     let { email } = req.body
-    let obj = { email }
-    await inviteEmail(obj, res)
-    res.status(200).send({ status: 'success' });
+
+    await inviteEmail(email)
+    res.status(200).send({ status: 'success', message: `Invite has been sent to ${email}` });
 
 }

@@ -11,6 +11,8 @@ router.get('/confirm', clientController.confirm);
 router.post('/login', clientController.userLogin)
 router.post('/signup', clientController.signup);
 
+router.post('/invite', clientController.sendInvite);
+
 router.get('/dashboard', requireLogin, clientController.dashboard);
 // router.get('/lawyerList', clientController.lawyerList);
 router.post('/updateSettings', requireLogin, clientController.updateSettings);
