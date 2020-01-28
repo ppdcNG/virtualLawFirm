@@ -4,7 +4,7 @@
 <header>
   <!--Navbar -->
   <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
-    <a class="navbar-brand default-color p-3" href="#">A&E Virtual Law</a>
+    <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
       aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -39,7 +39,7 @@
   <!--/.Navbar -->
 </header>
 
-<main>
+<main style="min-height:100vh">
     <div class="row pt-5 h-75">
         <div class="col-md-4" style="border-right: 1px solid grey">
             <img src="{{photoUrl}}" width="150" class="rounded-circle mx-auto d-block" alt="profile_pic">
@@ -86,6 +86,4 @@
     </div>
 </main>
 
-<div style="position: fixed;bottom:0;width:100vw;">
-    {{> footer}}
-</div>
+{{> footer}}
