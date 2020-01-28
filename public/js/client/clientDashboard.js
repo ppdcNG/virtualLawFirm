@@ -216,6 +216,8 @@ $("#clientInvite").submit(function (e) {
             console.log(response);
             clearLoad('submitInvite', 'Send');
             if (!response.err) {
+                $("#closeInviteBtn").trigger("click");
+                $("#inviteEmail").val('');
                 $.notify(response.message, { type: "success" });
 
             } else {
