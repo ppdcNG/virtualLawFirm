@@ -6,6 +6,7 @@ var logger = require('morgan');
 var mustacheExpress = require('mustache-express');
 var admin = require("firebase-admin");
 var serviceAccount = require("./config/firebaseservice.json");
+var fileUpload = require('express-fileupload')
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(fileUpload());
 
 app.use('/', indexRouter);
 app.use('/admin', adminRoutes);

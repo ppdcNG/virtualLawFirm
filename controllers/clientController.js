@@ -140,28 +140,7 @@ exports.updateProfile = async (req, res) => {
             };
             res.status(200).send(returnObj);
             break;
-        case 'idCard':
-            let dbuser = await admin.firestore().collection('clients').doc(req.user.uid).get().catch((e) => {
-                console.log(e);
-                let returnObj = {
-                    err: e,
-                    message: e.message,
-                    status: "failed"
-                };
-                return res.status(400).send(returnObj);
-            });
-            if (dbuser.exists) {
-                let userdata = dbuser.data();
-                let newobj = { ...userdata, idCardURL: url }
-                console.log(newobj);
-                await admin.firestore().collection('clients').doc(req.user.uid).set(newobj);
-                let returnObj = {
-                    message: "User Id card updated Successfully",
-                    status: "success"
-                };
-                res.status(200).send(returnObj);
-            }
-            break;
+
     }
 }
 
