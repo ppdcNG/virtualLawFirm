@@ -1,4 +1,5 @@
 var ABS_PATH = require("../config").ABS_PATH;
+const AppName = require("../config").AppName;
 
 const { sendmail, welcomeMail } = require("../helpers/mail");
 const { token, tagOptions, percentageComplete } = require("../helpers");
@@ -29,7 +30,9 @@ exports.profile = async (req, res) => {
 
     let photoUrl = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
     let tags = tagOptions();
-    res.render("lawyer/profile", { title: "Lawyer profile", ABS_PATH, photoUrl, uid: user.uid, tags, progress });
+    let states = '<option></option><option>State A</option><option>State B</option>';
+
+    res.render("lawyer/profile", { title: "Lawyer profile", ABS_PATH, AppName, photoUrl, uid: user.uid, tags, states, progress });
 };
 
 
@@ -100,7 +103,7 @@ exports.dashboard = (req, res) => {
     console.log(user);
     console.table(req.user)
     res.render("lawyer/dashboard", {
-        title: 'Lawyer homepage', ABS_PATH, photoUrl, uid: user.uid, name: user.displayName
+        title: 'Lawyer dashboard', ABS_PATH, AppName, photoUrl, uid: user.uid, name: user.displayName
     });
 };
 

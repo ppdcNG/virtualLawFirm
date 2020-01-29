@@ -1,10 +1,17 @@
 {{> header}}
-
-<header>
+<style>
+  @media only screen and (max-width: 600px) {
+    #inviteModalDiv * {
+      display: flex;
+      justify-content: center;
+      margin: 0 25%;
+    }
+  }
+</style>
 <header>
   <!--Navbar -->
   <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
-    <a class="navbar-brand default-color p-3" href="#">A&E Virtual Law</a>
+    <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
       aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -39,7 +46,7 @@
   <!--/.Navbar -->
 </header>
 
-<main>
+<main style="min-height:100vh">
     <div class="row pt-5 h-75">
         <div class="col-md-4" style="border-right: 1px solid grey">
             <img src="{{photoUrl}}" width="150" class="rounded-circle mx-auto d-block" alt="profile_pic">
@@ -52,6 +59,9 @@
         </div>
 
         <div class="col-md-8">
+            <div class="text-right" id="inviteModalDiv">
+              <a class="btn btn-info" data-toggle="modal" data-target="#inviteModal">Invite a friend</a>
+            </div>
             <div class="container">
                 <h4>Matters</h4>
                 <hr/>
@@ -86,6 +96,39 @@
     </div>
 </main>
 
-<div style="position: fixed;bottom:0;width:100vw;">
-    {{> footer}}
+{{> footer}}
+
+<!-- Invite Modal -->
+<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Share to Friends</h5>
+        <button type="button" class="close" id="closeInviteBtn" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-center">
+          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fprocurementmonitor.org%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore" ><button class="btn btn-primary fb-share-button"   data-href="https://procurementmonitor.org" data-layout="button" data-size="small">
+          Share to Facebook <i class="fab fa-facebook"></i>
+          </button></a>
+          <a target="_blank" class="twitter-share-button" href="https://twitter.com/intent/tweet"><button class="btn btn-info">Share to Twitter <i class="fab fa-twitter"></i></button></a>
+        </div>
+
+        <hr/>
+
+        <p class="text-center">Or send Email Invite</p>
+        <form class="text-center" id="clientInvite">
+          <div class="md-form">
+            <input type="email" name="email" id="inviteEmail">
+            <button type="submit" id="submitInvite" class="btn btn-elegant">Send</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
 </div>
