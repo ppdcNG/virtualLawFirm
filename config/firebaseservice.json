@@ -1,0 +1,12 @@
+{
+    "type": "service_account",
+    "project_id": "virtuallawfirm-2478e",
+    "private_key_id": "477e4473c10ddaa0bdb551e9f92c676502bde45a",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDJ8HDE2udlmPyX\nzCRcZq26bu8r1r+KRYTLqlE/SH84+yKCJ0+Yjeul3w8FBXiZtKobbe5XtvAdXmXM\npF9Rnjdl1Ng27WM+1T+FGGwd3BWgL0Whs5G+w1ZAoEs7J9qgj8ULnpJXTBBxRgSA\nLCpxVjXjLUk6HiOy1sPhbjvB/A9fswDsBDIwOGQVYJaIlf3Y4we3q8Bh4t2sJyWl\njEIvjtoikT0GaF0Mz6ACyYABTFbSolT6fYY6VJrZRkIVAYQPJauxaQpvlk/ikFy0\nZs7kPkKUGs5rMdA3PFjXq6/XIm/DZR571wTgqWGfkSrEx8H3cmBa3a8mrm0LBIG/\neHWA9PgbAgMBAAECggEALS+MhDf5TC4J40uOHVDqccuN3/DbBi0dFFeFe5QUx6LG\nK3pxYJDtGD4LxdNeE4KuB5o3GVB5dRDg1YQ4QfKVsccJJG1E5lPgNT9sPdg3zJKX\nUaH1LErYO3jCrLdzv7a74Cg41ajTCw2gRy/axWaFg1JoTsVctpFA3moEnBjzNbXZ\n7pRBMmzrqBjvy/urM6UCOSc6wQl6WLbfGD2ixaA/Dgc5E7pbVIM3RKzBHp1CZjYU\nw6JC2hmYAx75HS4sRTJoNYViPObyRFTTRY9KkADxgcZy9SfIbhROS2trHoVLFS2D\n5bZSfjwPZJC11CNnAK+1Mz2Nbn/0q6Cnp7kfenWQaQKBgQDldLnUtTm0VsTJ0GBQ\nn+Sbv+o43V0FC404W5YzNvX76TtcrAT4Hw1wX40fwUF0kLW5vx+it+HE4DYUBr/y\nwG8wor//v3OnBT4E+7L46xL6wYSFQeLgTIAUeYgGgLy/up+J1gS1+m4ayhsE9B2R\nitTEJH73MnBVJgfmtMxMQrMH4wKBgQDhTNBlaVxygTFbUcoRVXH9fwys2FbT1P66\nSTTcOjWcx/kHYRxDoa35fM/0D9qvON1FTd7w1O83RDUoofA6HIU+mISCGTcgChs2\nFWhOMgShWzvEO3WlmHtoRenwVjBzSLK1TB0/gExonHZS+rTM9fS26fkkK3zSkh7u\nHRFE7cMUaQKBgQDQ5aj9RxRG46v7FBNrs3X8egdyR84U9sRV58Ph0oq2Ektx/kXz\n4sloYgVoQJgn2Esp1R+nE4OeqoVxTAfaqGlSPQlRe+p9x18ESGZTCijYU/AjJa24\niM0eVtqJGRE9+Figs1DMoDc3eoKIyvpUc7Fq9NMGmEv+qUYOOtG4KA04AwKBgCeV\n8ovO/mJUFtL/xOxUwgmTWCvKez8PDo62rCYByEe6zyOfyXKMpt/OMU+ltXvSFvbF\nXuWb1Eg2oMx535amSjccXzPosEnd3Lgc/M24dh3PxOmOtPYam5xPpHIJAsxOuq+m\nJwFwTnyW+SdNS5UzpgK5i3/ycCUjbXHTA6TDzeH5AoGABX/lgb4vqh5ZFe4TtGRo\nVFNoBQjr4zTWwiNPmdHrgVDuHT62+N0Ajm0MdM6XALpELnRsl3AR1vqAmDUKk0rK\nsC8kTHlzZynWT1WWEQqnKKTbhRMRcVnDAz+nvzqLRrB/kzHxj+8tH4oaB7t/E6Tt\nQFoP7VwlzlCsfhDcUg3/YQs=\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-1awyi@virtuallawfirm-2478e.iam.gserviceaccount.com",
+    "client_id": "103465895425929201616",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-1awyi%40virtuallawfirm-2478e.iam.gserviceaccount.com"
+}
