@@ -93,8 +93,13 @@ exports.dashboard = async (req, res) => {
     let lastname = name[name.length - 1];
     photoURL = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
     let idCardURL = userdata.idCardURL ? userdata.idCardURL : 'https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png';
+    let contactPoint = userdata.contactPoint ? userdata.contactPoint : {};
+    let { state, address, lga } = contactPoint;
+    state = state || "";
+    address = address || "";
+    lga = lga || "";
     res.render('client/client-dashboard', {
-        title: 'Lawyer homepage', ABS_PATH, AppName, photoURL, idCardURL, uid, displayName, title: "Client Dashboard", email, firstname, lastname, phoneNumber
+        title: 'Lawyer homepage', ABS_PATH, AppName, photoURL, idCardURL, uid, displayName, title: "Client Dashboard", email, firstname, lastname, phoneNumber, state, lga, address
     });
 }
 
@@ -130,20 +135,45 @@ exports.updateSettings = async (req, res) => {
     }
 }
 
-exports.updateProfile = async (req, res) => {
-    let { url, type } = req.body;
-    switch (type) {
-        case 'profilePic':
-            let obj = { photoURL: url };
-            await admin.auth().updateUser(req.user.uid, obj);
-            let returnObj = {
-                message: "Profile picture updated successfully.",
-                status: "success"
-            };
-            res.status(200).send(returnObj);
-            break;
+exports.updateProfilePic = async (req, res) => {
+    let { url } = req.body;
 
-    }
+    let obj = { photoURL: url };
+    await admin.auth().updateUser(req.user.uid, obj);
+    let returnObj = {
+        message: "Profile picture updated successfully.",
+        status: "success"
+    };
+    res.status(200).send(returnObj);
+}
+exports.updateProfile = async (req, res) => {
+    let uid = req.user.uid;
+    let { state, lga, address } = req.body
+    let contactPoint = { state, lga, address }
+    let client = await admin.firestore().collection('clients').doc(uid).get().catch((e) => {
+        console.log(e);
+        let returnObj = {
+            err: e,
+            message: e.message,
+            status: "failed"
+        };
+        return res.status(400).send(returnObj);
+    });
+    client = client.data();
+
+    let obj = { ...client, contactPoint };
+    await admin.firestore().collection('clients').doc(uid).set(obj).catch((e) => {
+        console.log(e);
+        let returnObj = {
+            err: e,
+            message: e.message,
+            status: "failed"
+        };
+        return res.status(400).send(returnObj);
+    });
+
+    res.status(200).send({ status: 'success', message: "Profile Updated" });
+
 }
 
 exports.clientProfile = async (req, res) => {

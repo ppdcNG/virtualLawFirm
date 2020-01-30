@@ -201,22 +201,22 @@
             <hr class="border"/>
             <form id = "updateProfile" class="container">
                 <div class="md-form">
-                    <input type="text" name="address" class="form-control" required>
+                    <input type="text" name="address" class="form-control" value = "{{address}}" required>
                     <label for="address">Address</label>
                 </div>
 
                 <div class="md-form">
-                    <input type="text" name="lga" class="form-control" required>
+                    <input type="text"  value = "{{lga}}" name="lga" class="form-control" required>
                     <label for="lga">L.G.A</label>
                 </div>
 
                  <div class="md-form">
-                    <input type="text" name="state" class="form-control" required>
+                    <input type="text" value = "{{state}}" name="state" class="form-control" required>
                     <label for="state">State</label>
                 </div>
 
                 <div class="text-center">
-                  <button type="submit" class="btn btn-info mt-3" id="">Save</button>
+                  <button type="submit" class="btn btn-info mt-3" id="updateProfileBtn">Save</button>
                 </div>
             </form>
 

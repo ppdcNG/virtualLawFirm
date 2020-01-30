@@ -21,6 +21,7 @@ router.post('/fetchLawyers', requireLogin, clientController.fetchLawyers);
 router.get('/copyLawyers', (req, res) => {
     copyLawyers();
 })
+router.post('/updateProfilePic', requireLogin, clientController.updateProfilePic)
 
 
 

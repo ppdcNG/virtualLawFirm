@@ -1,2 +1,6 @@
-exports.ABS_PATH = 'http://localhost:3000/';
-exports.AppName = 'LawTrella';
+if (process.env.NODE_ENV === "production") {
+    module.exports = require('./prod');
+}
+else {
+    module.exports = require('./dev');
+}
