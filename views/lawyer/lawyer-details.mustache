@@ -1,0 +1,272 @@
+{{> header}}
+<header>
+  <!--Navbar -->
+  <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+    <a class="navbar-brand default-color p-3" href="#">A&E Virtual Law</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+      aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto nav-flex-icons">
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!--/.Navbar -->
+</header>
+
+<main>
+    <div class="row">
+        <div class="col-md-3 pt-5">
+            <div class="text-center">
+                <img src=
+                "
+                {{#lawyer.contact}}
+                    {{photoUrl}}
+                {{/lawyer.contact}}
+                {{^lawyer.contact}}
+                    https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1
+                {{/lawyer.contact}}
+                "
+                 width="150" class="rounded-circle mx-auto d-block" alt="profile_pic">
+                <h3 class="mt-2">{{lawyer.name}}</h3>
+                <hr width="50"/>
+                <p class="h5">
+                    {{#lawyer.contact}}
+                        {{lga}}, {{country}}
+                    {{/lawyer.contact}}
+                    {{^lawyer.contact}}
+                        N/A
+                    {{/lawyer.contact}}
+                </p>
+                <hr/>
+            </div>
+        </div>
+        <div class="col-md-9 pt-5">
+            <div class="container-fluid">
+                <!--Accordion wrapper-->
+                <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+                <!-- Accordion card -->
+                <div class="card">
+
+                    <!-- Card header -->
+                    <div class="card-header" role="tab" id="headingOne1">
+                        <a data-toggle="collapse" data-parent="#accordionEx" href="#profile" aria-expanded="true"
+                            aria-controls="profile">
+                            <h5 class="mb-0 text-default">
+                            Profile <i class="fas fa-angle-down rotate-icon"></i>
+                            </h5>
+                        </a>
+                    </div>
+
+                    <!-- Card body -->
+                    <div id="profile" class="collapse show" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordionEx">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><b>Brief Profile:</b> 
+                                    {{#lawyer.contact}}
+                                        {{briefProfile}}
+                                    {{/lawyer.contact}}
+                                    {{^lawyer.contact}}
+                                        N/A
+                                    {{/lawyer.contact}}
+                                </li>
+                                <li class="list-group-item"><b>Address:</b> 
+                                    {{#lawyer.contact}}
+                                        {{address}}
+                                    {{/lawyer.contact}}
+                                    {{^lawyer.contact}}
+                                        N/A
+                                    {{/lawyer.contact}}
+                                </li>
+                                <li class="list-group-item"><b>Email:</b> {{lawyer.email}}</li>
+                                <hr/>
+                                <p class="text-uppercase">portfolio:</p>
+                                {{#lawyer.portfolio}}
+                                    <li class="list-group-item"><b>Specialization: </b> {{specialization}}</li>
+                                    <li class="list-group-item"><b>{{workExperience}} years</b> experience</li>
+                                    <li class="list-group-item"><b>Consultation Fee: </b> {{consultationFee}}</li>
+                                    <li class="list-group-item"><b>Tags:</b> {{tags}}</li>                                    
+                                {{/lawyer.portfolio}}
+                                {{^lawyer.portfolio}}
+                                    <li class="list-group-item"><b>N/A</b></li>                                                                            
+                                {{/lawyer.portfolio}}
+                                <hr/>
+                                <li class="list-group-item text-uppercase"><b>Status:</b> <span id="status">{{lawyer.status}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Accordion card -->
+
+                <!-- Accordion card -->
+                <div class="card">
+
+                    <!-- Card header -->
+                    <div class="card-header" role="tab" id="headingTwo2">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#record"
+                        aria-expanded="false" aria-controls="record">
+                        <h5 class="mb-0 text-default">
+                        Record <i class="fas fa-angle-down rotate-icon"></i>
+                        </h5>
+                    </a>
+                    </div>
+
+                    <!-- Card body -->
+                    <div id="record" class="collapse" role="tabpanel" aria-labelledby="headingTwo2" data-parent="#accordionEx">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                {{#lawyer.record}}
+                                    <li class="list-group-item"><b>Court Enrollment Number:</b> {{courtEnrollmentNumber}}</li>
+                                    <li class="list-group-item"><b>Year of Enrollment:</b> {{yearOfEnrollment}}</li>
+                                    <li class="list-group-item"><b>Under Criminal Investiagtion?:</b> {{criminalInvestigation}}</li>
+                                    <li class="list-group-item"><b>Have Criminal any Record?:</b> {{criminalRecord}}</li>
+                                    <li class="list-group-item"><b>Have you been Indicted for Misconduct?:</b> {{misconductIndictment}}</li>
+                                    <li class="list-group-item"><b>Under Misconduct Investiagtion?:</b> {{misconductInvestigation}}</li>
+                                {{/lawyer.record}}
+                                {{^lawyer.record}}
+                                    <li class="list-group-item"><b>No record</b></li>
+                                {{/lawyer.record}}
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Accordion card -->
+
+                <!-- Accordion card -->
+                <div class="card">
+
+                    <!-- Card header -->
+                    <div class="card-header" role="tab" id="headingThree3">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#documents"
+                        aria-expanded="false" aria-controls="documents">
+                        <h5 class="mb-0 text-default">
+                        Documents <i class="fas fa-angle-down rotate-icon"></i>
+                        </h5>
+                    </a>
+                    </div>
+
+                    <!-- Card body -->
+                    <div id="documents" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
+                        <div class="card-body">
+                            <ul class="list-group list-group-horizontal">
+                                {{{documents}}}
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Accordion card -->
+
+                <!-- Accordion card -->
+                <div class="card">
+
+                    <!-- Card header -->
+                    <div class="card-header" role="tab" id="headingThree3">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#account"
+                        aria-expanded="false" aria-controls="account">
+                        <h5 class="mb-0 text-default">
+                        Account Details <i class="fas fa-angle-down rotate-icon"></i>
+                        </h5>
+                    </a>
+                    </div>
+
+                    <!-- Card body -->
+                    <div id="account" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                {{#lawyer.accountDetails}}
+                                    <li class="list-group-item"><b>Bank Name: </b>{{bankName}}</li>
+                                    <li class="list-group-item"><b>Account Name: </b>{{accountName}}</li>
+                                    <li class="list-group-item"><b>Account Number: </b>{{accountNumber}}</li>
+                                    <li class="list-group-item"><b>BVN: </b>{{bvn}}</li>
+                                {{/lawyer.accountDetails}}
+                                {{^lawyer.accountDetails}}
+                                    <li class="list-group-item"><b>N/A</b></li>
+                                {{/lawyer.accountDetails}}
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Accordion card -->
+
+                </div>
+                <!-- Accordion wrapper -->
+
+                {{! buttons }}
+                <div class="mt-3">
+                    <button class="btn btn-success" onclick="verifyLawyer('{{lawyer.authId}}')" id="verify">Verify</button>
+                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#msgModal">Send Message</button>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<div style="margin-top: 25vh">
+    {{> footer}}
+</div>
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_dashboard_render.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
+
+<script>
+  loadBtn("verify");
+
+  if ($("#status").text() === 'verified') {
+      $("#verify").text('verified').addClass('disabled');
+  }
+</script>
+
+
+<!-- message modal -->
+<div class="modal fade" id="msgModal" tabindex="-1" role="dialog" aria-labelledby="msgModal"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Send Message</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <input type="text" id="title" class="form-control validate">
+                    <label data-error="wrong" data-success="right" for="email">Title</label>
+                </div>
+
+                <div class="md-form">
+                    <textarea id="form10" class="md-textarea form-control" rows="3"></textarea>
+                    <label for="form10">Message</label>
+                </div>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button class="btn btn-default">Send</button>
+            </div>
+        </div>
+    </div>
+</div>

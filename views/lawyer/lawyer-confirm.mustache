@@ -1,0 +1,48 @@
+{{> header}}
+
+<div class="container">
+    <div class="card mt-5 mb-5">
+        <h5 class="card-header light-blue lighten-4 text-center py-4">
+            <strong>Choose a password to continue</strong>
+        </h5>
+
+        <div class="card-body px-lg-5">
+
+            <form class="text-center" style="color: #757575;" id="laywerConfirm">
+
+                <input type="hidden" name="token" value="{{ token }}" />
+                    
+
+                <div class="md-form mt-0">
+                    <input type="password" id="pwd" name="password" class="form-control" required>
+                    <label for="email">Password</label>
+                </div>
+
+                 <div class="md-form mt-0">
+                    <input type="password" id="pwd2" name="confirmPassword" class="form-control" required>
+                    <label for="pwd">Confirm Password</label>
+                </div>
+
+                <button class="btn btn-outline-dark btn-rounded btn-block my-4 waves-effect z-depth-0" id="continue" type="submit">Continue</button>
+
+                <hr>
+
+            </form>
+            <!-- Form -->
+
+        </div>
+
+    </div>
+</div>
+
+<div style="position: fixed;bottom:0;width:100vw;">
+    {{> footer}}
+</div>
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/lawyer/lawyerScript.js"></script>
+
+<script>
+    loadBtn('continue');
+</script>

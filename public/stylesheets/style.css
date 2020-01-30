@@ -1,8 +1,15 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Lato', sans-serif;
+  scroll-behavior: smooth;
 }
 
-a {
-  color: #00B7FF;
+div.parent-box {
+  display: table;
+  width: 100%;
+}
+
+div.child-box {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: xx-large;
 }

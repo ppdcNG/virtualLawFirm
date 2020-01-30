@@ -1,0 +1,262 @@
+{{> header }}
+<header>
+  <!--Navbar -->
+  <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+    <a class="navbar-brand default-color p-3" href="#">A&E Virtual Law</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+      aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+      <em>Welcome Admin</em>
+
+      <ul class="navbar-nav ml-auto nav-flex-icons">
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!--/.Navbar -->
+</header>
+
+<main>
+  <div class="container-fluid">
+        <ul class="nav nav-tabs md-tabs" id="myTabEx" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active show" id="home-tab-ex" data-toggle="tab" href="#home-ex" role="tab" aria-controls="home-ex"
+        aria-selected="true">Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab-ex" data-toggle="tab" href="#profile-ex" role="tab" aria-controls="profile-ex"
+        aria-selected="false">Cases</a>
+    </li>
+  </ul>
+  <div class="tab-content pt-5" id="myTabContentEx">
+    <div class="tab-pane fade active show" id="home-ex" role="tabpanel" aria-labelledby="home-tab-ex">
+        <p class="h5 text-uppercase">overview</p>
+        <hr/>
+        <div class="row m-5 text-center">
+          <div class="col-md-4">
+            <div class="card shadow p-5">{{laywers_no}} Laywers</div>
+          </div>
+          <div class="col-md-4">
+            <div class="card shadow p-5">{{cases_no}} Cases</div>
+          </div>
+          <div class="col-md-4">
+            <div class="card shadow p-5">{{clients_no}} Clients</div>
+          </div>
+      </div>  
+
+      <div class="row justify-content-between">
+        <div class="col-4">
+          <p class="h4 text-uppercase">Laywers</p>
+        </div>
+
+        <div class="col-4">
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-default float-right" data-toggle="modal" data-target="#lawyerModal">
+            Send Lawyer Invite
+          </button>
+        </div>
+      </div>
+
+      <hr/>
+
+      <!-- Search form -->
+      <form class="md-form form-inline mt-0 border p-2 row">
+        <div class="md-form col-md-4">
+          <i class="fas fa-search" aria-hidden="true"></i>
+          <input id="searchName" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by Name"
+          aria-label="Search">
+        </div>
+
+        <div class="md-form col-md-4">
+          <span class="text-muted">Search by Status</span>
+          <select class="status form-control w-75" id="status" name="status">
+            <option selected>Select</option>
+            <option>Pending</option>
+            <option>Activated</option>
+          </select>          
+        </div>
+
+        <div class="md-form col-md-4">
+          <span class="text-muted">Search by Tags</span>
+          <select class="tags form-control mt-2 w-75" id="tag" name="tag">
+              {{{tags}}}
+          </select>
+        </div>
+    
+      </form>
+
+
+
+      <table class="table table-bordered tale-striped" id="lawyersTable">
+        <thead class="black white-text">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody id="lawyersTable">
+
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="profile-ex" role="tabpanel" aria-labelledby="profile-tab-ex">
+      <!--Accordion wrapper-->
+<div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
+
+  <div class="container-fluid pb-5 mb-5">
+    <p class="h5 text-uppercase">cases</p>
+    <hr/>
+    <table class="table table-bordered tale-striped" id="casesTable">
+      <thead class="black white-text">
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">Title</th>
+          <th scope="col">Client</th>
+          <th scope="col">Status</th>
+          <th scope="col">Assigned Lawyer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Lorem ipsum</td>
+          <td>John doe</td>
+          <td></td>
+          <td>Harvey specter</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Lorem ipsum</td>
+          <td>Jane doe</td>
+          <td></td>
+          <td>Mike ross</td>
+        </tr>
+      </tbody>
+    </table>
+    
+  </div>
+
+</div>
+
+</main>
+
+
+{{> footer}}
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_dashboard_render.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
+
+<script>
+  $('#sendInvite').click(function() {
+    $('#sendInvite').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+  });
+
+  $('.tags').select2();
+  $('.status').select2();
+
+</script>
+
+{{! add lawyer modal }}
+<!-- Modal -->
+<div class="modal fade" id="lawyerModal" tabindex="-1" role="dialog" aria-labelledby="lawyerModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="lawyerModalLabel">Send Lawyer Invite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="card-body px-lg-5 pt-0">
+            <form class="text-center" style="color: #757575;" id="lawyerInvite">
+                <div class="form-row">
+                    <div class="col">
+                        <div class="md-form">
+                            <input type="text" id="fname" name="firstname" class="form-control">
+                            <label for="fname">First name</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input type="text" id="lname" name="lastname" class="form-control">
+                            <label for="lname">Last name</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md-form mt-0">
+                    <input type="email" id="mail" name="email" class="form-control">
+                    <label for="email">E-mail</label>
+                </div>
+
+                <button class="btn btn-default btn-rounded btn-block my-4 waves-effect z-depth-0" id="sendInvite" type="submit">Send</button>
+
+                <hr>
+
+            </form>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="close" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{! Lawyer details modal }}
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Details</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <img id="profilePic" src="" class="rounded-circle mx-auto d-block" alt="profile_pic" height="80">
+          </li>
+          <li class="list-group-item default-color">
+            <div class="md-v-line"></div><i class="fas fa-user mr-3"></i><span id="name"></span>
+          </li>
+          <li class="list-group-item">
+            <div class="md-v-line"></div><i class="fas fa-map-marker-alt mr-3"></i><span id="loc"></span>
+          </li>
+          <li class="list-group-item">
+            <div class="md-v-line"></div><i class="fas fa-briefcase mr-3"></i><b>Years of Experience</b> <span id="exp"></span>
+          </li>
+          <li class="list-group-item">
+            <div class="md-v-line"></div><i class="fas fa-money-bill-wave mr-3"></i><b>Fee</b> &#8358;<span id="fee"></span>
+          </li>
+        </ul>
+        <div class="text-center">
+          <p id="link"></p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
