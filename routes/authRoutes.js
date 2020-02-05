@@ -14,6 +14,7 @@ module.exports = (app)=>{
     app.post('/auth/signup', async (req, res)=>{
         let body = req.body;
         console.log(body);
+        
         res.send(body)
         try{
             const user =  await admin.auth().createUser(body);

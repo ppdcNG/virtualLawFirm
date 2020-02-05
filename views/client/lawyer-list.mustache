@@ -1,0 +1,103 @@
+{{> header}}
+
+<header>
+  <!--Navbar -->
+  <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+    <a class="navbar-brand default-color p-3" href="#">A&E Virtual Law</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+      aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto nav-flex-icons">
+        <li class="nav-item avatar">
+            <a class="nav-link p-0" href="#">
+            <img src="" class="rounded-circle z-depth-0"
+                alt="avatar image" height="40">
+            </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </li>
+      </ul>
+
+        
+    </div>
+  </nav>
+  <!--/.Navbar -->
+</header>
+
+
+<main class="h-75 mt-3">
+
+    <div class="container">
+        <h4>Lawyers that match your Issue</h4>
+        <hr/>
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="flex-fill">
+                <img src="" alt="profile_pic" width="30"/>
+                Jessica Pearson</span> <br/>
+                <span class="badge badge-info badge-pill p-3">&#8358;<span style="font-size:larger">10000</span></span>
+                <a class="btn blue-text ml-4" onclick="payWithPaystack()">select</a>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="flex-fill">Harvey Specter</span>
+                <span class="badge badge-info badge-pill p-3">&#8358;<span style="font-size:larger">10000</span></span>
+                <a class="btn blue-text ml-4">select</a>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="flex-fill">Lewis Litt</span><br/>
+                <span class="badge badge-info badge-pill p-3">&#8358;<span style="font-size:larger">10000</span></span>
+                <a class="btn blue-text ml-4">select</a>
+            </li>
+        </ul>
+    </div>
+
+<form >
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+</form>
+
+</main>
+
+{{> footer}}
+
+
+<script>
+  function payWithPaystack(){
+    var handler = PaystackPop.setup({
+      key: 'pk_test_86d32aa1nV4l1da7120ce530f0b221c3cb97cbcc',
+      email: 'customer@email.com',
+      amount: 10000,
+      currency: "NGN",
+      ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+      metadata: {
+         custom_fields: [
+            {
+                display_name: "Mobile Number",
+                variable_name: "mobile_number",
+                value: "+2348012345678"
+            }
+         ]
+      },
+      callback: function(response){
+          alert('success. transaction ref is ' + response.reference);
+      },
+      onClose: function(){
+          alert('window closed');
+      }
+    });
+    handler.openIframe();
+  }
+</script>

@@ -1,0 +1,47 @@
+{{> header}}
+
+
+<div class="container">
+    <div class="card mt-5 mb-5">
+        <h5 class="card-header special-color white-text text-center py-4">
+            <strong>Welcome back, Log In</strong>
+        </h5>
+
+        <div class="card-body px-lg-5">
+
+            <form class="text-center" style="color: #757575;" id="lawyerLogin">
+                <div class="md-form mt-3">
+                    <input type="email" id="mail" name="email" class="form-control">
+                    <label for="email">Email</label>
+                </div>
+
+                 <div class="md-form mt-0">
+                    <input type="password" id="pwd" name="password" class="form-control">
+                    <label for="pwd">Password</label>
+                </div>
+
+                <button class="btn btn-outline-dark btn-rounded btn-block my-4 waves-effect z-depth-0" id="login" type="submit">Login</button>
+
+                <hr>
+
+            </form>
+            <!-- Form -->
+
+        </div>
+
+    </div>
+</div>
+
+<div style="position: fixed;bottom:0;width:100vw;">
+    {{> footer}}
+</div>
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/lawyer/lawyerScript.js"></script>
+
+<script>
+  $('#login').click(function() {
+    $('#login').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+  });
+</script>

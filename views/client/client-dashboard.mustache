@@ -1,0 +1,342 @@
+{{> header}}
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=285056175476062&autoLogAppEvents=1"></script>
+
+<header>
+  <!--Navbar -->
+  <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+    <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+      aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto nav-flex-icons">
+        <li class="nav-item avatar">
+            <a class="nav-link p-0" href="#">
+            <img src="{{photoURL}}" class="rounded-circle z-depth-0"
+                alt="avatar image" height="40">
+            </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </li>
+      </ul>
+
+        
+    </div>
+  </nav>
+  <!--/.Navbar -->
+</header>
+
+
+<main class="mt-3 pl-3 pr-3" id="client--main">
+    <input type = "hidden" value = "{{uid}}" id = "uid" name = "uid" />
+
+    <div class="d-flex justify-content-center">
+    <ul class="nav nav-tabs md-tabs" id="myTabEx" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active show" id="dashboard-tab-ex" data-toggle="tab" href="#dashboard-ex" role="tab" aria-controls="dashboard-ex"
+            aria-selected="true">DASHBOARD</a>
+        </li>
+        {{! <li class="nav-item">
+            <a class="nav-link" id="profile-tab-ex" data-toggle="tab" href="#profile-ex" role="tab" aria-controls="profile-ex"
+            aria-selected="false">PROFILE</a>
+        </li> }}
+        <li class="nav-item">
+            <a class="nav-link" id="chat-tab-ex" data-toggle="tab" href="#chat-ex" role="tab" aria-controls="chat-ex"
+            aria-selected="false">CHAT</a>
+        </li>
+    </ul>
+    </div>
+    <div class="tab-content pt-3" id="myTabContentEx">
+        <div class="tab-pane fade active show mb-5" id="dashboard-ex" role="tabpanel" aria-labelledby="dashboard-tab-ex">
+              <hr/>
+              <div class="container-fluid">
+                <div class="row mt-3">
+
+                  <div class="col-md-4">
+                    <div class="border py-2">
+                        <img src="{{photoURL}}" style="width:150;height:150" class="rounded-circle mx-auto d-block" alt="profile_pic">
+                        <div class="text-center mt-2">
+                            <hr width="50%">
+                            <h3>{{displayName}}</h3>
+                            <p>{{email}}</p>
+                            <a class="btn text-dark" data-toggle="modal" data-target="#updateProfileModal">Update profile</a>
+                            <hr/>
+                            <a class="btn btn-dark mt-3" data-toggle="modal" data-target="#changeSettingsModal">Change settings</a>
+                        </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-8">
+                    <a class="default-color btn float-right" href="/client/findLawyer">Find a Lawyer</a>
+                    <a class="btn btn-info" data-toggle="modal" data-target="#inviteModal">Invite a friend</a>
+                    <br/>
+                    <br/>
+                    <h4>My Matters</h4>
+                    <hr/>
+                    <table class="table table-bordered tale-striped" id="casesTable">
+                        <thead class="black white-text">
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">Subject</th>
+                                <th scope="col">Lawyer</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>A vs B</td>
+                            <td>John doe</td>
+                            <td>Closed</td>
+                          </tr>
+                          <tr>
+                              <th scope="row">2</th>
+                              <td>Theft case</td>
+                              <td>Jane doe</td>
+                              <td>Closed</td>
+                          </tr>
+                        </tbody>
+                    </table>
+
+                  </div>
+
+                </div>
+              </div>
+
+        </div>
+
+        {{! <div class="tab-pane fade" id="profile-ex" role="tabpanel" aria-labelledby="profile-tab-ex">
+            <p>Profile.</p>
+        </div> }}
+
+        <div class="tab-pane fade mb-5" id="chat-ex" role="tabpanel" aria-labelledby="chat-tab-ex">
+          <div class="container-fluid">
+          
+            <div class="row">
+              <div class="col-md-2 px-3 default-color">
+                <a class="card my-2 p-2">Person 1</a>
+                <a class="card my-2 p-2">Person 2</a>
+                <a class="card my-2 p-2">Person 3</a>
+                <a class="card my-2 p-2">Person 4</a>
+              </div>
+              <div class="col-md-10">
+                <div class="border">
+                  <h4 class="mb-2">Messages</h4>
+                  <section class="client__chat">
+                    <div class="container">
+                      <img src="" alt="Avatar" style="width:50;">
+                      <p>Hello. How are you today?</p>
+                      <span class="time-right">11:00</span>
+                    </div>
+
+                    <div class="container darker">
+                      <img src="" alt="Avatar" class="right" style="width:50;">
+                      <p>Hey! I'm fine. Thanks for asking!</p>
+                      <span class="time-left">11:01</span>
+                    </div>
+
+                    <div class="container">
+                      <img src="" alt="Avatar" style="width:50;">
+                      <p>Sweet! So, who do you wanna sue today?</p>
+                      <span class="time-right">11:02</span>
+                    </div>
+
+                    <div class="container darker">
+                      <img src="" alt="Avatar" class="right" style="width:50;">
+                      <p>Nah, I dunno. My ex?</p>
+                      <span class="time-left">11:05</span>
+                    </div>
+                  </section>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</main>
+
+<!-- Modal -->
+<div class="modal fade" id="updateProfileModal" tabindex="-1" role="dialog" aria-labelledby="updateProfileModalTitle"
+  aria-hidden="true">
+
+  <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+  <div class="modal-dialog modal-lg" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateProfileModalTitle">Profile</h5>
+        <button type="button" id="closeProfileModal" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+            <form id="uploadPic" class="text-center container">
+                <img id="chosenPic" src="{{photoURL}}" style="width:100;height:100" class="rounded-circle mx-auto d-block" alt="profile_pic">
+                <div class="md-form">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="profilePic" accept="image/x-png,image/jpg,image/jpeg" required>
+                      <label class="custom-file-label" for="profilePic" data-browse="Select">Select a profile picture</label>
+                    </div>
+                <button type="submit" class="btn btn-info mt-3" id="uploadPicBtn">Upload</button>
+                </div>
+            </form>
+
+            <hr class="border"/>
+            <form class="container">
+                <div class="md-form">
+                    <input type="text" name="address" class="form-control" required>
+                    <label for="address">Address</label>
+                </div>
+
+                <div class="md-form">
+                    <input type="text" name="lga" class="form-control" required>
+                    <label for="lga">L.G.A</label>
+                </div>
+
+                 <div class="md-form">
+                    <input type="text" name="state" class="form-control" required>
+                    <label for="state">State</label>
+                </div>
+
+                <div class="text-center">
+                  <button type="submit" class="btn btn-info mt-3" id="">Save</button>
+                </div>
+            </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- change settings modal -->
+<div class="modal fade" id="changeSettingsModal" tabindex="-1" role="dialog" aria-labelledby="changeSettingsModalTitle"
+  aria-hidden="true">
+
+  <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+  <div class="modal-dialog modal-lg" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="changeSettingsModalTitle">Settings</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+            <form id="settingsForm" class="text-center container">
+                <div class="form-row">
+                    <div class="col">
+                        <div class="md-form">
+                            <input type="text" id="fname" name="firstname" value  = "{{firstname}}" class="form-control">
+                            <label for="firstName">First name</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input type="text" id="lname" name="lastname" value = "{{lastname}}" class="form-control">
+                            <label for="lastName">Last name</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md-form mt-0">
+                    <input type="text" id="pnumber" name="phoneNumber" value = "{{phoneNumber}}" class="form-control">
+                    <label for="number">Phone number</label>
+                </div>
+                
+                <div class="md-form mt-0">
+                    <input type="email" id="email" name="email" value = {{email}} class="form-control">
+                    <label for="email">E-mail</label>
+                </div>
+
+                 <div class="md-form mt-0">
+                    <input type="text" id="pswd" name="password" class="form-control">
+                    <label for="password">Password</label>
+                </div>
+
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" id="submitprofile" class="btn btn-primary">Save changes</button>
+
+            </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Invite Modal -->
+<div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Share to Friends</h5>
+        <button type="button" class="close" id="closeInviteBtn" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-center">
+          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fprocurementmonitor.org%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore" ><button class="btn btn-primary fb-share-button"   data-href="https://procurementmonitor.org" data-layout="button" data-size="small">
+          Share to Facebook <i class="fab fa-facebook"></i>
+          </button></a>
+          <a class="twitter-share-button" href="https://twitter.com/intent/tweet"><button class="btn btn-info">Share to Twitter <i class="fab fa-twitter"></i></button></a>
+        </div>
+
+        <hr/>
+
+        <p class="text-center">Or send Email Invite</p>
+        <form class="text-center" id="clientInvite">
+          <div class="md-form">
+            <input type="email" name="email" id="inviteEmail">
+            <button type="submit" id="submitInvite" class="btn btn-elegant">Send</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{> footer}}
+<script type = "text/javascript">
+  $("#settingsForm input").trigger('change');
+</script>
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/libraries/js2form.js"></script>
+<script src="{{ABS_PATH}}js/client/clientScript.js"></script>
+<script src="{{ABS_PATH}}js/client/clientDashboard.js"></script>
+
+<script>
+  $("#settingsForm input").trigger('change');
+</script>
+
+<script>
+  loadBtn("uploadPicBtn");
+  loadBtn("uploadIdBtn");
+  loadBtn("submitInvite");
+</script>

@@ -1,0 +1,137 @@
+{{> header}}
+
+<div class="container">
+    <div class="card mt-5 mb-5">
+        <h5 class="card-header special-color white-text text-center py-4">
+            <strong>Sign up</strong>
+        </h5>
+
+        <div class="card-body px-lg-5 pt-0">
+
+            <form id  = "clientRegisterForm" class="text-center" style="color: #757575;" action="#!">
+
+                <div class="form-row">
+                    <div class="col">
+                        <div class="md-form">
+                            <input type="text" id="fname" name = "firstname" class="form-control">
+                            <label for="fname">First name</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input type="text" id="lname" name = "lastname" class="form-control">
+                            <label for="lname">Last name</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md-form mt-0">
+                    <input type="number"  name = "phone" id="pnumber" class="form-control">
+                    <label for="pnumber">Phone number</label>
+                </div>
+                
+                <div class="md-form mt-0">
+                    <input type="email" name = "email" id="email" class="form-control">
+                    <label for="email">E-mail</label>
+                </div>
+
+                 <div class="md-form mt-0">
+                    <input type="email" name = "emailconfirm" id="email2" class="form-control">
+                    <label for="email2">Re-type E-mail</label>
+                </div>
+
+                <button id = "signup" class="btn btn-outline-dark btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Register</button>
+
+                <hr>
+
+                <!-- Terms of service -->
+                <p>By clicking
+                    <em>Register</em> you agree to our
+                    <a href="" target="_blank">terms of service</a></p>
+
+            </form>
+            <!-- Form -->
+            <p>Return to <a href="/">Homepage</a></p>
+        </div>
+
+    </div>
+</div>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="display:none">
+  T & C
+</button>
+
+{{> footer}}
+<script src="{{ABS_PATH}}js/auth.js"></script>
+  <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+  <script src="{{ABS_PATH}}js/client/clientScript.js"></script>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+
+  <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Terms & Conditions</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi
+            leo risus, porta ac consectetur ac, vestibulum at eros.
+
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
+            faucibus dolor auctor.
+
+            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+            Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi
+            leo risus, porta ac consectetur ac, vestibulum at eros.
+
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
+            faucibus dolor auctor.
+
+            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+            Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi
+            leo risus, porta ac consectetur ac, vestibulum at eros.
+
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
+            faucibus dolor auctor.
+
+            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+            Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi
+            leo risus, porta ac consectetur ac, vestibulum at eros.
+
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
+            faucibus dolor auctor.
+
+            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+            Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi
+            leo risus, porta ac consectetur ac, vestibulum at eros.
+
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum
+            faucibus dolor auctor.
+
+            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+            Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
+        <p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Accept</button>
+      </div>
+    </div>
+  </div>
+</div>
