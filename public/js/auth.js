@@ -8,12 +8,24 @@ var firebaseConfig = {
   appId: "1:838064767859:web:d1e8af8a574f6b42243b06",
   measurementId: "G-6P45Y1WFK3"
 };
+var firebaseProdConfig = {
+  apiKey: "AIzaSyBNaUoqktjH9fjsEjXzZjdabOARH0bxpPg",
+  authDomain: "lawtrella-prod.firebaseapp.com",
+  databaseURL: "https://lawtrella-prod.firebaseio.com",
+  projectId: "lawtrella-prod",
+  storageBucket: "lawtrella-prod.appspot.com",
+  messagingSenderId: "247425002683",
+  appId: "1:247425002683:web:a61cefbeb8a617bd1d4d9e",
+  measurementId: "G-KWZGWK6QN7"
+};
 // Initialize Firebase
+
+var config = window.location.host == 'localhost' ? firebaseConfig : firebaseProdConfig;
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 
-var ABS_PATH = "http://localhost:3000/";
+var ABS_PATH = window.location.host == 'localhost' ? "http://localhost:3000/" : "https://lawtrella.herokuapp.com/";
 const PAYSTACK_KEY = 'pk_test_90906c497a5030ec77dddecb2abb511ff903977b';
 function ajaxrequest(modal, json_data, to_url, call_back) {
   var dataObject = { data: json_data }
