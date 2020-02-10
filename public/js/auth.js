@@ -21,7 +21,7 @@ var firebaseProdConfig = {
 // Initialize Firebase
 
 var config = window.location.host == 'localhost:3000' ? firebaseConfig : firebaseProdConfig;
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(config);
 firebase.analytics();
 
 
