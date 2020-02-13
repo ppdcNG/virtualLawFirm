@@ -2,7 +2,7 @@
 <header>
   <!--Navbar -->
   <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
-    <a class="navbar-brand default-color p-3" href="#">A&E Virtual Law</a>
+    <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
       aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -14,6 +14,9 @@
           <a class="nav-link" href="/">Home
             <span class="sr-only">(current)</span>
           </a>
+        </li>
+        <li>
+          <a class="nav-link text-white" href="/admin"><i class="fas fa-arrow-left"></i> Back to Admin</a>
         </li>
       </ul>
 
@@ -215,6 +218,7 @@
                 <div class="mt-3">
                     <button class="btn btn-success" onclick="verifyLawyer('{{lawyer.authId}}')" id="verify">Verify</button>
                     <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-warning">Suspend</button>
                     <button class="btn btn-primary" data-toggle="modal" data-target="#msgModal">Send Message</button>
                 </button>
 
