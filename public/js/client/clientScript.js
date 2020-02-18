@@ -93,7 +93,7 @@ $("#clientRegisterForm").submit(e => {
             console.log(response);
             if (!response.err) {
                 $("#close").trigger("click");
-                $.notify("Check your email to continue", { type: "success" });
+                $.notify("A confirmation email has been sent to your inbox", { type: "success" });
             } else {
                 $("#close").trigger("click");
                 $.notify(response.message, { type: "warning" });
