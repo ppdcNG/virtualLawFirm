@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "lawtrella-prod",
+  "private_key_id": "fc2126656ef2cb8bb8ed534a0a319832627fffb8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCyaeY8CPWKCprl\n9feXgdrM5/ZrjTpInhEp56vZgdokxDpQ9f+iJgcbBUPnbpA3b0XXyHSahpTC4aJM\n8BTR+FxOhF7GAaNgtqe7tLblZUnqeww/wN2NS6zOVklV+dN0R1iniTLMN1xO+ozx\nTo2q+v+vo09+rmC1p0UO4IeoYQCVWReJuAQ//qxDfxx5OoVL4zIhUNGYtgxzrAnT\n/imB6Gz+d4OwKVbblA95PYE9wyo5xHClENH3cvW4Pwgn8ic95w2/LfTtpSuu4Mt9\nE6nzD7gIdIBJS8p90ECtAnnCqK7WURWxWmpKTnO423QRI7+ws66Ei6NDQs76ffJc\n2gwZHtMVAgMBAAECggEAKKJeZdt7gthV/ZyG6rqQSP1mvgmhFeNsUNE7LlN5Ccko\naAKTGYzULvcEx2vCzGFbNKFqzzvqGzWVB7VhZI4OhfJ3fFzopzEKpEFtK3NlgZJL\nUKTeQN1UqvzzgHGhE5lhS2z/xQuxyiod2iK0ONYoUEofY6CXFaBWZeRE+Vg4cAsD\nP/6z9nRHHFr3JAG4P0PaV+vkYzsykS/xsXgr0cfJp6nCTaMdyczrBV3OSSF5JPas\nHKpxZaAyhW4wSDigIzjEPgwUQmzMghDa/5DmSRtyS8X0m3ITdajspx6MptUICdRZ\nTFZcS+lmXj8s3B+S+5F7PsMkQz0P9Kzee8ZZlt9jGQKBgQD5jdotPXW0QpDMmpFV\n5fcLaCWtk5VgFGT/DERNA9euM+8apTmoaD+WLeaj8DsW4twce/hm64LQoNuHm84o\n76sh/E2mkVAxBW11lOrSfbMPq4rL5CM9riH9yMjNbxy6BbQIpEkukc5Bm3evCV46\nHkKFWhYvWdYJFL1lxBz9/2nIiQKBgQC3BaOfHuYN/kM7HP6IX5rai/i7oN67MU7x\nM3H1mjILh6HxxsisPDQBePsnzs+wZ7J8d9fdcmV/fxAVqxQKhQzfQc85BT4UVcGL\nAfggdQ20aXrzLHvtS1343fhkTpzW4m9vi8awQLO2aSdLHbERQGaf7ZIHus2MaFWQ\nGOXZ3hc7LQKBgEbbMAeIW9NC0zpE6N8q3GowuAIA1XjiUYrZQMtdO/AKbulx4F0g\nvG03uzTxENX+s+CiknUmiY4THkHyyyZ0ZnLP4Hxa5hoFIH8yOTpq1lysqEwcCqWI\nu74DNICf+9gVpniNrPm8DIQ0UFcyob5+uQSD/6iSKWOKr/wlItY7nx2BAoGAchMB\nuNv5aB9iqCWaQEXWrwEvN0M9kE9bdNsr3HkPWEBhn+DWkwOzJnfRky5EJR99EDdi\nRJRYzu7Th63p/+SN8VmDX3b1Cpeo2ouPrCtJL3nPOGIxm+Wt3L/9YgfdmdHoww3L\n+W9alAdWhmsrQiVx0ZyxuD+mfi1Jp1bdbL4QnMECgYEA471gvJHdLTTSf5JAkb84\nhZwhC/G9qDWkliOvkpUcZYLFSvGsrD2HpwvoyuyOo+VzWe6dzk0IhN4yQf9ji4UZ\nQz+FIzrwBPQDWC2Q0Ww2DzMItYSFi+QHsZ34CDEagmEpHeKp4/qq9kbRrw7XFMFH\niu+/yTzzl7aWuRgD9vefD3c=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-u2xce@lawtrella-prod.iam.gserviceaccount.com",
+  "client_id": "110217559707205918414",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-u2xce%40lawtrella-prod.iam.gserviceaccount.com"
+}

@@ -33,7 +33,7 @@ exports.welcomeMail = (options, res) => {
 };
 
 exports.inviteEmail = async (email) => {
-  let html = clientInvite().toString()
+  let html = clientInvite(ABS_PATH).toString()
   let messageOptions = {
     to: email,
     subject: "Welcome to LawTrella",

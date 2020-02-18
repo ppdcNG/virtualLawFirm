@@ -2,15 +2,17 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 var logger = require('morgan');
 var mustacheExpress = require('mustache-express');
 var admin = require("firebase-admin");
-var serviceAccount = require("./config/firebaseservice.json");
+var serviceAccount = process.env.NODE_ENV === "production" ? require('./config/prodFirebaseService.json') : require("./config/firebaseservice.json");
 var fileUpload = require('express-fileupload')
+var databaseURL = process.env.NODE_ENV === 'production' ? "https://lawtrella-prod.firebaseio.com" : "https://virtuallawfirm-2478e.firebaseio.com";
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://virtuallawfirm-2478e.firebaseio.com"
+  databaseURL
 });
 
 const indexRouter = require('./routes/index');
@@ -29,6 +31,7 @@ app.set('view engine', 'mustache');
 
 app.use(logger('dev'));
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));

@@ -66,11 +66,13 @@ const clientSignIn = async (email, password) => {
                         clearLoad('clientLoginButton', 'Login');
                     }, 2000);
                 }
+                clearLoad('clientLoginButton', 'Login');
             },
             error: e => console.log(e)
         });
     } catch (e) {
         console.log(e);
+        clearLoad('clientLoginButton', 'Login');
         $.notify(e.message, { type: "danger" });
     }
 };
