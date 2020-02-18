@@ -1,7 +1,7 @@
 const sendgrid = require("@sendgrid/mail");
 const SENDGRID_API_KEY = require("../config/dev").SEND_GRID_API_KEY;
 var ABS_PATH = require("../config").ABS_PATH;
-const { welcomeTemplate } = require("../views/templates/welcomeTemplate");
+const { welcomeEmail } = require("../views/templates/welcome");
 const { clientInvite } = require("../views/templates/clientInvite");
 
 sendgrid.setApiKey(SENDGRID_API_KEY);
@@ -33,7 +33,7 @@ exports.welcomeMail = (options, res) => {
 };
 
 exports.inviteEmail = async (email) => {
-  let html = clientInvite().toString()
+  let html = clientInvite(ABS_PATH).toString()
   let messageOptions = {
     to: email,
     subject: "Welcome to LawTrella",

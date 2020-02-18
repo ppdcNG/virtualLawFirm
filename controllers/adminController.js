@@ -162,6 +162,7 @@ exports.verifyLawyerEmail = async (req, res) => {
   res.send(returnObj);
 };
 exports.verifyUserEmail = async (req, res) => {
+  console.log(req.body);
   let { password, token } = req.body;
   if (!password || !token) {
     let obj = {
@@ -196,6 +197,10 @@ exports.verifyUserEmail = async (req, res) => {
     res.send(obj);
     return;
   }
+  let idCard = req.files.idCard
+  let ext = idCard.name.split('.');
+  ext = ext[ext.length - 1];
+  console.log(password)
   let data = userDetails.data();
   let { email, firstname, lastname, phone } = data;
   let dateRegistered = new Date().getTime()
@@ -214,7 +219,13 @@ exports.verifyUserEmail = async (req, res) => {
       res.send(obj);
       return;
     });
+  console.log(user);
+  let filename = `assets/${user.uid}.${ext}`;
+  console.log(filename)
+  await idCard.mv(filename, (err) => {
+    if (err) res.status(400).send(err);
 
+  })
   let client = {
     name: firstname + " " + lastname,
     email: email,
