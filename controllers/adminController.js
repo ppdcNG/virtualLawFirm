@@ -1,15 +1,17 @@
 var ABS_PATH = require("../config").ABS_PATH;
+const AppName = require("../config").AppName;
+
 const { sendmail, welcomeMail } = require("../helpers/mail");
 const { token, tagOptions, is_empty, renderDocuments } = require("../helpers");
 const admin = require('firebase-admin');
 
 exports.adminPage = async (req, res) => {
   let tags = tagOptions();
-  res.render("admin/admin-dashboard", { title: "Admin", ABS_PATH, tags });
+  res.render("admin/admin-dashboard", { title: "Admin", ABS_PATH, tags, AppName });
 };
 
 exports.loginPage = (req, res) => {
-  res.render("admin/admin-login", { title: "Admin", ABS_PATH });
+  res.render("admin/admin-login", { title: "Admin", ABS_PATH, AppName });
 };
 
 exports.newUSer = (req, res) => {
@@ -343,7 +345,7 @@ exports.details = async (req, res) => {
   let lawyer = snapshot.data();
   let documents = renderDocuments(lawyer.docs);
   console.log('documents', documents)
-  res.render("lawyer/lawyer-details", { ABS_PATH, lawyer, documents, title: 'Lawyer Details' });
+  res.render("lawyer/lawyer-details", { ABS_PATH, lawyer, documents, title: 'Lawyer Details', AppName });
 
 }
 

@@ -4,6 +4,7 @@ const AppName = require("../config").AppName;
 const { sendmail, welcomeMail } = require("../helpers/mail");
 const { token, tagOptions, percentageComplete } = require("../helpers");
 
+const { states } = require('./states');
 
 var admin = require("firebase-admin");
 // var auth = admin.auth();
@@ -30,9 +31,14 @@ exports.profile = async (req, res) => {
 
     let photoUrl = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
     let tags = tagOptions();
-    let states = '<option></option><option>State A</option><option>State B</option>';
 
-    res.render("lawyer/profile", { title: "Lawyer profile", ABS_PATH, AppName, photoUrl, uid: user.uid, tags, states, progress });
+    let options = `<option></option>`
+    for (var state in states) {
+        option = `<option>${states[state]}</option>`;
+        options += option;
+    }
+
+    res.render("lawyer/profile", { title: "Lawyer profile", ABS_PATH, AppName, photoUrl, uid: user.uid, tags, options, progress });
 };
 
 

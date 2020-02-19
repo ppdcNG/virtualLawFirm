@@ -66,7 +66,7 @@
 
       <ul class="navbar-nav ml-auto nav-flex-icons">
         <li class="nav-item avatar">
-            <a class="nav-link p-0" href="#">
+            <a class="nav-link p-0" href="/lawyer/dashboard">
             <img src="{{ photoUrl }}" class="rounded-circle z-depth-0"
                 alt="avatar image" height="40">
             </a>
@@ -147,15 +147,15 @@
                         </div>
 
                         <div class="md-form">
-                            <input type="text" class="form-control" name="lga" required/>
-                            <label for="lga" class="label">LGA:</label>
+                            <span class="text-muted">State:</span>
+                            <select class="states form-control mt-2" id="state" name="state">
+                                {{{options}}}
+                            </select>
                         </div>
 
                         <div class="md-form">
-                            <span class="text-muted">State:</span>
-                            <select class="states form-control mt-2" id="states" name="state">
-                                {{{states}}}
-                            </select>
+                            <input type="text" class="form-control" name="lga" required/>
+                            <label for="lga" class="label">LGA:</label>
                         </div>
 
                         <div class="md-form">
@@ -325,7 +325,7 @@
                     </div>
 
                     <div class="md-form">
-                        <input type="number" name="workExperience" class="form-control" id="fee" required>
+                        <input type="number" name="workExperience" class="form-control" id="workExp" required>
                         <label for="workExperience">Work experience (years)</label>
                     </div>
 

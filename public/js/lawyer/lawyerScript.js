@@ -82,7 +82,7 @@ $("#lawyerRegisterForm").submit(e => {
       console.log(response);
       if (!response.err) {
         $("#close").trigger("click");
-        $.notify("Check your email to continue", { type: "success" });
+        $.notify("A confirmation email has been sent to your inbox", { type: "success" });
         $('#signup').html('<span>Sign up</span>').removeClass('disabled');
       } else {
         $("#close").trigger("click");

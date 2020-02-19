@@ -73,6 +73,7 @@
               </div>
           </form>
           <!-- Material form group -->
+
       </div>
   </div>
 
@@ -106,6 +107,11 @@
   </section>
 </main>
 
+{{! <form >
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <button class="form-control" type="button" onclick="payWithPaystack()"> Pay </button> 
+</form> }}
+
 {{> footer}}
 
 <script src="{{ABS_PATH}}js/auth.js"></script>
@@ -113,7 +119,9 @@
 <script src="{{ABS_PATH}}js/client/clientScript.js"></script>
 <script src="{{ABS_PATH}}js/client/clientDashboard.js"></script>
 <script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
+
 <script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="{{ABS_PATH}}js/libraries/paystack.js"></script>
 
 <script>
     $('#tags').select2({
