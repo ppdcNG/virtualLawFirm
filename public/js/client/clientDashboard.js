@@ -218,11 +218,12 @@ const renderFoundLawyer = lawyer => {
 const payWithPaystack = (fee, id) => {
     let clientEmail = $('#clientEmail').val();
     let phoneNumber = $('#phoneNumber').val();
+    let amount = parseInt(fee.replace(',', '').trim(), 10);
 
     var handler = PaystackPop.setup({
         key: PAYSTACK_KEY,
         email: clientEmail,
-        amount: 1000,
+        amount: amount + '00',
         currency: "NGN",
         metadata: {
             custom_fields: [
