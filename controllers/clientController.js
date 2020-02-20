@@ -1,5 +1,5 @@
-var ABS_PATH = require("../config").ABS_PATH;
-const AppName = require("../config").AppName;
+const { ABS_PATH, AppName, PAYSTACK_PUB_KEY } = require("../config");
+
 
 const { sendmail, welcomeMail, inviteEmail } = require("../helpers/mail");
 const { token, tagOptions, percentageComplete } = require("../helpers");
@@ -248,4 +248,20 @@ exports.sendInvite = async (req, res) => {
     await inviteEmail(email)
     res.status(200).send({ status: 'success', message: `Invite has been sent to ${email}` });
 
+}
+
+exports.verifyConsultationFee = async (req, res) => {
+    let { paystackRef, lawyerId, task } = req.body;
+    task.timestamp = new Date().getTime()
+    let uid = req.user.uid;
+    var paystack = require('paystack')(PAYSTACK_PUB_KEY);
+    var body = paystack.transaction.verify(paystackRef, (err, body) => {
+
+        console.log(err, body);
+        let ref = await admin.firestore().collection('casses').add(task).catch((e) => console.log(e));
+
+        await admin.firestore().collection('users').doc('uid').collection('tasks').doc(ref.id).set(task);
+        await admin.firestore().collection('lawyers').doc(lawyerId).collection('tasks').doc(ref.id).set(task);
+
+    })
 }
