@@ -11,8 +11,8 @@ var admin = require("firebase-admin");
 
 exports.findLawyer = (req, res) => {
     let tags = tagOptions();
-    let { photoURL, displayName, email } = req.user;
-    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, AppName, photoURL, tags, displayName, email })
+    let { photoURL, displayName, email, phoneNumber } = req.user;
+    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, AppName, photoURL, tags, displayName, email, phoneNumber })
 };
 
 exports.registrationPage = (req, res) => {
@@ -255,7 +255,7 @@ exports.verifyConsultationFee = async (req, res) => {
     task.timestamp = new Date().getTime()
     let uid = req.user.uid;
     var paystack = require('paystack')(PAYSTACK_PUB_KEY);
-    var body = paystack.transaction.verify(paystackRef, (err, body) => {
+    var body = paystack.transaction.verify(paystackRef, async (err, body) => {
 
         console.log(err, body);
         let ref = await admin.firestore().collection('casses').add(task).catch((e) => console.log(e));

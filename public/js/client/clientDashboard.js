@@ -217,18 +217,19 @@ const renderFoundLawyer = lawyer => {
 // Paystack
 const payWithPaystack = (fee, id) => {
     let clientEmail = $('#clientEmail').val();
+    let phoneNumber = $('#phoneNumber').val();
 
     var handler = PaystackPop.setup({
-        key: 'pk_test_28c944c0f505bdbe163c2d0083127cbaca3cb1c3',
+        key: PAYSTACK_KEY,
         email: clientEmail,
-        amount: fee,
+        amount: 1000,
         currency: "NGN",
         metadata: {
             custom_fields: [
                 {
                     display_name: "Mobile Number",
                     variable_name: "mobile_number",
-                    value: "+2348012345678"
+                    value: phoneNumber
                 }
             ]
         },
@@ -248,6 +249,7 @@ const payWithPaystack = (fee, id) => {
                 data: dataObj,
                 success: function (response) {
                     console.log("success", response)
+                    window.location = '/client/dashboard';
                 },
                 error: err => console.error("error", err)
             });

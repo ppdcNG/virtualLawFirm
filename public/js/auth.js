@@ -26,7 +26,7 @@ firebase.analytics();
 
 
 var ABS_PATH = window.location.host == 'localhost:3000' ? "http://localhost:3000/" : "https://lawtrella.herokuapp.com/";
-const PAYSTACK_KEY = 'pk_test_90906c497a5030ec77dddecb2abb511ff903977b';
+const PAYSTACK_KEY = 'pk_test_28c944c0f505bdbe163c2d0083127cbaca3cb1c3';
 function ajaxrequest(modal, json_data, to_url, call_back) {
   var dataObject = { data: json_data }
   $.ajax({
