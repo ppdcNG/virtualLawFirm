@@ -87,20 +87,32 @@
                     <br/>
                     <h4>My Tasks</h4>
                     <hr/>
-                    <p>No tasks yet</p>
-                    {{! <table class="table table-bordered tale-striped" id="casesTable">
-                        <thead class="black white-text">
-                            <tr>
-                                <th scope="col">id</th>
-                                <th scope="col">Subject</th>
-                                <th scope="col">Lawyer</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
 
-                        </tbody>
-                    </table> }}
+                    {{#tasks}}
+                          <table class="table table-bordered tale-striped" id="casesTable">
+                              <thead class="black white-text">
+                                  <tr>
+                                      <th scope="col">Subject</th>
+                                      <th scope="col">Date Created</th>
+                                      <th scope="col">Lawyer</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="tasksTable">
+                                <tr>
+                                  <td class="w-100">
+                                    <div class="d-flex justify-content-center">
+                                      <div class="spinner-grow slow" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                          </table>
+                    {{/tasks}}
+                    {{^tasks}}
+                        <p>No tasks yet</p>
+                    {{/tasks}}
 
                   </div>
 

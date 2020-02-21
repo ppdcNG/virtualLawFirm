@@ -278,6 +278,16 @@ const payWithPaystack = (fee, id) => {
     handler.openIframe();
 }
 
+// render tasks
+const renderTasks = task => {
+
+    return `<tr>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    `
+}
 
 $("#subject").on("change keyup", function () {
     clearLoad("next", "Next");

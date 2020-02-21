@@ -99,8 +99,10 @@ exports.dashboard = async (req, res) => {
     state = state || "";
     address = address || "";
     lga = lga || "";
+
+    let tasks = true;
     res.render('client/client-dashboard', {
-        title: 'Client Dashboard', ABS_PATH, AppName, photoURL, idCardURL, uid, displayName, title: "Client Dashboard", email, firstname, lastname, phoneNumber, state, lga, address
+        title: 'Client Dashboard', ABS_PATH, AppName, photoURL, idCardURL, uid, displayName, title: "Client Dashboard", email, firstname, lastname, phoneNumber, state, lga, address, tasks
     });
 }
 
