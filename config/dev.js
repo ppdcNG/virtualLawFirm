@@ -3,4 +3,4 @@ exports.SEND_GRID_API_KEY =
 
 exports.ABS_PATH = 'http://localhost:3000/';
 exports.AppName = 'LawTrella';
-exports.PAYSTACK_PUB_KEY = "pk_test_28c944c0f505bdbe163c2d0083127cbaca3cb1c3";
+exports.PAYSTACK_PUB_KEY = "sk_test_8c562506dc0a6fa7340764b0493292a27b86a058";

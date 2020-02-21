@@ -221,6 +221,8 @@ const payWithPaystack = (fee, id) => {
     let clientEmail = $('#clientEmail').val();
     let clientName = $('#displayName').val();
     let phoneNumber = $('#phoneNumber').val();
+    let displayName = $("#displayName").val();
+
 
     var handler = PaystackPop.setup({
         key: PAYSTACK_KEY,
@@ -230,12 +232,7 @@ const payWithPaystack = (fee, id) => {
         metadata: {
             custom_fields: [
                 {
-                    display_name: "Name",
-                    variable_name: "name",
-                    value: clientName
-                },
-                {
-                    display_name: "Mobile Number",
+                    display_name: displayName,
                     variable_name: "mobile_number",
                     value: phoneNumber
                 }
@@ -244,17 +241,22 @@ const payWithPaystack = (fee, id) => {
         // on success 
         callback: function (response) {
             let task = form2js("findLawyerForm", ".");
+            task.lawyerId = id;
+            task.lawyer = laywer.contact;
+            console.log(task);
 
             let dataObj = {
                 paystackRef: response.reference,
                 task,
-                lawyerId: id,
+                lawyerId: id
             }
+            console.log(dataObj)
+            let req = { 'data': JSON.stringify(dataObj) };
 
             $.ajax({
                 url: ABS_PATH + "client/verifyConsultationFee",
                 type: "POST",
-                data: dataObj,
+                data: req,
                 success: function (response) {
                     console.log("success", response)
                     window.location = '/client/dashboard';
