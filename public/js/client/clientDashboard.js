@@ -331,3 +331,13 @@ $("#clientInvite").submit(function (e) {
 
 
 $("#updateProfile input").trigger('change');
+
+
+const fetchCases = async () => {
+    let uid = $("#uid").val();
+    console.log(uid);
+    let cases = await firebase.firestore().collection('clients').doc(uid).collection('tasks').get().catch((e) => { console.log(e) });
+    cases.forEach(value => {
+        console.log(value.data());
+    });
+}
