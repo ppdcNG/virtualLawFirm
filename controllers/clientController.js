@@ -251,17 +251,25 @@ exports.sendInvite = async (req, res) => {
 }
 
 exports.verifyConsultationFee = async (req, res) => {
-    let { paystackRef, lawyerId, task } = req.body;
-    task.timestamp = new Date().getTime()
+    let payload = JSON.parse(req.body.data);
+    console.log(payload);
+    let { paystackRef, task, lawyerId } = payload
     let uid = req.user.uid;
+    task.timestamp = new Date().getTime();
+    task.userId = uid;
+    task.lawyerId = lawyerId;
     var paystack = require('paystack')(PAYSTACK_PUB_KEY);
     var body = paystack.transaction.verify(paystackRef, async (err, body) => {
-
+        if (err) {
+            res.send({ status: "An error Occured" });
+            return;
+        }
         console.log(err, body);
         let ref = await admin.firestore().collection('cases').add(task).catch((e) => console.log(e));
-
-        await admin.firestore().collection('users').doc('uid').collection('tasks').doc(ref.id).set(task);
+        await admin.firestore().collection('clients').doc(uid).collection('tasks').doc(ref.id).set(task);
         await admin.firestore().collection('lawyers').doc(lawyerId).collection('tasks').doc(ref.id).set(task);
+
+        res.send({ status: 'success', message: "Transaction Success full case has been created" });
 
     })
 }
