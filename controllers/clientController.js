@@ -258,7 +258,7 @@ exports.verifyConsultationFee = async (req, res) => {
     var body = paystack.transaction.verify(paystackRef, async (err, body) => {
 
         console.log(err, body);
-        let ref = await admin.firestore().collection('casses').add(task).catch((e) => console.log(e));
+        let ref = await admin.firestore().collection('cases').add(task).catch((e) => console.log(e));
 
         await admin.firestore().collection('users').doc('uid').collection('tasks').doc(ref.id).set(task);
         await admin.firestore().collection('lawyers').doc(lawyerId).collection('tasks').doc(ref.id).set(task);

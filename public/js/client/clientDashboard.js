@@ -200,7 +200,6 @@ $("#findLawyerForm").submit(async function (e) {
 
 const renderFoundLawyer = lawyer => {
     let { contact, portfolio, name, authId } = lawyer;
-    console.log(lawyer)
     let fee = accounting.formatNumber(portfolio.consultationFee);
 
     return `<li class="list-group-item d-flex justify-content-between align-items-center">
@@ -209,22 +208,24 @@ const renderFoundLawyer = lawyer => {
         <span class="flex-fill"><b>Specialization: </b>${portfolio.specialization}</span>
         <span class="flex-fill"><b>Experience: ${portfolio.workExperience} Years</b></span>
         <span class="badge badge-info badge-pill p-3" style="width:100px;">&#8358;<span style="font-size:larger">${fee}</span></span>
-        <a class="btn blue-text ml-4" onclick="payWithPaystack('${fee}, ${authId}')">Consult</a>
+        <a class="btn blue-text ml-4" onclick="payWithPaystack('${portfolio.consultationFee}, ${authId}')">Consult</a>
     </li>
 `
 }
 
 // Paystack
 const payWithPaystack = (fee, id) => {
+    let laywer = lawyersList[id];
+    fee = parseInt(fee);
+    console.log(fee);
     let clientEmail = $('#clientEmail').val();
     let clientName = $('#displayName').val();
     let phoneNumber = $('#phoneNumber').val();
-    let amount = parseInt(fee.replace(',', '').trim(), 10);
 
     var handler = PaystackPop.setup({
         key: PAYSTACK_KEY,
         email: clientEmail,
-        amount: amount + '00',
+        amount: fee * 100,
         currency: "NGN",
         metadata: {
             custom_fields: [
