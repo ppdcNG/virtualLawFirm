@@ -47,6 +47,8 @@
 <main class="mb-5">
   <div class="container" id="findLawyersSection">
     <h2 class="text-center mt-2">What's the Issue? Let's help</h2>
+    <input value="{{email}}" id="clientEmail" style="display: none" />
+    <input value="{{phoneNumber}}" id="phoneNumber" style="display: none" />
     <hr/>
     <div class="d-flex justify-content-center">
         <!-- Material form group -->
@@ -68,8 +70,11 @@
                       {{{tags}}}
                   </select>
               </div>
+
+              <button type="button" onclick="goBack()" class="btn"><i class="fas fa-arrow-left"></i> Back</button>
+
               <div class="md-form text-right">
-                  <button type="submit" id="next" class="btn btn-primary">Next <i class="fas fa-arrow-right"></i></button>
+                  <button type="submit" id="next" class="btn btn-default">Next <i class="fas fa-arrow-right"></i></button>
               </div>
           </form>
           <!-- Material form group -->
@@ -121,7 +126,6 @@
 <script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
 
 <script src="https://js.paystack.co/v1/inline.js"></script>
-<script src="{{ABS_PATH}}js/libraries/paystack.js"></script>
 
 <script>
     $('#tags').select2({
@@ -129,4 +133,9 @@
     });
 
     loadBtn('next');
+</script>
+<script>
+    const goBack = () => {
+        window.history.back();
+    }
 </script>

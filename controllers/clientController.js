@@ -11,8 +11,8 @@ var admin = require("firebase-admin");
 
 exports.findLawyer = (req, res) => {
     let tags = tagOptions();
-    let { photoURL, displayName } = req.user;
-    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, AppName, photoURL, tags, displayName })
+    let { photoURL, displayName, email, phoneNumber } = req.user;
+    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, AppName, photoURL, tags, displayName, email, phoneNumber })
 };
 
 exports.registrationPage = (req, res) => {
@@ -100,7 +100,7 @@ exports.dashboard = async (req, res) => {
     address = address || "";
     lga = lga || "";
     res.render('client/client-dashboard', {
-        title: 'Lawyer homepage', ABS_PATH, AppName, photoURL, idCardURL, uid, displayName, title: "Client Dashboard", email, firstname, lastname, phoneNumber, state, lga, address
+        title: 'Client Dashboard', ABS_PATH, AppName, photoURL, idCardURL, uid, displayName, title: "Client Dashboard", email, firstname, lastname, phoneNumber, state, lga, address
     });
 }
 

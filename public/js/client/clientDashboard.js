@@ -208,16 +208,64 @@ const renderFoundLawyer = lawyer => {
         <span class="flex-fill">${name}</span><br/>
         <span class="flex-fill"><b>Specialization: </b>${portfolio.specialization}</span>
         <span class="flex-fill"><b>Experience: ${portfolio.workExperience} Years</b></span>
-        <span class="badge badge-info badge-pill p-3" style="width:100px;cursor:pointer" onClick="payWithPaystack()">&#8358;<span style="font-size:larger">${fee}</span></span>
-        <a class="btn blue-text ml-4" onclick = "selectLawyer('${authId}')">Consult</a>
+        <span class="badge badge-info badge-pill p-3" style="width:100px;">&#8358;<span style="font-size:larger">${fee}</span></span>
+        <a class="btn blue-text ml-4" onclick="payWithPaystack('${fee}, ${authId}')">Consult</a>
     </li>
 `
 }
 
+// Paystack
+const payWithPaystack = (fee, id) => {
+    let clientEmail = $('#clientEmail').val();
+    let phoneNumber = $('#phoneNumber').val();
+
+    var handler = PaystackPop.setup({
+        key: PAYSTACK_KEY,
+        email: clientEmail,
+        amount: 1000,
+        currency: "NGN",
+        metadata: {
+            custom_fields: [
+                {
+                    display_name: "Mobile Number",
+                    variable_name: "mobile_number",
+                    value: phoneNumber
+                }
+            ]
+        },
+        // on success 
+        callback: function (response) {
+            let task = form2js("findLawyerForm", ".");
+
+            let dataObj = {
+                paystackRef: response.reference,
+                task,
+                lawyerId: id,
+            }
+
+            $.ajax({
+                url: ABS_PATH + "verifyConsultationFee",
+                type: "POST",
+                data: dataObj,
+                success: function (response) {
+                    console.log("success", response)
+                    window.location = '/client/dashboard';
+                },
+                error: err => console.error("error", err)
+            });
+
+        },
+        onClose: function () {
+            console.log('window closed');
+        }
+    });
+    handler.openIframe();
+}
+
+
 $("#subject").on("change keyup", function () {
     clearLoad("next", "Next");
 })
-
 
 $("#prev").click(async function (e) {
     $("#fetchLawyersSection").css('display', 'none');
