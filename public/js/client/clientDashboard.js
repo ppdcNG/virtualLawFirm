@@ -258,10 +258,16 @@ const payWithPaystack = (fee, id) => {
                 type: "POST",
                 data: req,
                 success: function (response) {
-                    console.log("success", response)
-                    window.location = '/client/dashboard';
+                    console.log("success", response);
+                    $.notify(response.message, { type: "success" });
+                    setTimeout(() => {
+                        window.location = '/client/dashboard';
+                    }, 1000)
                 },
-                error: err => console.error("error", err)
+                error: err => {
+                    console.error("error", err)
+                    $.notify(response.message, { type: "warning" });
+                }
             });
 
         },
@@ -312,5 +318,6 @@ $("#clientInvite").submit(function (e) {
     });
 
 });
+
 
 $("#updateProfile input").trigger('change');
