@@ -217,6 +217,7 @@ const renderFoundLawyer = lawyer => {
 // Paystack
 const payWithPaystack = (fee, id) => {
     let clientEmail = $('#clientEmail').val();
+    let clientName = $('#displayName').val();
     let phoneNumber = $('#phoneNumber').val();
     let amount = parseInt(fee.replace(',', '').trim(), 10);
 
@@ -227,6 +228,11 @@ const payWithPaystack = (fee, id) => {
         currency: "NGN",
         metadata: {
             custom_fields: [
+                {
+                    display_name: "Name",
+                    variable_name: "name",
+                    value: clientName
+                },
                 {
                     display_name: "Mobile Number",
                     variable_name: "mobile_number",

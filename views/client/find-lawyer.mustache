@@ -47,8 +47,12 @@
 <main class="mb-5">
   <div class="container" id="findLawyersSection">
     <h2 class="text-center mt-2">What's the Issue? Let's help</h2>
+
+    {{! hidden elements }}
     <input value="{{email}}" id="clientEmail" style="display: none" />
+    <input value="{{displayName}}" id="displayName" style="display: none" />
     <input value="{{phoneNumber}}" id="phoneNumber" style="display: none" />
+    {{! hidden elements }}
     <hr/>
     <div class="d-flex justify-content-center">
         <!-- Material form group -->
