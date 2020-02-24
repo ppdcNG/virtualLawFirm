@@ -253,6 +253,8 @@ const payWithPaystack = (fee, id) => {
             console.log(dataObj)
             let req = { 'data': JSON.stringify(dataObj) };
 
+            $.notify('Processing payment', { type: "success" });
+
             $.ajax({
                 url: ABS_PATH + "client/verifyConsultationFee",
                 type: "POST",
@@ -276,17 +278,6 @@ const payWithPaystack = (fee, id) => {
         }
     });
     handler.openIframe();
-}
-
-// render tasks
-const renderTasks = task => {
-
-    return `<tr>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
-    `
 }
 
 $("#subject").on("change keyup", function () {
@@ -337,7 +328,44 @@ const fetchCases = async () => {
     let uid = $("#uid").val();
     console.log(uid);
     let cases = await firebase.firestore().collection('clients').doc(uid).collection('tasks').get().catch((e) => { console.log(e) });
+
+    let tasksHTML = "";
     cases.forEach(value => {
         console.log(value.data());
+        tasksHTML += renderTasks(value.data())
     });
+
+    $("#tasksTable").html(tasksHTML);
+    $("#loadingTasks").css('display', 'none');
 }
+
+// render tasks
+const renderTasks = task => {
+    let { timestamp } = task;
+    let convertTime = new Date(timestamp);
+    let time = `${convertTime.getDate()}-${convertTime.getMonth()}-${convertTime.getFullYear()}`;
+
+    return `<tr>
+        <td>${task.subject}</td>
+        <td>${time}</td>
+        <td class="text-center">
+            <div class="btn-group">
+                <button type="button" class="btn">
+                    <img src="${task.lawyer.photoUrl}" class="rounded-circle z-depth-0"
+                    alt="lawyerPic" height="50">
+                </button>
+                <button type="button" class="btn dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">${task.lawyer.name}</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">${task.lawyer.address}, ${task.lawyer.lga}</a>
+                </div>
+            </div>
+        </td>
+    </tr>    `
+}
+
+fetchCases();

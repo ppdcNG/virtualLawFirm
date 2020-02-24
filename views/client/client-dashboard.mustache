@@ -94,21 +94,17 @@
                                   <tr>
                                       <th scope="col">Subject</th>
                                       <th scope="col">Date Created</th>
-                                      <th scope="col">Lawyer</th>
+                                      <th scope="col" class="text-center">Lawyer</th>
                                   </tr>
                               </thead>
                               <tbody id="tasksTable">
-                                <tr>
-                                  <td class="w-100">
-                                    <div class="d-flex justify-content-center">
-                                      <div class="spinner-grow slow" role="status">
-                                        <span class="sr-only">Loading...</span>
-                                      </div>
-                                    </div>
-                                  </td>
-                                </tr>
                               </tbody>
                           </table>
+                          <div class="d-flex justify-content-center">
+                            <div class="spinner-grow slow" role="status" id="loadingTasks">
+                              <span class="sr-only">Loading...</span>
+                            </div>
+                          </div>
                     {{/tasks}}
                     {{^tasks}}
                         <p>No tasks yet</p>
