@@ -335,7 +335,17 @@ const fetchCases = async () => {
         tasksHTML += renderTasks(value.data())
     });
 
-    $("#tasksTable").html(tasksHTML);
+    // function to check if object is empty
+    const isEmptyObject = obj => {
+        return JSON.stringify(obj) == '{}';
+    }
+
+    if (!isEmptyObject(tasksHTML)) {
+        $("#tasksTable").html(tasksHTML);
+    } else {
+        $("#tasksTable").after('<p>You have no tasks</p>');
+    }
+
     $("#loadingTasks").css('display', 'none');
 }
 
@@ -348,21 +358,18 @@ const renderTasks = task => {
     return `<tr>
         <td>${task.subject}</td>
         <td>${time}</td>
-        <td class="text-center">
-            <div class="btn-group">
-                <button type="button" class="btn">
-                    <img src="${task.lawyer.photoUrl}" class="rounded-circle z-depth-0"
-                    alt="lawyerPic" height="50">
-                </button>
-                <button type="button" class="btn dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">${task.lawyer.name}</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">${task.lawyer.address}, ${task.lawyer.lga}</a>
-                </div>
+        <td>
+        <img src="${task.lawyer.photoUrl}" class="rounded-circle z-depth-0"
+        alt="lawyerPic" height="50">
+        <span>${task.lawyer.name}</span>
+        <!-- Basic dropdown -->
+            <button class="btn btn-elegant dropdown-toggle mr-4" type="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">More</button>
+            
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#"> ${task.lawyer.address}, ${task.lawyer.lga}</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item btn btn-default" href="#">Start Chat</a>
             </div>
         </td>
     </tr>    `
