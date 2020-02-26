@@ -1,3 +1,6 @@
 node_modules
 firebaseservice
 sendgrid.env
+dev.js
+firebaseservice.json
+keys
