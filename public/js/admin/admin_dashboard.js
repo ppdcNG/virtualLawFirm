@@ -70,7 +70,13 @@ const viewSummary = (id) => {
 }
 
 const fetchCases = () => {
-  return "";
+  let casesHtml = "";
+  let cases = await firebase.firestore().collection('cases').get().catch((e) => { console.log(e) })
+  cases.forEach((task) => {
+    task = task.data();
+    console.log(task);
+    casesHtml += renderCases(task);
+  })
 };
 
 ///add Lawyer Form Submit

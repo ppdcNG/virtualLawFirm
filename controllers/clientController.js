@@ -257,9 +257,10 @@ exports.verifyConsultationFee = async (req, res) => {
     console.log(payload);
     let { paystackRef, task, lawyerId } = payload
     let uid = req.user.uid;
-    task.timestamp = new Date().getTime();
+    task.timestamp = 0 - new Date().getTime();
     task.userId = uid;
     task.lawyerId = lawyerId;
+    task.client = req.user;
     var paystack = require('paystack')(PAYSTACK_PUB_KEY);
     var body = paystack.transaction.verify(paystackRef, async (err, body) => {
         if (err) {
