@@ -47,8 +47,8 @@
 </header>
 
 <main style="min-height:100vh">
-    <div class="row pt-5 h-75">
-        <div class="col-md-4" style="border-right: 1px solid grey">
+    <div class="row pt-5">
+        <div class="col-md-3" style="border-right: 1px solid grey">
             <img src="{{photoUrl}}" width="150" class="rounded-circle mx-auto d-block" alt="profile_pic">
             <hr/>
             <div class="text-center">
@@ -58,38 +58,122 @@
             </div>
         </div>
 
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="text-right" id="inviteModalDiv">
-              <a class="btn btn-info" data-toggle="modal" data-target="#inviteModal">Invite a friend</a>
+              <a class="btn btn-default" data-toggle="modal" data-target="#inviteModal">Invite a friend</a>
             </div>
+            <br />
             <div class="container">
-                <h4>Tasks</h4>
-                <hr/>
-                <table class="table table-bordered tale-striped" id="casesTable">
-                    <thead class="black white-text">
-                        <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">Client</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{! <tr>
-                            <th scope="row">1</th>
-                            <td>John doe</td>
-                            <td>A vs B</td>
-                            <td><button class="btn btn-warning">Close</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jane doe</td>
-                            <td>Theft case</td>
-                            <td><button class="btn btn-dark" disabled>Closed</button></td>
-                        </tr> }}
-                    </tbody>
-                </table>
-                <p class="text-muted h4">You have <b>0</b> tasks</p>
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs md-tabs nav-justified default-color" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link black-text active" data-toggle="tab" href="#panel555" role="tab">
+                      <i class="fas fa-gavel"></i> Tasks</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link black-text" data-toggle="tab" href="#panel666" role="tab">
+                      <i class="far fa-comment-alt"></i> Chats</a>
+                  </li>
+                </ul>
+                <!-- Nav tabs -->
+
+                <!-- Tab panels -->
+                <div class="tab-content">
+
+                  <!-- Panel 1 -->
+                  <div class="tab-pane fade in show active" id="panel555" role="tabpanel">
+
+                    <h4 class="mt-2r">Tasks</h4>
+                    <hr/>
+                    <table class="table table-bordered tale-striped" id="casesTable">
+                        <thead class="black white-text">
+                            <col width="50">
+                            <col width="50">
+                            <col width="50">
+                            <col width="80">
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">Client</th>
+                                <th scope="col">Tasks</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>John doe</td>
+                                <td>A vs B</td>
+                                <td>
+                                  <button class="btn btn-default" data-toggle="modal" data-target="#contactModal">Contact</button>
+                                  <button class="btn" data-toggle="modal" data-target="#chatModal">Chat</button>
+                                  <button class="btn" data-toggle="modal" data-target="#meetingModal">Schedule Meeting</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jane doe</td>
+                                <td>Theft case</td>
+                                <td>
+                                  <button class="btn btn-default" data-toggle="modal" data-target="#contactModal">Contact</button>
+                                  <button class="btn" data-toggle="modal" data-target="#chatModal">Chat</button>
+                                  <button class="btn" data-toggle="modal" data-target="#meetingModal">Schedule Meeting</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                  </div>
+                  <!-- /Panel 1 -->
+
+                  <!-- Panel 2 -->
+                  <div class="tab-pane fade container mt-2" id="panel666" role="tabpanel">
+
+                           <div class="row">
+                              <div class="col-md-2 px-3 default-color">
+                                <a class="card my-2 p-2">Person 1</a>
+                                <a class="card my-2 p-2">Person 2</a>
+                                <a class="card my-2 p-2">Person 3</a>
+                                <a class="card my-2 p-2">Person 4</a>
+                              </div>
+                              <div class="col-md-10">
+                                <div class="border">
+                                  <h4 class="mb-2">Messages</h4>
+                                  <section class="client__chat">
+                                    <div class="container">
+                                      <img src="" alt="Avatar" style="width:50;">
+                                      <p>Hello. How are you today?</p>
+                                      <span class="time-right">11:00</span>
+                                    </div>
+
+                                    <div class="container darker">
+                                      <img src="" alt="Avatar" class="right" style="width:50;">
+                                      <p>Hey! I'm fine. Thanks for asking!</p>
+                                      <span class="time-left">11:01</span>
+                                    </div>
+
+                                    <div class="container">
+                                      <img src="" alt="Avatar" style="width:50;">
+                                      <p>Sweet! So, who do you wanna sue today?</p>
+                                      <span class="time-right">11:02</span>
+                                    </div>
+
+                                    <div class="container darker">
+                                      <img src="" alt="Avatar" class="right" style="width:50;">
+                                      <p>Nah, I dunno. My ex?</p>
+                                      <span class="time-left">11:05</span>
+                                    </div>
+                                  </section>
+
+                                </div>
+                              </div>
+                            </div>
+
+                  </div>
+                  <!-- /Panel 2 -->
+
+                </div>
+                <!-- Tab panels -->
             </div>
         </div>
 
@@ -131,9 +215,76 @@
   </div>
 </div>
 
+{{! contact client modal  }}
+<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center">
+          John Doe
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <img src="{{ photoUrl }}" class="rounded-circle z-depth-0"
+              alt="avatar image" height="80">
+        </div>
+        <hr/>
+        <p><i class="fas fa-phone"></i>Number: 0701234567</p>
+        <p><i class="fas fa-envelope"></i>Email: someone@example.com</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{! chat modal  }}
+<div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby=""
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center">
+          Chat
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+    </div>
+  </div>
+</div>
+
+{{! meeting modal  }}
+<div class="modal fade" id="meetingModal" tabindex="-1" role="dialog" aria-labelledby=""
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center">
+          Schedule Meeting
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{> footer}}
+
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
 <script src="{{ABS_PATH}}js/lawyer/lawyer.js"></script>
-
-{{> footer}}
 
