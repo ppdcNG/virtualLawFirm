@@ -253,7 +253,7 @@ const payWithPaystack = (fee, id) => {
             console.log(dataObj)
             let req = { 'data': JSON.stringify(dataObj) };
 
-            $.notify('Processing payment', { type: "success" });
+            var processingNotification = $.notify('Processing payment, please wait', { type: "info", delay: 0 });
 
             $.ajax({
                 url: ABS_PATH + "client/verifyConsultationFee",
@@ -261,7 +261,10 @@ const payWithPaystack = (fee, id) => {
                 data: req,
                 success: function (response) {
                     console.log("success", response);
-                    $.notify(response.message, { type: "success" });
+
+                    processingNotification.close();
+                    $.notify(response.message, { type: response.status });
+
                     setTimeout(() => {
                         window.location = '/client/dashboard';
                     }, 1000)
