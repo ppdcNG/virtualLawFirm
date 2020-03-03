@@ -253,20 +253,30 @@ exports.sendInvite = async (req, res) => {
 
 exports.verifyConsultationFee = async (req, res) => {
     let payload = JSON.parse(req.body.data);
-    console.log(payload);
     let { paystackRef, task, lawyerId } = payload
     let uid = req.user.uid;
-    task.timestamp = 0 - new Date().getTime();
+    let time = new Date().getTime();
+    task.timestamp = 0 - time;
     task.userId = uid;
     task.lawyerId = lawyerId;
-    task.client = req.user;
+    let { user } = req.user;
+    task.client = {
+        uid: req.user.uid,
+        email: req.user.email,
+        displayName: req.user.displayName,
+        photoURL: req.user.photoURL,
+        phoneNumber: req.user.phoneNumber
+
+    }
+    console.log(task);
     var paystack = require('paystack')(PAYSTACK_PUB_KEY);
     var body = paystack.transaction.verify(paystackRef, async (err, body) => {
+        console.log(err);
         if (err) {
-            res.send({ status: "An error Occured" });
+            res.send({ status: "failed", message: "Transaction Failed" });
             return;
         }
-        console.log(err, body);
+        // console.log(err, body);
         let ref = await admin.firestore().collection('cases').add(task).catch((e) => console.log(e));
         await admin.firestore().collection('clients').doc(uid).collection('tasks').doc(ref.id).set(task);
         await admin.firestore().collection('lawyers').doc(lawyerId).collection('tasks').doc(ref.id).set(task);
