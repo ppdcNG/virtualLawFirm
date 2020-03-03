@@ -137,6 +137,7 @@ exports.updateContact = async (req, res) => {
         user = user.data();
         await admin.auth().updateUser(req.user.uid, { photoUrl });
         user.contact = { photoUrl, name, address, country, lga, briefProfile };
+        user.status = "pending";
         await admin.firestore().collection('lawyers').doc(req.user.uid).set(user);
         let returnObj = {
             message: "User Contact Info has been updated Successfully",
@@ -163,6 +164,7 @@ exports.updateRecord = async (req, res) => {
         user = user.data();
         user.record = { courtEnrollmentNumber, yearOfEnrollment, criminalRecord, criminalInvestigation, misconductIndictment, misconductInvestigation };
         user.accountDetails = accountDetails
+        user.status = "pending";
         let docref = admin.firestore().collection('lawyersList').doc(req.user.uid);
         let docref2 = admin.firestore().collection('lawyers').doc(req.user.uid);
         batch.set(docref, user);
