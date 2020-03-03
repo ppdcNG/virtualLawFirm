@@ -245,6 +245,8 @@ const payWithPaystack = (fee, id) => {
             task.lawyer = laywer.contact;
             console.log(task);
 
+            console.log('laywer', laywer)
+
             let dataObj = {
                 paystackRef: response.reference,
                 task,
@@ -255,25 +257,25 @@ const payWithPaystack = (fee, id) => {
 
             var processingNotification = $.notify('Processing payment, please wait', { type: "info", delay: 0 });
 
-            $.ajax({
-                url: ABS_PATH + "client/verifyConsultationFee",
-                type: "POST",
-                data: req,
-                success: function (response) {
-                    console.log("success", response);
+            // $.ajax({
+            //     url: ABS_PATH + "client/verifyConsultationFee",
+            //     type: "POST",
+            //     data: req,
+            //     success: function (response) {
+            //         console.log("success", response);
 
-                    processingNotification.close();
-                    $.notify(response.message, { type: response.status });
+            //         processingNotification.close();
+            //         $.notify(response.message, { type: response.status });
 
-                    setTimeout(() => {
-                        window.location = '/client/dashboard';
-                    }, 1000)
-                },
-                error: err => {
-                    console.error("error", err)
-                    $.notify(response.message, { type: "warning" });
-                }
-            });
+            //         setTimeout(() => {
+            //             window.location = '/client/dashboard';
+            //         }, 1000)
+            //     },
+            //     error: err => {
+            //         console.error("error", err)
+            //         $.notify(response.message, { type: "warning" });
+            //     }
+            // });
 
         },
         onClose: function () {
