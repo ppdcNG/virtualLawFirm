@@ -7,6 +7,7 @@ var logger = require('morgan');
 var mustacheExpress = require('mustache-express');
 var admin = require("firebase-admin");
 var serviceAccount = process.env.NODE_ENV === "production" ? require('./config/firebase-prod').serviceAccount : require("./config/firebaseservice.json");
+
 var fileUpload = require('express-fileupload')
 var databaseURL = process.env.NODE_ENV === 'production' ? "https://lawtrella-prod.firebaseio.com" : "https://virtuallawfirm-2478e.firebaseio.com";
 
