@@ -14,5 +14,12 @@ const fetchCases = async () => {
         // casesHtml += renderCases(task);
     });
 
-
 }
+
+$("#scheduleMeetingForm").submit((e) => {
+    e.preventDefault();
+    let form = form2js("scheduleMeetingForm", ".");
+
+    console.log(form);
+
+})
