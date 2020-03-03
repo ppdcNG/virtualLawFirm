@@ -264,8 +264,8 @@ exports.verifyConsultationFee = async (req, res) => {
         uid: req.user.uid,
         email: req.user.email,
         displayName: req.user.displayName,
-        photoURL: req.user.photoURL,
-        phoneNumber: req.user.phoneNumber
+        photoURL: req.user.photoURL || "",
+        phoneNumber: req.user.phoneNumber || ""
 
     }
     console.log(task);
