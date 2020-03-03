@@ -10,7 +10,7 @@ var admin = require("firebase-admin");
 // var auth = admin.auth();
 // var firestore = admin.firestore();
 
-var serviceAccount = require("../config/firebaseservice.json");
+
 
 exports.profile = async (req, res) => {
     let user = req.user;
