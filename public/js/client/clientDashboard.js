@@ -335,18 +335,14 @@ const fetchCases = async () => {
         tasksHTML += renderTasks(value.data())
     });
 
-    // function to check if object is empty
-    const isEmptyObject = obj => {
-        return JSON.stringify(obj) == '{}';
-    }
-
-    if (!isEmptyObject(tasksHTML)) {
-        $("#tasksTable").html(tasksHTML);
+    if (is_empty(tasksHTML)) {
+        $("#casesTable").html('<p class="p-2">You have no tasks yet</p>');
     } else {
-        $("#tasksTable").after('<p>You have no tasks</p>');
+        $("#tasksTable").html(tasksHTML);
     }
 
     $("#loadingTasks").css('display', 'none');
+
 }
 
 // render tasks
