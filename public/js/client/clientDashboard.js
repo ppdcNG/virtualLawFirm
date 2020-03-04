@@ -399,7 +399,8 @@ const renderTaskModal = (task, taskId) => {
                 <hr width="50" />
                 <ul class="list-group">
                     <li class="list-group-item">${task.lawyer.name}</li>
-                    <li class="list-group-item">${task.lawyer.phoneNumber || ""}</li>
+                    <li class="list-group-item">${task.lawyer.phoneNumber || "N/A"}</li>
+                    <li class="list-group-item">${task.lawyer.email || "N/A"}</li>
                     <li class="list-group-item">${task.lawyer.address}</li>
                     <li class="list-group-item">${task.lawyer.lga}</li>
                     <li class="list-group-item">${task.lawyer.country}</li>
