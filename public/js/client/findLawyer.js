@@ -1,5 +1,3 @@
-var ISSUE = '1';
-
 //find lawyer
 $("#findLawyerForm").submit(async function (e) {
     e.preventDefault();
@@ -22,7 +20,8 @@ $("#findLawyerForm").submit(async function (e) {
     console.log(lawyers);
     let lawyersHTML = '';
     lawyers.forEach(lawyer => {
-        lawyersList[lawyer.id] = lawyer.data();
+        let lawyerData = lawyer.data();
+        lawyersList[lawyer.id] = lawyerData;
         lawyersHTML += renderFoundLawyer(lawyer.data());
     });
     $("#fetchlawyersList").html(lawyersHTML);
@@ -48,13 +47,14 @@ const renderFoundLawyer = lawyer => {
 
 // Paystack
 const payWithPaystack = (fee, id) => {
-    let lawyer = lawyersList[id];
+    let laywer = lawyersList[id];
     fee = parseInt(fee);
     console.log(fee);
     let clientEmail = $('#clientEmail').val();
     let clientName = $('#displayName').val();
     let phoneNumber = $('#phoneNumber').val();
     let displayName = $("#displayName").val();
+
 
     var handler = PaystackPop.setup({
         key: PAYSTACK_KEY,
@@ -75,8 +75,8 @@ const payWithPaystack = (fee, id) => {
             let task = form2js("findLawyerForm", ".");
             task.lawyerId = id;
             task.lawyer = laywer.contact;
-            task.lawyerEmail = lawyer.email;
-            console.log(task);
+            task.lawyer.email = lawyer.email
+            console.log('task', task);
 
             if (!task.lawyer.phoneNumber) {
                 task.lawyer.phoneNumber = '';

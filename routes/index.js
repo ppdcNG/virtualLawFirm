@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var { sendAdminNewCase } = require('../helpers/mail');
+
 const AppName = require("../config").AppName;
 
 /* GET home page. */
@@ -25,6 +27,12 @@ router.get('/join', function (req, res) {
 router.get('/logout', (req, res) => {
   res.clearCookie('session');
   res.redirect('/');
+})
+
+router.get('/test', async (req, res) => {
+  await sendAdminNewCase('kunle@procurementmonitor.org', 'Kunle', 'Sadiq');
+  console.log("sent");
+
 })
 
 

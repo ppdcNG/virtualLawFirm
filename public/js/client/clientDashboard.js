@@ -1,6 +1,7 @@
 
 let lawyersList = {};
 var ISSUE = '1';
+let TASKS = {};
 function readURL(input, id) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -218,8 +219,9 @@ const fetchCases = async () => {
 
     let tasksHTML = "";
     cases.forEach(value => {
-        console.log(value.data());
-        tasksHTML += renderTasks(value.data())
+        let task = value.data();
+        TASKS[value.id] = task
+        tasksHTML += renderTasks(task, value.id);
     });
 
     if (is_empty(tasksHTML)) {
@@ -233,45 +235,12 @@ const fetchCases = async () => {
 }
 
 // render tasks
-const renderTasks = task => {
+const renderTasks = (task, id) => {
     let { timestamp } = task;
 
     let formattedTimestamp = Math.abs(timestamp);
     let time = moment(formattedTimestamp).format("dddd, MMMM Do YYYY");
 
-    $("#casesTable").after(`
-    <div class="modal fade" id="lawyerDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title text-center">${task.lawyer.name}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body p-3">
-            <div class="text-center">
-                <img src="${task.lawyer.photoUrl}" class="rounded-circle z-depth-0 mr-2"
-                alt="lawyerPic" height="100">
-                <hr width="50" />
-                <ul class="list-group">
-                    <li class="list-group-item">${task.lawyer.name}</li>
-                    <li class="list-group-item">${task.lawyer.phoneNumber}</li>
-                    <li class="list-group-item">${task.lawyer.address}</li>
-                    <li class="list-group-item">${task.lawyer.lga}</li>
-                    <li class="list-group-item">${task.lawyer.country}</li>
-                </ul>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <a type="button" class="btn btn-info" href="tel:07038334703">Call</a>
-            <a type="button" class="btn btn-default">Chat</a>
-        </div>
-        </div>
-    </div>
-    </div>
-    `);
 
     return `<tr>
         <td>${task.subject}</td>
@@ -280,10 +249,39 @@ const renderTasks = task => {
             <img src="${task.lawyer.photoUrl}" class="rounded-circle z-depth-0 mr-2"
             alt="lawyerPic" height="50">
             <span class="mr-2">${task.lawyer.name}</span>
-            <button class="btn btn-info mr-4" data-toggle="modal" data-target="#lawyerDetailsModal">More</button>
+            <button class="btn btn-info mr-4" data-toggle="modal" onclick = "openLawyerDetailsModal('${id}')" data-target="#lawyerDetailsModal">More</button>
         </td>
     </tr>
     `
+}
+
+const openLawyerDetailsModal = (id) => {
+    let task = TASKS[id];
+    renderTaskModal(task, taskId);
+
+    $("#lawyerDetailsModal").modal('show')
+
+
+}
+
+const renderTaskModal = (task, taskId) => {
+
+    $("#taskId").val(taskId);
+    $("#lawyerName").text(task.lawyer.name);
+    $("#lawyerDetailsList").html(`
+    <img src="${task.lawyer.photoUrl}" class="rounded-circle z-depth-0 mr-2"
+                alt="lawyerPic" height="100">
+                <hr width="50" />
+                <ul class="list-group">
+                    <li class="list-group-item"><i class="fas fa-user float-left"></i>${task.lawyer.name}</li>
+                    <li class="list-group-item"><i class="fas fa-mobile float-left"></i></i>${task.lawyer.phoneNumber || "N/A"}</li>
+                    <li class="list-group-item"><i class="fas fa-at float-left"></i>${task.lawyer.email || "N/A"}</li>
+                    <li class="list-group-item"><i class="fas fa-road float-left"></i>${task.lawyer.address}</li>
+                    <li class="list-group-item"><i class="fas fa-map-marker-alt float-left"></i>${task.lawyer.lga}</li>
+                    <li class="list-group-item"><i class="fas fa-globe-africa float-left"></i>${task.lawyer.country}</li>
+                </ul>
+    `);
+
 }
 
 fetchCases();

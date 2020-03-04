@@ -309,6 +309,40 @@
   </div>
 </div>
 
+<div class="modal fade" id="lawyerDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <input type = "hidden" id = "taskId"/>
+    <input type = "hidden" id = "lawyerId"/>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-center" id = "lawyerName"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body p-3">
+            <div class="text-center" id = "lawyerDetailsList">
+                <img src="${task.lawyer.photoUrl}" class="rounded-circle z-depth-0 mr-2"
+                alt="lawyerPic" height="100">
+                <hr width="50" />
+                <ul class="list-group" >
+                    <li class="list-group-item"></li>
+                    <li class="list-group-item"></li>
+                    <li class="list-group-item"></li>
+                    <li class="list-group-item"></li>
+                    <li class="list-group-item"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a type="button" class="btn btn-info" href="tel:07038334703">Call</a>
+            <a type="button" class="btn btn-default"  onclick="chatWithLawyer">Chat</a>
+        </div>
+        </div>
+    </div>
+    </div>
+
 
 {{> footer}}
 

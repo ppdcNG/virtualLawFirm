@@ -259,14 +259,22 @@ exports.verifyConsultationFee = async (req, res) => {
     task.timestamp = 0 - time;
     task.userId = uid;
     task.lawyerId = lawyerId;
-    let { user } = req.user;
-    task.client = {
+    let user = {
         uid: req.user.uid,
         email: req.user.email,
         displayName: req.user.displayName,
         photoURL: req.user.photoURL || "",
         phoneNumber: req.user.phoneNumber || ""
+    }
+    task.client = user;
+    task.payRef = paystackRef;
+    task.status = "consulting";
 
+    let payrecord = {
+        payer: user,
+        payee: task.lawyer,
+        ref: paystackRef,
+        date: 0 - time,
     }
     console.log(task);
     var paystack = require('paystack')(PAYSTACK_PUB_KEY);
@@ -276,11 +284,12 @@ exports.verifyConsultationFee = async (req, res) => {
             res.send({ status: "failed", message: "Transaction Failed" });
             return;
         }
-        // console.log(err, body);
+        console.log(err, body);
         let ref = await admin.firestore().collection('cases').add(task).catch((e) => console.log(e));
         await admin.firestore().collection('clients').doc(uid).collection('tasks').doc(ref.id).set(task);
         await admin.firestore().collection('lawyers').doc(lawyerId).collection('tasks').doc(ref.id).set(task);
-
+        payrecord.caseId = ref.id;
+        await admin.firestore().collection('transactions').add(payrecord);
         res.send({ status: 'success', message: "Transaction Success full case has been created" });
 
     })
