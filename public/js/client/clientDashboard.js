@@ -358,27 +358,55 @@ const fetchCases = async () => {
 // render tasks
 const renderTasks = task => {
     let { timestamp } = task;
-    let convertTime = new Date(timestamp);
-    let time = `${convertTime.getDate()}-${convertTime.getMonth()}-${convertTime.getFullYear()}`;
+
+    let formattedTimestamp = Math.abs(timestamp);
+    let time = moment(formattedTimestamp).format("dddd, MMMM Do YYYY");
+
+    $("#casesTable").after(`
+    <div class="modal fade" id="lawyerDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-center">${task.lawyer.name}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body p-3">
+            <div class="text-center">
+                <img src="${task.lawyer.photoUrl}" class="rounded-circle z-depth-0 mr-2"
+                alt="lawyerPic" height="100">
+                <hr width="50" />
+                <ul class="list-group">
+                    <li class="list-group-item">${task.lawyer.name}</li>
+                    <li class="list-group-item">${task.lawyer.phoneNumber}</li>
+                    <li class="list-group-item">${task.lawyer.address}</li>
+                    <li class="list-group-item">${task.lawyer.lga}</li>
+                    <li class="list-group-item">${task.lawyer.country}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a type="button" class="btn btn-info" href="tel:07038334703">Call</a>
+            <a type="button" class="btn btn-default">Chat</a>
+        </div>
+        </div>
+    </div>
+    </div>
+    `);
 
     return `<tr>
         <td>${task.subject}</td>
         <td>${time}</td>
         <td>
-        <img src="${task.lawyer.photoUrl}" class="rounded-circle z-depth-0"
-        alt="lawyerPic" height="50">
-        <span>${task.lawyer.name}</span>
-        <!-- Basic dropdown -->
-            <button class="btn btn-elegant dropdown-toggle mr-4" type="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">More</button>
-            
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#"> ${task.lawyer.address}, ${task.lawyer.lga}</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item btn btn-default" href="#">Start Chat</a>
-            </div>
+            <img src="${task.lawyer.photoUrl}" class="rounded-circle z-depth-0 mr-2"
+            alt="lawyerPic" height="50">
+            <span class="mr-2">${task.lawyer.name}</span>
+            <button class="btn btn-info mr-4" data-toggle="modal" data-target="#lawyerDetailsModal">More</button>
         </td>
-    </tr>    `
+    </tr>
+    `
 }
 
 fetchCases();

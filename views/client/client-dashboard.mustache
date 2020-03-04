@@ -89,7 +89,7 @@
                     <hr/>
 
                     <table class="table table-bordered tale-striped" id="casesTable">
-                        <thead class="black white-text">
+                        <thead class="default-color white-text">
                             <tr>
                                 <th scope="col">Subject</th>
                                 <th scope="col">Date Created</th>
@@ -111,10 +111,6 @@
               </div>
 
         </div>
-
-        {{! <div class="tab-pane fade" id="profile-ex" role="tabpanel" aria-labelledby="profile-tab-ex">
-            <p>Profile.</p>
-        </div> }}
 
         <div class="tab-pane fade mb-5" id="chat-ex" role="tabpanel" aria-labelledby="chat-tab-ex">
           <div class="container-fluid">
@@ -278,7 +274,7 @@
 </div>
 
 
-<!-- Invite Modal -->
+{{! Invite Modal }}
 <div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -315,6 +311,7 @@
 
 
 {{> footer}}
+
 <script type = "text/javascript">
   $("#settingsForm input").trigger('change');
 </script>
