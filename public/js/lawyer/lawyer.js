@@ -31,8 +31,8 @@ const renderCases = (task, taskId) => {
     <td>${task.issue}</td>
     <th scope="row">${time}</th>
     <td>
-      <button class="btn btn-default" data-toggle="modal" onclick = "viewClientDetails(${taskId})" data-target="#contactModal">Contact</button>
-      <button class="btn" data-toggle="modal" onclick = "sheduleMetting(${taskId}) data-target="#meetingModal">Schedule Meeting</button>
+      <button class="btn btn-default" data-toggle="modal" onclick = "viewClientDetails(${taskId})" data-target="#contactModal"><i class="far fa-caret-square-down"></i></button>
+      <button class="btn" data-toggle="modal" onclick = "sheduleMetting(${taskId}) data-target="#meetingModal"><i class="far fa-calendar-alt"></i></button>
     </td>
 </tr>`;
 }

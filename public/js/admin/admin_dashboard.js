@@ -69,7 +69,7 @@ const viewSummary = (id) => {
   }
 }
 
-const fetchCases = () => {
+const fetchCases = async () => {
   let casesHtml = "";
   let cases = await firebase.firestore().collection('cases').get().catch((e) => { console.log(e) })
   cases.forEach((task) => {
