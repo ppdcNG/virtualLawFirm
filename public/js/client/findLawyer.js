@@ -72,6 +72,7 @@ const payWithPaystack = (fee, id) => {
         },
         // on success 
         callback: function (response) {
+            console.log('success', response);
             let task = form2js("findLawyerForm", ".");
             task.lawyerId = id;
             task.lawyer = laywer.contact;
@@ -118,6 +119,7 @@ const payWithPaystack = (fee, id) => {
         },
         onClose: function () {
             console.log('window closed');
+            console.log('closed', response);
         }
     });
     handler.openIframe();
