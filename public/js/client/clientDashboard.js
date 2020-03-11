@@ -402,7 +402,7 @@ const renderTaskModal = (task, taskId) => {
     $("#lawyerName").text(task.lawyer.name);
     $("#lawyerDetailsList").html(`
     <img src="${task.lawyer.photoUrl}" class="rounded-circle z-depth-0 mr-2"
-                alt="lawyerPic" height="100">
+                alt="lawyerPic" height="70">
                 <hr width="50" />
                 <ul class="list-group">
                     <li class="list-group-item"><i class="fas fa-user float-left"></i>${task.lawyer.name}</li>
@@ -421,7 +421,7 @@ const renderChatList = (chat) => {
     <li class="list-group-item">
         <a href = "#" onclick = "viewChat('${chat.chatId}')">
         <img src="${chat.lawyerPhoto}" class="rounded-circle z-depth-0 "
-            alt="lawyerPic" height="50">  ${chat.lawyerName} </a>
+            alt="lawyer Pic" height="50">  ${chat.lawyerName} </a>
     </li>
     `;
 }
@@ -455,7 +455,7 @@ const renderSenderChat = (chat) => {
 }
 
 const renderReceiverChat = (chat) => {
-    let momentDate = new moment(Math.abs(timestamp));
+    let momentDate = new moment(Math.abs(chat.timestamp));
     let timeago = momentDate.fromNow();
 
     return `<div class="container" style = "width: 30%">
@@ -466,5 +466,6 @@ const renderReceiverChat = (chat) => {
                 <p class="mb-2 blue-grey-text">${chat.message}</p>
             </div>`;
 }
+
 
 

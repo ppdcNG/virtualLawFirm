@@ -308,6 +308,7 @@ exports.initiateChat = async (req, res) => {
             message: 'Chat Already Initiated'
         }
         res.send(msg);
+        return;
     }
     let chat = {
         clientId, lawyerId, chatId, clientName, clientPhoto, lawyerName, lawyerPhoto, timestamp, messages: []
