@@ -108,3 +108,4 @@ $("#clientRegisterForm").submit(e => {
         error: e => console.log(e)
     });
 });
+

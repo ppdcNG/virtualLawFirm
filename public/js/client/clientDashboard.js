@@ -2,6 +2,28 @@
 let lawyersList = {};
 var ISSUE = '1';
 let TASKS = {};
+var CHATS = [];
+var CHAT_MESSAGES = [];
+var Chatlistener = null;
+var CHAT_ID = null;
+
+$(document).ready(function () {
+    fetchCases();
+    fetchChats();
+});
+
+$("#chatTextForm").submit(async function (e) {
+    e.preventDefault();
+    let prevButtonContent = $("#sendChatButton").html();
+    buttonLoad("sendChatButton");
+    let chatmessage = $("#chatInput").val();
+    let response = await sendChat(CHAT_ID, chatmessage);
+    clearLoad('sendChatButton', prevButtonContent);
+    console.log(response);
+    console.log(this);
+    this.reset()
+
+})
 function readURL(input, id) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -93,7 +115,27 @@ $("#updateProfile").submit(function (e) {
         }
     })
 
-})
+});
+
+
+const sendChat = async (chatId, message) => {
+    let uid = $("#uid").val();
+    let senderName = $("#displayName").val();
+
+    console.log(uid);
+    let chat = {
+        senderId: uid,
+        chatId,
+        message,
+        timestamp: 0 - new Date().getTime(),
+        senderName
+    }
+    let docref = firebase.firestore().collection('chats').doc(chatId);
+    return await docref.update({
+        messages: firebase.firestore.FieldValue.arrayUnion(chat)
+    });
+
+}
 
 // upload id card
 $("#uploadID").submit(async function (e) {
@@ -257,11 +299,101 @@ const renderTasks = (task, id) => {
 
 const openLawyerDetailsModal = (id) => {
     let task = TASKS[id];
-    renderTaskModal(task, taskId);
+    renderTaskModal(task, id);
 
     $("#lawyerDetailsModal").modal('show')
 
 
+}
+
+
+
+
+
+const chatWithLawyer = () => {
+    let taskId = $("#taskId").val();
+    console.log(taskId);
+    let task = TASKS[taskId];
+    let obj = {
+        clientName: task.client.displayName,
+        clientId: task.client.uid,
+        clientPhoto: task.client.photoURL,
+        lawyerId: task.lawyer.uid,
+        lawyerName: task.lawyer.name,
+        lawyerPhoto: task.lawyer.photoUrl
+    }
+
+    let url = ABS_PATH + 'client/initiateChat';
+    buttonLoad('chatWithLawyerButton');
+
+    $.ajax({
+        url,
+        data: obj,
+        type: "POST",
+        success: async function (response) {
+            console.log(response);
+            clearLoad('chatWithLawyerButton', 'Chat');
+            if (response.status == "success") {
+                $("#lawyerDetailsModal").modal('hide');
+                $('#mainTab li:nth-child(2) a').tab('show');
+                await fetchChats();
+            }
+        },
+        error: e => {
+            console.log('error', e);
+            clearLoad('chatWithLawyerButton', 'Chat');
+        }
+    });
+
+
+}
+
+const fetchChats = async () => {
+    let myId = $("#uid").val();
+    let chatsSnapshot = await firebase.firestore().collection('clients').doc(myId).collection('chats').get();
+    let chatsHtml = "";
+    chatsSnapshot.forEach((chat) => {
+        CHATS[chat.id] = chat.data();
+        chatsHtml += renderChatList(CHATS[chat.id]);
+    })
+
+    $("#chatList").html(chatsHtml);
+    console.log(CHATS);
+
+
+}
+
+const listenForChatMessages = async (chatId) => {
+    if (Chatlistener != null) {
+        Chatlistener();
+    }
+    Chatlistener = firebase.firestore().collection('chats').doc(chatId).onSnapshot((snapshot) => {
+        let chatData = snapshot.data();
+        console.log(chatData);
+        if (!chatData.messages) {
+            renderChats([]);
+            return;
+        }
+
+        if (is_empty(CHAT_MESSAGES)) {
+            console.log('empty Chats')
+            CHAT_MESSAGES = chatData.messages;
+            renderChats(CHAT_MESSAGES);
+            return;
+        }
+        let incomingChats = chatData.messages;
+        let diff = incomingChats.length - CHAT_MESSAGES.length;
+        let newchats = diff ? incomingChats.slice(CHAT_MESSAGES.length) : [];
+        console.log(newchats);
+        renderChats(newchats, true);
+    });
+
+}
+const viewChat = chatId => {
+    CHAT_ID = chatId
+    CHAT_MESSAGES = [];
+    $("#chatsContainer").html(`<div class="spinner-grow slow align-self-center" role="status" id="loadingTasks"><span class="sr-only">Loading...</span></div>`);
+    listenForChatMessages(chatId);
 }
 
 const renderTaskModal = (task, taskId) => {
@@ -284,4 +416,55 @@ const renderTaskModal = (task, taskId) => {
 
 }
 
-fetchCases();
+const renderChatList = (chat) => {
+    return `
+    <li class="list-group-item">
+        <a href = "#" onclick = "viewChat('${chat.chatId}')">
+        <img src="${chat.lawyerPhoto}" class="rounded-circle z-depth-0 "
+            alt="lawyerPic" height="50">  ${chat.lawyerName} </a>
+    </li>
+    `;
+}
+
+const renderChats = (chats, append = false) => {
+
+    if (is_empty(chats)) {
+        $("#chatsContainer").html("<h4>No chats Available Be the first to send a message</h4>");
+    }
+    let uid = $("#uid").val();
+    let chathtml = "";
+    chats.map((chat) => {
+        chathtml += chat.senderId == uid ? renderSenderChat(chat) : renderReceiverChat(chat);
+    })
+
+    append ? $("#chatsContainer").append(chathtml) : $("#chatsContainer").html(chathtml);
+}
+
+const renderSenderChat = (chat) => {
+
+    let momentDate = new moment(Math.abs(chat.timestamp));
+    let timeago = momentDate.fromNow();
+
+    return `<div class="container align-self-end " style = "width: 30%">
+                <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-2 h5 teal-text">${chat.senderName}</h5>
+                <small class = "text-muted">${timeago}</small>
+                </div>
+                <p class="mb-2 blue-grey-text">${chat.message}</p>
+            </div>`;
+}
+
+const renderReceiverChat = (chat) => {
+    let momentDate = new moment(Math.abs(timestamp));
+    let timeago = momentDate.fromNow();
+
+    return `<div class="container" style = "width: 30%">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-2 h5 teal-text">${chat.senderName}</h5>
+                    <small class = "text-muted">${timeago}</small>
+                </div>
+                <p class="mb-2 blue-grey-text">${chat.message}</p>
+            </div>`;
+}
+
+
