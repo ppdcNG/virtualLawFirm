@@ -93,8 +93,13 @@ exports.dashboard = async (req, res) => {
     let firstname = name[0];
     let lastname = name[name.length - 1];
     photoURL = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
-    let idCardURL = userdata.idCardURL ? userdata.idCardURL : 'https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png';
-    let contactPoint = userdata.contactPoint ? userdata.contactPoint : {};
+
+    let idCardURL = '';
+    let contactPoint = '';
+    if (userdata) {
+        idCardURL = userdata.idCardURL ? userdata.idCardURL : 'https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png';
+        contactPoint = userdata.contactPoint ? userdata.contactPoint : {};
+    }
     let { state, address, lga } = contactPoint;
     state = state || "";
     address = address || "";
