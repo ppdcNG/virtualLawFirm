@@ -137,15 +137,11 @@
                   <section id = "chatsContainer" class="client__chat d-flex flex-column px-3 default-color py-1">
                     <h5>Click a Chat to view messages here</h5>
                   </section>
-                    <h5 class="p-1">Messages</h5>
-                  <section id = "chatsContainer" class="client__chat d-flex flex-column px-3 default-color py-1">
-                    <h5>Click a Chat to view messages here</h5>
-                  </section>
                 </div>
-                <form id = "chatTextForm" class = "mt-5" action = "#chatTextForm">
-                <div class="row">
-                    <div class="col-md-10 mt-1">
-                      <input id = "chatInput" type="text" class="form-control form-control-lg" placeholder="Enter Your Chat Message">
+                <form id = "chatTextForm" class="mt-1" action = "#chatTextForm">
+                <div class="row" id="chatInputField" style="visibility: hidden">
+                    <div class="col-md-10">
+                      <input id = "chatInput" type="text" class="form-control form-control-lg" placeholder="Enter Your Chat Message" required>
                     </div>
                     <div class="col-md-2">
                       <button id = "sendChatButton" class="btn btn-default" type = "submit">Send <i class="fas fa-paper-plane ml-1"></i></button>

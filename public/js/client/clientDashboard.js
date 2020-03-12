@@ -22,7 +22,6 @@ $("#chatTextForm").submit(async function (e) {
     console.log(response);
     console.log(this);
     this.reset()
-
 })
 function readURL(input, id) {
     if (input.files && input.files[0]) {
@@ -394,6 +393,8 @@ const viewChat = chatId => {
     CHAT_MESSAGES = [];
     $("#chatsContainer").html(`<div class="spinner-grow slow align-self-center" role="status" id="loadingTasks"><span class="sr-only">Loading...</span></div>`);
     listenForChatMessages(chatId);
+
+    $("#chatInputField").css("visibility", "visible");
 }
 
 const renderTaskModal = (task, taskId) => {
@@ -438,6 +439,9 @@ const renderChats = (chats, append = false) => {
     })
 
     append ? $("#chatsContainer").append(chathtml) : $("#chatsContainer").html(chathtml);
+
+    $("#chatsContainer").animate({ scrollTop: $('#chatsContainer').prop("scrollHeight") }, 1000);
+
 }
 
 const renderSenderChat = (chat) => {
