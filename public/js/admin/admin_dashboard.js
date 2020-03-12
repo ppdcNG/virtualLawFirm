@@ -81,8 +81,11 @@ const fetchCases = async () => {
   console.log(cases);
   cases.forEach((task) => {
     TASKS[task.id] = task.data();
-    casesHtml += renderCases(TASKS[task.id]);
-  })
+    casesHtml += renderCases(TASKS[task.id], task.id);
+  });
+  $("#loadingTasks").css('display', 'none');
+  $("#adminCases").html(casesHtml);
+
 };
 
 ///add Lawyer Form Submit

@@ -126,30 +126,23 @@
     <table class="table table-bordered tale-striped" id="casesTable">
       <thead class="black white-text">
         <tr>
-          <th scope="col">id</th>
           <th scope="col">Title</th>
           <th scope="col">Client</th>
           <th scope="col">Status</th>
           <th scope="col">Assigned Lawyer</th>
+          <th scope="col"> Created At</th>
+          <th scope="col">Actions</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Lorem ipsum</td>
-          <td>John doe</td>
-          <td></td>
-          <td>Harvey specter</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Lorem ipsum</td>
-          <td>Jane doe</td>
-          <td></td>
-          <td>Mike ross</td>
-        </tr>
+      <tbody id = "adminCases">
+        
       </tbody>
     </table>
+    <div class="d-flex justify-content-center">
+      <div class="spinner-grow slow" role="status" id="loadingTasks">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
     
   </div>
 
