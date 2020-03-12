@@ -153,3 +153,29 @@ const verifyLawyer = id => {
     error: err => console.log("error", err)
   });
 }
+
+const viewCase = id => {
+  let task = TASKS[id];
+  console.log(task);
+  let formattedTimestamp = Math.abs(task.timestamp);
+  let time = moment(formattedTimestamp).format("dddd, MMMM Do YYYY");
+  let ele = {};
+  $("#task_subject").html(task.subject);
+  $("#task_issue").html(task.issue);
+  $("#task_tags").html(task.tags.join(','));
+  $("#task_status").html(task.status || "N/A");
+  $("#task_date").html(time);
+
+  $("#task_clientName").html(task.client.displayName || "N/A");
+  $("#task_clientPhone").html(task.client.phoneNumber || "N/A");
+  $("#task_clientEmail").html(task.client.email || "N/A");
+
+  $("#task_lawyerEmail").html(task.lawyer.email);
+  $("#task_lawyerPhone").html(task.lawyer.phoneNumber || "N/A");
+  $("#task_lawyerAddress").text(task.lawyer.address || "N/A");
+  $("#task_lawyerName").text(task.lawyer.name || "N/A");
+  $("#taskDetailsModal").modal('show');
+
+
+
+}

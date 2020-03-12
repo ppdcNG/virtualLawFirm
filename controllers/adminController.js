@@ -54,7 +54,7 @@ exports.createUser = async (req, res) => {
 
 exports.addAdminUser = async (req, res) => {
   // let {uid} = req.body;
-  let uid = "FCC9ElmpOnbsSw3jxiy5BdLukTE3";
+  let uid = "06Xa4GJaMNRumDo9sUzRrojOTm23";
   let usr = await admin.auth().getUser(uid);
   let claims = usr.customClaims;
   let newclaims = { ...claims, admin: true }
