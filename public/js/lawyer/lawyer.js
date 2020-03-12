@@ -183,6 +183,9 @@ const viewChat = chatId => {
     CHAT_MESSAGES = [];
     $("#chatsContainer").html(`<div class="spinner-grow slow align-self-center" role="status" id="loadingTasks"><span class="sr-only">Loading...</span></div>`);
     listenForChatMessages(chatId);
+
+    $("#chatInputField").css("visibility", "visible");
+
 }
 
 const renderSenderChat = (chat) => {
@@ -223,6 +226,9 @@ const renderChats = (chats, append = false) => {
     })
 
     append ? $("#chatsContainer").append(chathtml) : $("#chatsContainer").html(chathtml);
+
+    $("#chatsContainer").animate({ scrollTop: $('#chatsContainer').prop("scrollHeight") }, 1000);
+
 }
 
 const sendChat = async (chatId, message) => {
