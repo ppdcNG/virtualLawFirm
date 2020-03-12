@@ -60,7 +60,7 @@ const payWithPaystack = (fee, id) => {
 
 
     var handler = PaystackPop.setup({
-        key: "pk_test_28c944c0f505bdbe163c2d0083127cbaca3cb1c3",
+        key: PAYSTACK_KEY,
         email: clientEmail,
         amount: fee * 100,
         currency: "NGN",
