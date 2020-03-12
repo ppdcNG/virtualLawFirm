@@ -284,12 +284,12 @@
         <div class="p-2 mx-auto">
 
           <form id="scheduleMeetingForm">
-            <input type="date" class="form-control pl-3" placeholder="Set date" id="scheduleDate" />
+            <input type="date" class="form-control pl-3" id="date" placeholder="Set date" id="scheduleDate" />
             <br/>
             <input class="form-control" placeholder="Set time" id="scheduleTime" />
 
             <div class="text-center">
-              <button type="submit" class="btn">Submit</button>
+              <button type="submit" class="btn">Set</button>
             </div>
           </form>
 
@@ -306,11 +306,3 @@
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
 <script src="{{ABS_PATH}}js/lawyer/lawyer.js"></script>
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
-
-<script>
-  $("#scheduleTime").flatpickr({
-    enableTime: true,
-    noCalendar: true,
-    dateFormat: "H:i",
-  });
-</script>
