@@ -40,7 +40,7 @@
     </li>
     <li class="nav-item">
       <a class="nav-link text-dark" id="profile-tab-ex" data-toggle="tab" href="#profile-ex" role="tab" aria-controls="profile-ex"
-        aria-selected="false">Cases</a>
+        aria-selected="false">Tasks</a>
     </li>
   </ul>
   <div class="tab-content pt-5" id="myTabContentEx">
@@ -121,7 +121,7 @@
 <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
 
   <div class="container-fluid pb-5 mb-5">
-    <p class="h5 text-uppercase">cases</p>
+    <p class="h5 text-uppercase">Tasks</p>
     <hr/>
     <table class="table table-bordered tale-striped" id="casesTable">
       <thead class="black white-text">
@@ -131,6 +131,7 @@
           <th scope="col">Client</th>
           <th scope="col">Status</th>
           <th scope="col">Assigned Lawyer</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -140,6 +141,7 @@
           <td>John doe</td>
           <td></td>
           <td>Harvey specter</td>
+          <td><button class="btn" data-toggle="modal" data-target="#adminTaskModal"><i class="fa fa-folder-open"></i></button></td>
         </tr>
         <tr>
           <th scope="row">2</th>
@@ -147,6 +149,7 @@
           <td>Jane doe</td>
           <td></td>
           <td>Mike ross</td>
+          <td><button class="btn" data-toggle="modal" data-target="#adminTaskModal"><i class="fa fa-folder-open"></i></button></td>
         </tr>
       </tbody>
     </table>
@@ -156,24 +159,6 @@
 </div>
 
 </main>
-
-
-{{> footer}}
-
-<script src="{{ABS_PATH}}js/auth.js"></script>
-<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
-<script src="{{ABS_PATH}}js/admin/admin_dashboard_render.js"></script>
-<script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
-
-<script>
-  $('#sendInvite').click(function() {
-    $('#sendInvite').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
-  });
-
-  $('.tags').select2();
-  $('.status').select2();
-
-</script>
 
 {{! add lawyer modal }}
 <!-- Modal -->
@@ -261,3 +246,72 @@
     </div>
   </div>
 </div>
+
+
+<!-- Task details modal -->
+<div class="modal fade" id="adminTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Task Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body container">
+
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item elegant-color white-text">Task</li>
+          <li class="list-group-item"><b>Subject: </b> Some issue</li>
+          <li class="list-group-item"><b>Details: </b> <span class="text-justify">History is a relentless master. It has no present, only the past rushing into the future. To try to hold fast is to be swept aside.<span></li>
+          <li class="list-group-item"><b>Tags: </b> Theft</li>
+          <li class="list-group-item"><b>Status: </b> Pending</li>
+        </ul>
+
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item elegant-color white-text">Client</li>
+          <div class="list-group-item">
+            <p class="mb-0"><i class="far fa-image fa-2x mr-4 grey p-3 white-text rounded-circle " aria-hidden="true"></i>John Doe</p>
+          </div>
+          <li class="list-group-item"><b>Email: </b> jd@mail.com</li>
+          <li class="list-group-item"><b>Number: </b> 12345</li>
+        </ul>
+
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item elegant-color white-text">Lawyer</li>
+          <div class="list-group-item">
+            <p class="mb-0"><i class="far fa-image fa-2x mr-4 grey p-3 white-text rounded-circle " aria-hidden="true"></i>John Doe</p>
+          </div>
+          <li class="list-group-item"><b>Email: </b> jd@mail.com</li>
+          <li class="list-group-item"><b>Number: </b> 12345</li>
+          <li class="list-group-item"><b>Address: </b> 12 ave. abuja</li>
+        </ul>
+      
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{> footer}}
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_dashboard_render.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
+
+<script>
+  $('#sendInvite').click(function() {
+    $('#sendInvite').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+  });
+
+  $('.tags').select2();
+  $('.status').select2();
+
+</script>
+
