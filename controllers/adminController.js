@@ -7,6 +7,9 @@ const admin = require('firebase-admin');
 
 exports.adminPage = async (req, res) => {
   let tags = tagOptions();
+  console.log(req.user);
+
+
   res.render("admin/admin-dashboard", { title: "Admin", ABS_PATH, tags, AppName });
 };
 
@@ -48,6 +51,17 @@ exports.createUser = async (req, res) => {
     res.send(obj);
   }
 };
+
+exports.addAdminUser = async (req, res) => {
+  // let {uid} = req.body;
+  let uid = "FCC9ElmpOnbsSw3jxiy5BdLukTE3";
+  let usr = await admin.auth().getUser(uid);
+  let claims = usr.customClaims;
+  let newclaims = { ...claims, admin: true }
+  console.log(claims)
+  const user = await admin.auth().setCustomUserClaims(uid, newclaims)
+  res.send({ message: "User has been set to Admin" });
+}
 
 exports.sendLawyerInvite = async (req, res) => {
   let { email, firstname, lastname } = req.body;
