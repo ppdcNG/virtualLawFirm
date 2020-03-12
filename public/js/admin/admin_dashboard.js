@@ -1,5 +1,6 @@
 const sendLawyerInviteEndPoint = "admin/sendLawyerInvite";
 const fetchLawyersEndPoint = 'admin/fetchLawyers';
+var TASKS = {};
 
 var filter = {
   param: '',
@@ -9,6 +10,11 @@ var filter = {
 }
 
 var lawyers = "";
+
+$(document).ready(() => {
+  fetchLawyers();
+  fetchCases();
+})
 
 const fetchLawyers = () => {
   $.ajax({
@@ -27,7 +33,7 @@ const fetchLawyers = () => {
     error: err => console.log("error", err)
   })
 }
-fetchLawyers();
+
 
 const viewSummary = (id) => {
   let name = id;
@@ -71,12 +77,15 @@ const viewSummary = (id) => {
 
 const fetchCases = async () => {
   let casesHtml = "";
-  let cases = await firebase.firestore().collection('cases').get().catch((e) => { console.log(e) })
+  let cases = await firebase.firestore().collection('cases').get().catch((e) => { console.log(e) });
+  console.log(cases);
   cases.forEach((task) => {
-    task = task.data();
-    console.log(task);
-    casesHtml += renderCases(task);
-  })
+    TASKS[task.id] = task.data();
+    casesHtml += renderCases(TASKS[task.id], task.id);
+  });
+  $("#loadingTasks").css('display', 'none');
+  $("#adminCases").html(casesHtml);
+
 };
 
 ///add Lawyer Form Submit

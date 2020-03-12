@@ -12,8 +12,15 @@ module.exports = async (req, res, next) => {
             .auth()
             .verifySessionCookie(cookie, true);
         let user = await admin.auth().getUser(claims.uid);
-        req.user = user;
-        next();
+        if (user.customClaims.lawyer) {
+            req.user = user;
+            next();
+        }
+        else {
+            res.status(403).send({ message: "User Authentication Error: You are not a Lawyer!" });
+            return;
+        }
+
     }
     catch (e) {
         console.log("user not logged in");
