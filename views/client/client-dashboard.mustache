@@ -1,4 +1,11 @@
 {{> header}}
+<style>
+  section#chatsContainer {
+      max-height: 50vh;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+  }
+</style>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=285056175476062&autoLogAppEvents=1"></script>
 
@@ -119,16 +126,20 @@
             <div class="row">
               <div class="col-md-2 px-3 ">
                 <ul class="list-group list-group-flush">
-                  <ul id = "chatList" class="list-group d-flex flex-column justify-content-between">
+                  <ul id = "chatList" class="list-group d-flex text-center flex-column justify-content-between">
                     <div class="spinner-grow slow align-self-center" role="status" id="loadingTasks"><span class="sr-only">Loading...</span></div>
                   </ul>
                 </ul>
               </div>
               <div class="col-md-10 d-flex flex-column justify-content-between">
                 <div class="border">
-                  <h4 class="mb-2 ml-2 tex-center">Messages</h4>
-                  <section id = "chatsContainer" class="client__chat d-flex flex-column px-3 default-color">
-                   <h4>Click a Chat to view messages here</h4>
+                  <h5 class="p-1">Messages</h5>
+                  <section id = "chatsContainer" class="client__chat d-flex flex-column px-3 default-color py-1">
+                    <h5>Click a Chat to view messages here</h5>
+                  </section>
+                    <h5 class="p-1">Messages</h5>
+                  <section id = "chatsContainer" class="client__chat d-flex flex-column px-3 default-color py-1">
+                    <h5>Click a Chat to view messages here</h5>
                   </section>
                 </div>
                 <form id = "chatTextForm" class = "mt-5" action = "#chatTextForm">

@@ -39,8 +39,8 @@ const renderCases = (task, taskId) => {
     <td>${task.issue}</td>
     <th scope="row">${time}</th>
     <td>
-      <button class="btn btn-default"  onclick = "viewClientDetails('${taskId}')" >Contact</button>
-      <button class="btn" data-toggle="modal" onclick = "sheduleMetting('${taskId}') data-target="#meetingModal">Schedule Meeting</button>
+      <button class="btn btn-default"  onclick = "viewClientDetails('${taskId}')" ><i class="far fa-caret-square-down"></i></button>
+      <button class="btn" data-toggle="modal" onclick = "sheduleMetting('${taskId}') data-target="#meetingModal"><i class="far fa-calendar-alt"></i></button>
     </td>
 </tr>`;
 }
@@ -144,10 +144,10 @@ const fetchChats = async () => {
 
 const renderChatList = (chat) => {
     return `
-    <li class="list-group-item">
+    <li class="list-group-item mb-1">
         <a href = "#" onclick = "viewChat('${chat.chatId}')">
         <img src="${chat.clientPhoto}" class="rounded-circle z-depth-0 "
-            alt="lawyer Pic" height="50">  ${chat.clientName} </a>
+            alt="lawyer Pic" height="50" width="50"><br/>  ${chat.clientName} </a>
     </li>
     `;
 }

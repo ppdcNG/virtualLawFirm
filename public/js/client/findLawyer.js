@@ -60,7 +60,7 @@ const payWithPaystack = (fee, id) => {
 
 
     var handler = PaystackPop.setup({
-        key: PAYSTACK_KEY,
+        key: "pk_test_28c944c0f505bdbe163c2d0083127cbaca3cb1c3",
         email: clientEmail,
         amount: fee * 100,
         currency: "NGN",
@@ -118,6 +118,7 @@ const payWithPaystack = (fee, id) => {
         },
         onClose: function () {
             console.log('window closed');
+            console.log('closed', response);
         }
     });
     handler.openIframe();

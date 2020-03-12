@@ -418,10 +418,10 @@ const renderTaskModal = (task, taskId) => {
 
 const renderChatList = (chat) => {
     return `
-    <li class="list-group-item">
+    <li class="list-group-item mb-1">
         <a href = "#" onclick = "viewChat('${chat.chatId}')">
         <img src="${chat.lawyerPhoto}" class="rounded-circle z-depth-0 "
-            alt="lawyer Pic" height="50">  ${chat.lawyerName} </a>
+            alt="lawyer Pic" height="50"><br/>  ${chat.lawyerName} </a>
     </li>
     `;
 }
