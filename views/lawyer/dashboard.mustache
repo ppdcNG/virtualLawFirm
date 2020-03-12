@@ -1,5 +1,11 @@
 {{> header}}
 <style>
+  section#chatsContainer {
+      max-height: 50vh;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+  }
+
   @media only screen and (max-width: 600px) {
     #inviteModalDiv * {
       display: flex;
@@ -49,24 +55,14 @@
 <input type = "hidden" name = "uid" id = "uid" value = "{{uid}}" />
 <input type = "hidden" name = "displayName" id = "displayName" value = "{{name}}" />
 
-<main style="min-height:100vh">
-    <div class="row pt-5">
-        <div class="col-md-3" style="border-right: 1px solid grey">
-            <img src="{{photoUrl}}" width="150" class="rounded-circle mx-auto d-block" alt="profile_pic">
-            <hr/>
-            <div class="text-center">
-                <h3>{{ name }}</h3>
-                <hr/>
-                <a class="btn text-dark" href="/lawyer/profile">Complete your profile</a>
-            </div>
-        </div>
-
-        <div class="col-md-9">
+<main style="min-height:100vh" class="grey lighten-4">
+    <div class="row pt-1">
+        <div class="col-md-12">
             <div class="text-right" id="inviteModalDiv">
               <a class="btn btn-default" data-toggle="modal" data-target="#inviteModal">Invite a friend</a>
             </div>
             <br />
-            <div class="container">
+            <div class="container-fluid">
 
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs md-tabs nav-justified default-color" role="tablist" id="mainTab">
@@ -87,62 +83,82 @@
                   <!-- Panel 1 -->
                   <div class="tab-pane fade in show active" id="panel555" role="tabpanel">
 
-                    <h4 class="mt-2r">Tasks</h4>
-                    <hr/>
-                    <table class="table table-bordered tale-striped">
-                        <thead class="black white-text">
-                            <col width="50">
-                            <col width="50">
-                            <col width="50">
-                            <col width="80">
-                            <tr>
+                    <div class="row mt-3">
+
+                      <div class="col-md-3">
+                        <div class="white border p-3">
+                          <img src="{{photoUrl}}" width="150" class="rounded-circle mx-auto d-block" alt="profile_pic">
+                          <hr/>
+                          <div class="text-center">
+                              <h3>{{ name }}</h3>
+                              <hr/>
+                              <a class="btn text-dark" href="/lawyer/profile">Complete your profile</a>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-9">
+
+                        <h4 class="mt-2r">Tasks</h4>
+                        <hr/>
+                        <table class="table table-bordered tale-striped white">
+                            <thead class="black white-text">
+                                <col width="50">
+                                <col width="50">
+                                <col width="50">
+                                <col width="80">
+                                <tr>
+                                    
+                                    <th scope="col">Client</th>
+                                    <th scope="col">Tasks</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="casesTable">
                                 
-                                <th scope="col">Client</th>
-                                <th scope="col">Tasks</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="casesTable">
-                            
-                        </tbody>
-                    </table>
-                    <div class="d-flex justify-content-center">
-                      <div class="spinner-grow slow" role="status" id="loadingTasks">
-                        <span class="sr-only">Loading...</span>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center">
+                          <div class="spinner-grow slow" role="status" id="loadingTasks">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        </div>
+
                       </div>
                     </div>
+
 
                   </div>
                   <!-- /Panel 1 -->
 
                   <!-- Panel 2 -->
-                  <div class="tab-pane fade container mt-2" id="panel666" role="tabpanel">
+                  <div class="tab-pane fade container-fluid mt-2" id="panel666" role="tabpanel">
 
                            <div class="row">
                               <div class="col-md-2">
                                 <ul class="list-group list-group-flush">
-                                  <ul id = "chatList" class="list-group d-flex flex-column justify-content-between">
+                                  <ul id = "chatList" class="list-group d-flex flex-column text-center justify-content-between">
                                     <div class="spinner-grow slow align-self-center" role="status" id="loadingTasks"><span class="sr-only">Loading...</span></div>
                                   </ul>
                                 </ul>
                               </div>
                               <div class="col-md-10 d-flex flex-column justify-content-between">
                                 <div class="border">
-                                  <h4 class="mb-2 ml-2">Messages</h4>
-                                  <section id = "chatsContainer" class="client__chat d-flex flex-column px-3 default-color">
-                                    <h4>Click a Chat to view messages here</h4>
+                                  <h5 class="p-1">Messages</h5>
+                                  <section id = "chatsContainer" class="client__chat d-flex flex-column px-3 default-color py-1">
+                                    <h5>Click a Chat to view messages here</h5>
                                   </section>
                                 </div>
-                                <form id = "chatTextForm" class = "mt-5" action = "#chatTextForm">
-                                <div class="row">
-                                    <div class="col-md-10 mt-1">
-                                      <input id = "chatInput" type="text" class="form-control form-control-lg" placeholder="Enter Your Chat Message">
-                                    </div>
-                                    <div class="col-md-2">
-                                      <button id = "sendChatButton" class="btn btn-default" type = "submit">Send <i class="fas fa-paper-plane ml-1"></i></button>
-                                    </div>
-                                </div>
+                                <form id = "chatTextForm" class = "mt-3" action = "#chatTextForm">
+                                  <div class="row">
+                                      <div class="col-md-10 mt-1">
+                                        <input id = "chatInput" type="text" class="form-control form-control-lg" placeholder="Enter Your Chat Message">
+                                      </div>
+                                      <div class="col-md-2">
+                                        <button id = "sendChatButton" class="btn btn-default" type = "submit">Send <i class="fas fa-paper-plane ml-1"></i></button>
+                                      </div>
+                                  </div>
                                 </form>
                               </div>
                             </div>
@@ -221,9 +237,7 @@
               <li class="list-group-item"></li>
           </ul>
         </div>
-        <div class="text-center">
-          <button class="btn btn-default"><i class="fas fa-comments"></i> Chat</button>
-        </div>
+
       </div>
       <div class="modal-footer">
         <a type="button" id = "callButton" class="btn btn-info" href="tel:07038334703">Call</a>
