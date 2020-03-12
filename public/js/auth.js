@@ -43,6 +43,8 @@ function ajaxrequest(modal, json_data, to_url, call_back) {
 
 const is_empty = (object) => { return !Object.keys(object).length > 0 }
 
+const image_placeholder = 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
+
 function loadBtn(id) {
   $('#' + id).click(function () {
     $('#' + id).html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');

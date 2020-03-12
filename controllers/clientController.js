@@ -295,7 +295,48 @@ exports.verifyConsultationFee = async (req, res) => {
         await admin.firestore().collection('lawyers').doc(lawyerId).collection('tasks').doc(ref.id).set(task);
         payrecord.caseId = ref.id;
         await admin.firestore().collection('transactions').add(payrecord);
-        res.send({ status: 'success', message: "Transaction Success full case has been created" });
+        res.send({ status: 'success', message: "Transaction Successfull. Case has been created" });
 
     })
+}
+
+exports.initiateChat = async (req, res) => {
+
+    let { clientId, lawyerId, clientName, clientPhoto, lawyerName, lawyerPhoto } = req.body;
+    let chatId = `${clientId}_ ${lawyerId}`;
+    let timestamp = 0 - new Date().getTime();
+    let chatSnapshot = await admin.firestore().collection('chats').doc(chatId).get();
+    if (chatSnapshot.exists) {
+        console.log('chat exists')
+        let msg = {
+            status: 'success',
+            message: 'Chat Already Initiated'
+        }
+        res.send(msg);
+        return;
+    }
+    let chat = {
+        clientId, lawyerId, chatId, clientName, clientPhoto, lawyerName, lawyerPhoto, timestamp, messages: []
+    }
+
+    // await admin.firestore().collection('clients').doc(clientId).collection('chats').add(chat);
+    // await admin.firestore().collecttion('lawyers').doc(lawyerId).collection('chats').add(chat);
+    // await admin.firestore().collection('chats').doc(chatId).set(chat);
+
+    let batch = admin.firestore().batch();
+    let userChatRef = admin.firestore().collection('clients').doc(clientId).collection('chats').doc();
+    let laywerRef = admin.firestore().collection('lawyers').doc(lawyerId).collection('chats').doc();
+    let chatsRef = admin.firestore().collection('chats').doc(chatId);
+    batch.set(userChatRef, chat);
+    batch.set(laywerRef, chat);
+    batch.set(chatsRef, chat);
+    let result = await batch.commit();
+    console.log(result);
+    let msg = {
+        status: 'success',
+        message: 'Chat Initiated'
+    }
+    res.send(msg);
+
+
 }

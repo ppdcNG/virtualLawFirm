@@ -23,6 +23,7 @@ router.get('/copyLawyers', (req, res) => {
 })
 router.post('/updateProfilePic', requireLogin, clientController.updateProfilePic);
 router.post('/verifyConsultationFee', requireLogin, clientController.verifyConsultationFee);
+router.post('/initiateChat', requireLogin, clientController.initiateChat);
 
 
 

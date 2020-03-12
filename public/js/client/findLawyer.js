@@ -1,4 +1,7 @@
 //find lawyer
+let lawyersList = {};
+var ISSUE = '1';
+let TASKS = {};
 $("#findLawyerForm").submit(async function (e) {
     e.preventDefault();
 
@@ -47,7 +50,7 @@ const renderFoundLawyer = lawyer => {
 
 // Paystack
 const payWithPaystack = (fee, id) => {
-    let laywer = lawyersList[id];
+    let lawyer = lawyersList[id];
     fee = parseInt(fee);
     console.log(fee);
     let clientEmail = $('#clientEmail').val();
@@ -72,18 +75,14 @@ const payWithPaystack = (fee, id) => {
         },
         // on success 
         callback: function (response) {
-            console.log('success', response);
+            console.log(response);
             let task = form2js("findLawyerForm", ".");
+            console.log(task);
             task.lawyerId = id;
-            task.lawyer = laywer.contact;
-            task.lawyer.email = lawyer.email
-            console.log('task', task);
-
-            if (!task.lawyer.phoneNumber) {
-                task.lawyer.phoneNumber = '';
-            }
-            if (!task.lawyer.photoUrl) {
-                task.lawyer.photoUrl = '';
+            console.log(id);
+            console.log(lawyer);
+            task.lawyer = {
+                ...lawyer.contact, email: lawyer.email, uid: id, name: lawyer.name
             }
 
             let dataObj = {

@@ -43,9 +43,10 @@
 
 <main class="mt-3 pl-3 pr-3" id="client--main">
     <input type = "hidden" value = "{{uid}}" id = "uid" name = "uid" />
+    <input type = "hidden" value = "{{displayName}}" id = "displayName" name = "displayName" />
 
     <div class="d-flex justify-content-center">
-    <ul class="nav nav-tabs md-tabs" id="myTabEx" role="tablist">
+    <ul class="nav nav-tabs md-tabs" id="mainTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active show" id="dashboard-tab-ex" data-toggle="tab" href="#dashboard-ex" role="tab" aria-controls="dashboard-ex"
             aria-selected="true">DASHBOARD</a>
@@ -116,42 +117,30 @@
           <div class="container-fluid">
           
             <div class="row">
-              <div class="col-md-2 px-3 default-color">
-                <a class="card my-2 p-2">Person 1</a>
-                <a class="card my-2 p-2">Person 2</a>
-                <a class="card my-2 p-2">Person 3</a>
-                <a class="card my-2 p-2">Person 4</a>
+              <div class="col-md-2 px-3 ">
+                <ul class="list-group list-group-flush">
+                  <ul id = "chatList" class="list-group d-flex flex-column justify-content-between">
+                    <div class="spinner-grow slow align-self-center" role="status" id="loadingTasks"><span class="sr-only">Loading...</span></div>
+                  </ul>
+                </ul>
               </div>
-              <div class="col-md-10">
+              <div class="col-md-10 d-flex flex-column justify-content-between">
                 <div class="border">
-                  <h4 class="mb-2">Messages</h4>
-                  <section class="client__chat">
-                    <div class="container">
-                      <img src="" alt="Avatar" style="width:50;">
-                      <p>Hello. How are you today?</p>
-                      <span class="time-right">11:00</span>
-                    </div>
-
-                    <div class="container darker">
-                      <img src="" alt="Avatar" class="right" style="width:50;">
-                      <p>Hey! I'm fine. Thanks for asking!</p>
-                      <span class="time-left">11:01</span>
-                    </div>
-
-                    <div class="container">
-                      <img src="" alt="Avatar" style="width:50;">
-                      <p>Sweet! So, who do you wanna sue today?</p>
-                      <span class="time-right">11:02</span>
-                    </div>
-
-                    <div class="container darker">
-                      <img src="" alt="Avatar" class="right" style="width:50;">
-                      <p>Nah, I dunno. My ex?</p>
-                      <span class="time-left">11:05</span>
-                    </div>
+                  <h4 class="mb-2 ml-2 tex-center">Messages</h4>
+                  <section id = "chatsContainer" class="client__chat d-flex flex-column px-3 default-color">
+                   <h4>Click a Chat to view messages here</h4>
                   </section>
-
                 </div>
+                <form id = "chatTextForm" class = "mt-5" action = "#chatTextForm">
+                <div class="row">
+                    <div class="col-md-10 mt-1">
+                      <input id = "chatInput" type="text" class="form-control form-control-lg" placeholder="Enter Your Chat Message">
+                    </div>
+                    <div class="col-md-2">
+                      <button id = "sendChatButton" class="btn btn-default" type = "submit">Send <i class="fas fa-paper-plane ml-1"></i></button>
+                    </div>
+                </div>
+                </form>
               </div>
             </div>
           </div>
@@ -308,7 +297,7 @@
     </div>
   </div>
 </div>
-
+{{! layerdetails MOdal }}
 <div class="modal fade" id="lawyerDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <input type = "hidden" id = "taskId"/>
@@ -337,7 +326,7 @@
         </div>
         <div class="modal-footer">
             <a type="button" class="btn btn-info" href="tel:07038334703">Call</a>
-            <a type="button" class="btn btn-default"  onclick="chatWithLawyer">Chat</a>
+            <a type="button" id = "chatWithLawyerButton" class="btn btn-default"  onclick="chatWithLawyer()">Chat</a>
         </div>
         </div>
     </div>
