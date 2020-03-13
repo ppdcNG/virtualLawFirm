@@ -143,15 +143,18 @@
                       </div>
                   </div>
                   <div class="col">
-                      <div class="md-form">
-                          <input type="text" id="status" class="form-control">
-                          <label for="status">Search By Status</label>
-                      </div>
+                    <div class="md-form pt-3">
+                      <select class="mdb-select form-control statusFilter" style="width:100%">
+                        <option value="" selected>Search Status</option>
+                        <option value="1">Pending</option>
+                        <option value="2">Consulting</option>
+                      </select>
+                    </div>
                   </div>
                   <div class="col">
-                      <div class="md-form">
+                      <div class="md-form pt-2">
 
-                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+                        <button class="btn btn-default dropdown-toggle btn-sm" type="button" data-toggle="dropdown"
                           aria-haspopup="true" aria-expanded="false">Filter By Date</button>
 
                         <div class="dropdown-menu">
@@ -351,6 +354,8 @@
 
   $('.tags').select2();
   $('.status').select2();
+
+  $('.statusFilter').select2();
 
 </script>
 
