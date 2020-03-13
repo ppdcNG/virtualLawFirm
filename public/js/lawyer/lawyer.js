@@ -40,19 +40,14 @@ const renderCases = (task, taskId) => {
     <th scope="row">${time}</th>
     <td>
       <button class="btn btn-default"  onclick = "viewClientDetails('${taskId}')" ><i class="far fa-caret-square-down"></i></button>
-      <button class="btn" data-toggle="modal" onclick = "sheduleMetting('${taskId}') data-target="#meetingModal"><i class="far fa-calendar-alt"></i></button>
+      <button class="btn" data-toggle="modal" data-target="#meetingModal"><i class="far fa-calendar-alt"></i></button>
     </td>
 </tr>`;
 }
 
-
-$("#scheduleMeetingForm").submit((e) => {
+$("#scheduleMeetingForm").submit(e => {
     e.preventDefault();
-    let form = form2js("scheduleMeetingForm", ".");
-
-    console.log(form);
-
-});
+})
 
 $("#chatTextForm").submit(async function (e) {
     e.preventDefault();
