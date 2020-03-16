@@ -11,9 +11,10 @@ const renderCases = (task, taskId) => {
     <th>${task.status || "N/A"}</th>
     <td>${task.lawyer.name || "N/A"}</td>
     <td>${time}</td>
-    <td>
+    <td class="d-flex justify-content-center">
       <button class="btn btn-default" data-toggle = "tooltip" title = "View Case Details" data-toggle="modal" data-target="#taskDetailsModal"  onclick = "viewCase('${taskId}')" ><i class="far fa-eye"></i></button>
-      <button class="btn" data-toggle="tooltip" onclick = "sheduleMetting('${taskId}') title = "View Scheduled Meetings"><i class="far fa-calendar-alt"></i></button>
+      <button class="btn btn-default" data-toggle ="tooltip" title="Contact" onclick="contactModal()"><i class="fas fa-paper-plane"></i></button>
+      <button class="btn" data-toggle="tooltip" title="History" onclick="historyModal()"><i class="far fa-file"></i></button>
     </td>
 </tr>`;
 }
@@ -33,4 +34,10 @@ const renderTable = (i, lawyer) => {
 
 const viewCase = id => {
     $("#taskDetailsModal").modal('show');
+}
+const contactModal = () => {
+    $("#contactModal").modal('show');
+}
+const historyModal = () => {
+    $("#historyModal").modal('show');
 }
