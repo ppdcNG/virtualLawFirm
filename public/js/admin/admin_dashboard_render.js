@@ -30,3 +30,10 @@ const renderTable = (i, lawyer) => {
           </tr>
         `
 }
+
+
+const renderTableLoading = () => {
+    return ``
+}
+
+
