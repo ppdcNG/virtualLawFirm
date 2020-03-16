@@ -1,6 +1,11 @@
 const sendLawyerInviteEndPoint = "admin/sendLawyerInvite";
 const fetchLawyersEndPoint = 'admin/fetchLawyers';
 var TASKS = {};
+var page = 1;
+var lastRef = null;
+var firstRef = null;
+var dataRefs = [];
+var limit = 2;
 
 var filter = {
   param: '',
@@ -77,9 +82,14 @@ const viewSummary = (id) => {
 
 const fetchCases = async () => {
   let casesHtml = "";
-  let cases = await firebase.firestore().collection('cases').get().catch((e) => { console.log(e) });
+  let cases = await firebase.firestore().collection('cases').orderBy('timestamp').limit(limit).get().catch((e) => { console.log(e) });
   console.log(cases);
+  let count = 1;
   cases.forEach((task) => {
+
+    count == 1 && (firstRef = task);
+    count == limit && (lastRef = task)
+    count += 1;
     TASKS[task.id] = task.data();
     casesHtml += renderCases(TASKS[task.id], task.id);
   });
@@ -152,4 +162,68 @@ const verifyLawyer = id => {
     },
     error: err => console.log("error", err)
   });
+}
+
+const viewCase = id => {
+  let task = TASKS[id];
+  console.log(task);
+  let formattedTimestamp = Math.abs(task.timestamp);
+  let time = moment(formattedTimestamp).format("dddd, MMMM Do YYYY");
+  let ele = {};
+  $("#task_subject").html(task.subject);
+  $("#task_issue").html(task.issue);
+  $("#task_tags").html(task.tags.join(','));
+  $("#task_status").html(task.status || "N/A");
+  $("#task_date").html(time);
+
+  $("#task_clientName").html(task.client.displayName || "N/A");
+  $("#task_clientPhone").html(task.client.phoneNumber || "N/A");
+  $("#task_clientEmail").html(task.client.email || "N/A");
+
+  $("#task_lawyerEmail").html(task.lawyer.email);
+  $("#task_lawyerPhone").html(task.lawyer.phoneNumber || "N/A");
+  $("#task_lawyerAddress").text(task.lawyer.address || "N/A");
+  $("#task_lawyerName").text(task.lawyer.name || "N/A");
+  $("#taskDetailsModal").modal('show');
+}
+
+const next = async () => {
+  if (!lastRef) return
+  $("#adminCases").html("");
+  $("#loadingTasks").css('display', 'block');
+  page += 1;
+  let casesHtml = "";
+  let count = 0;
+  dataRefs.push(firstRef);
+  let cases = await firebase.firestore().collection('cases').orderBy('timestamp').startAfter(lastRef).limit(limit).get().catch((e) => { console.log(e) });
+  cases.forEach((task) => {
+    count == limit && (lastRef == task)
+    count += 1;
+    TASKS[task.id] = task.data();
+    casesHtml += renderCases(TASKS[task.id], task.id);
+  });
+  $("#loadingTasks").css('display', 'none');
+  $("#adminCases").html(casesHtml);
+}
+
+const prev = async () => {
+  if (dataRefs.length < 1 || page <= 1) return;
+  $("#adminCases").html("");
+  $("#loadingTasks").css('display', 'block');
+  page -= 1;
+  let count = 0;
+  let casesHtml = "";
+  let prevRef = dataRefs.pop();
+  let cases = await firebase.firestore().collection('cases').orderBy('timestamp').startAt(prevRef).limit(limit).get().catch((e) => { });
+  cases.forEach((task) => {
+
+    count == limit && (lastRef = task)
+    count += 1;
+    TASKS[task.id] = task.data();
+    casesHtml += renderCases(TASKS[task.id], task.id);
+  })
+  $("#loadingTasks").css('display', 'none');
+  $("#adminCases").html(casesHtml);
+
+
 }

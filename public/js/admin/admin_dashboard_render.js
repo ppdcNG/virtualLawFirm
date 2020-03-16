@@ -41,3 +41,9 @@ const contactModal = () => {
 const historyModal = () => {
     $("#historyModal").modal('show');
 }
+
+const renderTableLoading = () => {
+    return ``
+}
+
+
