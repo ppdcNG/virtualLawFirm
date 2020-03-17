@@ -75,25 +75,25 @@
       <hr/>
 
       <!-- Search form -->
-      <form class="md-form form-inline mt-0 border p-2 row">
+      <form class="md-form form-inline mt-0 border p-2 row" id = "filterLawyer">
         <div class="md-form col-md-4">
           <i class="fas fa-search" aria-hidden="true"></i>
-          <input id="searchName" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by Name"
+          <input name = "name" id="searchName" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by Name"
           aria-label="Search">
         </div>
 
         <div class="md-form col-md-4">
           <span class="text-muted">Search by Status</span>
           <select class="status form-control w-75" id="status" name="status">
-            <option selected>Select</option>
-            <option>Pending</option>
-            <option>Activated</option>
+            <option selected disabled value = "">Select</option>
+            <option value = "pending">Pending</option>
+            <option valut = "activated">Activated</option>
           </select>          
         </div>
 
         <div class="md-form col-md-4">
           <span class="text-muted">Search by Tags</span>
-          <select class="tags form-control mt-2 w-75" id="tag" name="tag">
+          <select name = "tag" class="tags form-control mt-2 w-75" id="tag" name="tag">
               {{{tags}}}
           </select>
         </div>
@@ -133,21 +133,21 @@
 
     <div class="card mb-3">
       <div class="card-body px-lg-5 pt-0">
-          <form class="text-center" style="color: #757575;" action="#!">
+          <form id = "filterCases" class="text-center" style="color: #757575;" action="#!">
 
               <div class="form-row">
                   <div class="col">
                       <div class="md-form">
-                          <input type="text" id="lawyerName" class="form-control">
+                          <input name = "lawyerName" type="text" id="lawyerName" class="form-control">
                           <label for="lawyerName">Search Lawyer</label>
                       </div>
                   </div>
                   <div class="col">
                     <div class="md-form pt-3">
-                      <select class="mdb-select form-control statusFilter" style="width:100%">
+                      <select name = "status" class="mdb-select form-control statusFilter" style="width:100%">
                         <option value="" selected>Search Status</option>
-                        <option value="1">Pending</option>
-                        <option value="2">Consulting</option>
+                        <option value="pending">Pending</option>
+                        <option value="consulting">Consulting</option>
                       </select>
                     </div>
                   </div>

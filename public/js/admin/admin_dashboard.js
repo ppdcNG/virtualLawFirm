@@ -1,3 +1,5 @@
+
+
 const sendLawyerInviteEndPoint = "admin/sendLawyerInvite";
 const fetchLawyersEndPoint = 'admin/fetchLawyers';
 var TASKS = {};
@@ -6,6 +8,7 @@ var lastRef = null;
 var firstRef = null;
 var dataRefs = [];
 var limit = 2;
+let taskRef = null;
 
 var filter = {
   param: '',
@@ -18,6 +21,11 @@ var lawyers = "";
 
 $(document).ready(() => {
   fetchLawyers();
+  fetchCases();
+})
+
+$("#filterCases").submit((e) => {
+  e.preventDefault();
   fetchCases();
 })
 
@@ -81,10 +89,11 @@ const viewSummary = (id) => {
 }
 
 const fetchCases = async () => {
-  let casesHtml = "";
-  let cases = await firebase.firestore().collection('cases').orderBy('timestamp').limit(limit).get().catch((e) => { console.log(e) });
+  let databaseRef = addFilters();
+  let cases = await databaseRef.orderBy('timestamp').limit(limit).get().catch((e) => { console.log(e) });
   console.log(cases);
   let count = 1;
+  let casesHtml = '';
   cases.forEach((task) => {
 
     count == 1 && (firstRef = task);
@@ -97,6 +106,32 @@ const fetchCases = async () => {
   $("#adminCases").html(casesHtml);
 
 };
+
+const addTimelineFilter = (dbRef, start, end) => {
+  return dbRef.where('timestamp', '>=', start).where('timestamp', '<=', end);
+}
+
+const addStatusFilter = (dbRef, status) => {
+  return dbRef.where('status', '==', status);
+}
+const addLawyerFilter = (dbRef, lawyerId) => {
+  return dbRef.where('lawyerId', lawyerId);
+}
+
+const addFilters = () => {
+  let databaseRef = firebase.firestore().collection('cases');
+  let form = form2js("filterCases", '.');
+  console.log(form);
+  if (form.status) databaseRef = addStatusFilter(databaseRef, form.status);
+  if (form.start && form.end) {
+    let startdate = 0 - new Date(form.start).getTime();
+    let enddate = 0 - new Date(form.end).getTime();
+    databaseRef = addTimelineFilter(databaseRef, startdate, enddate);
+  }
+
+  if (form.lawyer) databaseRef = addLawyerFilter(databaseRef);
+  return databaseRef
+}
 
 ///add Lawyer Form Submit
 $("#lawyerInvite").submit(function (e) {
@@ -194,8 +229,9 @@ const next = async () => {
   page += 1;
   let casesHtml = "";
   let count = 1;
-  dataRefs.push(firstRef)
-  let cases = await firebase.firestore().collection('cases').orderBy('timestamp').startAfter(lastRef).limit(limit).get().catch((e) => { console.log(e) });
+  dataRefs.push(firstRef);
+  let db = addFilters()
+  let cases = await db.orderBy('timestamp').startAfter(lastRef).limit(limit).get().catch((e) => { console.log(e) });
   cases.forEach((task) => {
     count == 1 && (firstRef = task);
     count == limit && (lastRef = task)
@@ -212,10 +248,11 @@ const prev = async () => {
   $("#adminCases").html("");
   $("#loadingTasks").css('display', 'block');
   page -= 1;
-  let count = 0;
+  let count = 1;
   let casesHtml = "";
   let prevRef = dataRefs.pop();
-  let cases = await firebase.firestore().collection('cases').orderBy('timestamp').startAt(prevRef).limit(limit).get().catch((e) => { });
+  let db = addFilters();
+  let cases = await db.orderBy('timestamp').startAt(prevRef).limit(limit).get().catch((e) => { });
   cases.forEach((task) => {
     count == limit && (lastRef = task)
     count += 1;
