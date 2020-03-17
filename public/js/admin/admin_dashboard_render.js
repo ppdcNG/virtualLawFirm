@@ -32,9 +32,6 @@ const renderTable = (i, lawyer) => {
         `
 }
 
-const viewCase = id => {
-    $("#taskDetailsModal").modal('show');
-}
 const contactModal = () => {
     $("#contactModal").modal('show');
 }
