@@ -1,5 +1,14 @@
 {{> header }}
 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+
+<style>
+#startDate,
+#endDate {
+    display: none;
+} 
+</style>
+
 <header>
   <!--Navbar -->
   <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
@@ -140,35 +149,18 @@
 
       <!-- Search Filter -->
 
-<<<<<<< HEAD
-    <div class="card mb-3">
-      <div class="card-body px-lg-5 pt-0">
-          <form id = "filterCases" class="text-center" style="color: #757575;" action="#!">
-
-              <div class="form-row">
-                  <div class="col">
-                      <div class="md-form">
-                          <input name = "lawyerName" type="text" id="lawyerName" class="form-control">
-                          <label for="lawyerName">Search Lawyer</label>
-                      </div>
-                  </div>
-                  <div class="col">
-                    <div class="md-form pt-3">
-                      <select name = "status" class="mdb-select form-control statusFilter" style="width:100%">
-                        <option value="" selected>Search Status</option>
-                        <option value="pending">Pending</option>
-                        <option value="consulting">Consulting</option>
-                      </select>
-=======
       <div class="card mb-3">
         <div class="card-body px-lg-5 pt-0">
             <form class="text-center" style="color: #757575;" action="#!">
 
                 <div class="form-row">
                     <div class="col">
-                        <div class="md-form">
-                            <input type="text" id="lawyerName" class="form-control">
-                            <label for="lawyerName">Search Lawyer</label>
+                        <div class="md-form pt-3">
+                        <select class="mdb-select form-control lawyerFilter" style="width:100%">
+                          <option value="" selected>Search Lawyers</option>
+                          <option value="1">Lawyer 1</option>
+                          <option value="2">Lawyer2</option>
+                        </select>
                         </div>
                     </div>
                     <div class="col">
@@ -179,18 +171,11 @@
                           <option value="2">Consulting</option>
                         </select>
                       </div>
->>>>>>> 5ad7ac1b265d33790ff683c3122f8852ead6e23f
                     </div>
                     <div class="col">
-                        <div class="md-form pt-2">
-
-                          <button class="btn btn-default dropdown-toggle btn-sm" type="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">Filter By Date</button>
-
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Jan</a>
-                            <a class="dropdown-item" href="#">Feb</a>
-                          </div>
+                        <div class="md-form pt-3">
+                          <span><input type="input" id="startDate" class="datepicker" /></span>
+                          <span><input id="endDate" class="datepicker" /></span>
                       </div>
                   </div>
                 </div>
@@ -232,6 +217,7 @@
       <button class="btn btn-default" onclick = "prev()"><i class="fa fa-arrow-left"></i> Prev</button>
       <button class="btn btn-default" onclick = "next()">Next <i class="fa fa-arrow-right"></i></button>
     </div>
+  </div>
   </div>
 
    <div class="tab-pane fade" id="chatTab" role="tabpanel" aria-labelledby="chatTab">
@@ -444,6 +430,7 @@
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
 <script src="{{ABS_PATH}}js/admin/admin_dashboard_render.js"></script>
 <script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 <script>
   $('#sendInvite').click(function() {
@@ -454,6 +441,18 @@
   $('.status').select2();
 
   $('.statusFilter').select2();
+  $('.lawyerFilter').select2();
 
 </script>
+<script>
+  $("#startDate" ).datepicker({
+      showOn: "button",
+      buttonText: "Start date"
+    });
 
+  $("#endDate").datepicker({
+    showOn: "button",
+    buttonText: "End date"
+  })
+
+</script>

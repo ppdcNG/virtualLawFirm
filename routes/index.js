@@ -21,7 +21,7 @@ router.get('/', function (req, res, next) {
 // get legal advice view
 router.get('/legalAdvice', (req, res) => {
   res.render('legal-advice', { title: "Free Legal Advice", AppName });
-})
+});
 
 router.get('/join', function (req, res) {
   res.render('auth/join', {

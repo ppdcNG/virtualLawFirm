@@ -69,13 +69,19 @@
     <section class="container py-5">
       <h4 data-aos="fade-right" data-aos-duration="1000">Get a Free Legal Advice</h4>
       <hr width="100" align="left" />
-      <div class="form-group">
-        <label for="adviceForm">Have a question?</label>
-        <textarea class="form-control" id="adviceForm" rows="3" placeholder="Write here..."></textarea>
-      </div>
-      <div class="float-right">
-        <button class="btn btn-default">Submit</button>
-      </div>
+      <form id="legalAdvice">
+        <div class="form-group">
+          <label for="name">Name (optional)</label>
+          <input class="form-control" name="name" placeholder="Enter name" />
+        </div>      
+        <div class="form-group">
+          <label for="adviceForm">Have a question?</label>
+          <textarea class="form-control" name="adviceForm" rows="3" placeholder="Write here..."></textarea>
+        </div>
+        <div class="float-right">
+          <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+      </form>
 
     </section>
     
@@ -228,7 +234,11 @@
   
   <script src="{{ABS_PATH}}js/auth.js"></script>
   <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
-
+  <script>
+    $("#legalAdvice").submit((e) => {
+      e.preventDefault();
+    });
+  </script>
 </body>
 
 </html>
