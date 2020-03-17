@@ -193,14 +193,15 @@ const next = async () => {
   $("#loadingTasks").css('display', 'block');
   page += 1;
   let casesHtml = "";
-  let count = 0;
-  dataRefs.push(firstRef);
+  let count = 1;
+  dataRefs.push(firstRef)
   let cases = await firebase.firestore().collection('cases').orderBy('timestamp').startAfter(lastRef).limit(limit).get().catch((e) => { console.log(e) });
   cases.forEach((task) => {
-    count == limit && (lastRef == task)
-    count += 1;
+    count == 1 && (firstRef = task);
+    count == limit && (lastRef = task)
     TASKS[task.id] = task.data();
     casesHtml += renderCases(TASKS[task.id], task.id);
+    count += 1;
   });
   $("#loadingTasks").css('display', 'none');
   $("#adminCases").html(casesHtml);
@@ -216,7 +217,6 @@ const prev = async () => {
   let prevRef = dataRefs.pop();
   let cases = await firebase.firestore().collection('cases').orderBy('timestamp').startAt(prevRef).limit(limit).get().catch((e) => { });
   cases.forEach((task) => {
-
     count == limit && (lastRef = task)
     count += 1;
     TASKS[task.id] = task.data();
