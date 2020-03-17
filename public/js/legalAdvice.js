@@ -53,8 +53,8 @@ const renderAnswers = (question, id) => {
         aria-expanded="false" aria-controls="accordion${id}">
         <h5 class="mb-0">
           Question By ${name} <i class="fas fa-angle-down rotate-icon"></i>
+          <span class="float-right">${time.format('Do MMMM YYYY')}</span>
         </h5>
-        <h4 class = "mb-0"> ${time.format('Do MMMM YYYY')}</h4>
       </a>
     </div>
 
