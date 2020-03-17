@@ -1,5 +1,14 @@
 {{> header }}
 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+
+<style>
+#startDate,
+#endDate {
+    display: none;
+} 
+</style>
+
 <header>
   <!--Navbar -->
   <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
@@ -160,15 +169,9 @@
                       </select>
                     </div>
                     <div class="col">
-                        <div class="md-form pt-2">
-
-                          <button class="btn btn-default dropdown-toggle btn-sm" type="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">Filter By Date</button>
-
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Jan</a>
-                            <a class="dropdown-item" href="#">Feb</a>
-                          </div>
+                        <div class="md-form pt-3">
+                          <span><input type="input" id="startDate" class="datepicker" /></span>
+                          <span><input id="endDate" class="datepicker" /></span>
                       </div>
                   </div>
                 </div>
@@ -205,6 +208,7 @@
       <button class="btn btn-default" onclick = "prev()"><i class="fa fa-arrow-left"></i> Prev</button>
       <button class="btn btn-default" onclick = "next()">Next <i class="fa fa-arrow-right"></i></button>
     </div>
+  </div>
   </div>
 
    <div class="tab-pane fade" id="chatTab" role="tabpanel" aria-labelledby="chatTab">
@@ -417,6 +421,7 @@
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
 <script src="{{ABS_PATH}}js/admin/admin_dashboard_render.js"></script>
 <script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 <script>
   $('#sendInvite').click(function() {
@@ -427,6 +432,18 @@
   $('.status').select2();
 
   $('.statusFilter').select2();
+  $('.lawyerFilter').select2();
 
 </script>
+<script>
+  $("#startDate" ).datepicker({
+      showOn: "button",
+      buttonText: "Start date"
+    });
 
+  $("#endDate").datepicker({
+    showOn: "button",
+    buttonText: "End date"
+  })
+
+</script>
