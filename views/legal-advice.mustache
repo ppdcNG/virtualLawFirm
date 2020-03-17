@@ -1,0 +1,234 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet"> 
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Data-aos -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+
+  <style type="text/css">
+    body {font-family: 'Lato', sans-serif; scroll-behavior: smooth;padding:0;margin:0;width:100vw !important;overflow-x:hidden}
+    div.parent-box { display: table; width:100%;}
+    div.child-box { display: table-cell; vertical-align: middle; font-size: xx-large; }
+  </style>
+
+  <title>{{title}}</title>
+</head>
+
+<body>
+  <header>
+    <!--Navbar -->
+    <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+      <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+        aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        </ul>
+
+        {{! <ul class="navbar-nav ml-auto nav-flex-icons">
+          <li class="nav-item">
+            <a class="nav-link waves-effect waves-light unique-color" data-toggle="modal" data-target="#lawyerRegModal">
+              <i class="fas fa-sign-in-alt"></i>Lawyer Register
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect waves-light default-color" href="/client/join">
+              <i class="fas fa-sign-in-alt"></i> Client Register
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect waves-light" data-toggle="modal" data-target="#loginFormModal">
+              Login
+            </a>
+          </li>
+        </ul> }}
+      </div>
+    </nav>
+    <!--/.Navbar -->
+  </header>
+
+  <main>
+    <section class="container py-5">
+      <h4 data-aos="fade-right" data-aos-duration="1000">Get a Free Legal Advice</h4>
+      <hr width="100" align="left" />
+      <div class="form-group">
+        <label for="adviceForm">Have a question?</label>
+        <textarea class="form-control" id="adviceForm" rows="3" placeholder="Write here..."></textarea>
+      </div>
+      <div class="float-right">
+        <button class="btn btn-default">Submit</button>
+      </div>
+
+    </section>
+    
+    <section class="container pb-5">
+      <h4>Previously Asked</h4>
+
+<!--Accordion wrapper-->
+<div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
+
+  <!-- Accordion card -->
+  <div class="">
+
+    <!-- Card header -->
+    <div class="card-header" role="tab" id="headingTwo1">
+      <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo1"
+        aria-expanded="false" aria-controls="collapseTwo1">
+        <h5 class="mb-0">
+          Question 1? <i class="fas fa-angle-down rotate-icon"></i>
+        </h5>
+      </a>
+    </div>
+
+    <!-- Card body -->
+    <div id="collapseTwo1" class="collapse" role="tabpanel" aria-labelledby="headingTwo1"
+      data-parent="#accordionEx1">
+      <div class="card-body">
+        <p>Full question...</p>
+        <hr/>
+        <p class="text-justify">
+          Answer:
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+          wolf
+          moon
+          officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+          Brunch
+          3
+          wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+          shoreditch
+          et.
+          Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+          Ad
+          vegan
+          excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
+          nesciunt
+          you probably haven't heard of them accusamus labore sustainable VHS.
+        </p>
+      </div>
+    </div>
+
+  </div>
+  <!-- Accordion card -->
+
+  <!-- Accordion card -->
+  <div class="">
+
+    <!-- Card header -->
+    <div class="card-header" role="tab" id="headingTwo2">
+      <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo21"
+        aria-expanded="false" aria-controls="collapseTwo21">
+        <h5 class="mb-0">
+          Question #2? <i class="fas fa-angle-down rotate-icon"></i>
+        </h5>
+      </a>
+    </div>
+
+    <!-- Card body -->
+    <div id="collapseTwo21" class="collapse" role="tabpanel" aria-labelledby="headingTwo21"
+      data-parent="#accordionEx1">
+      <div class="card-body">
+        <p>Full question...</p>
+        <hr/>
+        <p class="text-justify">
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+          wolf
+          moon
+          officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+          Brunch
+          3
+          wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+          shoreditch
+          et.
+          Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+          Ad
+          vegan
+          excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
+          nesciunt
+          you probably haven't heard of them accusamus labore sustainable VHS.
+        </p>
+      </div>
+    </div>
+
+  </div>
+  <!-- Accordion card -->
+
+  <!-- Accordion card -->
+  <div class="">
+
+    <!-- Card header -->
+    <div class="card-header" role="tab" id="headingThree31">
+      <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseThree31"
+        aria-expanded="false" aria-controls="collapseThree31">
+        <h5 class="mb-0">
+          Question #3? <i class="fas fa-angle-down rotate-icon"></i>
+        </h5>
+      </a>
+    </div>
+
+    <!-- Card body -->
+    <div id="collapseThree31" class="collapse" role="tabpanel" aria-labelledby="headingThree31"
+      data-parent="#accordionEx1">
+      <div class="card-body">
+        <p>Full question...</p>
+        <hr/>
+        <p class="text-justify">      
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+          wolf
+          moon
+          officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+          Brunch
+          3
+          wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+          shoreditch
+          et.
+          Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+          Ad
+          vegan
+          excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth
+          nesciunt
+          you probably haven't heard of them accusamus labore sustainable VHS.
+        </p>
+      </div>
+    </div>
+
+  </div>
+  <!-- Accordion card -->
+
+</div>
+<!-- Accordion wrapper -->
+
+    </section>
+  </main>
+
+  <!-- Footer -->
+  {{> footer}}
+  <!-- Footer -->
+  
+  <script>
+    AOS.init();
+  </script>
+  
+  <script src="{{ABS_PATH}}js/auth.js"></script>
+  <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+
+</body>
+
+</html>

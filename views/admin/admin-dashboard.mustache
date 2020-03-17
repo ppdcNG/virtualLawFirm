@@ -42,6 +42,14 @@
       <a class="nav-link text-dark" id="profile-tab-ex" data-toggle="tab" href="#profile-ex" role="tab" aria-controls="profile-ex"
         aria-selected="false">Tasks</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link text-dark" id="chat-tab" data-toggle="tab" href="#chatTab" role="tab" role="tab" aria-controls="chatTab"
+        aria-selected="false">Chat</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-dark" id="legal-advice-tab" data-toggle="tab" href="#legalAdviceTab" role="tab" aria-controls="legalAdviceTab"
+        aria-selected="false">Legal Advice</a>
+    </li>    
   </ul>
   <div class="tab-content pt-5" id="myTabContentEx">
     <div class="tab-pane fade active show" id="home-ex" role="tabpanel" aria-labelledby="home-tab-ex">
@@ -122,15 +130,17 @@
 
     </div>
     <div class="tab-pane fade" id="profile-ex" role="tabpanel" aria-labelledby="profile-tab-ex">
-      <!--Accordion wrapper-->
-<div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
+    
+    <!--Accordion wrapper-->
+    <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
 
-  <div class="container-fluid pb-5 mb-5">
-    <p class="h5 text-uppercase">Tasks</p>
-    <hr/>
+    <div class="container-fluid pb-5 mb-5">
+      <p class="h5 text-uppercase">Tasks</p>
+      <hr/>
 
-    <!-- Search Filter -->
+      <!-- Search Filter -->
 
+<<<<<<< HEAD
     <div class="card mb-3">
       <div class="card-body px-lg-5 pt-0">
           <form id = "filterCases" class="text-center" style="color: #757575;" action="#!">
@@ -149,55 +159,88 @@
                         <option value="pending">Pending</option>
                         <option value="consulting">Consulting</option>
                       </select>
-                    </div>
-                  </div>
-                  <div class="col">
-                      <div class="md-form pt-2">
+=======
+      <div class="card mb-3">
+        <div class="card-body px-lg-5 pt-0">
+            <form class="text-center" style="color: #757575;" action="#!">
 
-                        <button class="btn btn-default dropdown-toggle btn-sm" type="button" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">Filter By Date</button>
-
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#">Jan</a>
-                          <a class="dropdown-item" href="#">Feb</a>
+                <div class="form-row">
+                    <div class="col">
+                        <div class="md-form">
+                            <input type="text" id="lawyerName" class="form-control">
+                            <label for="lawyerName">Search Lawyer</label>
                         </div>
                     </div>
+                    <div class="col">
+                      <div class="md-form pt-3">
+                        <select class="mdb-select form-control statusFilter" style="width:100%">
+                          <option value="" selected>Search Status</option>
+                          <option value="1">Pending</option>
+                          <option value="2">Consulting</option>
+                        </select>
+                      </div>
+>>>>>>> 5ad7ac1b265d33790ff683c3122f8852ead6e23f
+                    </div>
+                    <div class="col">
+                        <div class="md-form pt-2">
+
+                          <button class="btn btn-default dropdown-toggle btn-sm" type="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">Filter By Date</button>
+
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Jan</a>
+                            <a class="dropdown-item" href="#">Feb</a>
+                          </div>
+                      </div>
+                  </div>
                 </div>
-              </div>
 
-              <button class="btn btn-outline-default btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Search</button>
-          </form>
+                <button class="btn btn-outline-default btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Search</button>
+            </form>
 
+        </div>
       </div>
-    </div>
 
-    <table class="table table-bordered tale-striped" id="casesTable">
-      <thead class="black white-text">
-        <tr>
-          <th scope="col">Title</th>
-          <th scope="col">Client</th>
-          <th scope="col">Status</th>
-          <th scope="col">Assigned Lawyer</th>
-          <th scope="col"> Created At</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody id = "adminCases">
-        
-      </tbody>
-    </table>
-    <div class="d-flex justify-content-center">
-      <div class="spinner-grow slow" role="status" id="loadingTasks">
-        <span class="sr-only">Loading...</span>
+      <table class="table table-bordered tale-striped" id="casesTable">
+        <thead class="black white-text">
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Client</th>
+            <th scope="col">Status</th>
+            <th scope="col">Assigned Lawyer</th>
+            <th scope="col"> Created At</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id = "adminCases">
+          
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-center">
+        <div class="spinner-grow slow" role="status" id="loadingTasks">
+          <span class="sr-only">Loading...</span>
+        </div>
       </div>
+
+      <div class="text-right">
+        <button class="btn btn-default">Next <i class="fa fa-arrow-right"></i></button>
+      </div>
+      
     </div>
 
     <div class="text-right">
       <button class="btn btn-default" onclick = "prev()"><i class="fa fa-arrow-left"></i> Prev</button>
       <button class="btn btn-default" onclick = "next()">Next <i class="fa fa-arrow-right"></i></button>
     </div>
-    
   </div>
+
+   <div class="tab-pane fade" id="chatTab" role="tabpanel" aria-labelledby="chatTab">
+    <section class="h-50">Chat</section>
+   </div>
+
+   <div class="tab-pane fade" id="legalAdviceTab" role="tabpanel" aria-labelledby="legalAdviceTab">
+    <section class="h-50">Legal Advice</section>   
+   </div>
 
 </div>
 
@@ -340,6 +383,60 @@
   </div>
 </div>
 
+{{! contact modal  }}
+<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Contact</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body container">
+
+          <div class="d-flex justify-content-center">
+            <a class="btn btn-default">Contact Lawyer</a><a class="btn btn-default">Contact Client</a>
+          </div>
+      
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{! history modal  }}
+<div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="historyModal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Task History</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body container">
+
+          <h5 class="text-center">History...</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item elegant-color white-text"></li>
+            <li class="list-group-item"></li>
+            <li class="list-group-item"></li>
+          </ul>
+      
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {{> footer}}
 
