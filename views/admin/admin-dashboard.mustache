@@ -3,10 +3,20 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
 <style>
-#startDate,
-#endDate {
-    display: none;
-} 
+  {{! #startDate,
+  #endDate {
+      display: none;
+  } }}
+  button.ui-datepicker-trigger {
+    border: 1px solid #2EBAAD;
+    border-radius: 0.5rem;
+    padding: 5px 10px;
+    width: 25%;
+  }
+  button.ui-datepicker-trigger:hover {
+    background-color: #2EBAAD;
+    color: #fff;
+  }
 </style>
 
 <header>
@@ -94,9 +104,15 @@
       <!-- Search form -->
       <form class="md-form form-inline mt-0 border p-2 row" id = "filterLawyer">
         <div class="md-form col-md-4">
-          <i class="fas fa-search" aria-hidden="true"></i>
+          {{! <i class="fas fa-search" aria-hidden="true"></i>
           <input name = "name" id="searchName" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by Name"
-          aria-label="Search">
+          aria-label="Search"> }}
+          <span class="text-muted">Search Lawyer</span>
+          <select class="form-control w-75 lawyerNameSearch" name="lawyerName">
+            <option selected disabled value = "">Select</option>
+            <option value="">A</option>
+            <option valut="">B</option>
+          </select>
         </div>
 
         <div class="md-form col-md-4">
@@ -155,9 +171,12 @@
 
               <div class="form-row">
                   <div class="col">
-                      <div class="md-form">
-                          <input name = "lawyerName" type="text" id="lawyerName" class="form-control">
-                          <label for="lawyerName">Search Lawyer</label>
+                      <div class="md-form pt-3">
+                        <select name = "status" class="mdb-select form-control lawyerFilter" style="width:100%">
+                          <option value="" selected>Search Lawyer</option>
+                          <option value="">Lawyer 1</option>
+                          <option value="">Lawyer 2</option>
+                        </select>
                       </div>
                   </div>
                   <div class="col">
@@ -168,12 +187,14 @@
                         <option value="consulting">Consulting</option>
                       </select>
                     </div>
-                    <div class="col">
-                        <div class="md-form pt-3">
-                          <span><input type="input" id="startDate" class="datepicker" /></span>
-                          <span><input id="endDate" class="datepicker" /></span>
-                      </div>
+
                   </div>
+                  <div class="col">
+                    <div class="md-form pt-3">
+                      <span><input type="input" id="startDate" class="datepicker" /></span>
+                      <br/>
+                      <span><input id="endDate" class="datepicker" /></span>
+                  </div>                  
                 </div>
 
                 <button class="btn btn-outline-default btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Search</button>
@@ -210,13 +231,117 @@
     </div>
   </div>
   </div>
-
+</div>
    <div class="tab-pane fade" id="chatTab" role="tabpanel" aria-labelledby="chatTab">
     <section class="h-50">Chat</section>
    </div>
 
    <div class="tab-pane fade" id="legalAdviceTab" role="tabpanel" aria-labelledby="legalAdviceTab">
-    <section class="h-50">Legal Advice</section>   
+    <section class="container">
+
+        <h4>Questions</h5>
+        <hr/>
+  
+        <!--Accordion wrapper-->
+        <div class="accordion md-accordion mb-5" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+          <!-- Accordion card -->
+          <div class="">
+
+            <!-- Card header -->
+            <div class="card-header" role="tab" id="headingOne1">
+              <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
+                aria-controls="collapseOne1">
+                <h5 class="mb-0">
+                  Q #1 <i class="fas fa-angle-down rotate-icon"></i>
+                  <span class="float-right"><small>01/01/2020</small></span>
+                </h5>
+              </a>
+            </div>
+
+            <!-- Card body -->
+            <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
+              data-parent="#accordionEx">
+              <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                labore sustainable VHS.
+              </div>
+            </div>
+
+          </div>
+          <!-- Accordion card -->
+
+          <!-- Accordion card -->
+          <div class="">
+
+            <!-- Card header -->
+            <div class="card-header" role="tab" id="headingTwo2">
+              <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo2"
+                aria-expanded="false" aria-controls="collapseTwo2">
+                <h5 class="mb-0">
+                  Q #2 <i class="fas fa-angle-down rotate-icon"></i>
+                  <span class="float-right"><small>01/01/2020</small></span>
+                </h5>
+              </a>
+            </div>
+
+            <!-- Card body -->
+            <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo2"
+              data-parent="#accordionEx">
+              <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                labore sustainable VHS.
+              </div>
+            </div>
+
+          </div>
+          <!-- Accordion card -->
+
+          <!-- Accordion card -->
+          <div class="">
+
+            <!-- Card header -->
+            <div class="card-header" role="tab" id="headingThree3">
+              <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
+                aria-expanded="false" aria-controls="collapseThree3">
+                <h5 class="mb-0">
+                  Q #3 <i class="fas fa-angle-down rotate-icon"></i>
+                  <span class="float-right"><small>01/01/2020</small></span>
+                </h5>
+              </a>
+            </div>
+
+            <!-- Card body -->
+            <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3"
+              data-parent="#accordionEx">
+              <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
+                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
+                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
+                labore sustainable VHS.
+              </div>
+            </div>
+
+          </div>
+          <!-- Accordion card -->
+
+        </div>
+        <!-- Accordion wrapper -->      
+
+    </section>   
    </div>
 
 </div>
@@ -430,6 +555,7 @@
 
   $('.tags').select2();
   $('.status').select2();
+  $('.lawyerNameSearch').select2();
 
   $('.statusFilter').select2();
   $('.lawyerFilter').select2();
@@ -437,13 +563,13 @@
 </script>
 <script>
   $("#startDate" ).datepicker({
-      showOn: "button",
-      buttonText: "Start date"
-    });
+    showOn: "button",
+    buttonText: "Start date"
+  });
 
   $("#endDate").datepicker({
     showOn: "button",
     buttonText: "End date"
-  })
+  });
 
 </script>
