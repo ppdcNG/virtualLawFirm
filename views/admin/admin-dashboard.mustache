@@ -3,10 +3,12 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
 <style>
-  {{! #startDate,
+  #startDate,
   #endDate {
-      display: none;
-  } }}
+      border-left: none;
+      border-top: none;
+      border-right: none;
+  }
   button.ui-datepicker-trigger {
     border: 1px solid #2EBAAD;
     border-radius: 0.5rem;
@@ -202,22 +204,25 @@
 
         </div>
       </div>
-
-      <table class="table table-bordered tale-striped" id="casesTable">
-        <thead class="black white-text">
-          <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Client</th>
-            <th scope="col">Status</th>
-            <th scope="col">Assigned Lawyer</th>
-            <th scope="col"> Created At</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody id = "adminCases">
-          
-        </tbody>
-      </table>
+  
+      <div class="table-responsive">
+        <table class="table table-bordered tale-striped" id="casesTable">
+          <thead class="black white-text">
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Client</th>
+              <th scope="col">Status</th>
+              <th scope="col">Assigned Lawyer</th>
+              <th scope="col"> Created At</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id = "adminCases">
+            
+          </tbody>
+        </table>
+      </div>
+      
       <div class="d-flex justify-content-center">
         <div class="spinner-grow slow" role="status" id="loadingTasks">
           <span class="sr-only">Loading...</span>
@@ -253,7 +258,7 @@
               <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
                 aria-controls="collapseOne1">
                 <h5 class="mb-0">
-                  Q #1 <i class="fas fa-angle-down rotate-icon"></i>
+                  Q 1 <i class="fas fa-angle-down rotate-icon"></i>
                   <span class="float-right"><small>01/01/2020</small></span>
                 </h5>
               </a>
@@ -263,13 +268,27 @@
             <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
               data-parent="#accordionEx">
               <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-                labore sustainable VHS.
+                <h5>Question: </h5>
+                <p class="text-justify">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                  wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                  eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                  assumenda shoreditch et.
+                </p>
+
+                <h5>Answer: </h5>
+                <p class="text-justify ans">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                  wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
+                  eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
+                  assumenda shoreditch et.
+                </p>
+
+                <div class="actions d-flex justify-content-end">
+                  <a onclick="edit()">Edi<i class="far fa-edit"></i>t</a>
+                  <a class="text-danger"><i class="fas fa-trash"></i></a>
+                </div>
+
               </div>
             </div>
 
