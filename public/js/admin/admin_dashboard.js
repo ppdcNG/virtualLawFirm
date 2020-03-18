@@ -9,6 +9,7 @@ var firstRef = null;
 var dataRefs = [];
 var limit = 2;
 let taskRef = null;
+var lawyerList = [];
 
 var filter = {
   param: '',
@@ -22,11 +23,13 @@ var lawyers = "";
 $(document).ready(() => {
   fetchLawyers();
   fetchCases();
+  fetchLawyerNames()
 })
 
-$("#filterCases").submit((e) => {
+$("#filterCases").submit(async (e) => {
   e.preventDefault();
-  fetchCases();
+  await fetchCases();
+  this.reset();
 })
 
 const fetchLawyers = () => {
@@ -129,7 +132,7 @@ const addFilters = () => {
     databaseRef = addTimelineFilter(databaseRef, startdate, enddate);
   }
 
-  if (form.lawyer) databaseRef = addLawyerFilter(databaseRef);
+  if (form.lawyer) databaseRef = addLawyerFilter(databaseRef, form.lawyer);
   return databaseRef
 }
 
@@ -264,3 +267,21 @@ const prev = async () => {
 
 
 }
+
+const fetchLawyerNames = async () => {
+  let lawyers = await firebase.firestore().collection('lawyerNames').get().catch((e) => { console.log(e) });
+
+  lawyers.forEach((lawyer) => {
+    lawyer = lawyer.data();
+    lawyerList.push({ text: lawyer.name, id: lawyer.authId });
+  })
+
+  $(".lawyerFilter").select2({
+    data: lawyerList,
+    maximmaximumSelectionLengthumSelect: 2
+  });
+
+
+}
+
+

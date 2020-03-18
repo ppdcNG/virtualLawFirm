@@ -94,9 +94,11 @@
       <!-- Search form -->
       <form class="md-form form-inline mt-0 border p-2 row" id = "filterLawyer">
         <div class="md-form col-md-4">
-          <i class="fas fa-search" aria-hidden="true"></i>
-          <input name = "name" id="searchName" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by Name"
-          aria-label="Search">
+          <span class="text-muted">Search by Lawyer Name</span>
+          <select class="lawyerFilter form-control w-75" id="status" name="status">
+            <option selected disabled value = "">Select</option>
+            
+          </select>          
         </div>
 
         <div class="md-form col-md-4">
@@ -156,8 +158,11 @@
               <div class="form-row">
                   <div class="col">
                       <div class="md-form">
-                          <input name = "lawyerName" type="text" id="lawyerName" class="form-control">
-                          <label for="lawyerName">Search Lawyer</label>
+                        <select name = "status" class="mdb-select form-control lawyerFilter" style="width:100%">
+                          <option value="" selected>Search Status</option>
+                          <option value="pending">Pending</option>
+                          <option value="consulting">Consulting</option>
+                      </select>
                       </div>
                   </div>
                   <div class="col">
@@ -432,7 +437,7 @@
   $('.status').select2();
 
   $('.statusFilter').select2();
-  $('.lawyerFilter').select2();
+  
 
 </script>
 <script>
