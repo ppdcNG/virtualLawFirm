@@ -23,6 +23,7 @@ var lawyers = "";
 $(document).ready(() => {
   fetchLawyers();
   fetchCases();
+  fetchquestions();
 })
 
 $("#filterCases").submit(async function (e) {
@@ -266,12 +267,6 @@ const prev = async () => {
 
 }
 
-$("#edit1").click(() => {
-  $('#answer1').attr('contenteditable', 'true').focus();
-  $('#actions1 .save').show("slow");
-});
 
-$("#edit2").click(() => {
-  $('#answer2').attr('contenteditable', 'true').focus();
-  $('#actions2 .save').show("slow");
-});
+
+
