@@ -110,10 +110,9 @@
           <input name = "name" id="searchName" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by Name"
           aria-label="Search"> }}
           <span class="text-muted">Search Lawyer</span>
-          <select class="form-control w-75 lawyerNameSearch" name="lawyerName">
-            <option selected disabled value = "">Select</option>
-            <option value="">A</option>
-            <option valut="">B</option>
+          <select class="form-control w-75 lawyerNameSearch" name="name">
+            <option value="" selected>Search Lawyers</option>
+            {{{lawyers}}}
           </select>
         </div>
 
@@ -129,6 +128,7 @@
         <div class="md-form col-md-4">
           <span class="text-muted">Search by Tags</span>
           <select name = "tag" class="tags form-control mt-2 w-75" id="tag" name="tag">
+          
               {{{tags}}}
           </select>
         </div>
@@ -174,10 +174,9 @@
               <div class="form-row">
                   <div class="col">
                       <div class="md-form pt-3">
-                        <select name = "status" class="mdb-select form-control lawyerFilter" style="width:100%">
-                          <option value="" selected>Search Lawyer</option>
-                          <option value="">Lawyer 1</option>
-                          <option value="">Lawyer 2</option>
+                        <select name = "lawyer" class="form-control w-75" id = "lawyerFilter" style="width:100%">
+                        <option value="" selected>Search Lawyer</option>
+                          {{{lawyers}}}
                         </select>
                       </div>
                   </div>
@@ -193,9 +192,9 @@
                   </div>
                   <div class="col">
                     <div class="md-form pt-3">
-                      <span><input type="input" id="startDate" class="datepicker" /></span>
+                      <span><input type="input" id="startDate" name = "start" class="datepicker" /></span>
                       <br/>
-                      <span><input id="endDate" class="datepicker" /></span>
+                      <span><input id="endDate" class="datepicker" name = "end" /></span>
                   </div>                  
                 </div>
 
@@ -574,9 +573,9 @@
 
   $('.tags').select2();
   $('.status').select2();
-  $('.lawyerNameSearch').select2();
-
   $('.statusFilter').select2();
+   $("#lawyerFilter").select2();
+  $('.lawyerNameSearch').select2();
   
 
 </script>

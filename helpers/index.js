@@ -24,6 +24,16 @@ exports.tagOptions = () => {
   return tagsHTML;
 }
 
+exports.lawyerOptions = async () => {
+  lawyersHTML = "";
+  let lawyers = await admin.firestore().collection('lawyerNames').get().catch((e) => { console.log(e) });
+
+  lawyers.forEach((lawyer) => {
+    lawyersHTML += `<option value = "${lawyer.id}">${lawyer.data().name}</option>`
+  })
+  return lawyersHTML;
+}
+
 
 const numberOfFields = (obj) => {
   let count = 0;

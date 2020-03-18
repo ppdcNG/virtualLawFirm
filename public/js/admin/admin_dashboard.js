@@ -23,10 +23,9 @@ var lawyers = "";
 $(document).ready(() => {
   fetchLawyers();
   fetchCases();
-  fetchLawyerNames()
 })
 
-$("#filterCases").submit(async (e) => {
+$("#filterCases").submit(async function (e) {
   e.preventDefault();
   await fetchCases();
   this.reset();
@@ -118,7 +117,7 @@ const addStatusFilter = (dbRef, status) => {
   return dbRef.where('status', '==', status);
 }
 const addLawyerFilter = (dbRef, lawyerId) => {
-  return dbRef.where('lawyerId', lawyerId);
+  return dbRef.where('lawyerId', '==', lawyerId);
 }
 
 const addFilters = () => {
@@ -126,13 +125,12 @@ const addFilters = () => {
   let form = form2js("filterCases", '.');
   console.log(form);
   if (form.status) databaseRef = addStatusFilter(databaseRef, form.status);
+  if (form.lawyer) databaseRef = addLawyerFilter(databaseRef, form.lawyer);
   if (form.start && form.end) {
     let startdate = 0 - new Date(form.start).getTime();
     let enddate = 0 - new Date(form.end).getTime();
     databaseRef = addTimelineFilter(databaseRef, startdate, enddate);
   }
-
-  if (form.lawyer) databaseRef = addLawyerFilter(databaseRef, form.lawyer);
   return databaseRef
 }
 
@@ -270,16 +268,13 @@ const prev = async () => {
 
 const fetchLawyerNames = async () => {
   let lawyers = await firebase.firestore().collection('lawyerNames').get().catch((e) => { console.log(e) });
-
+  let count = 0;
   lawyers.forEach((lawyer) => {
     lawyer = lawyer.data();
-    lawyerList.push({ text: lawyer.name, id: lawyer.authId });
+    lawyerList.push({ text: lawyer.name, id: count });
+    count++;
   })
 
-  $(".lawyerFilter").select2({
-    data: lawyerList,
-    maximmaximumSelectionLengthumSelect: 2
-  });
 
 
 }
