@@ -266,17 +266,12 @@ const prev = async () => {
 
 }
 
-const fetchLawyerNames = async () => {
-  let lawyers = await firebase.firestore().collection('lawyerNames').get().catch((e) => { console.log(e) });
-  let count = 0;
-  lawyers.forEach((lawyer) => {
-    lawyer = lawyer.data();
-    lawyerList.push({ text: lawyer.name, id: count });
-    count++;
-  })
+$("#edit1").click(() => {
+  $('#answer1').attr('contenteditable', 'true').focus();
+  $('#actions1 .save').show("slow");
+});
 
-
-
-}
-
-
+$("#edit2").click(() => {
+  $('#answer2').attr('contenteditable', 'true').focus();
+  $('#actions2 .save').show("slow");
+});
