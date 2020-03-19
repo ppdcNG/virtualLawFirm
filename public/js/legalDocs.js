@@ -1,13 +1,13 @@
 var pk = "pk_test_28c944c0f505bdbe163c2d0083127cbaca3cb1c3";
 
 const getLegalDoc = fee => {
-    // var amount = parseInt($("#amount").text());
+    var amount = parseInt($("#amount").text());
 
-    (function payWithPaystack() {
+    function payWithPaystack() {
         var handler = PaystackPop.setup({
             key: pk,
             email: 'customer@email.com',
-            amount: amount * 100,
+            amount: 100,
             currency: "NGN",
             ref: '' + Math.floor((Math.random() * 1000000000) + 1),
             metadata: {
@@ -27,7 +27,6 @@ const getLegalDoc = fee => {
             }
         });
         handler.openIframe();
-    })()
-
+    }
+    payWithPaystack();
 }
-
