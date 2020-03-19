@@ -43,4 +43,44 @@ const renderTableLoading = () => {
     return ``
 }
 
+const renderQuestions = (question, count, id) => {
+    let time = new moment(Math.abs(question.timestamp));
+    let name = question.name || "Anonymous";
+    let response = question.response || "No Response Yet";
+
+
+    return `<div class="">
+    <!-- Card header -->
+    <div class="card-header" role="tab" id="headingOne${count}">
+      <a data-toggle="collapse" data-parent="#accordionEx" href="#accordion${count}" aria-expanded="true"
+        aria-controls="collapseOne1">
+        <h5 class="mb-0">
+          Question by ${name} <i class="fas fa-angle-down rotate-icon"></i>
+          <span class="float-right"><small>${time.format('Do MMMM YYYY')}</small></span>
+        </h5>
+      </a>
+    </div>
+    <!-- Card body -->
+    <div id="accordion${count}" class="collapse" role="tabpanel" aria-labelledby="headingOne${count}"
+      data-parent="#accordionEx">
+      <div class="card-body">
+        <h5>Question: </h5>
+        <p class="text-justify">
+          ${question.text}
+        </p><hr/>
+        <h5>Advice: </h5>
+        <p class="text-justify" id="answer${count}">
+        ${response}
+        </p>
+
+        <div class="d-flex justify-content-end" id="actions${count}">
+          <a id="edit${count}" onclick = "editResponse('${count}')" class="mx-1"><i class="far fa-edit"></i></a>
+          <a id = "save${count}"style="display:none" onclick = "saveResponse('${count}', '${id}')" class="mx-1 save"><i class="fas fa-save"></i> Save changes </a>
+          <a class="text-danger" onclick = "deleteResponse('${count}', '${id}')" mx-1"><i class="fas fa-trash"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>`
+}
+
 

@@ -210,15 +210,6 @@ exports.fetchLawyers = async (req, res) => {
     }
     console.log(tags);
     let lawyers = {};
-    await admin.firestore().collection('issuesTemp').doc(req.user.uid).set(obj).catch((e) => {
-        console.log(e);
-        let returnObj = {
-            err: e,
-            message: e.message,
-            status: "failed"
-        };
-        return res.status(400).send(returnObj);
-    });
 
     let data = await admin.firestore().collection('lawyers').where('portfolio.tags', 'array-contains-any', tags).get();
     console.log(data);
@@ -236,7 +227,7 @@ exports.fetchLawyers = async (req, res) => {
 
     let returnObj = {
         data: lawyers,
-        message: "No lawyer found",
+        message: "Fetch successful",
         status: "success"
     };
     return res.status(200).send(returnObj);

@@ -24,6 +24,16 @@ exports.tagOptions = () => {
   return tagsHTML;
 }
 
+exports.lawyerOptions = async () => {
+  lawyersHTML = "";
+  let lawyers = await admin.firestore().collection('lawyerNames').get().catch((e) => { console.log(e) });
+
+  lawyers.forEach((lawyer) => {
+    lawyersHTML += `<option value = "${lawyer.id}">${lawyer.data().name}</option>`
+  })
+  return lawyersHTML;
+}
+
 
 const numberOfFields = (obj) => {
   let count = 0;
@@ -72,9 +82,10 @@ exports.copyLawyers = async () => {
   let batch = admin.firestore().batch();
   let lawyers = await admin.firestore().collection('lawyers').get();
   lawyers.forEach((lawyer) => {
-    let docref = admin.firestore().collection('lawyersList').doc(lawyer.id);
-    batch.set(docref, lawyer.data());
-  })
-  batch.commit();
+    let docref = admin.firestore().collection('lawyerNames').doc(lawyer.id);
+    let { name, authId } = lawyer.data();
+    batch.set(docref, { name, authId });
+  });
+  await batch.commit();
   console.log('successfully written');
 }

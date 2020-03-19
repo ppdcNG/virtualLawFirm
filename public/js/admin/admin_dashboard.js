@@ -9,6 +9,7 @@ var firstRef = null;
 var dataRefs = [];
 var limit = 2;
 let taskRef = null;
+var lawyerList = [];
 
 var filter = {
   param: '',
@@ -22,11 +23,13 @@ var lawyers = "";
 $(document).ready(() => {
   fetchLawyers();
   fetchCases();
+  fetchquestions();
 })
 
-$("#filterCases").submit((e) => {
+$("#filterCases").submit(async function (e) {
   e.preventDefault();
-  fetchCases();
+  await fetchCases();
+  this.reset();
 })
 
 const fetchLawyers = () => {
@@ -115,7 +118,7 @@ const addStatusFilter = (dbRef, status) => {
   return dbRef.where('status', '==', status);
 }
 const addLawyerFilter = (dbRef, lawyerId) => {
-  return dbRef.where('lawyerId', lawyerId);
+  return dbRef.where('lawyerId', '==', lawyerId);
 }
 
 const addFilters = () => {
@@ -123,13 +126,12 @@ const addFilters = () => {
   let form = form2js("filterCases", '.');
   console.log(form);
   if (form.status) databaseRef = addStatusFilter(databaseRef, form.status);
+  if (form.lawyer) databaseRef = addLawyerFilter(databaseRef, form.lawyer);
   if (form.start && form.end) {
     let startdate = 0 - new Date(form.start).getTime();
     let enddate = 0 - new Date(form.end).getTime();
     databaseRef = addTimelineFilter(databaseRef, startdate, enddate);
   }
-
-  if (form.lawyer) databaseRef = addLawyerFilter(databaseRef);
   return databaseRef
 }
 
@@ -265,12 +267,6 @@ const prev = async () => {
 
 }
 
-$("#edit1").click(() => {
-  $('#answer1').attr('contenteditable', 'true').focus();
-  $('#actions1 .save').show("slow");
-});
 
-$("#edit2").click(() => {
-  $('#answer2').attr('contenteditable', 'true').focus();
-  $('#actions2 .save').show("slow");
-});
+
+

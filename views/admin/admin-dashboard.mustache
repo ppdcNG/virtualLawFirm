@@ -70,6 +70,10 @@
     <li class="nav-item">
       <a class="nav-link text-dark" id="legal-advice-tab" data-toggle="tab" href="#legalAdviceTab" role="tab" aria-controls="legalAdviceTab"
         aria-selected="false">Legal Advice</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-dark" id="legal-docs-tab" data-toggle="tab" href="#legalDocs" role="tab" aria-controls="legalAdviceTab"
+        aria-selected="false">Legal Documents</a>
     </li>    
   </ul>
   <div class="tab-content pt-5" id="myTabContentEx">
@@ -110,10 +114,9 @@
           <input name = "name" id="searchName" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by Name"
           aria-label="Search"> }}
           <span class="text-muted">Search Lawyer</span>
-          <select class="form-control w-75 lawyerNameSearch" name="lawyerName">
-            <option selected disabled value = "">Select</option>
-            <option value="">A</option>
-            <option valut="">B</option>
+          <select class="form-control w-75 lawyerNameSearch" name="name">
+            <option value="" selected>Search Lawyers</option>
+            {{{lawyers}}}
           </select>
         </div>
 
@@ -129,6 +132,7 @@
         <div class="md-form col-md-4">
           <span class="text-muted">Search by Tags</span>
           <select name = "tag" class="tags form-control mt-2 w-75" id="tag" name="tag">
+          
               {{{tags}}}
           </select>
         </div>
@@ -174,10 +178,9 @@
               <div class="form-row">
                   <div class="col">
                       <div class="md-form pt-3">
-                        <select name = "status" class="mdb-select form-control lawyerFilter" style="width:100%">
-                          <option value="" selected>Search Lawyer</option>
-                          <option value="">Lawyer 1</option>
-                          <option value="">Lawyer 2</option>
+                        <select name = "lawyer" class="form-control w-75" id = "lawyerFilter" style="width:100%">
+                        <option value="" selected>Search Lawyer</option>
+                          {{{lawyers}}}
                         </select>
                       </div>
                   </div>
@@ -193,9 +196,9 @@
                   </div>
                   <div class="col">
                     <div class="md-form pt-3">
-                      <span><input type="input" id="startDate" class="datepicker" /></span>
+                      <span><input type="input" id="startDate" name = "start" class="datepicker" /></span>
                       <br/>
-                      <span><input id="endDate" class="datepicker" /></span>
+                      <span><input id="endDate" class="datepicker" name = "end" /></span>
                   </div>                  
                 </div>
 
@@ -242,7 +245,7 @@
    </div>
 
    <div class="tab-pane fade" id="legalAdviceTab" role="tabpanel" aria-labelledby="legalAdviceTab">
-    <section class="container">
+    <section class="container" style="min-height: 50vh">
 
         <h4>Questions</h5>
         <hr/>
@@ -250,130 +253,76 @@
         <!--Accordion wrapper-->
         <div class="accordion md-accordion mb-5" id="accordionEx" role="tablist" aria-multiselectable="true">
 
-          <!-- Accordion card -->
-          <div class="">
-
-            <!-- Card header -->
-            <div class="card-header" role="tab" id="headingOne1">
-              <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
-                aria-controls="collapseOne1">
-                <h5 class="mb-0">
-                  Q 1 <i class="fas fa-angle-down rotate-icon"></i>
-                  <span class="float-right"><small>01/01/2020</small></span>
-                </h5>
-              </a>
-            </div>
-
-            <!-- Card body -->
-            <div id="collapseOne1" class="collapse show" role="tabpanel" aria-labelledby="headingOne1"
-              data-parent="#accordionEx">
-              <div class="card-body">
-                <h5>Question: </h5>
-                <p class="text-justify">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                  wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                  eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                  assumenda shoreditch et.
-                </p><hr/>
-
-                <h5>Advice: </h5>
-                <p class="text-justify" id="answer1">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                  wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                  eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                  assumenda shoreditch et.
-                </p>
-
-                <div class="d-flex justify-content-end" id="actions1">
-                  <a id="edit1" class="mx-1"><i class="far fa-edit"></i></a>
-                  <a style="display:none" class="mx-1 save"><i class="fas fa-save"></i> Save changes </a>
-                  <a class="text-danger mx-1"><i class="fas fa-trash"></i></a>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-          <!-- Accordion card -->
-
-          <!-- Accordion card -->
-          <div class="">
-
-            <!-- Card header -->
-            <div class="card-header" role="tab" id="headingTwo2">
-              <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseTwo2"
-                aria-expanded="false" aria-controls="collapseTwo2">
-                <h5 class="mb-0">
-                  Q #2 <i class="fas fa-angle-down rotate-icon"></i>
-                  <span class="float-right"><small>01/01/2020</small></span>
-                </h5>
-              </a>
-            </div>
-
-            <!-- Card body -->
-            <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo2"
-              data-parent="#accordionEx">
-              <div class="card-body">
-                <h5>Question: </h5>
-                <p class="text-justify">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                  wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                  eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                  assumenda shoreditch et.
-                </p><hr/>
-
-                <h5>Advice: </h5>
-                <p class="text-justify" id="answer2">
-                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                  wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                  eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                  assumenda shoreditch et.
-                </p>
-
-                <div class="d-flex justify-content-end" id="actions2">
-                  <a id="edit2" class="mx-1"><i class="far fa-edit"></i></a>
-                  <a style="display:none" class="mx-1 save"><i class="fas fa-save"></i> Save changes </a>
-                  <a class="text-danger mx-1"><i class="fas fa-trash"></i></a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <!-- Accordion card -->
-
-          <!-- Accordion card -->
-          <div class="">
-
-            <!-- Card header -->
-            <div class="card-header" role="tab" id="headingThree3">
-              <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#collapseThree3"
-                aria-expanded="false" aria-controls="collapseThree3">
-                <h5 class="mb-0">
-                  Q #3 <i class="fas fa-angle-down rotate-icon"></i>
-                  <span class="float-right"><small>01/01/2020</small></span>
-                </h5>
-              </a>
-            </div>
-
-            <!-- Card body -->
-            <div id="collapseThree3" class="collapse" role="tabpanel" aria-labelledby="headingThree3"
-              data-parent="#accordionEx">
-              <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-                eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-                assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-                labore sustainable VHS.
-              </div>
-            </div>
-
-          </div>
-          <!-- Accordion card -->
+          
 
         </div>
         <!-- Accordion wrapper -->      
+
+    </section>   
+   </div>
+
+  <div class="tab-pane fade" id="legalDocs" role="tabpanel" aria-labelledby="legalDocsTab">
+    <section class="container" style="min-height: 50vh">
+
+        <div class="d-flex justify-content-between">
+          <h4>Legal Documents</h4>
+          <button class="btn btn-default float-right" data-toggle="modal" data-target="#uploadLegalDoc">Add new <i class="fas fa-plus"></i></button>
+        </div>
+        <hr/>
+
+          {{! card deck  }}
+          <div class="card-deck">
+
+            {{! card  }}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-file"></i> Document title</h5>
+                    <p class="card-text text-justify">
+                      This is a subpoena for people that are trying you
+                    </p>
+                    <hr/>
+                    <h5>₦1,000</h5>
+                    <hr/>
+                    <button type="button" class="btn btn-light-blue btn-md">Change</button>
+                    <button type="button" class="btn btn-red btn-md">Delete</button>
+                </div>
+            </div>
+            {{! card }}
+
+            {{! card  }}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-file"></i> Document title</h5>
+                    <p class="card-text text-justify">
+                      Description...
+                    </p>
+                    <hr/>
+                    <h5>₦1,000</h5>
+                    <hr/>
+                    <button type="button" class="btn btn-light-blue btn-md">Change</button>
+                    <button type="button" class="btn btn-red btn-md">Delete</button>
+                </div>
+            </div>
+            {{! card }}
+
+            {{! card  }}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-file"></i> Document title</h5>
+                    <p class="card-text text-justify">
+                      Description...
+                    </p>
+                    <hr/>
+                    <h5>₦1,000</h5>
+                    <hr/>
+                    <button type="button" class="btn btn-light-blue btn-md">Change</button>
+                    <button type="button" class="btn btn-red btn-md">Delete</button>
+                </div>
+            </div>
+            {{! card }}
+
+        </div>
+        {{! /card deck  }}
 
     </section>   
    </div>
@@ -574,12 +523,53 @@
   </div>
 </div>
 
+{{! upload legal doc modal }}
+<div class="modal fade" id="uploadLegalDoc" tabindex="-1" role="dialog" aria-labelledby="uploadLegalDoc"
+aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Choose document</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+
+      <div class="modal-body">
+          <form id="selectDoc">
+              <div class="mb-3 md-form">
+                  <label for="title">Title</label>
+                  <input type="text" name="title" class="form-control" required>
+              </div>
+
+              <div class="md-form">
+                <textarea id="desc" class="md-textarea form-control" rows="3"></textarea>
+                <label for="desc">Description</label>
+              </div>
+
+              <div class="md-form">
+                  <div class="custom-file">
+                      <input id = "docFile" type="file" class="custom-file-input">
+                      <label class="custom-file-label" for="upload_doc" data-browse="Upload">Choose Doc</label>
+                  </div>
+              </div>
+              <button type="submit" id="saveDoc" class="btn btn-primary">Save</button>
+
+          </form>
+
+      </div>
+      </div>
+  </div>
+</div>
+{{! / upload legal doc }}
+
 {{> footer}}
 
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
 <script src="{{ABS_PATH}}js/admin/admin_dashboard_render.js"></script>
 <script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_advise.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 <script>
@@ -589,10 +579,10 @@
 
   $('.tags').select2();
   $('.status').select2();
-  $('.lawyerNameSearch').select2();
-
   $('.statusFilter').select2();
-  $('.lawyerFilter').select2();
+   $("#lawyerFilter").select2();
+  $('.lawyerNameSearch').select2();
+  
 
 </script>
 <script>

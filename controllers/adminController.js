@@ -2,15 +2,16 @@ var ABS_PATH = require("../config").ABS_PATH;
 const AppName = require("../config").AppName;
 
 const { sendmail, welcomeMail } = require("../helpers/mail");
-const { token, tagOptions, is_empty, renderDocuments } = require("../helpers");
+const { token, tagOptions, lawyerOptions, is_empty, renderDocuments } = require("../helpers");
 const admin = require('firebase-admin');
 
 exports.adminPage = async (req, res) => {
   let tags = tagOptions();
+  let lawyers = await lawyerOptions();
   console.log(req.user);
 
 
-  res.render("admin/admin-dashboard", { title: "Admin", ABS_PATH, tags, AppName });
+  res.render("admin/admin-dashboard", { title: "Admin", ABS_PATH, tags, AppName, lawyers });
 };
 
 exports.loginPage = (req, res) => {
