@@ -1,6 +1,45 @@
 var pk = "pk_test_28c944c0f505bdbe163c2d0083127cbaca3cb1c3";
 
-const getLegalDoc = fee => {
+
+const renderDocs = (id, document) => {
+    return `
+        <div class="card mb-4">
+            <div class="card-body">
+
+            <h4 class="card-title">${document.title || "N/A"}</h4>
+                <p class="card-text text-justify">${document.description}</p>
+                <hr/>
+                <h5>${accounting.formatMoney(document.price) || "N/A"}
+                    <span class="foat-right" id="numberOfDownloads">10</span> Downloads
+                </h5>
+                <hr/>
+                <button class="btn btn-light-blue btn-md" onclick="payLegalDoc('${id})">Select</button>
+
+            </div>
+
+        </div>
+    `
+}
+
+let LEGAL_DOCS = {};
+const fetchDoc = () => {
+    firebase.firestore().collection('legalDocs').onSnapshot((documents) => {
+        let documentsHTML = "";
+
+        documents.forEach((doc) => {
+            LEGAL_DOCS[doc.id] = doc.data();
+            documentsHTML += renderDocs(doc.id, doc.data());
+        })
+        console.log(LEGAL_DOCS);
+        console.log(documentsHTML);
+        // documentsHTML == '' ? $("#documentList").html('No Documents Available') : $("#documentList").html(documentsHTML);
+        // $("#loading").css('display', 'none');
+    });
+}
+
+fetchDoc();
+
+const payLegalDoc = fee => {
     var amount = parseInt($("#amount").text());
 
     function payWithPaystack() {

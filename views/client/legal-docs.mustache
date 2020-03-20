@@ -24,121 +24,17 @@
         </div>
         <br/>
         <br/>
-        <!-- Card deck 1 -->
+            {{! card deck  }}
             <div class="card-deck">
 
-            <!-- Card -->
-            <div class="card mb-4">
+            </div>
+            {{! / card deck  }}
 
-                <!--Card content-->
-                <div class="card-body">
-
-                    <!--Title-->
-                    <h4 class="card-title">Document title</h4>
-                    <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <h5>&#8358;<span id="amount">1,000</span></h5>
-                    <button type="button" onclick="getLegalDoc()" class="btn btn-light-blue btn-md">Select</button>
-
+            <div class="d-flex justify-content-center my-5" id="loading">
+                <div class="spinner-grow" role="status">
+                    <span class="sr-only">Loading...</span>
                 </div>
-
             </div>
-            <!-- Card -->
-
-            <!-- Card -->
-            <div class="card mb-4">
-
-                <!--Card content-->
-                <div class="card-body">
-
-                    <!--Title-->
-                    <h4 class="card-title">Document title</h4>
-                    <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <button type="button" class="btn btn-light-blue btn-md">Select</button>
-
-                </div>
-
-            </div>
-            <!-- Card -->
-
-            <!-- Card -->
-            <div class="card mb-4">
-
-                <!--Card content-->
-                <div class="card-body">
-
-                    <!--Title-->
-                    <h4 class="card-title">Document title</h4>
-                    <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                   <button type="button" class="btn btn-light-blue btn-md">Select</button>
-
-                </div>
-
-            </div>
-            <!-- Card -->
-
-            </div>
-        <!-- /Card deck 1-->
-
-        <!-- Card deck 2-->
-            <div class="card-deck">
-
-            <!-- Card -->
-            <div class="card mb-4">
-
-                <!--Card content-->
-                <div class="card-body">
-
-                    <!--Title-->
-                    <h4 class="card-title">Document title</h4>
-                    <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <button type="button" class="btn btn-light-blue btn-md">Select</button>
-
-                </div>
-
-            </div>
-            <!-- Card -->
-
-            <!-- Card -->
-            <div class="card mb-4">
-
-                <!--Card content-->
-                <div class="card-body">
-
-                    <!--Title-->
-                    <h4 class="card-title">Document title</h4>
-                    <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <button type="button" class="btn btn-light-blue btn-md">Select</button>
-
-                </div>
-
-            </div>
-            <!-- Card -->
-
-            <!-- Card -->
-            <div class="card mb-4">
-
-                <!--Card content-->
-                <div class="card-body">
-
-                    <!--Title-->
-                    <h4 class="card-title">Document title</h4>
-                    <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <button type="button" class="btn btn-light-blue btn-md">Select</button>
-
-                </div>
-
-            </div>
-            <!-- Card -->
-
-            </div>
-        <!-- Card deck 2-->
-
 
     </section>
 </div>
@@ -147,4 +43,5 @@
 
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
 <script src="{{ABS_PATH}}js/legalDocs.js"></script>
