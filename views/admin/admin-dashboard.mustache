@@ -271,58 +271,15 @@
         <hr/>
 
           {{! card deck  }}
-          <div class="card-deck">
+          <div class="card-deck" id = "documentList">
 
-            {{! card  }}
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fas fa-file"></i> Document title</h5>
-                    <p class="card-text text-justify">
-                      This is a subpoena for people that are trying you
-                    </p>
-                    <hr/>
-                    <h5>₦1,000</h5>
-                    <hr/>
-                    <button type="button" class="btn btn-light-blue btn-md">Change</button>
-                    <button type="button" class="btn btn-red btn-md">Delete</button>
-                </div>
-            </div>
-            {{! card }}
-
-            {{! card  }}
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fas fa-file"></i> Document title</h5>
-                    <p class="card-text text-justify">
-                      Description...
-                    </p>
-                    <hr/>
-                    <h5>₦1,000</h5>
-                    <hr/>
-                    <button type="button" class="btn btn-light-blue btn-md">Change</button>
-                    <button type="button" class="btn btn-red btn-md">Delete</button>
-                </div>
-            </div>
-            {{! card }}
-
-            {{! card  }}
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fas fa-file"></i> Document title</h5>
-                    <p class="card-text text-justify">
-                      Description...
-                    </p>
-                    <hr/>
-                    <h5>₦1,000</h5>
-                    <hr/>
-                    <button type="button" class="btn btn-light-blue btn-md">Change</button>
-                    <button type="button" class="btn btn-red btn-md">Delete</button>
-                </div>
-            </div>
-            {{! card }}
-
-        </div>
+          </div>
         {{! /card deck  }}
+        <div class="d-flex justify-content-center">
+          <div class="spinner-grow slow" role="status" id="loadingDocs">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
 
     </section>   
    </div>
@@ -536,14 +493,19 @@ aria-hidden="true">
       </div>
 
       <div class="modal-body">
-          <form id="selectDoc">
+          <form id="docForm">
+              <input type = "hidden"  id = "" value = "add"/>
               <div class="mb-3 md-form">
                   <label for="title">Title</label>
                   <input type="text" name="title" class="form-control" required>
               </div>
+              <div class="mb-3 md-form">
+                  <label for="title">Price</label>
+                  <input type="number" name="price" class="form-control" required>
+              </div>
 
               <div class="md-form">
-                <textarea id="desc" class="md-textarea form-control" rows="3"></textarea>
+                <textarea id="desc" name = "description" class="md-textarea form-control" rows="3"></textarea>
                 <label for="desc">Description</label>
               </div>
 
@@ -567,9 +529,12 @@ aria-hidden="true">
 
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/libraries/js2form.js"></script>
+<script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
 <script src="{{ABS_PATH}}js/admin/admin_dashboard_render.js"></script>
 <script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
 <script src="{{ABS_PATH}}js/admin/admin_advise.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_docs.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 <script>
@@ -595,5 +560,7 @@ aria-hidden="true">
     showOn: "button",
     buttonText: "End date"
   });
+
+  
 
 </script>

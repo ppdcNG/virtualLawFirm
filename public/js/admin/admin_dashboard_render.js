@@ -1,11 +1,11 @@
 const renderLawyers = (lawyers) => {
-    // lawyers = [{ fullname, status, id.....}...]
+  // lawyers = [{ fullname, status, id.....}...]
 }
 
 const renderCases = (task, taskId) => {
-    let formattedTimestamp = Math.abs(task.timestamp);
-    let time = moment(formattedTimestamp).format("dddd, MMMM Do YYYY");
-    return `<tr>
+  let formattedTimestamp = Math.abs(task.timestamp);
+  let time = moment(formattedTimestamp).format("dddd, MMMM Do YYYY");
+  return `<tr>
     <td>${task.subject || "N/A"}</td>
     <td>${task.client.displayName}</td>
     <th>${task.status || "N/A"}</th>
@@ -20,7 +20,7 @@ const renderCases = (task, taskId) => {
 }
 
 const renderTable = (i, lawyer) => {
-    return `
+  return `
         <tr>
             <th scope="row">${Object.keys(lawyers).indexOf(i) + 1}</th>
             <td>${lawyer.name}</td>
@@ -33,23 +33,23 @@ const renderTable = (i, lawyer) => {
 }
 
 const contactModal = () => {
-    $("#contactModal").modal('show');
+  $("#contactModal").modal('show');
 }
 const historyModal = () => {
-    $("#historyModal").modal('show');
+  $("#historyModal").modal('show');
 }
 
 const renderTableLoading = () => {
-    return ``
+  return ``
 }
 
 const renderQuestions = (question, count, id) => {
-    let time = new moment(Math.abs(question.timestamp));
-    let name = question.name || "Anonymous";
-    let response = question.response || "No Response Yet";
+  let time = new moment(Math.abs(question.timestamp));
+  let name = question.name || "Anonymous";
+  let response = question.response || "No Response Yet";
 
 
-    return `<div class="">
+  return `<div class="">
     <!-- Card header -->
     <div class="card-header" role="tab" id="headingOne${count}">
       <a data-toggle="collapse" data-parent="#accordionEx" href="#accordion${count}" aria-expanded="true"
@@ -83,4 +83,23 @@ const renderQuestions = (question, count, id) => {
   </div>`
 }
 
+const renderDocuments = (id, document) => {
+  console.log(id);
+  return `
+  <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-file"></i> ${document.title || "N/A"}</h5>
+                    <p class="card-text text-justify">
+                      ${document.description}
+                    </p>
+                    <hr/>
+                    <h5>&#8358;${accounting.formatMoney(document.price) || "N/A"}</h5>
+                    <hr/>
+                    <button type="button" class="btn btn-light-blue btn-md" onclick = "replaceDocument('${id}')">Change</button>
+                    <button type="button" class="btn btn-red btn-md" = "deleteDocument('${id}')">Delete</button>
+                </div>
+            </div>
+  
+  `
+}
 

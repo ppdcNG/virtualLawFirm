@@ -1,6 +1,7 @@
 var ABS_PATH = require("../config").ABS_PATH;
 const AppName = require("../config").AppName;
 
+
 const { sendmail, welcomeMail } = require("../helpers/mail");
 const { token, tagOptions, lawyerOptions, is_empty, renderDocuments } = require("../helpers");
 const admin = require('firebase-admin');
@@ -389,6 +390,43 @@ exports.verifyLawyer = async (req, res) => {
     status: "success",
     message: "Lawyer status has been updated"
   });
+}
+
+exports.addDoc = async (req, res) => {
+  let data = req.body;
+  console.log(data);
+  try {
+    let documents = await admin.firestore().collection('legalDocs').doc().set(data);
+    res.send({ message: "Document Added Successfully", status: 'success' });
+  }
+  catch (e) {
+    console.log(e);
+    res.send({ message: "Oops Something Went Wrong. Try Again", status: 'danger' });
+  }
+
+}
+
+exports.downloadDoc = async (req, res) => {
+  let data = req.body;
+  console.log(data);
+  var paystack = require('paystack')(PAYSTACK_PUB_KEY);
+  paystack.transaction.verify(data.ref, async (err, body) => {
+    if (err) {
+      res.send({ message: err.message, err, status: 'danger' });
+      return;
+    }
+    let docDetails = await admin.firestore().collection('legalDoc').doc(data.docId).get().catch((e) => { console.log(e) });
+    docDetails = docDetails.data();
+    if (body.amount !== docDetails.price) {
+      res.send({ message: "Invalid Fee paid for this resource", status: 'danger' });
+      return;
+    }
+    let bucket = admin.storage().bucket();
+    let path = 'legalDocs/' + docDetails.filename
+    let file = bucket.file(path)
+    file.createReadStream().pipe(res);
+  })
+
 }
 
 
