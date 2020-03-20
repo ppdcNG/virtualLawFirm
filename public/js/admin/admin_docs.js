@@ -75,3 +75,10 @@ const delDocument = () => {
 
 
 }
+
+const replaceDocument = id => {
+    let document = LEGAL_DOCS[id];
+    js2form('docForm', document);
+    $("#docMode").val('editing');
+    $("#uploadLegalDoc").modal('show');
+}
