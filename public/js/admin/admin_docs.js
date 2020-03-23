@@ -5,13 +5,15 @@ var dbPath = 'legaldocs/'
 var LEGAL_DOCS = {};
 const uploadDocs = async () => {
 
-    let notification = $.notify('Uploading Document...', { type: "info", delay: 0 });
+
     let doc = form2js('docForm', '.');
     console.log(doc);
     let file = $("#docFile")[0].files[0];
-    ext = file.name.split('.').pop();
-    let filename = `${doc.title}.${ext}`
-    let filePath = `${dbPath}${filename}`;
+    if (!file) {
+        $.notify('Please select a file for upload', { type: 'warning' });
+        return;
+    }
+    let notification = $.notify('Uploading Document...', { type: "info", delay: 0 });
     doc.type = file.type;
     doc.filename = filename;
     let uploadTask = await firebase.storage().ref(filePath).put(file);
@@ -25,6 +27,25 @@ const uploadDocs = async () => {
     notification.close();
     $.notify('Document Added Successfully', { type: 'success' });;
 
+}
+
+const updateDoc = async id => {
+    let notification = $.notify('Updating Document...', { type: "info", delay: 0 });
+    let old = LEGAL_DOCS[id];
+    let doc = form2js('docForm', '.');
+    let file = $("#docFile")[0].files[0];
+    if (file) {
+        notification.update('title', 'Uploading Document..');
+        ext = file.name.split('.').pop();
+        let filename = `${doc.title}.${ext}`
+        let filePath = `${dbPath}${filename}`
+        let uploadTask = await firebase.storage().ref(filePath).put(file);
+        let url = await uploadTask.ref.getDownloadURL();
+        doc.url = url;
+    }
+    await firebase.firestore().collection('legalDocs').doc(id).update(doc);
+    notification.close();
+    $.notify('Document Updated Successfully', { type: 'success' });
 
 
 }
@@ -34,7 +55,17 @@ const uploadDocs = async () => {
 $("#docForm").submit(async function (e) {
     e.preventDefault();
     let file = $("#docFile")[0].files[0];
-    await uploadDocs();
+    let mode = $("#mode").val();
+    if (mode == "add") {
+        await uploadDocs();
+    }
+
+    if (mode == 'edit') {
+        let id = $("#docId").val();
+        console.log(id);
+        await updateDoc(id);
+    }
+
     this.reset();
 
 });
@@ -60,6 +91,12 @@ const changeDocument = async (id) => {
     js2form('docForm', doc);
 
 }
+
+const openAddDocumentModal = () => {
+    $("#docForm")[0].reset();
+    $("#mode").val('add');
+    $("#uploadLegalDoc").modal('show');
+}
 ///ON enter Event
 $('#myTabEx a[href="#legalDocs"]').on('shown.bs.tab', function (e) {
     console.log('yayyy legal docs tab');
@@ -78,7 +115,11 @@ const deleteDocument = id => {
 
 const replaceDocument = id => {
     let document = LEGAL_DOCS[id];
+    $("#docId").val(id);
+    $("#mode").val('edit');
     js2form('docForm', document);
     $("#docMode").val('editing');
     $("#uploadLegalDoc").modal('show');
+    $("#docForm input").trigger('change');
+    $("#docForm textarea").trigger('change');
 }

@@ -266,7 +266,7 @@
 
         <div class="d-flex justify-content-between">
           <h4>Legal Documents</h4>
-          <button class="btn btn-default float-right" data-toggle="modal" data-target="#uploadLegalDoc">Add new <i class="fas fa-plus"></i></button>
+          <button class="btn btn-default float-right" onclick = "openAddDocumentModal()">Add new <i class="fas fa-plus"></i></button>
         </div>
         <hr/>
 
@@ -494,7 +494,8 @@ aria-hidden="true">
 
       <div class="modal-body">
           <form id="docForm">
-              <input type = "hidden"  id = "" value = "add"/>
+              <input type = "hidden"  id = "mode" value = "add"/>
+              <input type = "hidden" id = "docId"  value = ""/>
               <div class="mb-3 md-form">
                   <label for="title">Title</label>
                   <input type="text" name="title" class="form-control" required>
