@@ -1,5 +1,3 @@
-var pk = "pk_test_28c944c0f505bdbe163c2d0083127cbaca3cb1c3";
-
 
 const renderDocs = (id, document) => {
     return `
@@ -13,7 +11,7 @@ const renderDocs = (id, document) => {
                     <span class="foat-right" id="numberOfDownloads">10</span> Downloads
                 </h5>
                 <hr/>
-                <button class="btn btn-light-blue btn-md" onclick="payLegalDoc('${id})">Select</button>
+                <button class="btn btn-light-blue btn-md" onclick="payLegalDoc('${id}')">Select</button>
 
             </div>
 
@@ -30,23 +28,22 @@ const fetchDoc = () => {
             LEGAL_DOCS[doc.id] = doc.data();
             documentsHTML += renderDocs(doc.id, doc.data());
         })
-        console.log(LEGAL_DOCS);
-        console.log(documentsHTML);
-        // documentsHTML == '' ? $("#documentList").html('No Documents Available') : $("#documentList").html(documentsHTML);
-        // $("#loading").css('display', 'none');
+        $("#loading").css('display', 'none');
+        documentsHTML == '' ? $("#documents").html('No Documents Available') : $("#documents").html(documentsHTML);
     });
 }
 
 fetchDoc();
 
-const payLegalDoc = fee => {
-    var amount = parseInt($("#amount").text());
+const payLegalDoc = id => {
+    let doc = LEGAL_DOCS[id];
+    let { price } = doc;
 
     function payWithPaystack() {
         var handler = PaystackPop.setup({
-            key: pk,
+            key: "pk_test_28c944c0f505bdbe163c2d0083127cbaca3cb1c3",
             email: 'customer@email.com',
-            amount: 100,
+            amount: price * 100,
             currency: "NGN",
             ref: '' + Math.floor((Math.random() * 1000000000) + 1),
             metadata: {
@@ -59,10 +56,16 @@ const payLegalDoc = fee => {
                 ]
             },
             callback: function (response) {
-                alert('success. transaction ref is ' + response.reference);
+                var processingPayment = $.notify('Processing payment, please wait', { type: "info", delay: 0 });
+
+                setTimeout(() => {
+                    processingPayment.close();
+                    $.notify(response.message, { type: response.status });
+                }, 1500);
+
             },
             onClose: function () {
-                alert('window closed');
+                alert('window closed', response);
             }
         });
         handler.openIframe();
