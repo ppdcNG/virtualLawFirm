@@ -93,13 +93,19 @@ const renderDocuments = (id, document) => {
                       ${document.description}
                     </p>
                     <hr/>
-                    <h5>&#8358;${accounting.formatMoney(document.price) || "N/A"}</h5>
+                    <h5>&#8358;${accounting.formatMoney(document.price) || "N/A"}
+                    <span class="foat-right" id="numberOfDownloads">10</span> Downloads
+                    </h5>
                     <hr/>
                     <button type="button" class="btn btn-light-blue btn-md" onclick = "replaceDocument('${id}')">Change</button>
-                    <button type="button" class="btn btn-red btn-md" = "deleteDocument('${id}')">Delete</button>
+                    <button type="button" class="btn btn-red btn-md" onclick="deleteDocument('${id}')">Delete</button>
                 </div>
             </div>
   
   `
+}
+
+const deleteDocument = id => {
+  $("#deleteDoc").modal('show');
 }
 

@@ -105,7 +105,7 @@ $('#myTabEx a[href="#legalDocs"]').on('shown.bs.tab', function (e) {
     }
 })
 
-const delDocument = () => {
+const deleteDocument = id => {
     if (!delId) {
         return;
     }
