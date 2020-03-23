@@ -1,5 +1,24 @@
 {{> header}}
 
+<nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+    <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+        aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home
+                <span class="sr-only">(current)</span>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
 <div class="row">
     <div class="col-12">
         <section class="h-50">
@@ -7,7 +26,7 @@
                 <div class="col-md-6 text-center pb-3">
                     <div class="h-25"></div>
                     <h2 class="text-uppercase">legal documents</h2>
-                    <p>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet</p>
+                    <p>Purchase and download legal documents</p>
                 </div>
 
                 <div class="col-md-6 text-center">
@@ -24,11 +43,21 @@
         </div>
         <br/>
         <br/>
-            {{! card deck  }}
-            <div class="card-deck" id="documents">
-
+        <form class="md-form form-inline mt-0 border p-2 row">
+            <div class="md-form col-12 d-flex justify-content-center">
+                <span class="text-muted mr-1">Search Document:</span>
+                <select class="form-control w-75 documentSearch" name="">
+                    <option value="" selected>Select Documents</option>
+                    
+                </select>
             </div>
-            {{! / card deck  }}
+        </form>
+
+        {{! card deck  }}
+        <div class="card-deck" id="documents">
+
+        </div>
+        {{! / card deck  }}
 
             <div class="d-flex justify-content-center my-5">
                 <div class="spinner-grow" role="status" id="loading">
@@ -45,3 +74,7 @@
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
 <script src="{{ABS_PATH}}js/legalDocs.js"></script>
+
+<script>
+    $('.documentSearch').select2();
+</script>
