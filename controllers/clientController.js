@@ -20,7 +20,7 @@ exports.registrationPage = (req, res) => {
 };
 
 exports.legalDocsPage = (req, res) => {
-    res.render('client/legal-docs', { title: 'Legal Documents', ABS_PATH })
+    res.render('client/legal-docs', { title: 'Legal Documents', ABS_PATH, AppName })
 }
 exports.confirm = (req, res) => {
     let idCardURL = 'https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png';

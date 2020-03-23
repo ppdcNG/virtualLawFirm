@@ -8,7 +8,7 @@ const renderDocs = (id, document) => {
                 <p class="card-text text-justify">${document.description}</p>
                 <hr/>
                 <h5>${accounting.formatMoney(document.price) || "N/A"}
-                    <span class="foat-right" id="numberOfDownloads">10</span> Downloads
+                    <em><span class="float-right text-default" id="numberOfDownloads"> 10 Downloads</span></em>
                 </h5>
                 <hr/>
                 <button class="btn btn-light-blue btn-md" onclick="payLegalDoc('${id}')">Select</button>
