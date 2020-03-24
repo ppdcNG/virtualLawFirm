@@ -1,5 +1,5 @@
 var ABS_PATH = require("../config").ABS_PATH;
-const AppName = require("../config").AppName;
+const { AppName, PAYSTACK_PUB_KEY } = require("../config");
 
 
 const { sendmail, welcomeMail } = require("../helpers/mail");
@@ -407,25 +407,37 @@ exports.addDoc = async (req, res) => {
 }
 
 exports.downloadDoc = async (req, res) => {
-  let data = req.body;
+  let data = {
+    docId: req.query.docId,
+    ref: req.query.ref
+  }
   console.log(data);
   var paystack = require('paystack')(PAYSTACK_PUB_KEY);
+  var bucketName = require('../config').FIREBASE_STORAGE_BUCKET;
   paystack.transaction.verify(data.ref, async (err, body) => {
     if (err) {
+      console.log(err)
       res.send({ message: err.message, err, status: 'danger' });
       return;
     }
-    let docDetails = await admin.firestore().collection('legalDoc').doc(data.docId).get().catch((e) => { console.log(e) });
-    docDetails = docDetails.data();
+
+    let docDetails = await admin.firestore().collection('legalDocs').doc(data.docId).get().catch((e) => { console.log(e) });
+    let increment = admin.firestore.FieldValue.increment(1);
+    await admin.firestore().collection('legalDocs').doc(data.docId).update({ download: increment });
     if (body.amount !== docDetails.price) {
-      res.send({ message: "Invalid Fee paid for this resource", status: 'danger' });
+      res.send({ message: "Invalfid Fee paid for this resource", status: 'danger' });
       return;
     }
-    let bucket = admin.storage().bucket();
-    let path = 'legalDocs/' + docDetails.filename
+    let doc = docDetails.data();
+    let bucket = admin.storage().bucket(bucketName);
+    let path = 'legaldocs/' + doc.filename
     let file = bucket.file(path)
+    console.log(file);
+    res.set('Content-Type', doc.type);
+    res.set('Content-Type', 'application/force-download');
+    res.set('Content-Disposition', `attachment; filename="${doc.filename}"`)
     file.createReadStream().pipe(res);
-  })
+  });
 
 }
 

@@ -527,7 +527,7 @@ aria-hidden="true">
 {{! / upload legal doc }}
 
 {{! delete legal doc }}
-<div class="modal fade" id="deleteDoc" tabindex="-1" role="dialog" aria-labelledby="deleteDoc"
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteDoc"
 aria-hidden="true">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -537,13 +537,11 @@ aria-hidden="true">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-
         <div class="modal-body">
-
         <div class="text-center">
-          <h6>Are you sure you want to delete this document?</h6>
+          <h6 id = "deleteTitle">Are you sure you want to delete this document?</h6>
           <hr />
-          <button class="btn btn-danger">Yes</button>
+          <button class="btn btn-danger" onclick = "deleteAction()">Yes</button>
           <button class="btn btn-default" data-dismiss="modal">No</button>
         </div>
 

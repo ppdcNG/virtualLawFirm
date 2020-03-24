@@ -1,4 +1,6 @@
 
+
+
 const renderDocs = (id, document) => {
     return `
         <div class="card mb-4">
@@ -7,11 +9,10 @@ const renderDocs = (id, document) => {
             <h4 class="card-title">${document.title || "N/A"}</h4>
                 <p class="card-text text-justify">${document.description}</p>
                 <hr/>
-                <h5>${accounting.formatMoney(document.price) || "N/A"}
-                    <span class="foat-right" id="numberOfDownloads">10</span> Downloads
+                <h5>&#8358;${accounting.formatNumber(document.price) || "N/A"}
                 </h5>
                 <hr/>
-                <button class="btn btn-light-blue btn-md" onclick="payLegalDoc('${id}')">Select</button>
+                <button class="btn btn-default btn-md" onclick="payLegalDoc('${id}')"><i class="fa fa-download"></i> Download</button>
 
             </div>
 
@@ -41,7 +42,7 @@ const payLegalDoc = id => {
 
     function payWithPaystack() {
         var handler = PaystackPop.setup({
-            key: "pk_test_28c944c0f505bdbe163c2d0083127cbaca3cb1c3",
+            key: PAYSTACK_KEY,
             email: 'customer@email.com',
             amount: price * 100,
             currency: "NGN",
@@ -56,12 +57,35 @@ const payLegalDoc = id => {
                 ]
             },
             callback: function (response) {
-                var processingPayment = $.notify('Processing payment, please wait', { type: "info", delay: 0 });
-
-                setTimeout(() => {
-                    processingPayment.close();
-                    $.notify(response.message, { type: response.status });
-                }, 1500);
+                var processingPayment = $.notify('Confirming payment, please wait', { type: "info", delay: 0 });
+                var data = {
+                    ref: response.reference,
+                    docId: id
+                }
+                let path = `${ABS_PATH}admin/downloadLegalDoc?docId=${id}&ref=${data.ref}`;
+                console.log(path);
+                window.location = path
+                processingPayment.close();
+                // $.ajax({
+                //     url: ABS_PATH + "admin/downloadLegalDoc",
+                //     type: "POST",
+                //     data: data,
+                //     success: function (response) {
+                //         const url = window.URL.createObjectURL(response);
+                //         const a = document.createElement('a');
+                //         a.style.display = 'none';
+                //         a.href = url;
+                //         // the filename you want
+                //         a.download = doc.filename;
+                //         document.body.appendChild(a);
+                //         a.click();
+                //         window.URL.revokeObjectURL(url);
+                //     },
+                //     error: err => {
+                //         console.error("error", err)
+                //         $.notify(err.message, { type: "warning" });
+                //     }
+                // });
 
             },
             onClose: function () {

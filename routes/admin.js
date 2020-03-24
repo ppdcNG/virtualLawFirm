@@ -27,5 +27,6 @@ router.post("/sendLawyerInvite", adminController.sendLawyerInvite);
 router.post('/verifyLawyerEmail', adminController.verifyLawyerEmail);
 router.post('/verifyUserEmail', adminController.verifyUserEmail);
 router.post('/verifyLawyer', adminController.verifyLawyer);
+router.get('/downloadLegalDoc', adminController.downloadDoc);
 
 module.exports = router;
