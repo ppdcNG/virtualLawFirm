@@ -64,6 +64,7 @@ const signIn = async (email, password) => {
   } catch (e) {
     console.log(e);
     $.notify(e.message, { type: "danger" });
+    $('#login').html('LOGIN');
   }
 };
 
