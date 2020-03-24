@@ -84,7 +84,7 @@ const renderQuestions = (question, count, id) => {
 }
 
 const renderDocuments = (id, document) => {
-  let downloads = document.downloads || 0
+  let downloads = document.download || 0
   console.log(id);
   return `
   <div class="card mb-4">
