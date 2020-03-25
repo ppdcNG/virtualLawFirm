@@ -29,8 +29,6 @@ const fetchCases = async () => {
 }
 
 
-
-
 const renderCases = (task, taskId) => {
     let formattedTimestamp = Math.abs(task.timestamp);
     let time = moment(formattedTimestamp).format("dddd, MMMM Do YYYY");
