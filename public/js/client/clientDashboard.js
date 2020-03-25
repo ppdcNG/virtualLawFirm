@@ -398,7 +398,6 @@ const viewChat = chatId => {
 }
 
 const renderTaskModal = (task, taskId) => {
-
     $("#taskId").val(taskId);
     $("#lawyerName").text(task.lawyer.name);
     $("#lawyerDetailsList").html(`
@@ -472,4 +471,11 @@ const renderReceiverChat = (chat) => {
 }
 
 
+// submit complaint
+$("#complaintForm").submit((e) => {
+    e.preventDefault();
+    let form = form2js("complaintForm", ".");
 
+    console.log(form);
+
+});

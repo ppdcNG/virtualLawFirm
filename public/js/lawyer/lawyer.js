@@ -33,15 +33,17 @@ const renderCases = (task, taskId) => {
     let formattedTimestamp = Math.abs(task.timestamp);
     let time = moment(formattedTimestamp).format("dddd, MMMM Do YYYY");
     return `<tr>
-    <td>${task.client.displayName}</td>
-    <td>${task.issue}</td>
-    <th scope="row">${time}</th>
-    <td>
-      <button class="btn btn-default"  onclick = "viewClientDetails('${taskId}')" ><i class="far fa-caret-square-down"></i></button>
-      <button class="btn" data-toggle="modal" data-target="#meetingModal"><i class="far fa-calendar-alt"></i></button>
-      <button class="py-2 px-3 special-color" data-toggle="modal" data-target="#manageModal"><i class="fas fa-briefcase white-text"></i></button>
-    </td>
-</tr>`;
+        <td>${task.client.displayName}</td>
+        <td>${task.subject}</td>
+        <td>${task.status}</td>
+        <th scope="row">${time}</th>
+        <td>
+            <button class="btn btn-default"  onclick = "viewClientDetails('${taskId}')" ><i class="far fa-caret-square-down"></i></button>
+            <button class="btn" data-toggle="modal" data-target="#meetingModal"><i class="far fa-calendar-alt"></i></button>
+            <button class="py-2 px-4 border" data-toggle="modal" data-target="#invoiceModal"><i class="fas fa-file-invoice"></i></button>
+            <button class="py-2 px-4 border red-text"><i class="fas fa-times"></i></button>
+        </td>
+    </tr>`;
 }
 
 $("#scheduleMeetingForm").submit(e => {
@@ -109,14 +111,19 @@ const renderTaskModal = (task, taskId) => {
     $("#taskId").val(taskId);
     $("#clientName").text(task.client.name);
     $("#clientDetailsList").html(`
-    <img src="${task.client.photoURL || image_placeholder}" class="rounded-circle z-depth-0 mr-2"
-                alt="lawyerPic" height="70"/>
-    <hr width="50" />
-    <ul class="list-group">
-        <li class="list-group-item"><i class="fas fa-user float-left"></i>${task.client.displayName}</li>
-        <li class="list-group-item"><i class="fas fa-mobile float-left"></i></i>${task.client.phoneNumber || "N/A"}</li>
-        <li class="list-group-item"><i class="fas fa-at float-left"></i>${task.client.email || "N/A"}</li>
-    </ul>
+        <img src="${task.client.photoURL || image_placeholder}" class="rounded-circle z-depth-0 mr-2"
+                    alt="lawyerPic" height="70"/>
+        <hr width="50" />
+        <ul class="list-group">
+            <li class="list-group-item"><i class="fas fa-user float-left"></i>${task.client.displayName}</li>
+            <li class="list-group-item"><i class="fas fa-mobile float-left"></i></i>${task.client.phoneNumber || "N/A"}</li>
+            <li class="list-group-item"><i class="fas fa-at float-left"></i>${task.client.email || "N/A"}</li>
+        </ul>
+        <div class="list-group border p-2">
+            <h6>Task Description</h6>
+            <hr width="100" />
+            <p class="text-justify">${task.issue}</p>
+        </div>
     `);
 
 }
