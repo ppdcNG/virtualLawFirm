@@ -84,28 +84,30 @@ const renderQuestions = (question, count, id) => {
 }
 
 const renderDocuments = (id, document) => {
+  let downloads = document.download || 0
   console.log(id);
   return `
   <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-file"></i> ${document.title || "N/A"}</h5>
-                    <p class="card-text text-justify">
-                      ${document.description}
-                    </p>
+                    <div class = "d-flex flex-row justify-content-between">
+                      <p class="card-text text-left">
+                        ${document.description}
+                      </p>
+                      <p class="badge badge-default">${downloads} download(s)</p>
+                    </div>
                     <hr/>
-                    <h5>&#8358;${accounting.formatMoney(document.price) || "N/A"}
-                    <span class="foat-right" id="numberOfDownloads">10</span> Downloads
-                    </h5>
+                    <div class = "d-flex flex-row justify-content-between" >
+                    <h5>&#8358;${accounting.formatNumber(document.price) || "N/A"}</h5>
+                    </div>
                     <hr/>
                     <button type="button" class="btn btn-light-blue btn-md" onclick = "replaceDocument('${id}')">Change</button>
-                    <button type="button" class="btn btn-red btn-md" onclick="deleteDocument('${id}')">Delete</button>
+                    <button type="button" class="btn btn-red btn-md" onclick="requestDelete('${id}')">Delete</button>
                 </div>
             </div>
   
   `
 }
 
-const deleteDocument = id => {
-  $("#deleteDoc").modal('show');
-}
+
 

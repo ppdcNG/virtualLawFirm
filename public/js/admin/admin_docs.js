@@ -3,6 +3,8 @@
 
 var dbPath = 'legaldocs/'
 var LEGAL_DOCS = {};
+var delId = null;
+var deleteAction;
 const uploadDocs = async () => {
 
 
@@ -14,6 +16,9 @@ const uploadDocs = async () => {
         return;
     }
     let notification = $.notify('Uploading Document...', { type: "info", delay: 0 });
+    let ext = file.name.split('.').pop();
+    let filename = `${doc.title}.${ext}`
+    let filePath = `${dbPath}${filename}`
     doc.type = file.type;
     doc.filename = filename;
     let uploadTask = await firebase.storage().ref(filePath).put(file);
@@ -21,6 +26,7 @@ const uploadDocs = async () => {
     notification.update('title', 'Saving Document Details...');
     console.log(url);
     doc.url = url;
+    doc.downloads = 0;
     let task = await firebase.firestore().collection('legalDocs').doc().set(doc).catch((e) => {
         console.log(e);
     });
@@ -36,7 +42,7 @@ const updateDoc = async id => {
     let file = $("#docFile")[0].files[0];
     if (file) {
         notification.update('title', 'Uploading Document..');
-        ext = file.name.split('.').pop();
+        let ext = file.name.split('.').pop();
         let filename = `${doc.title}.${ext}`
         let filePath = `${dbPath}${filename}`
         let uploadTask = await firebase.storage().ref(filePath).put(file);
@@ -54,6 +60,7 @@ const updateDoc = async id => {
 
 $("#docForm").submit(async function (e) {
     e.preventDefault();
+    $("#uploadLegalDoc").modal('hide');
     let file = $("#docFile")[0].files[0];
     let mode = $("#mode").val();
     if (mode == "add") {
@@ -105,11 +112,20 @@ $('#myTabEx a[href="#legalDocs"]').on('shown.bs.tab', function (e) {
     }
 })
 
-const deleteDocument = id => {
-    if (!delId) {
-        return;
-    }
+const deleteDocument = async () => {
+    $("#deleteModal").modal('hide');
+    let notification = $.notify('Please Wait...', { type: 'info' });
+    await firebase.firestore().collection('legalDocs').doc(delId).delete();
+    notification.close();
+    $.notify('Document Deleted', { type: 'success' });
+}
 
+const requestDelete = id => {
+    console.log(id);
+    delId = id;
+    deleteAction = deleteDocument;
+    $("#deleteTitle").text("Are you sure you want to delete this document");
+    $("#deleteModal").modal('show');
 
 }
 
