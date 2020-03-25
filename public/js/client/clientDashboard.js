@@ -479,3 +479,8 @@ $("#complaintForm").submit((e) => {
     console.log(form);
 
 });
+
+// invoice form 
+$("#invoiceForm").submit((e) => {
+    e.preventDefault();
+})

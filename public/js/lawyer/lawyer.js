@@ -40,8 +40,8 @@ const renderCases = (task, taskId) => {
         <td>
             <button class="btn btn-default"  onclick = "viewClientDetails('${taskId}')" ><i class="far fa-caret-square-down"></i></button>
             <button class="btn" data-toggle="modal" data-target="#meetingModal"><i class="far fa-calendar-alt"></i></button>
-            <button class="py-2 px-4 border" data-toggle="modal" data-target="#invoiceModal"><i class="fas fa-file-invoice"></i></button>
-            <button class="py-2 px-4 border red-text"><i class="fas fa-times"></i></button>
+            <button class="btn border" data-toggle="modal" data-target="#invoiceModal"><i class="fas fa-file-invoice"></i></button>
+            <button class="py-2 px-4 border red-text" data-toggle="modal" data-target="#closeModal"><i class="fas fa-times"></i></button>
         </td>
     </tr>`;
 }
