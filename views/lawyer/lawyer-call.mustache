@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+    <html>
+
+    <head>
+        <title>WebRTC Audio/Video-Chat</title>
+    </head>
+
+    <body>
+        <div id="app">
+            <span id="myid"> </span>
+            <video id="selfview"></video>
+            <video id="remoteview"></video>
+            <button id="endCall" style="display: none;" onclick="endCurrentCall()">End Call </button>
+            <div id="list">
+                <ul id="users">
+
+                </ul>
+            </div>
+        </div>
+    <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
+    <script src="{{ABS_PATH}}js/lawyer/videocall.js"></script>
+    </body>
+
+    </html>
