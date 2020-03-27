@@ -28,5 +28,6 @@ router.post('/verifyLawyerEmail', adminController.verifyLawyerEmail);
 router.post('/verifyUserEmail', adminController.verifyUserEmail);
 router.post('/verifyLawyer', adminController.verifyLawyer);
 router.get('/downloadLegalDoc', adminController.downloadDoc);
+router.get('/videoChat', requireLogin, adminController.videoCall);
 
 module.exports = router;

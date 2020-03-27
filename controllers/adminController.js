@@ -440,6 +440,10 @@ exports.downloadDoc = async (req, res) => {
   });
 
 }
+exports.videoCall = (req, res) => {
+  res.render("admin/video-call", { uid: req.user.uid, token: req.query.token, ABS_PATH });
+  console.log(req);
+};
 
 
 
