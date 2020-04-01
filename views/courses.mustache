@@ -1,0 +1,94 @@
+{{> header }}
+<header>
+    <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+        <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+        aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div class="row">
+    <div class="col-md-4">
+    <!-- Card -->
+    <div class="card mt-1">
+
+        <!-- Card image -->
+        <div class="view overlay">
+        <img class="card-img-top" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg"
+            alt="html_css_image">
+        <a href="#!">
+            <div class="mask rgba-white-slight"></div>
+        </a>
+        </div>
+
+        <!-- Card content -->
+        <div class="card-body">
+
+        <!-- Title -->
+        <h4 class="card-title">HTML & CSS Basic Course</h4>
+        <!-- Text -->
+        <p class="card-text"></p>
+        <!-- Button -->
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#detailsModal">View Details</a>
+
+        </div>
+
+    </div>
+    <!-- Card -->
+    </div>
+</div>
+
+</div><br><br><br>
+
+<!-- Modal -->
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Introduction</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-center text-info">This course will walk you through the building blocks of HTML and CSS</h4>
+                <p class="text-justify">
+                Hypertext Markup Language (HTML) is the standard markup language for documents designed to be displayed in a
+                web browser.
+                <br />
+                It can be assisted by technologies such as Cascading Style Sheets (CSS).
+
+                Web browsers receive HTML documents from a web server or from local storage and render the documents into
+                multimedia web pages.
+                </p>
+                <hr />
+                <p class="text-justify">
+                CSS is a style sheet language used for describing the presentation of a document written in a markup
+                language like HTML. CSS is a cornerstone technology of the World Wide Web, alongside HTML and
+                JavaScript.
+
+                CSS is designed to enable the separation of presentation and content, including layout, colors, and
+                fonts. This separation can improve content accessibility, provide more flexibility.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="selectHtml">Select</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{> footer}}
