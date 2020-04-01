@@ -74,7 +74,11 @@
     <li class="nav-item">
       <a class="nav-link text-dark" id="legal-docs-tab" data-toggle="tab" href="#legalDocs" role="tab" aria-controls="legalAdviceTab"
         aria-selected="false">Legal Documents</a>
-    </li>    
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-dark" id="courses-tab" data-toggle="tab" href="#courses" role="tab" aria-controls="coursesTab"
+        aria-selected="false">Courses</a>
+    </li>
   </ul>
   <div class="tab-content pt-5" id="myTabContentEx">
     <div class="tab-pane fade active show" id="home-ex" role="tabpanel" aria-labelledby="home-tab-ex">
@@ -275,6 +279,31 @@
 
           </div>
         {{! /card deck  }}
+        <div class="d-flex justify-content-center">
+          <div class="spinner-grow slow" role="status" id="loadingDocs">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+
+    </section>   
+   </div>
+
+  {{! courses  }}
+  <div class="tab-pane fade" id="courses" role="tabpanel" aria-labelledby="coursesTab">
+    <section class="container" style="min-height: 50vh">
+
+        <div class="d-flex justify-content-between">
+          <h4 data-aos="fade-right" data-aos-duration="1500">Courses</h4>
+          <button class="btn btn-default float-right" onclick = "openAddDocumentModal()">Add new <i class="fas fa-plus"></i></button>
+        </div>
+        <hr/>
+
+        {{! card deck  }}
+        <div class="card-deck" id="coursesList">
+
+        </div>
+        {{! /card deck  }}
+
         <div class="d-flex justify-content-center">
           <div class="spinner-grow slow" role="status" id="loadingDocs">
             <span class="sr-only">Loading...</span>
