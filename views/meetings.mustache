@@ -1,0 +1,122 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet"> 
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Data-aos -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
+
+
+  <style type="text/css">
+    body {font-family: 'Lato', sans-serif; scroll-behavior: smooth;padding:0;margin:0;width:100vw !important;overflow-x:hidden}
+    div.parent-box { display: table; width:100%;}
+    div.child-box { display: table-cell; vertical-align: middle; font-size: xx-large; }
+  </style>
+
+  <title>{{title}}</title>
+</head>
+
+<body>
+  <header>
+    <!--Navbar -->
+    <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+      <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+        aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        </ul>
+
+        {{! <ul class="navbar-nav ml-auto nav-flex-icons">
+          <li class="nav-item">
+            <a class="nav-link waves-effect waves-light unique-color" data-toggle="modal" data-target="#lawyerRegModal">
+              <i class="fas fa-sign-in-alt"></i>Lawyer Register
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect waves-light default-color" href="/client/join">
+              <i class="fas fa-sign-in-alt"></i> Client Register
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect waves-light" data-toggle="modal" data-target="#loginFormModal">
+              Login
+            </a>
+          </li>
+        </ul> }}
+      </div>
+    </nav>
+    <!--/.Navbar -->
+  </header>
+  <input type = "hidden" id = "meetingId" value = "{{meetingId}}" />
+  <input type = "hidden" id = "uid" value = "{{uid}}" />
+  <main>
+    <section class="container py-5">
+      <h2 data-aos="fade-right" data-aos-duration="1000">Welcome To {{AppName}} meetings</h2>
+      <hr width="100" align="left" />
+      <div class="edge-header default-color" style = "margin-bottom: -9em; height: 9em;"></div>
+      <div id = "membersSection" class = "container py-5 d-flex flex-column">
+        
+        <h3 data-aos ="fad-right" data-aos-duration="1000" class = "white-text" class = "h3">Active Members</h3>
+        <div id = "members">
+          <div class="spinner-grow slow" class = "text-center" role="status" id="loadingTasks">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+    <section class = "container" id = "videoSection" style = "display:none">
+      <div class = "d-flex justify-content-between">
+        <div class="d flex justify-content-around">
+          <button type="button" class="btn btn-elegant waves-effect px-3" onclick = "toggleScreenSharing()"><i class="fas fa-desktop pr-2" aria-hidden="true"></i>Share Screen</button>
+          <button type="button" class="btn btn-elegant waves-effect px-3" onclick = "toggleMic()"><i class="fas fa-microphone pr-2" aria-hidden="true"></i>Toggle Mic</button>
+          <button type="button" class="btn btn-elegant waves-effect px-3" onclick = "toggleVideo()"><i class="fas fa-video pr-2" aria-hidden="true"></i>Toggle Video</button>
+          <button type="button" class="btn btn-elegant waves-effect px-3" onclick = "hangup()"><i class="fas fa-phone-slash pr-2" aria-hidden="true"></i>Hang Up</button>
+        
+        </div>
+        <div class="example z-depth-5">
+          <video width = "200" height = "200" class = "video-fluid z-depth-1" id="localVideo" muted autoplay playsinline></video>
+        </div>
+      </div>
+      <div id = "remoteStreams" class = "row">
+        
+      </div>
+    </section>
+    
+  </main>
+
+  <!-- Footer -->
+  {{> footer}}
+  <!-- Footer -->
+  
+  <script>
+    AOS.init();
+  </script>
+  
+  <script src="{{ABS_PATH}}js/auth.js"></script>
+  <script src="{{ABS_PATH}}js/admin/videoChatModule.js"></script>
+  <script src="{{ABS_PATH}}js/meetingRender.js"></script>
+  <script src="{{ABS_PATH}}js/videoChat.js"></script>
+  
+</body>
+
+</html>

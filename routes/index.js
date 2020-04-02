@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var { sendAdminNewCase } = require('../helpers/mail');
+var requireLogin = require('../middlewares/requireLogin');
 
 const AppName = require("../config").AppName;
 
@@ -39,6 +40,11 @@ router.get('/test', async (req, res) => {
   console.log("sent");
 
 });
+
+router.get('/meetings', requireLogin, (req, res) => {
+
+  res.render('meetings', { AppName, title: "Lawtrella Meetings", uid: req.query.uid, meetingId: req.query.meetingId });
+})
 
 
 module.exports = router;
