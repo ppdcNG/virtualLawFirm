@@ -1,7 +1,14 @@
 
 var localStream = null;
 var remoteStream = null;
-var peerConnection = null
+
+var audioTrack = null;
+var videoTrack = null;
+var screenTrack = null;
+var videoSender = null;
+var audioSender = null;
+var peerConnection = null;
+var localSender = null;
 const configuration = {
     iceServers: [
         {
@@ -24,6 +31,7 @@ const openCam = async () => {
         audio: true
     }
     let stream = await navigator.mediaDevices.getUserMedia(mediaConstraint).catch((e) => { console.log(e) });
+    console.log(stream);
     document.querySelector("#localVideo").srcObject = stream;
     localStream = stream;
     remoteStream = new MediaStream();
@@ -40,11 +48,9 @@ const shareScreen = async () => {
         }
     }
     let stream = await navigator.mediaDevices.getDisplayMedia(screenConstraints).catch((e) => { console.log(e) });
-    document.querySelector("#localVideo").srcObject = stream;
-    localStream;
-    stream.getTracks().forEach((track) => {
-        peerConnection.addTrack(track, stream)
-    })
+
+    screenTrack = stream.getVideoTracks()[0];
+    videoSender.replaceTrack(screenTrack);
 
 }
 
@@ -54,9 +60,10 @@ const createRoom = async () => {
     const roomRef = await firebase.firestore().collection('rooms').doc();
     registerPeerConnectionListeners();
     //Add LocalStream tracks to peerconnection
-    localStream.getTracks().forEach((track) => {
-        peerConnection.addTrack(track, localStream)
-    })
+    videoTrack = localStream.getVideoTracks()[0];
+    audioTrack = localStream.getAudioTracks()[0];
+    videoSender = peerConnection.addTrack(videoTrack, localStream);
+    audioSender = peerConnection.addTrack(audioTrack, localStream);
 
     /// Collect Ice Candidtates
     const callerCandidatesCollection = roomRef.collection('callerCandidates');
@@ -67,7 +74,7 @@ const createRoom = async () => {
         }
         console.log('Ice Candidate gotten', event.candidate);
         callerCandidatesCollection.add(event.candidate.toJSON()).catch((e) => { console.log(e) });
-    })
+    });
 
     //Create Room With Offer
     offer = await peerConnection.createOffer();
@@ -78,7 +85,7 @@ const createRoom = async () => {
             sdp: offer.sdp
         }
     }
-    await roomRef.set(roomWithOffer)
+    await roomRef.set(roomWithOffer).catch((e) => { console.log(e) });
     $("#roomId").text(`Your room Id is ${roomRef.id}`);
 
     ///Listen For Remote Track
@@ -87,7 +94,7 @@ const createRoom = async () => {
         event.streams[0].getTracks().forEach((track) => {
             remoteStream.addTrack(track);
         })
-    })
+    });
 
     /// Listen For Remote SDP
     roomRef.onSnapshot(async (snapshot) => {
@@ -200,4 +207,11 @@ function registerPeerConnectionListeners() {
         console.log(
             `ICE connection state change: ${peerConnection.iceConnectionState}`);
     });
+}
+
+const hangUp = async () => {
+    let roomId = $("#roomId").text();
+    await firebase.firestore().collection('rooms').doc(roomId).delete();
+    peerConnection.close();
+
 }
