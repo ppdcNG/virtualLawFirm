@@ -1,0 +1,67 @@
+{{> header}}
+<header>
+  <!--Navbar -->
+  <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+    <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+      aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+  <!--/.Navbar -->
+</header>
+<input type = "hidden" value = "{{uid}}" id = "uid"/>
+<main>
+    <div class="container">
+        <div class="card mt-5 mb-5">
+            <h3 class="card-header default-color white-text text-center py-4">
+                <strong>Video Chat</strong>
+            </h3>
+            <h5 id = "roomId">No Room Created</h5>
+            <!-- Default input -->
+            <label for="exampleForm2">Default input</label>
+            <input type="text" id="joinId" class="form-control" placeholder = "EnterRoomIdToJoin">
+            <div class = "d-flex flex-row justify-content-around">
+                <button type="button" class="btn btn-elegant" onclick = "openCam()">Open Camera and Mic</button>
+                <button type="button" class="btn btn-elegant" onclick = "createRoom()">Create Room</button>
+                <button type="button" class="btn btn-elegant" onclick = "joinRoom()">Join Room</button>
+            </div>
+            <div class = "d-flex flex-row justify-content-around">
+                <video id="localVideo" muted autoplay playsinline></video>
+                <video id="remoteVideo" autoplay playsinline></video>
+            </div>
+            <div class = "d-flex flex-row justify-content-around">
+                <button type="button" class="btn btn-elegant" onclick = "shareScreen()">ShareScreen</button>
+                <button type="button" class="btn btn-elegant" onclick = "hangUp()">Hang up</button>
+                <button type="button" class="btn btn-elegant" onclick = "">Join Room</button>
+            </div>
+
+            
+
+        </div>
+    </div>
+</main>
+
+<br/><br/><br/>
+{{> footer}}
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/admin/videoCall.js"></script>
+
+
+<script>
+  $('#login').click(function() {
+    $('#login').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+  });
+</script>

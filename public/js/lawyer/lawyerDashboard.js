@@ -151,7 +151,6 @@ $("#updateUpload").submit(async function (e) {
         clearLoad('saveUpload', 'Submit');
         $.notify("You have not uploaded any document", { type: "warning" });
     }
-
 });
 
 $(document).ready(() => {

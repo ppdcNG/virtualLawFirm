@@ -1,13 +1,32 @@
 {{> header}}
 
+<nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+    <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+        aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home
+                <span class="sr-only">(current)</span>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
 <div class="row">
     <div class="col-12">
         <section class="h-50">
             <div class="row" style="background-image: linear-gradient(to right, #95c8cc, #fff, #fff, #fff)">
-                <div class="col-md-6 text-center pb-3">
+                <div class="col-md-6 pl-5 pb-3">
                     <div class="h-25"></div>
                     <h2 class="text-uppercase">legal documents</h2>
-                    <p>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet</p>
+                    <p>Looking for prepared and iron clad contracts, agreements, licenses documents and other legal documents curated for your specific needs?. Well look no further, Lawtrella legal documents is your one stop hive for legal documents in Nigeria</p>
                 </div>
 
                 <div class="col-md-6 text-center">
@@ -24,122 +43,38 @@
         </div>
         <br/>
         <br/>
-        <!-- Card deck 1 -->
-            <div class="card-deck">
+        <form class="md-form form-inline mt-0 border p-2 row">
+            <div class="md-form col-12 d-flex justify-content-center">
+                <span class="text-muted mr-1">Search Document:</span>
+                <select class="form-control w-75 documentSearch" name="">
+                    <option value="" selected>Select Documents</option>
+                    
+                </select>
+            </div>
+        </form>
 
-            <!-- Card -->
-            <div class="card mb-4">
+        {{! card deck  }}
+        <div class="card-deck" id="documents">
 
-                <!--Card content-->
-                <div class="card-body">
+        </div>
+        {{! / card deck  }}
 
-                    <!--Title-->
-                    <h4 class="card-title">Document title</h4>
-                    <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <button type="button" class="btn btn-light-blue btn-md">Select</button>
-
+            <div class="d-flex justify-content-center my-5">
+                <div class="spinner-grow" role="status" id="loading">
+                    <span class="sr-only">Loading...</span>
                 </div>
-
             </div>
-            <!-- Card -->
-
-            <!-- Card -->
-            <div class="card mb-4">
-
-                <!--Card content-->
-                <div class="card-body">
-
-                    <!--Title-->
-                    <h4 class="card-title">Document title</h4>
-                    <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <button type="button" class="btn btn-light-blue btn-md">Select</button>
-
-                </div>
-
-            </div>
-            <!-- Card -->
-
-            <!-- Card -->
-            <div class="card mb-4">
-
-                <!--Card content-->
-                <div class="card-body">
-
-                    <!--Title-->
-                    <h4 class="card-title">Document title</h4>
-                    <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                   <button type="button" class="btn btn-light-blue btn-md">Select</button>
-
-                </div>
-
-            </div>
-            <!-- Card -->
-
-            </div>
-        <!-- /Card deck 1-->
-
-        <!-- Card deck 2-->
-            <div class="card-deck">
-
-            <!-- Card -->
-            <div class="card mb-4">
-
-                <!--Card content-->
-                <div class="card-body">
-
-                    <!--Title-->
-                    <h4 class="card-title">Document title</h4>
-                    <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <button type="button" class="btn btn-light-blue btn-md">Select</button>
-
-                </div>
-
-            </div>
-            <!-- Card -->
-
-            <!-- Card -->
-            <div class="card mb-4">
-
-                <!--Card content-->
-                <div class="card-body">
-
-                    <!--Title-->
-                    <h4 class="card-title">Document title</h4>
-                    <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <button type="button" class="btn btn-light-blue btn-md">Select</button>
-
-                </div>
-
-            </div>
-            <!-- Card -->
-
-            <!-- Card -->
-            <div class="card mb-4">
-
-                <!--Card content-->
-                <div class="card-body">
-
-                    <!--Title-->
-                    <h4 class="card-title">Document title</h4>
-                    <!--Text-->
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <button type="button" class="btn btn-light-blue btn-md">Select</button>
-
-                </div>
-
-            </div>
-            <!-- Card -->
-
-            </div>
-        <!-- Card deck 2-->
-
 
     </section>
 </div>
-
+ 
 {{> footer}}
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
+<script src="{{ABS_PATH}}js/legalDocs.js"></script>
+
+<script>
+    $('.documentSearch').select2();
+</script>

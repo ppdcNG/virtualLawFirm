@@ -1,4 +1,11 @@
 {{> header}}
+<style>
+  section#chatsContainer {
+      max-height: 50vh;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+  }
+</style>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=285056175476062&autoLogAppEvents=1"></script>
 
@@ -43,9 +50,10 @@
 
 <main class="mt-3 pl-3 pr-3" id="client--main">
     <input type = "hidden" value = "{{uid}}" id = "uid" name = "uid" />
+    <input type = "hidden" value = "{{displayName}}" id = "displayName" name = "displayName" />
 
     <div class="d-flex justify-content-center">
-    <ul class="nav nav-tabs md-tabs" id="myTabEx" role="tablist">
+    <ul class="nav nav-tabs md-tabs" id="mainTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active show" id="dashboard-tab-ex" data-toggle="tab" href="#dashboard-ex" role="tab" aria-controls="dashboard-ex"
             aria-selected="true">DASHBOARD</a>
@@ -81,34 +89,34 @@
                   </div>
 
                   <div class="col-md-8">
-                    <a class="default-color btn float-right" href="/client/findLawyer">Find a Lawyer</a>
-                    <a class="btn btn-info" data-toggle="modal" data-target="#inviteModal">Invite a friend</a>
+                    
+                    <div class="row d-flex justify-content-between">
+                      <a class="col-md-3 btn default-color white-text" href="/client/findLawyer">Find a Lawyer</a>
+                      <a class="col-md-3 btn special-color" data-toggle="modal" data-target="#complaintModal">Make a Complaint</a>
+                      <a class="col-md-3 btn default-color" data-toggle="modal" data-target="#inviteModal">Invite a friend</a>
+                    </div>
+
                     <br/>
                     <br/>
                     <h4>My Tasks</h4>
                     <hr/>
 
-                    {{#tasks}}
-                          <table class="table table-bordered tale-striped" id="casesTable">
-                              <thead class="black white-text">
-                                  <tr>
-                                      <th scope="col">Subject</th>
-                                      <th scope="col">Date Created</th>
-                                      <th scope="col">Lawyer</th>
-                                  </tr>
-                              </thead>
-                              <tbody id="tasksTable">
-                              </tbody>
-                          </table>
-                          <div class="d-flex justify-content-center">
-                            <div class="spinner-grow slow" role="status" id="loadingTasks">
-                              <span class="sr-only">Loading...</span>
-                            </div>
-                          </div>
-                    {{/tasks}}
-                    {{^tasks}}
-                        <p>No tasks yet</p>
-                    {{/tasks}}
+                    <table class="table table-bordered tale-striped" id="casesTable">
+                        <thead class="default-color white-text">
+                            <tr>
+                                <th scope="col">Subject</th>
+                                <th scope="col">Date Created</th>
+                                <th scope="col">Lawyer</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tasksTable">
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-center">
+                      <div class="spinner-grow slow" role="status" id="loadingTasks">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </div>
 
                   </div>
 
@@ -117,50 +125,34 @@
 
         </div>
 
-        {{! <div class="tab-pane fade" id="profile-ex" role="tabpanel" aria-labelledby="profile-tab-ex">
-            <p>Profile.</p>
-        </div> }}
-
         <div class="tab-pane fade mb-5" id="chat-ex" role="tabpanel" aria-labelledby="chat-tab-ex">
           <div class="container-fluid">
           
             <div class="row">
-              <div class="col-md-2 px-3 default-color">
-                <a class="card my-2 p-2">Person 1</a>
-                <a class="card my-2 p-2">Person 2</a>
-                <a class="card my-2 p-2">Person 3</a>
-                <a class="card my-2 p-2">Person 4</a>
+              <div class="col-md-2 px-3 ">
+                <ul class="list-group list-group-flush">
+                  <ul id = "chatList" class="list-group d-flex text-center flex-column justify-content-between">
+                    <div class="spinner-grow slow align-self-center" role="status" id="loadingTasks"><span class="sr-only">Loading...</span></div>
+                  </ul>
+                </ul>
               </div>
-              <div class="col-md-10">
+              <div class="col-md-10 d-flex flex-column justify-content-between">
                 <div class="border">
-                  <h4 class="mb-2">Messages</h4>
-                  <section class="client__chat">
-                    <div class="container">
-                      <img src="" alt="Avatar" style="width:50;">
-                      <p>Hello. How are you today?</p>
-                      <span class="time-right">11:00</span>
-                    </div>
-
-                    <div class="container darker">
-                      <img src="" alt="Avatar" class="right" style="width:50;">
-                      <p>Hey! I'm fine. Thanks for asking!</p>
-                      <span class="time-left">11:01</span>
-                    </div>
-
-                    <div class="container">
-                      <img src="" alt="Avatar" style="width:50;">
-                      <p>Sweet! So, who do you wanna sue today?</p>
-                      <span class="time-right">11:02</span>
-                    </div>
-
-                    <div class="container darker">
-                      <img src="" alt="Avatar" class="right" style="width:50;">
-                      <p>Nah, I dunno. My ex?</p>
-                      <span class="time-left">11:05</span>
-                    </div>
+                  <h5 class="p-1">Messages</h5>
+                  <section id = "chatsContainer" class="client__chat d-flex flex-column px-3 default-color py-1">
+                    <h5>Click a Chat to view messages here</h5>
                   </section>
-
                 </div>
+                <form id = "chatTextForm" class="mt-1" action = "#chatTextForm">
+                <div class="row" id="chatInputField" style="visibility: hidden">
+                    <div class="col-md-10">
+                      <input id = "chatInput" type="text" class="form-control form-control-lg" placeholder="Enter Your Chat Message" required>
+                    </div>
+                    <div class="col-md-2">
+                      <button id = "sendChatButton" class="btn btn-default" type = "submit">Send <i class="fas fa-paper-plane ml-1"></i></button>
+                    </div>
+                </div>
+                </form>
               </div>
             </div>
           </div>
@@ -283,7 +275,7 @@
 </div>
 
 
-<!-- Invite Modal -->
+{{! Invite Modal }}
 <div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -318,8 +310,79 @@
   </div>
 </div>
 
+{{! layerdetails MOdal }}
+<div class="modal fade" id="lawyerDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <input type = "hidden" id = "taskId"/>
+    <input type = "hidden" id = "lawyerId"/>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-center" id = "lawyerName"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body p-3">
+            <div class="text-center" id = "lawyerDetailsList">
+                <img src="${task.lawyer.photoUrl}" class="rounded-circle z-depth-0 mr-2"
+                alt="lawyerPic" height="100">
+                <hr width="50" />
+                <ul class="list-group" >
+                    <li class="list-group-item"></li>
+                    <li class="list-group-item"></li>
+                    <li class="list-group-item"></li>
+                    <li class="list-group-item"></li>
+                    <li class="list-group-item"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a type="button" class="btn btn-info" href="tel:07038334703">Call</a>
+            <a type="button" id = "chatWithLawyerButton" class="btn btn-default"  onclick="chatWithLawyer()">Chat</a>
+        </div>
+        </div>
+    </div>
+    </div>
+
+{{! complaint Modal }}
+<div class="modal fade" id="complaintModal" tabindex="-1" role="dialog" aria-labelledby="complaintModal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="complainModal">Submit a Complaint</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form id="complaintForm">
+
+          <div class="md-form mb-5">
+            <input type="text" name="subject" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="subject">Subject</label>
+          </div>
+
+          <div class="md-form">
+            <textarea type="text" name="message" class="md-textarea form-control" rows="4"></textarea>
+            <label data-error="wrong" data-success="right" for="message">Your message</label>
+          </div>
+
+          <div class="modal-footer d-flex justify-content-center">
+            <button type="submit" class="btn btn-default">Send</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
 
 {{> footer}}
+
 <script type = "text/javascript">
   $("#settingsForm input").trigger('change');
 </script>

@@ -1,4 +1,26 @@
 {{> header }}
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+
+<style>
+  #startDate,
+  #endDate {
+      border-left: none;
+      border-top: none;
+      border-right: none;
+  }
+  button.ui-datepicker-trigger {
+    border: 1px solid #2EBAAD;
+    border-radius: 0.5rem;
+    padding: 5px 10px;
+    width: 25%;
+  }
+  button.ui-datepicker-trigger:hover {
+    background-color: #2EBAAD;
+    color: #fff;
+  }
+</style>
+
 <header>
   <!--Navbar -->
   <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
@@ -32,15 +54,27 @@
 
 <main>
   <div class="container-fluid">
-        <ul class="nav nav-tabs md-tabs" id="myTabEx" role="tablist">
+  <ul class="nav nav-tabs md-tabs px-5 pt-2 default-color" id="myTabEx" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active show" id="home-tab-ex" data-toggle="tab" href="#home-ex" role="tab" aria-controls="home-ex"
+      <a class="nav-link active show text-dark" id="home-tab-ex" data-toggle="tab" href="#home-ex" role="tab" aria-controls="home-ex"
         aria-selected="true">Dashboard</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="profile-tab-ex" data-toggle="tab" href="#profile-ex" role="tab" aria-controls="profile-ex"
-        aria-selected="false">Cases</a>
+      <a class="nav-link text-dark" id="profile-tab-ex" data-toggle="tab" href="#profile-ex" role="tab" aria-controls="profile-ex"
+        aria-selected="false">Tasks</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link text-dark" id="chat-tab" data-toggle="tab" href="#chatTab" role="tab" role="tab" aria-controls="chatTab"
+        aria-selected="false">Chat</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-dark" id="legal-advice-tab" data-toggle="tab" href="#legalAdviceTab" role="tab" aria-controls="legalAdviceTab"
+        aria-selected="false">Legal Advice</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-dark" id="legal-docs-tab" data-toggle="tab" href="#legalDocs" role="tab" aria-controls="legalAdviceTab"
+        aria-selected="false">Legal Documents</a>
+    </li>    
   </ul>
   <div class="tab-content pt-5" id="myTabContentEx">
     <div class="tab-pane fade active show" id="home-ex" role="tabpanel" aria-labelledby="home-tab-ex">
@@ -48,13 +82,13 @@
         <hr/>
         <div class="row m-5 text-center">
           <div class="col-md-4">
-            <div class="card shadow p-5">{{laywers_no}} Laywers</div>
+            <div class="border p-5">{{laywers_no}} Laywers</div>
           </div>
           <div class="col-md-4">
-            <div class="card shadow p-5">{{cases_no}} Cases</div>
+            <div class="border p-5">{{cases_no}} Cases</div>
           </div>
           <div class="col-md-4">
-            <div class="card shadow p-5">{{clients_no}} Clients</div>
+            <div class="border p-5">{{clients_no}} Clients</div>
           </div>
       </div>  
 
@@ -74,25 +108,31 @@
       <hr/>
 
       <!-- Search form -->
-      <form class="md-form form-inline mt-0 border p-2 row">
+      <form class="md-form form-inline mt-0 border p-2 row" id = "filterLawyer">
         <div class="md-form col-md-4">
-          <i class="fas fa-search" aria-hidden="true"></i>
-          <input id="searchName" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by Name"
-          aria-label="Search">
+          {{! <i class="fas fa-search" aria-hidden="true"></i>
+          <input name = "name" id="searchName" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by Name"
+          aria-label="Search"> }}
+          <span class="text-muted">Search Lawyer</span>
+          <select class="form-control w-75 lawyerNameSearch" name="name">
+            <option value="" selected>Search Lawyers</option>
+            {{{lawyers}}}
+          </select>
         </div>
 
         <div class="md-form col-md-4">
           <span class="text-muted">Search by Status</span>
           <select class="status form-control w-75" id="status" name="status">
-            <option selected>Select</option>
-            <option>Pending</option>
-            <option>Activated</option>
+            <option selected disabled value = "">Select</option>
+            <option value = "pending">Pending</option>
+            <option valut = "activated">Activated</option>
           </select>          
         </div>
 
         <div class="md-form col-md-4">
           <span class="text-muted">Search by Tags</span>
-          <select class="tags form-control mt-2 w-75" id="tag" name="tag">
+          <select name = "tag" class="tags form-control mt-2 w-75" id="tag" name="tag">
+          
               {{{tags}}}
           </select>
         </div>
@@ -114,65 +154,139 @@
 
         </tbody>
       </table>
+
+      <div class="text-right">
+        <button class="btn btn-default">Next <i class="fa fa-arrow-right"></i></button>
+      </div>
+
     </div>
     <div class="tab-pane fade" id="profile-ex" role="tabpanel" aria-labelledby="profile-tab-ex">
-      <!--Accordion wrapper-->
-<div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
-
-  <div class="container-fluid pb-5 mb-5">
-    <p class="h5 text-uppercase">cases</p>
-    <hr/>
-    <table class="table table-bordered tale-striped" id="casesTable">
-      <thead class="black white-text">
-        <tr>
-          <th scope="col">id</th>
-          <th scope="col">Title</th>
-          <th scope="col">Client</th>
-          <th scope="col">Status</th>
-          <th scope="col">Assigned Lawyer</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Lorem ipsum</td>
-          <td>John doe</td>
-          <td></td>
-          <td>Harvey specter</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Lorem ipsum</td>
-          <td>Jane doe</td>
-          <td></td>
-          <td>Mike ross</td>
-        </tr>
-      </tbody>
-    </table>
     
+    <!--Accordion wrapper-->
+    <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
+
+    <div class="container-fluid pb-5 mb-5">
+      <p class="h5 text-uppercase">Tasks</p>
+      <hr/>
+
+      <!-- Search Filter -->
+
+    <div class="card mb-3">
+      <div class="card-body px-lg-5 pt-0">
+          <form id = "filterCases" class="text-center" style="color: #757575;" action="#!">
+
+              <div class="form-row">
+                  <div class="col">
+                      <div class="md-form pt-3">
+                        <select name = "lawyer" class="form-control w-75" id = "lawyerFilter" style="width:100%">
+                        <option value="" selected>Search Lawyer</option>
+                          {{{lawyers}}}
+                        </select>
+                      </div>
+                  </div>
+                  <div class="col">
+                    <div class="md-form pt-3">
+                      <select name = "status" class="mdb-select form-control statusFilter" style="width:100%">
+                        <option value="" selected>Search Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="consulting">Consulting</option>
+                      </select>
+                    </div>
+
+                  </div>
+                  <div class="col">
+                    <div class="md-form pt-3">
+                      <span><input type="input" id="startDate" name = "start" class="datepicker" /></span>
+                      <br/>
+                      <span><input id="endDate" class="datepicker" name = "end" /></span>
+                  </div>                  
+                </div>
+
+                <button class="btn btn-outline-default btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Search</button>
+            </form>
+
+        </div>
+      </div>
+  
+      <div class="table-responsive">
+        <table class="table table-bordered tale-striped" id="casesTable">
+          <thead class="black white-text">
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Client</th>
+              <th scope="col">Status</th>
+              <th scope="col">Assigned Lawyer</th>
+              <th scope="col"> Created At</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id = "adminCases">
+            
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="d-flex justify-content-center">
+        <div class="spinner-grow slow" role="status" id="loadingTasks">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-right">
+      <button class="btn btn-default" onclick = "prev()"><i class="fa fa-arrow-left"></i> Prev</button>
+      <button class="btn btn-default" onclick = "next()">Next <i class="fa fa-arrow-right"></i></button>
+    </div>
   </div>
+  </div>
+</div>
+   <div class="tab-pane fade" id="chatTab" role="tabpanel" aria-labelledby="chatTab">
+    <section class="h-50">Chat</section>
+   </div>
+
+   <div class="tab-pane fade" id="legalAdviceTab" role="tabpanel" aria-labelledby="legalAdviceTab">
+    <section class="container" style="min-height: 50vh">
+
+        <h4>Questions</h5>
+        <hr/>
+  
+        <!--Accordion wrapper-->
+        <div class="accordion md-accordion mb-5" id="accordionEx" role="tablist" aria-multiselectable="true">
+
+          
+
+        </div>
+        <!-- Accordion wrapper -->      
+
+    </section>   
+   </div>
+
+  <div class="tab-pane fade" id="legalDocs" role="tabpanel" aria-labelledby="legalDocsTab">
+    <section class="container" style="min-height: 50vh">
+
+        <div class="d-flex justify-content-between">
+          <h4>Legal Documents</h4>
+          <button class="btn btn-default float-right" onclick = "openAddDocumentModal()">Add new <i class="fas fa-plus"></i></button>
+        </div>
+        <hr/>
+
+          {{! card deck  }}
+          <div class="card-deck" id = "documentList">
+
+          </div>
+        {{! /card deck  }}
+        <div class="d-flex justify-content-center">
+          <div class="spinner-grow slow" role="status" id="loadingDocs">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+
+    </section>   
+   </div>
 
 </div>
 
 </main>
-
-
-{{> footer}}
-
-<script src="{{ABS_PATH}}js/auth.js"></script>
-<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
-<script src="{{ABS_PATH}}js/admin/admin_dashboard_render.js"></script>
-<script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
-
-<script>
-  $('#sendInvite').click(function() {
-    $('#sendInvite').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
-  });
-
-  $('.tags').select2();
-  $('.status').select2();
-
-</script>
 
 {{! add lawyer modal }}
 <!-- Modal -->
@@ -260,3 +374,219 @@
     </div>
   </div>
 </div>
+
+
+<!-- Task details modal -->
+<div class="modal fade" id="taskDetailsModal" tabindex="-1" role="dialog" aria-labelledby="taskDetailsModal"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Task Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body container">
+
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item elegant-color white-text">Task</li>
+          <li class="list-group-item"><b>Subject: </b> <span id = "task_subject">Some issue</span></li>
+          <li class="list-group-item"><b>Details: </b> <span class="text-justify" id = "task_issue">History is a relentless master. It has no present, only the past rushing into the future. To try to hold fast is to be swept aside.<span></li>
+          <li class="list-group-item"><b>Tags: </b> <span id = "task_tags">Theft</span></li>
+          <li class="list-group-item"><b>Status: </b> <span id = "task_status">Pending</span></li>
+          <li class="list-group-item"><b>Date: </b> <span id = "task_date">Pending</span></li>
+        </ul>
+
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item elegant-color white-text">Client</li>
+          <div class="list-group-item">
+            <p class="mb-0"><i class="far fa-image fa-2x mr-4 grey p-3 white-text rounded-circle " aria-hidden="true"></i><span id = "task_clientName">John Doe</span></p>
+          </div>
+          <li class="list-group-item"><b>Email: </b> <span id = "task_clientEmail"> jd@mail.com </span></li>
+          <li class="list-group-item"><b>Phone number: </b><span id = "task_clientPhone"> 12345 </span></li>
+        </ul>
+
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item elegant-color white-text">Lawyer</li>
+          <div class="list-group-item">
+            <p class="mb-0"><i class="far fa-image fa-2x mr-4 grey p-3 white-text rounded-circle " aria-hidden="true"></i><span id = "task_lawyerName">John Doe</span></p>
+          </div>
+          <li class="list-group-item"><b>Email: </b> <span id = "task_lawyerEmail">jd@mail.com</span></li>
+          <li class="list-group-item"><b>Phone number: </b><span id = "task_lawyerPhone">12345</span></li>
+          <li class="list-group-item"><b>Address: </b> <span id = "task_lawyerAddress">12 ave. abuja</span></li>
+        </ul>
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{! contact modal  }}
+<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Contact</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body container">
+
+          <div class="d-flex justify-content-center">
+            <a class="btn btn-default">Contact Lawyer</a><a class="btn btn-default">Contact Client</a>
+          </div>
+      
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{! history modal  }}
+<div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="historyModal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Task History</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body container">
+
+          <h5 class="text-center">History...</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item elegant-color white-text"></li>
+            <li class="list-group-item"></li>
+            <li class="list-group-item"></li>
+          </ul>
+      
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{! upload legal doc modal }}
+<div class="modal fade" id="uploadLegalDoc" tabindex="-1" role="dialog" aria-labelledby="uploadLegalDoc"
+aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Choose document</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+
+      <div class="modal-body">
+          <form id="docForm">
+              <input type = "hidden"  id = "mode" value = "add"/>
+              <input type = "hidden" id = "docId"  value = ""/>
+              <div class="mb-3 md-form">
+                  <label for="title">Title</label>
+                  <input type="text" name="title" class="form-control" required>
+              </div>
+              <div class="mb-3 md-form">
+                  <label for="title">Price</label>
+                  <input type="number" name="price" class="form-control" required>
+              </div>
+
+              <div class="md-form">
+                <textarea id="desc" name = "description" class="md-textarea form-control" rows="3"></textarea>
+                <label for="desc">Description</label>
+              </div>
+
+              <div class="md-form">
+                  <div class="custom-file">
+                      <input id = "docFile" type="file" class="custom-file-input">
+                      <label class="custom-file-label" for="upload_doc" data-browse="Upload">Choose Doc</label>
+                  </div>
+              </div>
+              <button type="submit" id="saveDoc" class="btn btn-primary">Save</button>
+
+          </form>
+
+      </div>
+      </div>
+  </div>
+</div>
+{{! / upload legal doc }}
+
+{{! delete legal doc }}
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteDoc"
+aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title w-100 text-center">Confirm Delete</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        <div class="text-center">
+          <h6 id = "deleteTitle">Are you sure you want to delete this document?</h6>
+          <hr />
+          <button class="btn btn-danger" onclick = "deleteAction()">Yes</button>
+          <button class="btn btn-default" data-dismiss="modal">No</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{{! / delete legal doc }}
+
+{{> footer}}
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/libraries/js2form.js"></script>
+<script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_dashboard_render.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_advise.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_docs.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<script>
+  $('#sendInvite').click(function() {
+    $('#sendInvite').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+  });
+
+  $('.tags').select2();
+  $('.status').select2();
+  $('.statusFilter').select2();
+   $("#lawyerFilter").select2();
+  $('.lawyerNameSearch').select2();
+  
+
+</script>
+<script>
+  $("#startDate" ).datepicker({
+    showOn: "button",
+    buttonText: "Start date"
+  });
+
+  $("#endDate").datepicker({
+    showOn: "button",
+    buttonText: "End date"
+  });
+
+  
+
+</script>

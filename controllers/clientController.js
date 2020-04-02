@@ -20,7 +20,7 @@ exports.registrationPage = (req, res) => {
 };
 
 exports.legalDocsPage = (req, res) => {
-    res.render('client/legal-docs', { title: 'Legal Documents', ABS_PATH })
+    res.render('client/legal-docs', { title: 'Legal Documents', ABS_PATH, AppName })
 }
 exports.confirm = (req, res) => {
     let idCardURL = 'https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png';
@@ -93,16 +93,20 @@ exports.dashboard = async (req, res) => {
     let firstname = name[0];
     let lastname = name[name.length - 1];
     photoURL = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
-    let idCardURL = userdata.idCardURL ? userdata.idCardURL : 'https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png';
-    let contactPoint = userdata.contactPoint ? userdata.contactPoint : {};
+
+    let idCardURL = '';
+    let contactPoint = '';
+    if (userdata) {
+        idCardURL = userdata.idCardURL ? userdata.idCardURL : 'https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png';
+        contactPoint = userdata.contactPoint ? userdata.contactPoint : {};
+    }
     let { state, address, lga } = contactPoint;
     state = state || "";
     address = address || "";
     lga = lga || "";
 
-    let tasks = true;
     res.render('client/client-dashboard', {
-        title: 'Client Dashboard', ABS_PATH, AppName, photoURL, idCardURL, uid, displayName, title: "Client Dashboard", email, firstname, lastname, phoneNumber, state, lga, address, tasks
+        title: 'Client Dashboard', ABS_PATH, AppName, photoURL, idCardURL, uid, displayName, title: "Client Dashboard", email, firstname, lastname, phoneNumber, state, lga, address,
     });
 }
 
@@ -206,15 +210,6 @@ exports.fetchLawyers = async (req, res) => {
     }
     console.log(tags);
     let lawyers = {};
-    await admin.firestore().collection('issuesTemp').doc(req.user.uid).set(obj).catch((e) => {
-        console.log(e);
-        let returnObj = {
-            err: e,
-            message: e.message,
-            status: "failed"
-        };
-        return res.status(400).send(returnObj);
-    });
 
     let data = await admin.firestore().collection('lawyers').where('portfolio.tags', 'array-contains-any', tags).get();
     console.log(data);
@@ -232,7 +227,7 @@ exports.fetchLawyers = async (req, res) => {
 
     let returnObj = {
         data: lawyers,
-        message: "No lawyer found",
+        message: "Fetch successful",
         status: "success"
     };
     return res.status(200).send(returnObj);
@@ -254,25 +249,85 @@ exports.sendInvite = async (req, res) => {
 
 exports.verifyConsultationFee = async (req, res) => {
     let payload = JSON.parse(req.body.data);
-    console.log(payload);
     let { paystackRef, task, lawyerId } = payload
     let uid = req.user.uid;
-    task.timestamp = 0 - new Date().getTime();
+    let time = new Date().getTime();
+    task.timestamp = 0 - time;
     task.userId = uid;
     task.lawyerId = lawyerId;
-    task.client = req.user;
+    let user = {
+        uid: req.user.uid,
+        email: req.user.email,
+        displayName: req.user.displayName,
+        photoURL: req.user.photoURL || "",
+        phoneNumber: req.user.phoneNumber || ""
+    }
+    task.client = user;
+    task.payRef = paystackRef;
+    task.status = "consulting";
+
+    let payrecord = {
+        payer: user,
+        payee: task.lawyer,
+        ref: paystackRef,
+        date: 0 - time,
+    }
+    console.log(task);
     var paystack = require('paystack')(PAYSTACK_PUB_KEY);
     var body = paystack.transaction.verify(paystackRef, async (err, body) => {
+        console.log(err);
         if (err) {
-            res.send({ status: "An error Occured" });
+            res.send({ status: "failed", message: "Transaction Failed" });
             return;
         }
         console.log(err, body);
         let ref = await admin.firestore().collection('cases').add(task).catch((e) => console.log(e));
         await admin.firestore().collection('clients').doc(uid).collection('tasks').doc(ref.id).set(task);
         await admin.firestore().collection('lawyers').doc(lawyerId).collection('tasks').doc(ref.id).set(task);
-
-        res.send({ status: 'success', message: "Transaction Success full case has been created" });
+        payrecord.caseId = ref.id;
+        await admin.firestore().collection('transactions').add(payrecord);
+        res.send({ status: 'success', message: "Transaction Successfull. Case has been created" });
 
     })
+}
+
+exports.initiateChat = async (req, res) => {
+
+    let { clientId, lawyerId, clientName, clientPhoto, lawyerName, lawyerPhoto } = req.body;
+    let chatId = `${clientId}_ ${lawyerId}`;
+    let timestamp = 0 - new Date().getTime();
+    let chatSnapshot = await admin.firestore().collection('chats').doc(chatId).get();
+    if (chatSnapshot.exists) {
+        console.log('chat exists')
+        let msg = {
+            status: 'success',
+            message: 'Chat Already Initiated'
+        }
+        res.send(msg);
+        return;
+    }
+    let chat = {
+        clientId, lawyerId, chatId, clientName, clientPhoto, lawyerName, lawyerPhoto, timestamp, messages: []
+    }
+
+    // await admin.firestore().collection('clients').doc(clientId).collection('chats').add(chat);
+    // await admin.firestore().collecttion('lawyers').doc(lawyerId).collection('chats').add(chat);
+    // await admin.firestore().collection('chats').doc(chatId).set(chat);
+
+    let batch = admin.firestore().batch();
+    let userChatRef = admin.firestore().collection('clients').doc(clientId).collection('chats').doc();
+    let laywerRef = admin.firestore().collection('lawyers').doc(lawyerId).collection('chats').doc();
+    let chatsRef = admin.firestore().collection('chats').doc(chatId);
+    batch.set(userChatRef, chat);
+    batch.set(laywerRef, chat);
+    batch.set(chatsRef, chat);
+    let result = await batch.commit();
+    console.log(result);
+    let msg = {
+        status: 'success',
+        message: 'Chat Initiated'
+    }
+    res.send(msg);
+
+
 }

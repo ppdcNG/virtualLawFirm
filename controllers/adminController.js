@@ -1,13 +1,18 @@
 var ABS_PATH = require("../config").ABS_PATH;
-const AppName = require("../config").AppName;
+const { AppName, PAYSTACK_PUB_KEY } = require("../config");
+
 
 const { sendmail, welcomeMail } = require("../helpers/mail");
-const { token, tagOptions, is_empty, renderDocuments } = require("../helpers");
+const { token, tagOptions, lawyerOptions, is_empty, renderDocuments } = require("../helpers");
 const admin = require('firebase-admin');
 
 exports.adminPage = async (req, res) => {
   let tags = tagOptions();
-  res.render("admin/admin-dashboard", { title: "Admin", ABS_PATH, tags, AppName });
+  let lawyers = await lawyerOptions();
+  console.log(req.user);
+
+
+  res.render("admin/admin-dashboard", { title: "Admin", ABS_PATH, tags, AppName, lawyers });
 };
 
 exports.loginPage = (req, res) => {
@@ -48,6 +53,17 @@ exports.createUser = async (req, res) => {
     res.send(obj);
   }
 };
+
+exports.addAdminUser = async (req, res) => {
+  // let {uid} = req.body;
+  let uid = "06Xa4GJaMNRumDo9sUzRrojOTm23";
+  let usr = await admin.auth().getUser(uid);
+  let claims = usr.customClaims;
+  let newclaims = { ...claims, admin: true }
+  console.log(claims)
+  const user = await admin.auth().setCustomUserClaims(uid, newclaims)
+  res.send({ message: "User has been set to Admin" });
+}
 
 exports.sendLawyerInvite = async (req, res) => {
   let { email, firstname, lastname } = req.body;
@@ -375,6 +391,59 @@ exports.verifyLawyer = async (req, res) => {
     message: "Lawyer status has been updated"
   });
 }
+
+exports.addDoc = async (req, res) => {
+  let data = req.body;
+  console.log(data);
+  try {
+    let documents = await admin.firestore().collection('legalDocs').doc().set(data);
+    res.send({ message: "Document Added Successfully", status: 'success' });
+  }
+  catch (e) {
+    console.log(e);
+    res.send({ message: "Oops Something Went Wrong. Try Again", status: 'danger' });
+  }
+
+}
+
+exports.downloadDoc = async (req, res) => {
+  let data = {
+    docId: req.query.docId,
+    ref: req.query.ref
+  }
+  console.log(data);
+  var paystack = require('paystack')(PAYSTACK_PUB_KEY);
+  var bucketName = require('../config').FIREBASE_STORAGE_BUCKET;
+  paystack.transaction.verify(data.ref, async (err, body) => {
+    if (err) {
+      console.log(err)
+      res.send({ message: err.message, err, status: 'danger' });
+      return;
+    }
+
+    let docDetails = await admin.firestore().collection('legalDocs').doc(data.docId).get().catch((e) => { console.log(e) });
+    let increment = admin.firestore.FieldValue.increment(1);
+    await admin.firestore().collection('legalDocs').doc(data.docId).update({ download: increment });
+    if (body.amount !== docDetails.price) {
+      res.send({ message: "Invalfid Fee paid for this resource", status: 'danger' });
+      return;
+    }
+    let doc = docDetails.data();
+    let bucket = admin.storage().bucket(bucketName);
+    let path = 'legaldocs/' + doc.filename
+    let file = bucket.file(path)
+    console.log(file);
+    res.set('Content-Type', doc.type);
+    res.set('Content-Type', 'application/force-download');
+    res.set('Content-Disposition', `attachment; filename="${doc.filename}"`)
+    file.createReadStream().pipe(res);
+  });
+
+}
+exports.videoCall = (req, res) => {
+  res.render("admin/video-call", { uid: req.user.uid, token: req.query.token, ABS_PATH });
+  console.log(req);
+};
 
 
 

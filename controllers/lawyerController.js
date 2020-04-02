@@ -1,5 +1,6 @@
 var ABS_PATH = require("../config").ABS_PATH;
 const AppName = require("../config").AppName;
+const Pusher = require('pusher');
 
 const { sendmail, welcomeMail } = require("../helpers/mail");
 const { token, tagOptions, percentageComplete } = require("../helpers");
@@ -137,6 +138,7 @@ exports.updateContact = async (req, res) => {
         user = user.data();
         await admin.auth().updateUser(req.user.uid, { photoUrl });
         user.contact = { photoUrl, name, address, country, lga, briefProfile };
+        user.status = "pending";
         await admin.firestore().collection('lawyers').doc(req.user.uid).set(user);
         let returnObj = {
             message: "User Contact Info has been updated Successfully",
@@ -163,6 +165,7 @@ exports.updateRecord = async (req, res) => {
         user = user.data();
         user.record = { courtEnrollmentNumber, yearOfEnrollment, criminalRecord, criminalInvestigation, misconductIndictment, misconductInvestigation };
         user.accountDetails = accountDetails
+        user.status = "pending";
         let docref = admin.firestore().collection('lawyersList').doc(req.user.uid);
         let docref2 = admin.firestore().collection('lawyers').doc(req.user.uid);
         batch.set(docref, user);
@@ -223,3 +226,27 @@ exports.lawyerProfile = async (req, res) => {
         res.status(200).send(lawyerdetails);
     }
 }
+exports.callPage = (req, res) => {
+    res.render("lawyer/lawyer-call", { token: req.query.token, ABS_PATH });
+    console.log(req);
+};
+exports.pusherAuthentication = (req, res) => {
+    var pusher = new Pusher({
+        appId: '969487',
+        key: '74ebc24bcf6da627453c',
+        secret: 'defe0a5253e0e82c2a05',
+        cluster: 'eu',
+        encrypted: true
+    });
+
+    const { socket_id, channel_name } = req.body;
+    var presenceData = {
+        user_id: req.user.uid
+    }
+    const auth = pusher.authenticate(socket_id, channel_name, presenceData);
+
+    res.send(auth);
+}
+
+
+

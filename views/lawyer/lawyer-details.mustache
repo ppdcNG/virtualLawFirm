@@ -227,23 +227,6 @@
     </div>
 </main>
 
-<div style="margin-top: 25vh">
-    {{> footer}}
-</div>
-
-<script src="{{ABS_PATH}}js/auth.js"></script>
-<script src="{{ABS_PATH}}js/admin/admin_dashboard_render.js"></script>
-<script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
-
-<script>
-  loadBtn("verify");
-
-  if ($("#status").text() === 'verified') {
-      $("#verify").text('verified').addClass('disabled');
-  }
-</script>
-
-
 <!-- message modal -->
 <div class="modal fade" id="msgModal" tabindex="-1" role="dialog" aria-labelledby="msgModal"
     aria-hidden="true">
@@ -274,3 +257,19 @@
         </div>
     </div>
 </div>
+
+<div style="margin-top: 25vh">
+    {{> footer}}
+</div>
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_dashboard_render.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
+
+<script>
+  loadBtn("verify");
+
+  if ($("#status").text() === 'verified') {
+      $("#verify").text('verified').addClass('disabled');
+  }
+</script>
