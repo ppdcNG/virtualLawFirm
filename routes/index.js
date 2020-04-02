@@ -28,6 +28,11 @@ router.get('/courses', (req, res) => {
   res.render('courses', { title: "Courses", AppName })
 });
 
+// get course details 
+router.get('/courseDetails', (req, res) => {
+  res.render('course-details', { title: "Course Details", AppName })
+});
+
 router.get('/join', function (req, res) {
   res.render('auth/join', {
     path: "/join"
