@@ -4,6 +4,7 @@ var ABS_PATH = require("../config").ABS_PATH;
 const { welcomeEmail } = require("../views/templates/welcome");
 const { clientInvite } = require("../views/templates/clientInvite");
 const { adminCase } = require('../views/templates/adminCase');
+const { resetPassword } = require('../views/templates/resetpass');
 
 sendgrid.setApiKey(SENDGRID_API_KEY);
 
@@ -62,5 +63,31 @@ exports.sendAdminNewCase = async (email, lawyerName, clientName) => {
   });
 
   console.log(response);
+
+}
+
+exports.forgotPasswordMail = async (email, token) => {
+  let option = {
+    ABS: ABS_PATH,
+    link: ABS_PATH + `resetPassword?token=${token}`
+  }
+  let html = resetPassword(option)
+  let messageOptions = {
+    to: email,
+    subject: "Password Recovery",
+    from: 'recovery@lawtrella.com',
+    text: `follow this link "${option.link} to reset your password`,
+    html
+  }
+  try {
+    let response = await sendgrid.send(messageOptions);
+    return true;
+  }
+  catch (e) {
+    console.log(e);
+    return false;
+
+  }
+
 
 }
