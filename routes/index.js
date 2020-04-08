@@ -135,7 +135,7 @@ router.post('/recoverPassword', async (req, res) => {
 
 });
 
-router.post('/reset')
+
 
 
 module.exports = router;
