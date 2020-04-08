@@ -45,7 +45,7 @@ exports.profile = async (req, res) => {
 
 
 exports.login = (req, res) => {
-    res.render("lawyer/login", { ABS_PATH });
+    res.render("lawyer/login", { ABS_PATH, AppName });
 };
 
 exports.confirm = (req, res) => {
