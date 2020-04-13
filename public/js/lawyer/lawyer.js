@@ -14,7 +14,14 @@ $(document).ready(function () {
 
 const fetchCases = async () => {
     let uid = $("#uid").val();
-    let cases = await firebase.firestore().collection('lawyers').doc(uid).collection('tasks').get().catch((e) => { console.log(e) });
+    await firebase.firestore().collection('lawyers').doc(uid).collection('tasks').orderBy("timestamp").onSnapshot(handleCaseFetch).catch((e) => { console.log(e) });
+
+
+
+
+}
+
+const handleCaseFetch = cases => {
     let casesHtml = "";
 
     cases.forEach((value) => {
@@ -25,20 +32,23 @@ const fetchCases = async () => {
     });
     $("#loadingTasks").css('display', 'none');
     $("#casesTable").html(casesHtml);
-
 }
 
 
 const renderCases = (task, taskId) => {
     let formattedTimestamp = Math.abs(task.timestamp);
     let time = moment(formattedTimestamp).format("dddd, MMMM Do YYYY");
+    let count = task.activities ? countUnread(task.activities) : 0;
+    let badge = count > 0 ? `<span class="badge badge-danger ml-2">${count}</span>` : `<span class="badge badge-light ml-2">${task.activities || 0}</span>`;
     return `<tr>
-        <td>${task.client.displayName}</td>
-        <td>${task.subject}</td>
+        <td>
+        <a class="elegant-text" onclick = "viewClientDetails('${taskId}')"  data-toggle = "tooltip" title = "View client details">${task.client.displayName}</a></li>
+        </td>
+        <td><a class = "elegant-text" onclick = "viewTaskDetails('${taskId}')" data-toggle = "tooltip" title = "View task detials">${task.subject}</a></td>
         <td>${task.status}</td>
         <th scope="row">${time}</th>
         <td>
-            <button class="btn btn-default"  onclick = "viewClientDetails('${taskId}')" ><i class="far fa-caret-square-down"></i></button>
+            <button class="btn special-color text-white mr-4" data-toggle="tooltip" title = "Notifications about your Case" onclick = "openNotificationModal('${taskId}')" data-target="#notificationModal"><i class="far fa-bell pr-2"></i>${badge}</button>            
             <button class="btn" data-toggle="modal" data-target="#meetingModal"><i class="far fa-calendar-alt"></i></button>
             <button class="btn border" data-toggle="modal" data-target="#invoiceModal"><i class="fas fa-file-invoice"></i></button>
             <button class="py-2 px-4 border red-text" data-toggle="modal" data-target="#closeModal"><i class="fas fa-times"></i></button>
@@ -249,4 +259,67 @@ const sendChat = async (chatId, message) => {
         messages: firebase.firestore.FieldValue.arrayUnion(chat)
     });
 
+}
+const openNotificationModal = i => {
+    let task = TASKS[i];
+    let notifications = task.activities || []
+    let typeDict = { payment: renderPaymentNotification, meeting: renderMeetingNotification };
+    let noteHTML = '';
+    notifications.forEach((note, noteId) => {
+        noteHTML = typeDict[note.type](note, i, noteId);
+    });
+    $('#notificationList').html(noteHTML);
+    $("#notificationModal").modal('show');
+}
+
+const countUnread = (notifications) => {
+    let count = 0;
+    notifications.forEach((note, i) => {
+        note.read || count++;
+    });
+    return count;
+}
+async function markAsRead(taskId, noteId) {
+    let uid = $("#uid").val();
+    console.log(taskId);
+    TASKS[taskId].activities[noteId] = true;
+    let notification = TASKS[taskId].activities
+
+    await firebase.firestore().collection('clients').doc(uid).collection('tasks').doc(taskId).update({ activities: notification }).catch((e) => {
+        console.log(e);
+    });
+    $(this).removeClass('default-color');
+
+}
+
+
+const renderPaymentNotification = (note, taskId, noteId) => {
+    let time = moment(Math.abs(note.timestamp));
+    let read = note.read ? "" : 'default-color';
+
+    return `<li class="list-group-item ${read}" onclick = "markAsRead('${taskId}', '${noteId}')">
+                <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-2 h5">${note.title}</h5>
+                <small>${time.fromNow()}</small>
+                </div>
+                <p class="mb-2">
+                ${note.message}</p>
+                <small>Mark as read</small>
+            </li>`
+}
+const renderMeetingNotification = (note, taskId, noteId) => {
+    let time = moment(Math.abs(note.timestamp))
+    let read = note.read ? "" : 'default-color'
+
+    return `<li class="list-group-item ${read}" onclick = "markAsRead('${taskId}', '${noteId}')">
+        <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-2 h5">${note.title}</h5>
+        <small>${time.fromNow()}</small>
+        </div>
+        <p class="mb-2">
+        ${note.message}.</p>
+        <div class = "d-flex w-40">
+        <button class = "btn btn-outline-default" onclick = "gotoMeetings('${note.meetingId}')"><i class="fas fa-video pr-2"></i> Join Meeting</button>
+        </div>
+    </li>`
 }

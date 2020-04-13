@@ -256,8 +256,12 @@ $("#updateProfile input").trigger('change');
 const fetchCases = async () => {
     let uid = $("#uid").val();
     console.log(uid);
-    let cases = await firebase.firestore().collection('clients').doc(uid).collection('tasks').get().catch((e) => { console.log(e) });
+    let cases = await firebase.firestore().collection('clients').doc(uid).collection('tasks').onSnapshot(handleCaseFetch);
 
+
+
+}
+const handleCaseFetch = cases => {
     let tasksHTML = "";
     cases.forEach(value => {
         let task = value.data();
@@ -272,13 +276,77 @@ const fetchCases = async () => {
     }
 
     $("#loadingTasks").css('display', 'none');
+}
 
+const openNotificationModal = i => {
+    let task = TASKS[i];
+    let notifications = task.activities || []
+    let typeDict = { payment: renderPaymentNotification, meeting: renderMeetingNotification };
+    let noteHTML = '';
+    notifications.forEach((note, noteId) => {
+        noteHTML = typeDict[note.type](note, i, noteId);
+    });
+    $('#notificationList').html(noteHTML);
+    $("#notificationModal").modal('show');
+}
+
+const countUnread = (notifications) => {
+    let count = 0;
+    notifications.forEach((note, i) => {
+        note.read || count++;
+    });
+    return count;
+}
+async function markAsRead(taskId, noteId) {
+    let uid = $("#uid").val();
+    console.log(taskId);
+    TASKS[taskId].activities[noteId] = true;
+    let notification = TASKS[taskId].activities
+
+    await firebase.firestore().collection('clients').doc(uid).collection('tasks').doc(taskId).update({ activities: notification }).catch((e) => {
+        console.log(e);
+    });
+    $(this).removeClass('default-color');
+
+}
+
+
+const renderPaymentNotification = (note, taskId, noteId) => {
+    let time = moment(Math.abs(note.timestamp));
+    let read = note.read ? "" : 'default-color';
+
+    return `<li class="list-group-item ${read}" onclick = "markAsRead('${taskId}', '${noteId}')">
+                <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-2 h5">${note.title}</h5>
+                <small>${time.fromNow()}</small>
+                </div>
+                <p class="mb-2">
+                ${note.message}</p>
+                <small>Mark as read</small>
+            </li>`
+}
+const renderMeetingNotification = (note, taskId, noteId) => {
+    let time = moment(Math.abs(note.timestamp))
+    let read = note.read ? "" : 'default-color'
+
+    return `<li class="list-group-item ${read}" onclick = "markAsRead('${taskId}', '${noteId}')">
+        <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-2 h5">${note.title}</h5>
+        <small>${time.fromNow()}</small>
+        </div>
+        <p class="mb-2">
+        ${note.message}.</p>
+        <div class = "d-flex w-40">
+        <button class = "btn btn-outline-default" onclick = "gotoMeetings('${note.meetingId}')"><i class="fas fa-video pr-2"></i> Join Meeting</button>
+        </div>
+    </li>`
 }
 
 // render tasks
 const renderTasks = (task, id) => {
     let { timestamp } = task;
-
+    let count = task.activities ? countUnread(task.activities) : 0;
+    let badge = count > 0 ? `<span class="badge badge-danger ml-2">${count}</span>` : "";
     let formattedTimestamp = Math.abs(timestamp);
     let time = moment(formattedTimestamp).format("dddd, MMMM Do YYYY");
 
@@ -290,7 +358,8 @@ const renderTasks = (task, id) => {
             <img src="${task.lawyer.photoUrl}" class="rounded-circle z-depth-0 mr-2"
             alt="lawyerPic" height="50">
             <span class="mr-2">${task.lawyer.name}</span>
-            <button class="btn btn-info mr-4" data-toggle="modal" onclick = "openLawyerDetailsModal('${id}')" data-target="#lawyerDetailsModal">More</button>
+            <button class="btn btn-info mr-4" title = "Details of your Legal Counsel"   onclick = "openLawyerDetailsModal('${id}')" data-toglle = "tooltip" data-target="#lawyerDetailsModal">Lawyer</button>
+            <button class="btn special-color text-white mr-4" data-toggle="tooltip" title = "Notifications about your Case" onclick = "openNotificationModal('${id}')" data-target="#notificationModal"><i class="far fa-bell pr-2"></i> Notifications ${badge}</button>
         </td>
     </tr>
     `

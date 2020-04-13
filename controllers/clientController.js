@@ -267,11 +267,13 @@ exports.verifyConsultationFee = async (req, res) => {
     task.status = "consulting";
 
     let payrecord = {
+        type: "consultation",
         payer: user,
         payee: task.lawyer,
         ref: paystackRef,
         date: 0 - time,
     }
+
     console.log(task);
     var paystack = require('paystack')(PAYSTACK_PUB_KEY);
     var body = paystack.transaction.verify(paystackRef, async (err, body) => {
@@ -280,12 +282,34 @@ exports.verifyConsultationFee = async (req, res) => {
             res.send({ status: "failed", message: "Transaction Failed" });
             return;
         }
+        let activity = {
+            message: `${user.displayName} paid consultation fee for ${task.lawyer.name}`,
+            timestamp: time,
+            amount: body.data.amount,
+            read: false,
+            type: "payment",
+            title: "Payment"
+        }
+        task.activities = [activity];
         console.log(err, body);
-        let ref = await admin.firestore().collection('cases').add(task).catch((e) => console.log(e));
-        await admin.firestore().collection('clients').doc(uid).collection('tasks').doc(ref.id).set(task);
-        await admin.firestore().collection('lawyers').doc(lawyerId).collection('tasks').doc(ref.id).set(task);
-        payrecord.caseId = ref.id;
-        await admin.firestore().collection('transactions').add(payrecord);
+        // let ref = await admin.firestore().collection('cases').add(task).catch((e) => console.log(e));
+        // await admin.firestore().collection('clients').doc(uid).collection('tasks').doc(ref.id).set(task);
+        // await admin.firestore().collection('lawyers').doc(lawyerId).collection('tasks').doc(ref.id).set(task);
+        // payrecord.caseId = ref.id;
+        // payrecord.amount = body.data.amount / 1000
+        // await admin.firestore().collection('transactions').add(payrecord);
+
+        let batch = admin.firestore().batch();
+        let taskRef = admin.firestore().collection('cases').doc();
+        let clientsRef = admin.firestore().collection('clients').doc(taskRef.id);
+        let lawyersRef = admin.firestore().collection('lawyers').doc(taskRef.id);
+        let transactionsRef = admin.firestore().collection('transactions').doc();
+        batch.set(clientsRef, task);
+        batch.set(lawyersRef, task);
+        batch.set(taskRef, task);
+        batch.set(transactionsRef, payrecord);
+        await batch.commit();
+
         res.send({ status: 'success', message: "Transaction Successfull. Case has been created" });
 
     })
