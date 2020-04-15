@@ -72,7 +72,7 @@
         aria-selected="false">Legal Advice</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link text-dark" id="legal-docs-tab" data-toggle="tab" href="#legalDocs" role="tab" aria-controls="legalAdviceTab"
+      <a class="nav-link text-dark" id="legal-docs-tab" data-toggle="tab" href="#legalDocs" role="tab" aria-controls="legalDocsTab"
         aria-selected="false">Legal Documents</a>
     </li>
     <li class="nav-item">
@@ -294,15 +294,36 @@
 
         <div class="d-flex justify-content-between">
           <h4 data-aos="fade-right" data-aos-duration="1500">Courses</h4>
-          <button class="btn btn-default float-right">Add new <i class="fas fa-plus"></i></button>
+          <button class="btn btn-default float-right" data-toggle="modal" data-target="#coursesModal">Add new <i class="fas fa-plus"></i></button>
         </div>
         <hr/>
 
         <div class="card-deck" id="coursesList">
+
+            <div class="col-md-3" id="course" style="visibility: hidden">
+              <div class="card mt-1" data-aos="zoom-out" data-aos-duration="1600">
+                  <div class="view overlay">
+                      <img class="card-img-top" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg"
+                          alt="html_css_image">
+                      <a href="#!">
+                          <div class="mask rgba-white-slight"></div>
+                      </a>
+                  </div>
+
+                  <div class="card-body">
+                      <h4 class="card-title">Intro to Contract Law</h4>
+                      <p class="card-text"></p>
+                      <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#detailsModal">View Details</a>
+                  </div>
+
+              </div>
+            </div>
+            <br/><br/>
+
         </div>
 
         <div class="d-flex justify-content-center">
-          <div class="spinner-grow slow" role="status" id="loadingDocs">
+          <div class="spinner-grow slow" role="status" id="loadingCourses">
             <span class="sr-only">Loading...</span>
           </div>
         </div>
@@ -314,8 +335,49 @@
 
 </main>
 
+{{! add courses modal }}
+<div class="modal fade" id="coursesModal" tabindex="-1" role="dialog" aria-labelledby="coursesModal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add new course</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            <div class="mb-3 md-form">
+                <label for="title">Title</label>
+                <input type="text" name="title" class="form-control" required>
+            </div>
+            <div class="mb-3 md-form">
+                <div class="custom-file">
+                    <input id="courseImage" type="file" class="custom-file-input">
+                    <label class="custom-file-label" for="courseImage" data-browse="Upload">Upload Course Image</label>
+                </div>
+            </div>
+            <div class="mb-3 md-form">
+                <label for="title">Price</label>
+                <input type="number" name="price" class="form-control" required>
+            </div>
+
+            <div class="md-form">
+              <textarea id="desc" name="details" class="md-textarea form-control" rows="3"></textarea>
+              <label for="desc">Description</label>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {{! add lawyer modal }}
-<!-- Modal -->
 <div class="modal fade" id="lawyerModal" tabindex="-1" role="dialog" aria-labelledby="lawyerModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -588,6 +650,7 @@ aria-hidden="true">
 <script src="{{ABS_PATH}}js/admin/admin_advise.js"></script>
 <script src="{{ABS_PATH}}js/admin/admin_docs.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_courses.js"></script>
 
 <script>
   $('#sendInvite').click(function() {
