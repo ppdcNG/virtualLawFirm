@@ -256,7 +256,7 @@ $("#updateProfile input").trigger('change');
 const fetchCases = async () => {
     let uid = $("#uid").val();
     console.log(uid);
-    let cases = await firebase.firestore().collection('clients').doc(uid).collection('tasks').onSnapshot(handleCaseFetch);
+    let cases = await firebase.firestore().collection('clients').doc(uid).collection('tasks').orderBy('timestamp').onSnapshot(handleCaseFetch);
 
 
 
@@ -279,14 +279,7 @@ const handleCaseFetch = cases => {
 }
 
 const openNotificationModal = i => {
-    let task = TASKS[i];
-    let notifications = task.activities || []
-    let typeDict = { payment: renderPaymentNotification, meeting: renderMeetingNotification };
-    let noteHTML = '';
-    notifications.forEach((note, noteId) => {
-        noteHTML = typeDict[note.type](note, i, noteId);
-    });
-    $('#notificationList').html(noteHTML);
+    renderNotification(i);
     $("#notificationModal").modal('show');
 }
 
@@ -300,17 +293,26 @@ const countUnread = (notifications) => {
 async function markAsRead(taskId, noteId) {
     let uid = $("#uid").val();
     console.log(taskId);
-    TASKS[taskId].activities[noteId] = true;
+    TASKS[taskId].activities[noteId].read = true;
     let notification = TASKS[taskId].activities
 
     await firebase.firestore().collection('clients').doc(uid).collection('tasks').doc(taskId).update({ activities: notification }).catch((e) => {
         console.log(e);
     });
-    $(this).removeClass('default-color');
+    renderNotification(taskId);
 
 }
 
-
+const renderNotification = i => {
+    let task = TASKS[i];
+    let notifications = task.activities || []
+    let typeDict = { payment: renderPaymentNotification, meeting: renderMeetingNotification };
+    let noteHTML = '';
+    notifications.forEach((note, noteId) => {
+        noteHTML = typeDict[note.type](note, i, noteId);
+    });
+    $('#notificationList').html(noteHTML);
+}
 const renderPaymentNotification = (note, taskId, noteId) => {
     let time = moment(Math.abs(note.timestamp));
     let read = note.read ? "" : 'default-color';

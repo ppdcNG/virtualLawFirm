@@ -283,7 +283,7 @@ exports.verifyConsultationFee = async (req, res) => {
             return;
         }
         let activity = {
-            message: `${user.displayName} paid consultation fee for ${task.lawyer.name}`,
+            message: `${user.displayName} paid consultation fee for Legal Counsel of ${task.lawyer.name}`,
             timestamp: time,
             amount: body.data.amount,
             read: false,
@@ -291,6 +291,7 @@ exports.verifyConsultationFee = async (req, res) => {
             title: "Payment"
         }
         task.activities = [activity];
+        payrecord.amount = body.data.amount;
         console.log(err, body);
         // let ref = await admin.firestore().collection('cases').add(task).catch((e) => console.log(e));
         // await admin.firestore().collection('clients').doc(uid).collection('tasks').doc(ref.id).set(task);
@@ -301,16 +302,25 @@ exports.verifyConsultationFee = async (req, res) => {
 
         let batch = admin.firestore().batch();
         let taskRef = admin.firestore().collection('cases').doc();
-        let clientsRef = admin.firestore().collection('clients').doc(taskRef.id);
-        let lawyersRef = admin.firestore().collection('lawyers').doc(taskRef.id);
+        let clientsRef = admin.firestore().collection('clients').doc(uid).collection('tasks').doc(taskRef.id);
+        let lawyersRef = admin.firestore().collection('lawyers').doc(lawyerId).collection('tasks').doc(taskRef.id);
         let transactionsRef = admin.firestore().collection('transactions').doc();
         batch.set(clientsRef, task);
         batch.set(lawyersRef, task);
         batch.set(taskRef, task);
         batch.set(transactionsRef, payrecord);
-        await batch.commit();
+        try {
+            await batch.commit();
+            res.send({ status: 'success', message: "Transaction Successfull. Case has been created" });
+        }
+        catch (e) {
+            console.log(e);
+            res.send({ status: 'error', message: e.message });
 
-        res.send({ status: 'success', message: "Transaction Successfull. Case has been created" });
+        }
+
+
+
 
     })
 }

@@ -58,3 +58,10 @@ function buttonLoad(id) {
 function clearLoad(id, text) {
   $('#' + id).html('<span>' + text + '</span >').removeClass('disabled');
 }
+
+
+const Spinner = () => {
+  return `
+  <div class="spinner-grow slow align-self-center" role="status" id="loadingTasks"><span class="sr-only">Loading...</span></div>
+  `
+}
