@@ -110,7 +110,7 @@ const renderNotification = i => {
     let notifications = task.activities || []
     let typeDict = { payment: renderPaymentNotification, meeting: renderMeetingNotification };
     let noteHTML = '';
-    notifications.forEach((note, noteId) => {
+    notifications.reverse().forEach((note, noteId) => {
         noteHTML += typeDict[note.type](note, i, noteId);
     });
     console.log(noteHTML);
@@ -122,6 +122,8 @@ const renderCases = (task, taskId) => {
     let time = moment(formattedTimestamp).format("dddd, MMMM Do YYYY");
     let count = task.activities ? countUnread(task.activities) : 0;
     let badge = count > 0 ? `<span class="badge badge-danger ml-2">${count}</span>` : "";
+
+    let invoiceButton = task.pendingPayment ? renderPendingPayment(taskId) : `<button class="btn border" data-toggle="tooltip" title="Raise Invoice" onclick = "openInvoiceModal('${taskId}')"><i class="fas fa-file-invoice"></i></button>`
     return `<tr>
         <td>
         <a class="elegant-text" onclick = "viewClientDetails('${taskId}')"  data-toggle = "tooltip" title = "View client details">${task.client.displayName}</a></li>
@@ -132,7 +134,7 @@ const renderCases = (task, taskId) => {
         <td>
             <button class="btn special-color text-white mr-4" data-toggle="tooltip" title = "Notifications about your Case" onclick = "openNotificationModal('${taskId}')"><i class="far fa-bell pr-2"></i>${badge}</button>            
             <button class="btn" data-toggle="tooltip" title = "Schedule Meeting" onclick = "openMeetingModal('${taskId}')"><i class="far fa-calendar-alt"></i></button>
-            <button class="btn border" data-toggle="modal" data-target="#invoiceModal"><i class="fas fa-file-invoice"></i></button>
+            ${invoiceButton}
             <button class="py-2 px-4 border red-text" data-toggle="modal" data-target="#closeModal"><i class="fas fa-times"></i></button>
         </td>
     </tr>`;
@@ -158,4 +160,8 @@ const renderMeeting = (meeting, meetingId, taskId) => {
         </div>
     </li>`
 }
+
+const renderPendingPayment = taskId => (
+    `<button class="btn btn-outline-warning red-text" data-toggle="tooltip" title="View pendiing Invoice" onclick = "pendingInvoiceModal('${taskId}')"><i class="fas fa-file-invoice"></i></button>`
+)
 

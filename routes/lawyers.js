@@ -17,6 +17,7 @@ router.post('/updateUploads', requireLawyer, lawyerController.updateUploads);
 router.post('/lawyerDetails', requireLawyer, lawyerController.lawyerProfile);
 router.post('/scheduleMeeting', requireLogin, lawyerController.scheduleMeeting);
 router.post('/editSchedule', requireLogin, lawyerController.editMeeting);
+router.post('/raiseInvoice', requireLogin, lawyerController.raiseInvoice);
 
 router.get('/dashboard', requireLawyer, lawyerController.dashboard);
 router.get('/videoCall', requireLogin, lawyerController.callPage);

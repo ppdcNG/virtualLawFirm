@@ -126,3 +126,4 @@ const payWithPaystack = (fee, id) => {
     });
     handler.openIframe();
 }
+

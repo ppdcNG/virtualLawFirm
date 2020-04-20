@@ -308,7 +308,7 @@ const renderNotification = i => {
     let notifications = task.activities || []
     let typeDict = { payment: renderPaymentNotification, meeting: renderMeetingNotification };
     let noteHTML = '';
-    notifications.forEach((note, noteId) => {
+    notifications.reverse().forEach((note, noteId) => {
         noteHTML += typeDict[note.type](note, i, noteId);
     });
     $('#notificationList').html(noteHTML);
@@ -352,6 +352,8 @@ const renderTasks = (task, id) => {
     let formattedTimestamp = Math.abs(timestamp);
     let time = moment(formattedTimestamp).format("dddd, MMMM Do YYYY");
 
+    let paymentButton = task.pendingPayment ? renderInvoicePaymentButton(id) : ''
+
 
     return `<tr>
         <td>${task.subject}</td>
@@ -362,10 +364,15 @@ const renderTasks = (task, id) => {
             <span class="mr-2">${task.lawyer.name}</span>
             <button class="btn btn-info mr-4" title = "Details of your Legal Counsel"   onclick = "openLawyerDetailsModal('${id}')" data-toglle = "tooltip" data-target="#lawyerDetailsModal">Lawyer</button>
             <button class="btn special-color text-white mr-4" data-toggle="tooltip" title = "Notifications about your Case" onclick = "openNotificationModal('${id}')" data-target="#notificationModal"><i class="far fa-bell pr-2"></i> Notifications ${badge}</button>
+            ${paymentButton}
         </td>
     </tr>
     `
 }
+
+renderInvoicePaymentButton = taskId => (
+    `<button class="btn btn-outline-danger" data-toggle="tooltip" title = "Pending Payment" onclick = "pendingPaymentModal('${taskId}')" data-target="#notificationModal"><i class="far fa-credit-card pr-2"></i> Pending Payment</button>`
+)
 
 const openLawyerDetailsModal = (id) => {
     let task = TASKS[id];
@@ -555,3 +562,93 @@ $("#complaintForm").submit((e) => {
 $("#invoiceForm").submit((e) => {
     e.preventDefault();
 })
+
+const pendingPaymentModal = taskId => {
+    $("#invoiceTaskId").val(taskId);
+    let invoice = TASKS[taskId].pendingPayment;
+    console.log(invoice);
+    let date = moment(Math.abs(parseInt(invoice.timestamp))).format("MMMM Do YYYY");
+    $("#invoiceAmount").html(accounting.formatMoney(invoice.amount, '&#8358;'));
+    $("#invoiceDate").text(date);
+    $("#invoiceDescription").text(invoice.description);
+    $("#invoiceTitle").text(invoice.subject);
+    $("#pendingInvoiceModal").modal('show');
+}
+
+const makeInvoicePayment = () => {
+    let taskId = $("#invoiceTaskId").val();
+    let invoice = TASKS[taskId].pendingPayment;
+    $("#pendingInvoiceModal").modal('close');
+    payInvoiceFee(invoice.amount, taskId);
+
+}
+
+const payInvoiceFee = (fee, taskId) => {
+    fee = parseInt(fee);
+    console.log(fee);
+    let clientEmail = $('#clientEmail').val();
+    let clientName = $('#displayName').val();
+    let phoneNumber = $('#phoneNumber').val();
+    let displayName = $("#displayName").val();
+
+
+    var handler = PaystackPop.setup({
+        key: PAYSTACK_KEY,
+        email: clientEmail,
+        amount: fee * 100,
+        currency: "NGN",
+        metadata: {
+            custom_fields: [
+                {
+                    display_name: displayName,
+                    variable_name: "mobile_number",
+                    value: phoneNumber
+                }
+            ]
+        },
+        // on success 
+        callback: function (response) {
+            console.log(response);
+            let task = TASKS[taskId]
+
+            let dataObj = {
+                paystackRef: response.reference,
+                taskId,
+                clientName: task.client.displayName,
+                clientId: task.client.uid,
+                clientPhoto: task.client.photoURL,
+                lawyerId: task.lawyer.uid,
+                lawyerName: task.lawyer.name,
+                lawyerPhoto: task.lawyer.photoUrl,
+                subject: task.pendingPayment.subject
+            }
+            console.log(dataObj)
+
+
+            var processingNotification = $.notify('Processing payment, please wait', { type: "info", delay: 0 });
+
+            $.ajax({
+                url: ABS_PATH + "client/verifyInvoiceFee",
+                type: "POST",
+                data: dataObj,
+                success: function (response) {
+                    console.log("success", response);
+
+                    processingNotification.close();
+                    $.notify(response.message, { type: response.status });
+                },
+                error: err => {
+                    console.error("error", err)
+                    $.notify(response.message, { type: "warning" });
+                }
+            });
+
+        },
+        onClose: function () {
+            console.log('window closed');
+            console.log('closed', response);
+        }
+    });
+    handler.openIframe();
+
+}

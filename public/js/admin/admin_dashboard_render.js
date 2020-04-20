@@ -113,7 +113,7 @@ const renderPaymentNotification = (note, taskId, noteId) => {
           </li>`
 }
 const renderMeetingNotification = (note, taskId, noteId) => {
-  let time = moment(Math.abs(note.timestamp));
+  let time = moment(Math.abs(parseInt(note.timestamp)));
   return `<li class="list-group-item" onclick = "markAsRead('${taskId}', '${noteId}')">
       <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-2 h5">${note.title}</h5>
@@ -132,7 +132,7 @@ const renderNotification = i => {
   let notifications = task.activities || []
   let typeDict = { payment: renderPaymentNotification, meeting: renderMeetingNotification };
   let noteHTML = '';
-  notifications.forEach((note, noteId) => {
+  notifications.reverse().forEach((note, noteId) => {
     noteHTML += typeDict[note.type](note, i, noteId);
   });
   console.log(noteHTML);

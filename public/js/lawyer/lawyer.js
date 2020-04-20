@@ -345,3 +345,60 @@ const convertToFormTime = meeting => {
 }
 
 
+
+$("#invoiceForm").submit(async function (e) {
+    e.preventDefault();
+    buttonLoad('raiseInvoiceButton');
+    let notification = $.notify('Please Wait...', { type: 'primary', delay: 0 });
+    let invoice = form2js('invoiceForm', '.', false);
+    let task = TASKS[invoice.taskId];
+    invoice.timestamp = new Date().getTime();
+    invoice.lawyerId = task.lawyerId;
+    invoice.clientId = task.userId;
+    invoice.lawyerName = task.lawyer.name;
+    invoice.clientName = task.client.displayName;
+    this.reset();
+    let url = ABS_PATH + 'lawyer/raiseInvoice';
+
+    $.ajax({
+        url,
+        data: invoice,
+        type: "POST",
+        success: async function (response) {
+            console.log(response);
+            $("#invoiceModal").modal('close');
+            clearLoad('raiseInvoiceButton', 'Submit');
+            notification.close();
+            if (response.status == "success") {
+                $.notify(response.message, { type: 'success' });
+            }
+            else {
+                $.notify(response.message, { type: 'danger' });
+            }
+        },
+        error: e => {
+            console.log('error', e);
+            $.notify(e.message, { type: 'danger' });
+        }
+    });
+
+});
+
+const openInvoiceModal = taskId => {
+    $("#invoiceTaskId").val(taskId);
+    $("#invoiceModal").modal('show');
+}
+
+const pendingInvoiceModal = taskId => {
+    let invoice = TASKS[taskId].pendingPayment;
+    console.log(invoice);
+    let date = moment(Math.abs(parseInt(invoice.timestamp))).format("MMMM Do YYYY");
+    $("#invoiceAmount").html(accounting.formatMoney(invoice.amount, '&#8358;'));
+    $("#invoiceDate").text(date);
+    $("#invoiceDescription").text(invoice.description);
+    $("#invoiceTitle").text(invoice.subject);
+    $("#pendingInvoiceModal").modal('show');
+
+}
+
+
