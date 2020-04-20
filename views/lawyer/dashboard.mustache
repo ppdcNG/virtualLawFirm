@@ -279,20 +279,47 @@
       </div>
       <div class="modal-body">
         <div class="p-2 mx-auto">
-          <form id="scheduleMeetingForm">
+          <form id="scheduleMeetingForm" >
             <p class="h4 mb-4 text-center">Add schedule</p>
-            <div>
-              <label for = "date">Meeting Date</label>
-              <input type="date" class="form-control pl-3"  placeholder="Set date" id="scheduleDate" required />
+            <input type = "hidden" name = "taskId" class = "taskId" />
+            
+            
+            <div class = "px-2" >
+              <label for = "date">Meeting Subject</label>
+              <input type="text" class="form-control pl-3" name = "title"  placeholder="Subject of Meeting" id="title" required />
             </div>
-           
-
+            <div class = "px-2">
+              <label for = "date">Meeting Date</label>
+              <input type="date" class="form-control pl-3" name = "date"  placeholder="Set date" id="scheduleDate" required />
+            </div>
+          
             <div class = "row px-2">
               <div class = "col"><label for = "start">Start Time</label><input type="time" id="start" placeholder = "start time" name="start" class="form-control" required></div>
               <div class = "col"><label for = "end">End Time</label><input type="time" id="end" placeholder = "start time" name="end" class="form-control" required></div>
             </div>
             <div class="pt-2">
-              <button type="submit" class="btn btn-default">Set</button>
+              <button id = "addMeetingButton" type="submit" class="btn btn-default">Set</button>
+            </div>
+          </form>
+          <form id="editScheduleForm" style= "display:none">
+            <p class="h4 mb-4 text-center">Edit schedule</p>
+            <input type = "hidden" name = "taskId" class = "taskId" />
+            <input type = "hidden" id = "meetingId" />
+            <div class = "px-2">
+              <label for = "date">Meeting Subject</label>
+              <input type="text" class="form-control pl-3" name = "title"  placeholder="Meeting Subject" id="title" required />
+            </div>
+            <div class = "px-2">
+              <label for = "date">Meeting Date</label>
+              <input type="date" class="form-control pl-3" name = "date"  placeholder="Set date" id="scheduleDate" required />
+            </div>
+            <div class = "row px-2">
+              <div class = "col"><label for = "start">Start Time</label><input type="time" id="start" placeholder = "start time" name="start" class="form-control" required></div>
+              <div class = "col"><label for = "end">End Time</label><input type="time" id="end" placeholder = "start time" name="end" class="form-control" required></div>
+            </div>
+            <div class="pt-2">
+              <button id = "editButton" type="submit" class="btn btn-default">Edit</button>
+              <button id = "cancelEditButton" onclick = "cancelEdit()" type="button" class="btn btn-danger">Cancel</button>
             </div>
           </form>
         </div>
@@ -411,6 +438,7 @@
 
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/libraries/js2form.js"></script>
 <script src="{{ABS_PATH}}js/lawyer/lawyerRender.js"></script>
 <script src="{{ABS_PATH}}js/lawyer/lawyer.js"></script>
 

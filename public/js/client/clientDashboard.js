@@ -309,7 +309,7 @@ const renderNotification = i => {
     let typeDict = { payment: renderPaymentNotification, meeting: renderMeetingNotification };
     let noteHTML = '';
     notifications.forEach((note, noteId) => {
-        noteHTML = typeDict[note.type](note, i, noteId);
+        noteHTML += typeDict[note.type](note, i, noteId);
     });
     $('#notificationList').html(noteHTML);
 }

@@ -111,7 +111,7 @@ const renderNotification = i => {
     let typeDict = { payment: renderPaymentNotification, meeting: renderMeetingNotification };
     let noteHTML = '';
     notifications.forEach((note, noteId) => {
-        noteHTML = typeDict[note.type](note, i, noteId);
+        noteHTML += typeDict[note.type](note, i, noteId);
     });
     console.log(noteHTML);
     $('#notificationList').html(noteHTML);
@@ -142,7 +142,7 @@ const renderMeeting = (meeting, meetingId, taskId) => {
     let date = moment(Math.abs(meeting.date)).format("ddd, MMMM Do YYYY");
     let start = moment(Math.abs(meeting.start)).format("h:mm a")
     let end = moment(Math.abs(meeting.end)).format("h:mm a")
-    let time = moment(Math.timestamp()).fromNow();
+    let time = moment(Math.abs(meeting.timestamp)).fromNow();
 
     return `
     <li class="list-group-item">
@@ -150,11 +150,11 @@ const renderMeeting = (meeting, meetingId, taskId) => {
             <h5 class="mb-2 h5">Lawtrella Meeting</h5>
             <small>last modified: ${time}</small>
         </div>.
-        <p class="mb-2">Meet scheduled with <span class = "text-info">${meeting.clientName}</span> for the <span = class = "text-info">${date}</span> from <span = class = "text-info">${start}</span> to <span = class = "text-info">${end}</span>
-        blandit.</p>
+        <p class="mb-2">Meeting Schedule between counsel <span class = "text-info">${meeting.lawyerName}</span> and client <span class = "text-info">${meeting.clientName}</span> for the <span = class = "text-info">${date}</span> from <span = class = "text-info">${start}</span> to <span = class = "text-info">${end}</span>
+        </p>
         <div class = "d-flex w-40">
             <a href = "#" class = "btn btn-outline-default"><i class="fas fa-video pr-2"></i> Join Meeting</a>
-            <button onclick = "editmeetingSchedule('${taskId}','${meetingId}')" class = "btn btn-outline-default"><i class="fas fa-pencil pr-2"></i>Edit Schedule</button>
+            <button onclick = "editMeeting('${taskId}','${meetingId}')" class = "btn btn-outline-default"><i class="fas fa-pencil pr-2"></i>Edit Schedule</button>
         </div>
     </li>`
 }
