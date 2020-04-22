@@ -2,7 +2,8 @@
 
 
 const renderDocs = (id, document) => {
-    let description = document.description.length > 45 ? document.description.substr(0, 21) + '...' : document.description
+    console.log(document);
+    let description = document.description ? (document.description.length > 45 ? document.description.substr(0, 21) + '...' : document.description) : "No Description"
     return `
     <div class = "col-md-4 mb-4">
         <div class="card h-100">
