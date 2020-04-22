@@ -256,8 +256,12 @@ $("#updateProfile input").trigger('change');
 const fetchCases = async () => {
     let uid = $("#uid").val();
     console.log(uid);
-    let cases = await firebase.firestore().collection('clients').doc(uid).collection('tasks').get().catch((e) => { console.log(e) });
+    let cases = await firebase.firestore().collection('clients').doc(uid).collection('tasks').orderBy('timestamp').onSnapshot(handleCaseFetch);
 
+
+
+}
+const handleCaseFetch = cases => {
     let tasksHTML = "";
     cases.forEach(value => {
         let task = value.data();
@@ -272,15 +276,83 @@ const fetchCases = async () => {
     }
 
     $("#loadingTasks").css('display', 'none');
+}
 
+const openNotificationModal = i => {
+    renderNotification(i);
+    $("#notificationModal").modal('show');
+}
+
+const countUnread = (notifications) => {
+    let count = 0;
+    notifications.forEach((note, i) => {
+        note.read || count++;
+    });
+    return count;
+}
+async function markAsRead(taskId, noteId) {
+    let uid = $("#uid").val();
+    console.log(taskId);
+    TASKS[taskId].activities[noteId].read = true;
+    let notification = TASKS[taskId].activities
+
+    await firebase.firestore().collection('clients').doc(uid).collection('tasks').doc(taskId).update({ activities: notification }).catch((e) => {
+        console.log(e);
+    });
+    renderNotification(taskId);
+
+}
+
+const renderNotification = i => {
+    let task = TASKS[i];
+    let notifications = task.activities || []
+    let typeDict = { payment: renderPaymentNotification, meeting: renderMeetingNotification };
+    let noteHTML = '';
+    notifications.reverse().forEach((note, noteId) => {
+        noteHTML += typeDict[note.type](note, i, noteId);
+    });
+    $('#notificationList').html(noteHTML);
+}
+const renderPaymentNotification = (note, taskId, noteId) => {
+    let time = moment(Math.abs(note.timestamp));
+    let read = note.read ? "" : 'default-color';
+
+    return `<li class="list-group-item ${read}" onclick = "markAsRead('${taskId}', '${noteId}')">
+                <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-2 h5">${note.title}</h5>
+                <small>${time.fromNow()}</small>
+                </div>
+                <p class="mb-2">
+                ${note.message}</p>
+                <small>Mark as read</small>
+            </li>`
+}
+const renderMeetingNotification = (note, taskId, noteId) => {
+    let time = moment(Math.abs(note.timestamp))
+    let read = note.read ? "" : 'default-color'
+
+    return `<li class="list-group-item ${read}" onclick = "markAsRead('${taskId}', '${noteId}')">
+        <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-2 h5">${note.title}</h5>
+        <small>${time.fromNow()}</small>
+        </div>
+        <p class="mb-2">
+        ${note.message}.</p>
+        <div class = "d-flex w-40">
+        <button class = "btn btn-outline-default" onclick = "gotoMeetings('${note.meetingId}')"><i class="fas fa-video pr-2"></i> Join Meeting</button>
+        </div>
+    </li>`
 }
 
 // render tasks
 const renderTasks = (task, id) => {
     let { timestamp } = task;
-
+    let count = task.activities ? countUnread(task.activities) : 0;
+    let badge = count > 0 ? `<span class="badge badge-danger ml-2">${count}</span>` : "";
     let formattedTimestamp = Math.abs(timestamp);
     let time = moment(formattedTimestamp).format("dddd, MMMM Do YYYY");
+
+    let paymentButton = task.pendingPayment ? renderInvoicePaymentButton(id) : ''
 
 
     return `<tr>
@@ -290,11 +362,17 @@ const renderTasks = (task, id) => {
             <img src="${task.lawyer.photoUrl}" class="rounded-circle z-depth-0 mr-2"
             alt="lawyerPic" height="50">
             <span class="mr-2">${task.lawyer.name}</span>
-            <button class="btn btn-info mr-4" data-toggle="modal" onclick = "openLawyerDetailsModal('${id}')" data-target="#lawyerDetailsModal">More</button>
+            <button class="btn btn-info mr-4" title = "Details of your Legal Counsel"   onclick = "openLawyerDetailsModal('${id}')" data-toglle = "tooltip" data-target="#lawyerDetailsModal">Lawyer</button>
+            <button class="btn special-color text-white mr-4" data-toggle="tooltip" title = "Notifications about your Case" onclick = "openNotificationModal('${id}')" data-target="#notificationModal"><i class="far fa-bell pr-2"></i> Notifications ${badge}</button>
+            ${paymentButton}
         </td>
     </tr>
     `
 }
+
+renderInvoicePaymentButton = taskId => (
+    `<button class="btn btn-outline-danger" data-toggle="tooltip" title = "Pending Payment" onclick = "pendingPaymentModal('${taskId}')" data-target="#notificationModal"><i class="far fa-credit-card pr-2"></i> Pending Payment</button>`
+)
 
 const openLawyerDetailsModal = (id) => {
     let task = TASKS[id];
@@ -484,3 +562,93 @@ $("#complaintForm").submit((e) => {
 $("#invoiceForm").submit((e) => {
     e.preventDefault();
 })
+
+const pendingPaymentModal = taskId => {
+    $("#invoiceTaskId").val(taskId);
+    let invoice = TASKS[taskId].pendingPayment;
+    console.log(invoice);
+    let date = moment(Math.abs(parseInt(invoice.timestamp))).format("MMMM Do YYYY");
+    $("#invoiceAmount").html(accounting.formatMoney(invoice.amount, '&#8358;'));
+    $("#invoiceDate").text(date);
+    $("#invoiceDescription").text(invoice.description);
+    $("#invoiceTitle").text(invoice.subject);
+    $("#pendingInvoiceModal").modal('show');
+}
+
+const makeInvoicePayment = () => {
+    let taskId = $("#invoiceTaskId").val();
+    let invoice = TASKS[taskId].pendingPayment;
+    $("#pendingInvoiceModal").modal('close');
+    payInvoiceFee(invoice.amount, taskId);
+
+}
+
+const payInvoiceFee = (fee, taskId) => {
+    fee = parseInt(fee);
+    console.log(fee);
+    let clientEmail = $('#clientEmail').val();
+    let clientName = $('#displayName').val();
+    let phoneNumber = $('#phoneNumber').val();
+    let displayName = $("#displayName").val();
+
+
+    var handler = PaystackPop.setup({
+        key: PAYSTACK_KEY,
+        email: clientEmail,
+        amount: fee * 100,
+        currency: "NGN",
+        metadata: {
+            custom_fields: [
+                {
+                    display_name: displayName,
+                    variable_name: "mobile_number",
+                    value: phoneNumber
+                }
+            ]
+        },
+        // on success 
+        callback: function (response) {
+            console.log(response);
+            let task = TASKS[taskId]
+
+            let dataObj = {
+                paystackRef: response.reference,
+                taskId,
+                clientName: task.client.displayName,
+                clientId: task.client.uid,
+                clientPhoto: task.client.photoURL,
+                lawyerId: task.lawyer.uid,
+                lawyerName: task.lawyer.name,
+                lawyerPhoto: task.lawyer.photoUrl,
+                subject: task.pendingPayment.subject
+            }
+            console.log(dataObj)
+
+
+            var processingNotification = $.notify('Processing payment, please wait', { type: "info", delay: 0 });
+
+            $.ajax({
+                url: ABS_PATH + "client/verifyInvoiceFee",
+                type: "POST",
+                data: dataObj,
+                success: function (response) {
+                    console.log("success", response);
+
+                    processingNotification.close();
+                    $.notify(response.message, { type: response.status });
+                },
+                error: err => {
+                    console.error("error", err)
+                    $.notify(response.message, { type: "warning" });
+                }
+            });
+
+        },
+        onClose: function () {
+            console.log('window closed');
+            console.log('closed', response);
+        }
+    });
+    handler.openIframe();
+
+}

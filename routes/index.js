@@ -5,7 +5,7 @@ var { sendAdminNewCase, forgotPasswordMail } = require('../helpers/mail');
 var { token } = require('../helpers');
 var requireLogin = require('../middlewares/requireLogin');
 
-const AppName = require("../config").AppName;
+const { AppName, ABS_PATH } = require("../config");
 const admin = require('firebase-admin');
 
 /* GET home page. */
@@ -55,7 +55,7 @@ router.get('/test', async (req, res) => {
 
 router.get('/meetings', requireLogin, (req, res) => {
 
-  res.render('meetings', { AppName, title: "Lawtrella Meetings", uid: req.query.uid, meetingId: req.query.meetingId });
+  res.render('meetings', { AppName, ABS_PATH, title: "Lawtrella Meetings", uid: req.query.uid, meetingId: req.query.meetingId });
 });
 
 router.get('/forgot', (req, res) => {

@@ -1,9 +1,9 @@
 var ABS_PATH = require("../config").ABS_PATH;
 const AppName = require("../config").AppName;
-const Pusher = require('pusher');
 
 const { sendmail, welcomeMail } = require("../helpers/mail");
 const { token, tagOptions, percentageComplete } = require("../helpers");
+const moment = require('moment')
 
 const { states } = require('./states');
 
@@ -230,22 +230,146 @@ exports.callPage = (req, res) => {
     res.render("lawyer/lawyer-call", { token: req.query.token, ABS_PATH });
     console.log(req);
 };
-exports.pusherAuthentication = (req, res) => {
-    var pusher = new Pusher({
-        appId: '969487',
-        key: '74ebc24bcf6da627453c',
-        secret: 'defe0a5253e0e82c2a05',
-        cluster: 'eu',
-        encrypted: true
-    });
 
-    const { socket_id, channel_name } = req.body;
-    var presenceData = {
-        user_id: req.user.uid
+
+exports.scheduleMeeting = async (req, res) => {
+    let meeting = req.body;
+    console.log(meeting);
+    let batch = admin.firestore().batch();
+    let userNotPath = `clients/${meeting.clientId}/tasks/${meeting.taskId}/`;
+    let lawyerNotPath = `lawyers/${meeting.lawyerId}/tasks/${meeting.taskId}/`;
+    let adminNotPath = `cases/${meeting.taskId}/`;
+    let meetingsPath = `meetingSchedules/${meeting.taskId}/meetings/`;
+
+    let date = moment(parseInt(meeting.date)).format("ddd, MMMM Do YYYY");
+    let start = moment(parseInt(meeting.start)).format("h:mm a");
+    let end = moment(parseInt(meeting.end)).format("h:mm a");
+    let timestamp = new Date().getTime();
+
+    let notificaton = {
+        message: `${meeting.lawyerName} scheduled a meeting with ${meeting.clientName} for ${date} from ${start} to ${end}`,
+        read: false,
+        type: "meeting",
+        title: "Meeting Notification",
+        date: meeting.date,
+        timestamp
     }
-    const auth = pusher.authenticate(socket_id, channel_name, presenceData);
 
-    res.send(auth);
+    let meetingRef = admin.firestore().collection(meetingsPath).doc();
+    let userRef = admin.firestore().doc(userNotPath);
+    let lawyerRef = admin.firestore().doc(lawyerNotPath);
+    let adminRef = admin.firestore().doc(adminNotPath);
+    let note = admin.firestore.FieldValue.arrayUnion(notificaton);
+    notificaton.meetingId = meetingRef.id;
+    batch.set(meetingRef, meeting);
+    batch.update(userRef, { activities: note });
+    batch.update(lawyerRef, { activities: note });
+    batch.update(adminRef, { activities: note });
+    try {
+        await batch.commit();
+        res.send({
+            message: "Meeting Succesfully Scheduled",
+            status: "success"
+        })
+    }
+    catch (e) {
+        res.send({
+            message: e.message,
+            status: 'danger'
+        })
+    }
+
+}
+
+
+exports.editMeeting = async (req, res) => {
+    let meeting = req.body;
+    let { meetingId } = req.query
+    let batch = admin.firestore().batch();
+    let userNotPath = `clients/${meeting.clientId}/tasks/${meeting.taskId}/`;
+    let lawyerNotPath = `lawyers/${meeting.lawyerId}/tasks/${meeting.taskId}/`;
+    let adminNotPath = `cases/${meeting.taskId}/`;
+    let meetingsPath = `meetingSchedules/${meeting.taskId}/meetings/${meetingId}`;
+
+    let date = moment(parseInt(meeting.date)).format("ddd, MMMM Do YYYY");
+    let start = moment(parseInt(meeting.start)).format("h:mm a");
+    let end = moment(parseInt(meeting.end)).format("h:mm a");
+    let now = new Date().getTime();
+
+    let notificaton = {
+        message: `${meeting.lawyerName} re-schedule  the meeting to  ${meeting.clientName} for ${date} from ${start} to ${end}`,
+        read: false,
+        type: "meeting",
+        title: "Meeting Update",
+        date: meeting.date,
+        timestamp: now
+    }
+
+    let meetingRef = admin.firestore().doc(meetingsPath);
+    let userRef = admin.firestore().doc(userNotPath);
+    let lawyerRef = admin.firestore().doc(lawyerNotPath);
+    let adminRef = admin.firestore().doc(adminNotPath);
+    let note = admin.firestore.FieldValue.arrayUnion(notificaton);
+    notificaton.meetingId = meetingRef.id;
+    batch.set(meetingRef, meeting);
+    batch.update(userRef, { activities: note });
+    batch.update(lawyerRef, { activities: note });
+    batch.update(adminRef, { activities: note });
+    try {
+        await batch.commit();
+        res.send({
+            message: "Meeting Edited Scheduled",
+            status: "success"
+        })
+    }
+    catch (e) {
+        res.send({
+            message: e.message,
+            status: 'danger'
+        })
+    }
+}
+
+exports.raiseInvoice = async (req, res) => {
+    let invoice = req.body;
+    let batch = admin.firestore().batch();
+    let userNotPath = `clients/${invoice.clientId}/tasks/${invoice.taskId}/`;
+    let lawyerNotPath = `lawyers/${invoice.lawyerId}/tasks/${invoice.taskId}/`;
+    let adminNotPath = `cases/${invoice.taskId}/`;
+
+    let now = new Date().getTime();
+
+    let notificaton = {
+        message: `${invoice.lawyerName} raised an Invioce for " ${invoice.subject}"`,
+        read: false,
+        type: "payment",
+        title: "Invoice",
+        amount: invoice.amount,
+        timestamp: now
+
+    }
+
+    let userRef = admin.firestore().doc(userNotPath);
+    let lawyerRef = admin.firestore().doc(lawyerNotPath);
+    let adminRef = admin.firestore().doc(adminNotPath);
+    let note = admin.firestore.FieldValue.arrayUnion(notificaton);
+    invoice.status = 'pending';
+    batch.update(userRef, { activities: note, pendingPayment: invoice });
+    batch.update(lawyerRef, { activities: note, pendingPayment: invoice });
+    batch.update(adminRef, { activities: note, pendingPayment: invoice });
+    try {
+        await batch.commit();
+        res.send({
+            message: "Invoice Raised succesfully",
+            status: "success"
+        })
+    }
+    catch (e) {
+        res.send({
+            message: e.message,
+            status: 'danger'
+        })
+    }
 }
 
 

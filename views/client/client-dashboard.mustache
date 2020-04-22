@@ -51,6 +51,11 @@
 <main class="mt-3 pl-3 pr-3" id="client--main">
     <input type = "hidden" value = "{{uid}}" id = "uid" name = "uid" />
     <input type = "hidden" value = "{{displayName}}" id = "displayName" name = "displayName" />
+    {{! hidden elements }}
+    <input value="{{email}}" id="clientEmail" style="display: none" />
+    <input value="{{displayName}}" id="displayName" style="display: none" />
+    <input value="{{phoneNumber}}" id="phoneNumber" style="display: none" />
+    {{! hidden elements }}
 
     <div class="d-flex justify-content-center">
     <ul class="nav nav-tabs md-tabs" id="mainTab" role="tablist">
@@ -380,6 +385,84 @@
     </div>
   </div>
 </div>
+{{! history modal  }}
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="historyModal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="far fa-bell pr-2"></i>Task History</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body container">
+
+          <h5 class="text-center">History...</h5>
+          <ul class="list-group list-group-flush" id = "notificationList">
+            <li class="list-group-item default-color text-white">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-2 h5">List group item heading</h5>
+                <small>3 days ago</small>
+              </div>
+              <p class="mb-2">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
+                blandit.</p>
+              <small><a class="btn-floating btn-lg btn-default"><i class = "fas fa eye"></i></a></small>
+            </li>
+            <li class="list-group-item">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-2 h5">List group item heading</h5>
+                <small>3 days ago</small>
+              </div>
+              <p class="mb-2">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
+                blandit.</p>
+              <div class = "d-flex w-40">
+                <button class = "btn btn-outline-default"><i class="fas fa-video pr-2"></i> Join Meeting</button>
+              </div>
+            </li>
+            <li class="list-group-item"></li>
+          </ul>
+      
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{! pending Invoice modal}}
+<div class="modal fade" id="pendingInvoiceModal" tabindex="-1" role="dialog" aria-labelledby=""
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header mx-auto">
+        <h5 class="modal-title text-center">
+          Pending Invoice
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <input type = "hidden" name = "taskId" id = "invoiceTaskId" />
+      <div class="modal-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item elegant-color white-text">Invoice</li>
+            <div class="list-group-item">
+              <p class="mb-0"><i class="fas fa-file-invoice fa-2x mr-4 grey p-3 white-text rounded-circle " aria-hidden="true"></i><h5 id = "invoiceTitle">John Doe</h5></p>
+            </div>
+            <li class="list-group-item"><b>Description: </b> <span id = "invoiceDescription"> jd@mail.com </span></li>
+            <li class="list-group-item"><b>Amount: </b><span id = "invoiceAmount"> 12345 </span></li>
+            <li class="list-group-item"><b>Date Raised: </b><span id = "invoiceDate"> Ewerasd </span></li>
+        </ul>
+      </div>
+      <div class = "modal-footer">
+      <button class = "btn btn-success" onclick = "makeInvoicePayment()">Make Payment</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {{> footer}}
 
@@ -389,6 +472,8 @@
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
 <script src="{{ABS_PATH}}js/libraries/js2form.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
 <script src="{{ABS_PATH}}js/client/clientScript.js"></script>
 <script src="{{ABS_PATH}}js/client/clientDashboard.js"></script>
 

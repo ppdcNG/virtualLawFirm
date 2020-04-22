@@ -267,6 +267,41 @@ const prev = async () => {
 
 }
 
+const contactModal = () => {
+  $("#contactModal").modal('show');
+}
+
+
+const renderTableLoading = () => {
+  return ``
+}
+
+const historyModal = i => {
+  console.log('openning notification', i)
+  renderNotification(i);
+  $("#historyModal").modal('show');
+}
+
+const countUnread = (notifications) => {
+  let count = 0;
+  notifications.forEach((note, i) => {
+    note.read || count++;
+  });
+  return count;
+}
+async function markAsRead(taskId, noteId) {
+  let uid = $("#uid").val();
+  console.log(taskId);
+  TASKS[taskId].activities[noteId].read = true;
+  let notification = TASKS[taskId].activities;
+
+  await firebase.firestore().collection('cases').doc(uid).collection('tasks').doc(taskId).update({ activities: notification }).catch((e) => {
+    console.log(e);
+  });
+  renderNotification(taskId);
+
+}
+
 
 
 

@@ -26,6 +26,7 @@ firebase.analytics();
 
 var ABS_PATH = window.location.host == 'localhost:3000' ? "http://localhost:3000/" : "https://lawtrella.herokuapp.com/";
 const PAYSTACK_KEY = 'pk_test_f959e563f2034dc095ddb2269123685ef1f2185e';
+const AGORA_APP_ID = '15d92311708b4cfcafe40828bcb9fe3a';
 function ajaxrequest(modal, json_data, to_url, call_back) {
   var dataObject = { data: json_data }
   $.ajax({
@@ -57,4 +58,11 @@ function buttonLoad(id) {
 
 function clearLoad(id, text) {
   $('#' + id).html('<span>' + text + '</span >').removeClass('disabled');
+}
+
+
+const Spinner = () => {
+  return `
+  <div class="spinner-grow slow align-self-center" role="status" id="loadingTasks"><span class="sr-only">Loading...</span></div>
+  `
 }

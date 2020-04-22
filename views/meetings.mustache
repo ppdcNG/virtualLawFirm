@@ -77,27 +77,31 @@
         
         <h3 data-aos ="fad-right" data-aos-duration="1000" class = "white-text" class = "h3">Active Members</h3>
         <div id = "members">
-          <div class="spinner-grow slow" class = "text-center" role="status" id="loadingTasks">
+          {{! <div class="spinner-grow slow" class = "text-center" role="status" id="loadingTasks">
             <span class="sr-only">Loading...</span>
-          </div>
+          </div> }}
         </div>
         
       </div>
     </section>
-    <section class = "container" id = "videoSection" style = "display:none">
+    
+    <section class = "container" id = "videoSection">
+    <div class="example z-depth-5">
+          <div id="localVideo" ></div>
+    </div>
+    <p>dimarkation</p>
+    <div id = "remoteVideo"></div>
       <div class = "d-flex justify-content-between">
         <div class="d flex justify-content-around">
           <button type="button" class="btn btn-elegant waves-effect px-3" onclick = "toggleScreenSharing()"><i class="fas fa-desktop pr-2" aria-hidden="true"></i>Share Screen</button>
           <button type="button" class="btn btn-elegant waves-effect px-3" onclick = "toggleMic()"><i class="fas fa-microphone pr-2" aria-hidden="true"></i>Toggle Mic</button>
           <button type="button" class="btn btn-elegant waves-effect px-3" onclick = "toggleVideo()"><i class="fas fa-video pr-2" aria-hidden="true"></i>Toggle Video</button>
           <button type="button" class="btn btn-elegant waves-effect px-3" onclick = "hangup()"><i class="fas fa-phone-slash pr-2" aria-hidden="true"></i>Hang Up</button>
+        </div>
         
-        </div>
-        <div class="example z-depth-5">
-          <video width = "200" height = "200" class = "video-fluid z-depth-1" id="localVideo" muted autoplay playsinline></video>
-        </div>
       </div>
       <div id = "remoteStreams" class = "row">
+      
         
       </div>
     </section>
@@ -112,10 +116,9 @@
     AOS.init();
   </script>
   
-  <script src="{{ABS_PATH}}js/auth.js"></script>
-  <script src="{{ABS_PATH}}js/admin/videoChatModule.js"></script>
-  <script src="{{ABS_PATH}}js/meetingRender.js"></script>
-  <script src="{{ABS_PATH}}js/videoChat.js"></script>
+  <script src="{{{ABS_PATH}}}js/auth.js"></script>
+  <script src="https://cdn.agora.io/sdk/release/AgoraRTCSDK-3.0.2.js"></script>
+  <script src="{{{ABS_PATH}}}js/meetings.js"></script>
   
 </body>
 

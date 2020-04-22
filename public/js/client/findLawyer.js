@@ -32,7 +32,10 @@ $("#findLawyerForm").submit(async function (e) {
     $("#fetchLawyersSection").css('display', 'block');
     clearLoad("next", "Next");
 });
-
+$("#prev").click(async function (e) {
+    $("#fetchLawyersSection").css('display', 'none');
+    $("#findLawyersSection").css('display', 'block');
+});
 const renderFoundLawyer = lawyer => {
     let { contact, portfolio, name, authId } = lawyer;
     let fee = accounting.formatNumber(portfolio.consultationFee);
@@ -123,3 +126,4 @@ const payWithPaystack = (fee, id) => {
     });
     handler.openIframe();
 }
+

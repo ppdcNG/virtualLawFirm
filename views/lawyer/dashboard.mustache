@@ -101,12 +101,8 @@
 
                         <h4 class="mt-2r">Tasks</h4>
                         <hr/>
-                        <table class="table table-bordered tale-striped white">
+                        <table class="table table-bordered tale-striped">
                             <thead class="black white-text">
-                                <col width="50">
-                                <col width="50">
-                                <col width="50">
-                                <col width="80">
                                 <tr>
                                     
                                     <th scope="col">Client</th>
@@ -275,7 +271,7 @@
     <div class="modal-content">
       <div class="modal-header mx-auto">
         <h5 class="modal-title text-center">
-          Schedule Meeting
+          Schedule Meeting With Client
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -283,18 +279,95 @@
       </div>
       <div class="modal-body">
         <div class="p-2 mx-auto">
-
-          <form id="scheduleMeetingForm">
-            <input type="date" class="form-control pl-3" id="date" placeholder="Set date" id="scheduleDate" />
-            <br/>
-            <input class="form-control" placeholder="Set time" id="scheduleTime" />
-
-            <div class="text-center">
-              <button type="submit" class="btn">Set</button>
+          <form id="scheduleMeetingForm" >
+            <p class="h4 mb-4 text-center">Add schedule</p>
+            <input type = "hidden" name = "taskId" class = "taskId" />
+            
+            
+            <div class = "px-2" >
+              <label for = "date">Meeting Subject</label>
+              <input type="text" class="form-control pl-3" name = "title"  placeholder="Subject of Meeting" id="title" required />
+            </div>
+            <div class = "px-2">
+              <label for = "date">Meeting Date</label>
+              <input type="date" class="form-control pl-3" name = "date"  placeholder="Set date" id="scheduleDate" required />
+            </div>
+          
+            <div class = "row px-2">
+              <div class = "col"><label for = "start">Start Time</label><input type="time" id="start" placeholder = "start time" name="start" class="form-control" required></div>
+              <div class = "col"><label for = "end">End Time</label><input type="time" id="end" placeholder = "start time" name="end" class="form-control" required></div>
+            </div>
+            <div class="pt-2">
+              <button id = "addMeetingButton" type="submit" class="btn btn-default">Set</button>
             </div>
           </form>
-
+          <form id="editScheduleForm" style= "display:none">
+            <p class="h4 mb-4 text-center">Edit schedule</p>
+            <input type = "hidden" name = "taskId" class = "taskId" />
+            <input type = "hidden" id = "meetingId" />
+            <div class = "px-2">
+              <label for = "date">Meeting Subject</label>
+              <input type="text" class="form-control pl-3" name = "title"  placeholder="Meeting Subject" id="title" required />
+            </div>
+            <div class = "px-2">
+              <label for = "date">Meeting Date</label>
+              <input type="date" class="form-control pl-3" name = "date"  placeholder="Set date" id="scheduleDate" required />
+            </div>
+            <div class = "row px-2">
+              <div class = "col"><label for = "start">Start Time</label><input type="time" id="start" placeholder = "start time" name="start" class="form-control" required></div>
+              <div class = "col"><label for = "end">End Time</label><input type="time" id="end" placeholder = "start time" name="end" class="form-control" required></div>
+            </div>
+            <div class="pt-2">
+              <button id = "editButton" type="submit" class="btn btn-default">Edit</button>
+              <button id = "cancelEditButton" onclick = "cancelEdit()" type="button" class="btn btn-danger">Cancel</button>
+            </div>
+          </form>
         </div>
+        <div class = "p-2 mx-auto">
+        <p class="h4 mb-4 text-center">Meeting Schedules</p>
+         <ul class="list-group list-group-flush" id = "meetingList">
+          <li class="list-group-item">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-2 h5">Lawtrella Meeting</h5>
+                <small>3 days ago</small>
+              </div>
+              <p class="mb-2">Meet scheduled with <span class = "text-info">Hadiza Sambo</span> for the <strong>Wednes day 15 December</strong> from <strong>3:14</strong> to <strong>3:20</strong>
+                blandit.</p>
+              <div class = "d-flex w-40">
+                <button class = "btn btn-outline-default"><i class="fas fa-video pr-2"></i> Join Meeting</button>
+                <button class = "btn btn-outline-default"><i class="fas fa-pencil pr-2"></i>Edit Schedule</button>
+              </div>
+          </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{{! history modal  }}
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="historyModal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="far fa-bell pr-2"></i>Task History</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body container">
+
+          <h5 class="text-center">History...</h5>
+          <ul class="list-group list-group-flush" id = "notificationList">
+          
+          </ul>
+      
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -316,21 +389,55 @@
       <div class="modal-body">
 
         <form id="invoiceForm">
-          <div class="md-form mb-5">
-            <input type="number" name="price" class="form-control validate">
-            <label data-error="wrong" data-success="right" for="subject">Enter Price</label>
-          </div>
 
+          <input type = "hidden" id = "invoiceTaskId"  name = "taskId" />
+          <div class="md-form mb-5">
+            <input type="number" name="amount" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="amount">Enter Price</label>
+          </div>
+          <div class="md-form mb-5">
+            <input type="text" name="subject" class="form-control validate">
+            <label data-error="wrong" data-success="right" for="amount">Title of This Invoice</label>
+          </div>
           <div class="md-form">
-            <textarea type="text" name="details" class="md-textarea form-control" rows="4"></textarea>
+            <textarea type="text" name="description" class="md-textarea form-control" rows="4"></textarea>
             <label data-error="wrong" data-success="right" for="message">Details</label>
           </div>
 
           <div class="modal-footer d-flex justify-content-center">
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" id = "raiseInvoiceButton" class="btn btn-default">Submit</button>
           </div>
         </form>
 
+      </div>
+    </div>
+  </div>
+</div>
+
+{{! pending Invoice modal}}
+<div class="modal fade" id="pendingInvoiceModal" tabindex="-1" role="dialog" aria-labelledby=""
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header mx-auto">
+        <h5 class="modal-title text-center">
+          Pending Invoice
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+      <ul class="list-group list-group-flush">
+          <li class="list-group-item elegant-color white-text">Invoice</li>
+          <div class="list-group-item">
+            <p class="mb-0"><i class="fas fa-file-invoice fa-2x mr-4 grey p-3 white-text rounded-circle " aria-hidden="true"></i><h5 id = "invoiceTitle">John Doe</h5></p>
+          </div>
+          <li class="list-group-item"><b>Description: </b> <span id = "invoiceDescription"> jd@mail.com </span></li>
+          <li class="list-group-item"><b>Amount: </b><span id = "invoiceAmount"> 12345 </span></li>
+          <li class="list-group-item"><b>Date Raised: </b><span id = "invoiceDate"> Ewerasd </span></li>
+      </ul>
       </div>
     </div>
   </div>
@@ -364,6 +471,9 @@
 {{> footer}}
 
 <script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/libraries/js2form.js"></script>
+<script src="{{ABS_PATH}}js/lawyer/lawyerRender.js"></script>
 <script src="{{ABS_PATH}}js/lawyer/lawyer.js"></script>
-<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+
