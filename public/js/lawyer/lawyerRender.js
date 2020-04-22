@@ -15,6 +15,7 @@ const renderPaymentNotification = (note, taskId, noteId) => {
 const renderMeetingNotification = (note, taskId, noteId) => {
     let time = moment(Math.abs(note.timestamp))
     let read = note.read ? "" : 'default-color'
+    console.log('meetingid', note.meetingId);
 
     return `<li class="list-group-item ${read}" onclick = "markAsRead('${taskId}', '${noteId}')">
         <div class="d-flex w-100 justify-content-between">
@@ -24,7 +25,7 @@ const renderMeetingNotification = (note, taskId, noteId) => {
         <p class="mb-2">
         ${note.message}.</p>
         <div class = "d-flex w-40">
-        <button class = "btn btn-outline-default" onclick = "gotoMeetings('${note.meetingId}')"><i class="fas fa-video pr-2"></i> Join Meeting</button>
+        <button class = "btn btn-outline-default" onclick = "gotoMeetings('${taskId}','${note.meetingId}')"><i class="fas fa-video pr-2"></i> Join Meeting</button>
         </div>
     </li>`
 }

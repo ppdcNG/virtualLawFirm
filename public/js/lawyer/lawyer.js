@@ -402,3 +402,9 @@ const pendingInvoiceModal = taskId => {
 }
 
 
+const gotoMeetings = (taskId, meetingId) => {
+    let url = ABS_PATH + `meetings/?meetingId=${meetingId}&taskId=${taskId}`;
+    window.location = url;
+}
+
+

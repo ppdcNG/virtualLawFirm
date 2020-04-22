@@ -76,27 +76,28 @@ const renderQuestions = (question, count, id) => {
 
 const renderDocuments = (id, document) => {
   let downloads = document.download || 0
-  console.log(id);
+  let description = document.description.length > 45 ? document.description.substr(0, 21) + '...' : document.description
   return `
-  <div class="card mb-4">
+  <div class = "col-md-4 mb-4">
+  <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title"><i class="fas fa-file"></i> ${document.title || "N/A"}</h5>
-                    <div class = "d-flex flex-row justify-content-between">
-                      <p class="card-text text-left">
-                        ${document.description}
+                      <p class="card-text text-left" data-toggle = "tooltip" title = "${document.description}">
+                        ${description}
                       </p>
-                      <p class="badge badge-default">${downloads} download(s)</p>
-                    </div>
+                      
+                    
                     <hr/>
                     <div class = "d-flex flex-row justify-content-between" >
                     <h5>&#8358;${accounting.formatNumber(document.price) || "N/A"}</h5>
+                    <span class="badge badge-info">${downloads}</span>
                     </div>
                     <hr/>
                     <button type="button" class="btn btn-light-blue btn-md" onclick = "replaceDocument('${id}')">Change</button>
                     <button type="button" class="btn btn-red btn-md" onclick="requestDelete('${id}')">Delete</button>
                 </div>
             </div>
-  
+  </div>
   `
 }
 

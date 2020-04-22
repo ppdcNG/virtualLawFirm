@@ -2,21 +2,21 @@
 
 
 const renderDocs = (id, document) => {
+    let description = document.description.length > 45 ? document.description.substr(0, 21) + '...' : document.description
     return `
-        <div class="card mb-4">
+    <div class = "col-md-4 mb-4">
+        <div class="card h-100">
             <div class="card-body">
-
-            <h4 class="card-title">${document.title || "N/A"}</h4>
-                <p class="card-text text-justify">${document.description}</p>
+                <h4 class="card-title">${document.title || "N/A"}</h4>
+                <p class="card-text text-justify" data-toggle = "tooltip" title = "${document.description}">${description}</p>
                 <hr/>
                 <h5>&#8358;${accounting.formatNumber(document.price) || "N/A"}
                 </h5>
                 <hr/>
                 <button class="btn btn-default btn-md" onclick="payLegalDoc('${id}')"><i class="fa fa-download"></i> Download</button>
-
             </div>
-
         </div>
+    </div>
     `
 }
 
