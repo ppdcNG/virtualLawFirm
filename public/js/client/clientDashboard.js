@@ -339,7 +339,7 @@ const renderMeetingNotification = (note, taskId, noteId) => {
         <p class="mb-2">
         ${note.message}.</p>
         <div class = "d-flex w-40">
-        <button class = "btn btn-outline-default" onclick = "gotoMeetings('${note.meetingId}')"><i class="fas fa-video pr-2"></i> Join Meeting</button>
+        <button class = "btn btn-outline-default" onclick = "gotoMeeting('${taskId}','${note.meetingId}')"><i class="fas fa-video pr-2"></i> Join Meeting</button>
         </div>
     </li>`
 }
@@ -651,4 +651,9 @@ const payInvoiceFee = (fee, taskId) => {
     });
     handler.openIframe();
 
+}
+
+const gotoMeeting = (taskId, meetingId) => {
+    let url = ABS_PATH + `meetings/?meetingId=${meetingId}&taskId=${taskId}`;
+    window.location = url;
 }

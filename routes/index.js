@@ -55,7 +55,7 @@ router.get('/test', async (req, res) => {
 
 router.get('/meetings', requireLogin, (req, res) => {
 
-  res.render('meetings', { AppName, ABS_PATH, title: "Lawtrella Meetings", uid: req.query.uid, meetingId: req.query.meetingId });
+  res.render('meetings', { AppName, ABS_PATH, title: "Lawtrella Meetings", uid: req.query.uid, meetingId: req.query.meetingId, taskId: req.query.taskId, username: req.user.displayName });
 });
 
 router.get('/forgot', (req, res) => {
