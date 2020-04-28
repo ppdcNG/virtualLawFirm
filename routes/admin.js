@@ -16,6 +16,7 @@ router.get("/newUser", requireAdmin, adminController.newUSer);
 router.post("/fetchLawyers", adminController.fetchLawyers);
 router.get('/details', requireAdmin, adminController.details);
 router.get('/addAdminUser', requireAdmin, adminController.addAdminUser);
+router.get('/courseDetails', requireAdmin, adminController.courseDetails);
 
 router.post("/testmail", (req, res) => {
   const message = req.body;

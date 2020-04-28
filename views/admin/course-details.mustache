@@ -1,0 +1,60 @@
+{{> header }}
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+
+<header>
+  <!--Navbar -->
+  <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+    <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+      aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+      <em>Welcome Admin</em>
+
+      <ul class="navbar-nav ml-auto nav-flex-icons">
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!--/.Navbar -->
+</header>
+
+
+<main class="h-75 pt-2">
+    <section class="container">
+        <p class="text-right"><a href="/admin">&larr; Back to Dashboard</a></p>
+        <h3 data-aos="fade-right" data-aos-duration="1500">Course Details</h3>
+        <p>Modify or delete course details</p>
+        <hr width="150" align="left"/>
+    </section>
+</main>
+
+
+{{> footer}}
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/libraries/js2form.js"></script>
+<script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_dashboard_render.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_advise.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_docs.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_courses.js"></script>  
+
+</script>

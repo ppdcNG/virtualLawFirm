@@ -300,7 +300,7 @@
 
         <div class="card-deck" id="coursesList">
 
-            <div class="col-md-3" id="course" style="visibility: hidden">
+            <div class="col-md-3" id="course" style="display: none">
               <div class="card mt-1" data-aos="zoom-out" data-aos-duration="1600">
                   <div class="view overlay">
                       <img class="card-img-top" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg"
@@ -313,7 +313,14 @@
                   <div class="card-body">
                       <h4 class="card-title">Intro to Contract Law</h4>
                       <p class="card-text"></p>
-                      <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#detailsModal">View Details</a>
+
+                      <div class="row">
+                        <div class="col">
+                          <a href="/courseDetails" class="btn btn-dafault">Edit</a>
+                        </div>
+                        <div class="col">
+                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#detailsModal">View Details</a>
+                        </div>
                   </div>
 
               </div>
@@ -328,7 +335,9 @@
           </div>
         </div>
 
-    </section>   
+
+      <br/><br/>
+    </section>
    </div>
 
 </div>
