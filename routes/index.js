@@ -53,9 +53,22 @@ router.get('/test', async (req, res) => {
 
 });
 
-router.get('/meetings', requireLogin, (req, res) => {
+router.get('/meetings', requireLogin, async (req, res) => {
+  let { taskId, meetingId } = req.query;
+  let path = `meetingSchedules/${taskId}/meetings/${meetingId}`;
+  let snapshot = await admin.firestore().doc(path).get();
+  let data = snapshot.data();
+  let uid = req.query.uid;
+  let present = data.activeMembers.find(member => member.uid == uid) || "";
+  let join = present ? "Re-join" : 'Join';
 
-  res.render('meetings', { AppName, ABS_PATH, title: "Lawtrella Meetings", uid: req.query.uid, meetingId: req.query.meetingId, taskId: req.query.taskId, username: req.user.displayName });
+  res.render('meetings', {
+    AppName, ABS_PATH, title: "Lawtrella Meetings", uid: req.query.uid,
+    meetingId: req.query.meetingId, taskId: req.query.taskId, username: req.user.displayName,
+    photoUrl: req.user.photoURL,
+    present,
+    join
+  });
 });
 
 router.get('/forgot', (req, res) => {

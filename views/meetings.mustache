@@ -71,6 +71,10 @@
   <input type = "hidden" id = "uid" value = "{{uid}}" />
   <input type = "hidden" id = "taskId" value = "{{taskId}}" />
   <input type = "hidden" id = "username" value = "{{username}}" />
+  <input type = "hidden" id = "photoUrl" value  = "{{photoUrl}}" />
+  <input type = "hidden" id = "present" value  = "{{present}}" />
+  <input type = "hidden" id = "join" value  = "{{join}}" />
+
   <main>
     <section class="container py-5">
       <h2 data-aos="fade-right" data-aos-duration="1000">Welcome To {{AppName}} meetings</h2>
@@ -81,32 +85,66 @@
       </div>
       <div class="card text-center" id = "meetingDetails">
         <div class="card-body">
-        <i class="fas fa-users fa-5x"></i>
-          <h5 class="card-title">Meeting Date</h5>
-          <p class="card-text" id = "meetingDate"></p>
-          <h5 class="card-title">Meeting Time</h5>
-          <p class="card-text" id = "meetingTime"></p>
-          <h5 class="card-title">Active Members <span id = "memberNumber"></span></h5>
-          <p class="card-text" id = "meetingMembers">With supporting text below as a natural lead-in to additional content.</p>
-          <button type = "button" class = "btn btn-success waves-effect px-3"  id = "joinButton"><i class="fas fa-phone pr-2" aria-hidden="true"></i>Join Call</button>
+          <div>
+            <i class="fas fa-users fa-5x"></i>
+            <h5 class="card-title">Meeting Date</h5>
+            <p class="card-text" id = "meetingDate"></p>
+            <h5 class="card-title">Meeting Time</h5>
+            <p class="card-text" id = "meetingTime"></p>
+            <h5 class="card-title">Active Members <span id = "memberNumber"></span></h5>
+            <p class="card-text" id = "meetingMembers">With supporting text below as a natural lead-in to additional content.</p>
+            <button type = "button" class = "btn btn-success waves-effect px-3"  id = "joinButton"><i class="fas fa-phone pr-2" aria-hidden="true"></i>{{join}} Call</button>
+          </div>
+        </div>
+        <div id = "loadingOverlay" class = "w-100 h-100  flex-colum justify-content-center" style = "position: absolute; left: auto; background-color: rgba(0,0,0, 0.4)">
+            <div class="spinner-grow slow align-middle align-self-center" role="status" id="loadingSpinner"><span class="sr-only">Loading...</span></div>
         </div>
       </div>
-    </section>
-    
-    <section class = "container" id = "videoSection">
-    <div class="example z-depth-5">
-          <div id="localVideo" style = "width: 200; height:200"></div>
-          <div class="d flex justify-content-around">
-          <button type="button" class="btn btn-elegant waves-effect px-3 control-buttons disabled" onclick = "toggleScreenSharing()"><i class="fas fa-desktop pr-2" aria-hidden="true"></i>Share Screen</button>
-          <button type="button" class="btn btn-elegant waves-effect px-3 control-buttons disabled" onclick = "toggleMic()"><i class="fas fa-microphone pr-2" aria-hidden="true"></i>Toggle Mic</button>
-          <button type="button" class="btn btn-elegant waves-effect px-3 control-buttons disabled" onclick = "toggleVideo()"><i class="fas fa-video pr-2" aria-hidden="true"></i>Toggle Video</button>
-          <button type="button" class="btn btn-elegant waves-effect px-3 control-buttons disabled" onclick = "hangup()"><i class="fas fa-phone-slash pr-2" aria-hidden="true"></i>Hang Up</button>
-        </div>
-    </div>
-      <div id = "remoteStreams">
       
-      </div>
     </section>
+    <div id = "videoSection" class = "p-5 m-5">
+      <div class = "row justify-content-center p-2" >
+        <div class="card col-sm-4 p-3">
+          <div class = "card-header">{{username}}</div>
+          <div id="localVideo" class = " align-self-center p-2 m-2" style = "width: 400; height:300;"></div>
+          <div id = "avartar" class = "align-self-center p-2 m-3" style = "display: none">
+            <img id = "avi" src="{{photoUrl}}" style="width:100;height:100" class="rounded-circle mx-auto d-block" alt="profile_pic">
+          </div>
+          <div class=" align-self-center w-45 d-flex justify-content-around">
+            <a class="btn-floating btn-lg btn-outline-danger mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Screen Sharing" data-tg onclick = "toggleScreen()" id = "shareScreenButton"><i class="fas fa-desktop"></i></a>
+            <a class="btn-floating btn-lg btn-outline-elegant mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Microphone" onclick = "toggleAudio()" id = "audioButton"><i class="fas fa-microphone"></i></a>
+            <a class="btn-floating btn-lg btn-outline-elegant mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Video" onclick = "toggleVideo()" id = "videoButton"><i class="fas fa-video"></i></a>
+            <a class="btn-floating btn-lg btn-outline-danger mx-3 meeting-button" data-toggle = "tooltip" title = "Hangup " onclick = "hangup()" id = "hangupButton"><i class="fas fa-phone-slash"></i></a>
+          </div>
+        </div>
+      </div>
+      <div id = "remoteStreams" class = "row justify-content-center m-5">
+        {{! <div class="card col-sm-4 p-3">
+          <div id="localVideo" class = " align-self-center p-2" style = "width: 400; height:300"></div>
+          <div class=" align-self-center w-45 d-flex justify-content-around">
+            <a class="btn-floating btn-lg btn-outline-secondary mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Screen Sharing" data-tg onclick = "toggleScreen()" id = "shareScreenButton"><i class="fas fa-desktop"></i></a>
+            <a class="btn-floating btn-lg btn-outline-danger mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Microphone" onclick = "toggleAudio()" id = "audioButton"><i class="fas fa-microphone-slash"></i></a>
+            <a class="btn-floating btn-lg btn-outline-default mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Video" onclick = "toggleVideo()" id = "videoButton"><i class="fas fa-video"></i></a>
+            <a class="btn-floating btn-lg btn-outline-danger mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle " onclick = "hangup()" id = "hangupButton"><i class="fas fa-phone-slash"></i></a>
+          </div>
+        </div>
+        <div class="card col-sm-4 p-3 mx-3">
+          <div class = "card-header">Adekunle Adelowo</div>
+          <div id="localVideo" class = " align-self-center p-2" style = "width: 400; height:300"></div>
+          <div id = "avartar" style = "width: 400; height:300">
+            <img src="https://firebasestorage.googleapis.com/v0/b/virtuallawfirm-2478e.appspot.com/o/userfiles%2FFCC9ElmpOnbsSw3jxiy5BdLukTE3?alt=media&amp;token=8faa8420-9be7-4416-88d2-20a567b08b9a" style="width:150;height:150" class="rounded-circle mx-auto d-block" alt="profile_pic">
+          </div>
+          
+          <div class=" align-self-center w-45 d-flex justify-content-around">
+            <a class="btn-floating btn-lg btn-outline-secondary mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Screen Sharing" data-tg onclick = "toggleScreen()" id = "shareScreenButton"><i class="fas fa-desktop"></i></a>
+            <a class="btn-floating btn-lg btn-outline-danger mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Microphone" onclick = "toggleAudio()" id = "audioButton"><i class="fas fa-microphone-slash"></i></a>
+            <a class="btn-floating btn-lg btn-outline-default mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Video" onclick = "toggleVideo()" id = "videoButton"><i class="fas fa-video"></i></a>
+            <a class="btn-floating btn-lg btn-outline-danger mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle " onclick = "hangup()" id = "hangupButton"><i class="fas fa-phone-slash"></i></a>
+          </div>
+        </div> }}
+        
+      </div>
+    </div>
     
   </main>
 

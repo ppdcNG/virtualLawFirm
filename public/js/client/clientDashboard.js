@@ -657,3 +657,4 @@ const gotoMeeting = (taskId, meetingId) => {
     let url = ABS_PATH + `meetings/?meetingId=${meetingId}&taskId=${taskId}`;
     window.location = url;
 }
+
