@@ -45,7 +45,7 @@ router.get('/join', function (req, res) {
 router.get('/logout', (req, res) => {
   res.clearCookie('session');
   res.redirect('/');
-})
+});
 
 router.get('/test', async (req, res) => {
   await sendAdminNewCase('kunle@procurementmonitor.org', 'Kunle', 'Sadiq');

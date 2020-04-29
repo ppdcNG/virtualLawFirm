@@ -23,6 +23,10 @@ exports.newUSer = (req, res) => {
   res.render("admin/new-user", { title: "New user", ABS_PATH });
 };
 
+exports.courseDetails = (req, res) => {
+  res.render("admin/course-details", { title: "Course Details", ABS_PATH, AppName });
+}
+
 exports.adminLogin = async (req, res) => {
   let { idToken, uid } = req.body;
   console.log(uid);

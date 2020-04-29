@@ -32,7 +32,14 @@
     <p class="text-right"><a href="/courses">&larr; Back to Courses</a></p>
     <h3 data-aos="fade-right" data-aos-duration="1500">Business Law Certification</h3>
     <hr width="100" align="left"/>
-    <p class="text-muted">Instructor | <span><b>LawTrella</b></span></p>
+
+    <div class="pb-2">
+      <p class="text-muted">Instructor | <span><b>LawTrella</b></span></p>
+      <p class="text-muted">
+        <span>Rating</span> | <span id="ratings"></span>
+      </p>
+      <div class="text-right"><span class="p-2 border border-default" id="price">&#8358;5,000</span><button class="btn btn-default">Enroll</div>
+    </div>
 
     <section>
     {{! <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
@@ -40,19 +47,19 @@
         src="https://assets3.lottiefiles.com/private_files/lf30_D4yZiV.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop controls autoplay >
     </lottie-player> }}
 
-<nav id="navbar-example2" class="navbar navbar-light">
+<nav id="navbar-details" class="navbar navbar-light">
   <a class="navbar-brand" href="#">Course details</a>
   <ul class="nav nav-pills">
     <li class="nav-item">
-      <a class="nav-link active" href="#navbar-example2-fat">About</a>
+      <a class="nav-link" href="#about">About</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#navbar-example2-mdo">Outline</a>
+      <a class="nav-link" href="#outline">Outline</a>
     </li>
   </ul>
 </nav>
-<div data-spy="scroll" data-target="#navbar-example2" class="scrollspy-example px-3 mt-4" data-offset="0">
-  <h4 id="navbar-example2-fat">@About</h4>
+<div data-spy="scroll" data-target="#navbar-details" class="scrollspy-example px-3 mt-4" data-offset="0">
+  <h4 id="about">About</h4>
   <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui.
     Tumblr
     farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
@@ -71,31 +78,24 @@
     booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't
     heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
     cred irony biodiesel keffiyeh artisan ullamco consequat.</p>
-  <h4 id="navbar-example2-mdo">Outline</h4>
-  <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui.
-    Tumblr
-    farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
-    booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't
-    heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
-    cred irony biodiesel keffiyeh artisan ullamco consequat.</p>
-      <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui.
-    Tumblr
-    farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
-    booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't
-    heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
-    cred irony biodiesel keffiyeh artisan ullamco consequat.</p>
-      <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui.
-    Tumblr
-    farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
-    booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't
-    heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
-    cred irony biodiesel keffiyeh artisan ullamco consequat.</p>
-      <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they sold out qui.
-    Tumblr
-    farm-to-table bicycle rights whatever. Anim keffiyeh carles cardigan. Velit seitan mcsweeney's photo
-    booth 3 wolf moon irure. Cosby sweater lomo jean shorts, williamsburg hoodie minim qui you probably haven't
-    heard of them et cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
-    cred irony biodiesel keffiyeh artisan ullamco consequat.</p>
+  <hr/>
+  <h4 id="outline">Outline</h4>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Cras justo odio</li>
+    <li class="list-group-item">Dapibus ac facilisis in</li>
+    <li class="list-group-item">Morbi leo risus</li>
+    <li class="list-group-item">Porta ac consectetur ac</li>
+    <li class="list-group-item">Porta ac consectetur ac</li>
+    <li class="list-group-item">Porta ac consectetur ac</li>
+    <li class="list-group-item">Porta ac consectetur ac</li>
+    <li class="list-group-item">Porta ac consectetur ac</li>
+    <li class="list-group-item">Porta ac consectetur ac</li>
+    <li class="list-group-item">Porta ac consectetur ac</li>
+    <li class="list-group-item">Porta ac consectetur ac</li>
+    <li class="list-group-item">Porta ac consectetur ac</li>
+    <li class="list-group-item">Porta ac consectetur ac</li>
+    <li class="list-group-item">Vestibulum at eros</li>
+  </ul>
 </div>
 
 
@@ -105,3 +105,12 @@
 <div class="h-25"></div>
 
 {{> footer}}
+
+  <script src="{{ABS_PATH}}js/libraries/rating.js"></script>
+
+
+<script>
+  $(document).ready(function() {
+    $('#ratings').mdbRate();
+  });
+</script>

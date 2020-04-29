@@ -1,0 +1,154 @@
+{{> header }}
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+
+<header>
+  <!--Navbar -->
+  <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+    <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+      aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+      <em>Welcome Admin</em>
+
+      <ul class="navbar-nav ml-auto nav-flex-icons">
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!--/.Navbar -->
+</header>
+
+
+<main class="pt-2">
+    <section class="container">
+        <p class="text-right"><a href="/admin">&larr; Back to Dashboard</a></p>
+        <h3 data-aos="fade-right" data-aos-duration="1500">Course Details</h3>
+        <p>Modify or delete course details</p>
+        <hr width="150" align="left"/>
+
+        <ul class="nav nav-tabs md-tabs" id="myTabMD" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="contents-tab-md" data-toggle="tab" href="#contents-md" role="tab" aria-controls="contents-md"
+      aria-selected="true">Contents</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="resources-tab-md" data-toggle="tab" href="#resources-md" role="tab" aria-controls="resources-md"
+      aria-selected="false">Resources</a>
+  </li>
+</ul>
+<div class="tab-contents border pt-5 container" id="myTabcontentsMD">
+  <div class="tab-pane fade show active" id="content-md" role="tabpanel" aria-labelledby="content-tab-md">
+      <div class="md-form w-25">
+        <input type="text" id="price" class="form-control">
+        <label for="form1">Set Price</label>
+      </div>
+
+      <div class="text-right"><button class="btn" data-toggle="modal" data-target="#add-content-modal">Add Content</button></div>
+      <h5>Content List</h5>
+      <hr/>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Morbi leo risus</li>
+        <li class="list-group-item">Porta ac consectetur ac</li>
+        <li class="list-group-item">Vestibolum at eros</li>
+      </ul>
+  </div>
+  <div class="tab-pane fade" id="resources-md" role="tabpanel" aria-labelledby="resources-tab-md">
+    <p class="p-5">
+      Resources
+    </p>
+  </div>
+</div>
+    </section>
+    <div class="h-25"></div>
+</main>
+
+
+{{! add content modal  }}
+<div class="modal fade" id="add-content-modal" tabindex="-1" role="dialog" aria-labelledby="addContentModal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addContentModal">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+
+<!-- Material form contact -->
+<div class="card">
+
+    <!--Card content-->
+    <div class="card-body px-lg-5 pt-0">
+
+        <!-- Form -->
+        <form class="text-center" style="color: #757575;" action="#!">
+
+            <div class="md-form mt-3">
+                <input type="text" id="title" class="form-control">
+                <label for="title">Title</label>
+            </div>
+
+            <span>Content Type</span>
+            <select class="mdb-select">
+                <option value="" disabled>Choose option</option>
+            </select>
+
+            <div class="md-form">
+                <textarea id="note" class="form-control md-textarea" rows="3"></textarea>
+                <label for="note">Note</label>
+            </div>
+
+            <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">ADD</button>
+
+        </form>
+        <!-- Form -->
+
+    </div>
+
+</div>
+<!-- Material form contact -->
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{> footer}}
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/libraries/js2form.js"></script>
+<script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_dashboard_render.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_advise.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_docs.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<script src="{{ABS_PATH}}js/admin/admin_courses.js"></script>  
+
+</script>
