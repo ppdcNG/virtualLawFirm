@@ -59,7 +59,11 @@ router.get('/meetings', requireLogin, async (req, res) => {
   let snapshot = await admin.firestore().doc(path).get();
   let data = snapshot.data();
   let uid = req.query.uid;
-  let present = data.activeMembers.find(member => member.uid == uid) || "";
+  let present = ""
+  if (data.activeMembers) {
+    present = data.activeMembers.find(member => member.uid == uid) || "";
+
+  }
   let join = present ? "Re-join" : 'Join';
 
   res.render('meetings', {
