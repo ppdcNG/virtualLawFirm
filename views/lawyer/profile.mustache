@@ -148,7 +148,7 @@
 
                         <div class="md-form">
                             <span class="text-muted">State:</span>
-                            <select class="states form-control mt-2" id="state" name="state">
+                            <select class="browser-default custom-select" mt-2" id="state" name="state">
                                 {{{options}}}
                             </select>
                         </div>
@@ -175,7 +175,7 @@
                     <h3> Record</h3>
                     <hr/>
 
-                    <form id="updateRecord">
+                    <form id="updateRecord ">
                         <div class="md-form">
                             <input type="number" class="form-control" name="courtEnrollmentNumber" required/>
                             <label class="label">Supreme Court Enrollment Number:</label>
@@ -215,7 +215,7 @@
 
                             <div class="custom-control custom-radio mb-2">
                                 <input type="radio" class="custom-control-input" value="no" id="criminalInvestigation2" name="criminalInvestigation" checked>
-                                <label class="custom-control-label" for="criminalInvestigation">No</label>
+                                <label class="custom-control-label" for="criminalInvestigation2">No</label>
                             </div>
 
                             <span>Have you ever been indicted for professional misconduct?</span>
@@ -226,7 +226,7 @@
 
                             <div class="custom-control custom-radio mb-2">
                                 <input type="radio" class="custom-control-input" value="no" id="misconductIndictment2" name="misconductIndictment" checked>
-                                <label class="custom-control-label" for="misconductIndictment">No</label>
+                                <label class="custom-control-label" for="misconductIndictment2">No</label>
                             </div>
 
                             <span>Do you have against you an ongoing investigation for misconduct?</span>
@@ -237,7 +237,7 @@
 
                             <div class="custom-control custom-radio mb-2">
                                 <input type="radio" class="custom-control-input" value="no" id="misconductInvestigation2" name="misconductInvestigation" checked>
-                                <label class="custom-control-label" for="misconductInvestigation">No</label>
+                                <label class="custom-control-label" for="misconductInvestigation2">No</label>
                             </div>
 
                         </fieldset>
@@ -395,8 +395,9 @@ aria-hidden="true">
     loadBtn('saveUpload');
 
     $('.tags').select2({
-        maximumSelectionLength: 5
+        maximumSelectionLength: 5,
+        width: 80
     });
 
-    $('.states').select2();
+
 </script>
