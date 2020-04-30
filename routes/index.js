@@ -36,6 +36,11 @@ router.get('/courseDetails', (req, res) => {
   res.render('course-details', { title: "Course Details", AppName })
 });
 
+// enrolled view 
+router.get('/enrolled', (req, res) => {
+  res.render('enrolled', { title: 'Enrolled', AppName })
+})
+
 router.get('/join', function (req, res) {
   res.render('auth/join', {
     path: "/join"
