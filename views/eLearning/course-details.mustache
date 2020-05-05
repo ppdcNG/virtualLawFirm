@@ -1,0 +1,62 @@
+{{> header }}
+<style>
+    .scrollspy-example {
+        height: 50vh;
+        overflow: scroll;
+    }
+    .list-group-item.list-group-item-action.active {
+        background: green;
+    }
+</style>
+
+<header>
+    <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+        <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+        aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main class="container pt-3">
+    <p class="text-right"><a href="/e-learning">&larr; Back to Portal</a></p>
+    <h3 data-aos="fade-right" data-aos-duration="1500">Business Law Certification</h3>
+    <hr width="100" align="left"/>
+
+    <div class="pb-2">
+      <p class="text-muted">Instructor | <span><b>LawTrella</b></span></p>
+      <p class="text-muted">
+        <span>Rating</span> | <span id="ratings"></span>
+      </p>
+      
+      <div class="text-right">
+        <span class="p-2 border border-default" id="price">&#8358;5,000</span><a href="#" class="btn btn-default">Enroll</a>
+      </div>
+    </div>
+
+    <section>
+
+
+    </section>
+</main>
+
+<div class="h-25"></div>
+
+{{> footer}}
+
+<script src="{{ABS_PATH}}js/libraries/rating.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#ratings').mdbRate();
+  });
+</script>

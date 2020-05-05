@@ -1,11 +1,11 @@
 const { ABS_PATH, AppName } = require("../config");
 
 exports.eLearning = (req, res) => {
-    res.render('e-learning', { title: 'e-Learning Portal', AppName })
+    res.render('eLearning/e-learning', { title: 'e-Learning Portal', AppName })
 };
 
 exports.courses = (req, res) => {
-    res.render('courses', { title: "Courses", AppName })
+    res.render('eLearning/courses', { title: "Courses", AppName })
 };
 
 exports.enrolled = (req, res) => {
@@ -13,5 +13,9 @@ exports.enrolled = (req, res) => {
 };
 
 exports.courseDetails = (req, res) => {
-    res.render('course-details', { title: "Course Details", AppName })
+    res.render('eLearning/course-details', { title: "Course Details", AppName })
+};
+
+exports.myList = (req, res) => {
+    res.render('eLearning/mylist', { title: 'My List', AppName })
 };

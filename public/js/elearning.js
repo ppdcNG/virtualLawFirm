@@ -46,7 +46,7 @@ const displayUser = () => {
             </a>
             <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
             aria-labelledby="navbarDropdownMenuLink-55">
-                <a class="dropdown-item" href="#">Go to Dashboard</a>
+                <a class="dropdown-item" href="/client/dashboard">Go to Dashboard</a>
                 <a class="dropdown-item" href="#">My List</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">My Certificates</a>
