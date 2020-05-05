@@ -1,0 +1,187 @@
+{{> header }}
+
+<link rel="stylesheet" href="/stylesheets/sidenav.css" type='text/css'></link>
+<style>
+    .card {
+        height: 35vh;
+    }
+</style>
+
+<main id="main">
+    <header>
+        <nav class="mb-1 px-2 navbar navbar-expand-lg">
+            <a class="navbar-brand default-color text-white p-3" href="/">{{AppName}}</a>
+            <h5>e-Learning Portal</h5>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+            aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" href="#">
+                    <img src="https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1" class="rounded-circle z-depth-0"
+                        alt="avatar image" height="40">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>    
+            </ul>
+        </nav>
+    </header>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a class="mt-3" href="/">Home</a>
+        <a href="/client/dashboard">Dashboard</a>
+    </div>
+
+
+    {{! main content section starts here  }}
+    <section class="container pt-2 pl-5 main-section">
+        <div class="container" style="display:none" id="menuIcon">
+            <span style="font-size:20px;cursor:pointer" onclick="openNav()">&#9776;</span>
+        </div>
+
+        <section id="top-courses-section">
+            <h4 class="primary-green" data-aos="fade-right" data-aos-duration="1500">Top Courses</h4>
+            <hr width="100" align="left"/>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card shadow mt-1" data-aos="zoom-out" data-aos-duration="1500">
+                        <div class="view overlay">
+                            <img class="card-img-top" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg"
+                                alt="html_css_image">
+                            <a href="#!">
+                                <div class="mask rgba-white-slight"></div>
+                            </a>
+                        </div>
+
+                        <div class="card-body">
+                            <h4 class="card-title">Business Law Certification</h4>
+                            <p class="card-text"></p>
+                            <a href="#" class="btn btn-primary">Enroll</a> 
+                            <span class="float-right mt-3">
+                                <button class="" data-toggle="dropdown"><i class="fas fa-ellipsis-h"></i></button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Go to Course</a>
+                                    <a class="dropdown-item" href="#">Add to My List</a>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="recommended-section" class="mt-5">
+            <h4 class="primary-green" data-aos="fade-left" data-aos-duration="1500">Recommended Courses</h4>
+            <hr width="100" align="left"/>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="card shadow mt-1" data-aos="zoom-out" data-aos-duration="1500">
+                        <div class="view overlay">
+                            <img class="card-img-top" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg"
+                                alt="html_css_image">
+                            <a href="#!">
+                                <div class="mask rgba-white-slight"></div>
+                            </a>
+                        </div>
+
+                        <div class="card-body">
+                            <h4 class="card-title">Business Law Certification</h4>
+                            <p class="card-text"></p>
+                            <a href="#" class="btn btn-primary">Enroll</a>
+                            <span class="float-right mt-3">
+                                <button class="" data-toggle="dropdown"><i class="fas fa-ellipsis-h"></i></button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Go to Course</a>
+                                    <a class="dropdown-item" href="#">Add to My List</a>
+                                </div>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card shadow mt-1" data-aos="zoom-out" data-aos-duration="1500">
+                        <div class="view overlay">
+                            <img class="card-img-top" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg"
+                                alt="html_css_image">
+                            <a href="#!">
+                                <div class="mask rgba-white-slight"></div>
+                            </a>
+                        </div>
+
+                        <div class="card-body">
+                            <h4 class="card-title">Business Law Certification</h4>
+                            <p class="card-text"></p>
+                            <a href="#" class="btn btn-primary">Enroll</a>
+                            <span class="float-right mt-3">
+                                <button class="" data-toggle="dropdown"><i class="fas fa-ellipsis-h"></i></button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Go to Course</a>
+                                    <a class="dropdown-item" href="#">Add to My List</a>
+                                </div>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+    </section>
+
+
+<div class="h-50"></div>
+{{>footer}}
+
+</main>
+
+<script>
+    let width = "200";
+
+    document.querySelector("#mySidenav").style.width = width;
+    document.querySelector("#main").style.marginLeft = width;
+    
+    function openNav() {
+        document.querySelector("#mySidenav").style.width = width;
+        document.querySelector("#main").style.marginLeft = width;
+        document.querySelector("#menuIcon").style.display = "none";
+    }
+
+    function closeNav() {
+        document.querySelector("#mySidenav").style.width = "0";
+        document.querySelector("#main").style.marginLeft = "0";
+        document.querySelector("#menuIcon").style.display = "block";
+    }
+
+    function sideNav(x) {
+        if (x.matches) { 
+            document.querySelector("#mySidenav").style.width = "0";
+            document.querySelector("#main").style.marginLeft = "0";
+            document.querySelector("#menuIcon").style.display = "block";
+        } else {
+            document.querySelector("#mySidenav").style.width = width;
+            document.querySelector("#main").style.marginLeft = width;
+            document.querySelector("#menuIcon").style.display = "none";
+        }
+    }
+
+    let x = window.matchMedia("(max-width: 700px)")
+    sideNav(x)
+    x.addListener(sideNav)
+</script>
+

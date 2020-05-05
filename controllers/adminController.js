@@ -1,7 +1,6 @@
 var ABS_PATH = require("../config").ABS_PATH;
 const { AppName, PAYSTACK_PUB_KEY } = require("../config");
 
-
 const { sendmail, welcomeMail } = require("../helpers/mail");
 const { token, tagOptions, lawyerOptions, is_empty, renderDocuments } = require("../helpers");
 const admin = require('firebase-admin');
@@ -23,7 +22,7 @@ exports.newUSer = (req, res) => {
   res.render("admin/new-user", { title: "New user", ABS_PATH });
 };
 
-exports.courseDetails = (req, res) => {
+exports.editCourseDetails = (req, res) => {
   res.render("admin/course-details", { title: "Course Details", ABS_PATH, AppName });
 }
 

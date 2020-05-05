@@ -26,6 +26,11 @@ router.get('/legalAdvice', (req, res) => {
   res.render('legal-advice', { title: "Free Legal Advice", AppName });
 });
 
+// get e-learning view 
+router.get('/e-learning', (req, res) => {
+  res.render('e-learning', { title: 'E-Learning Portal', AppName })
+});
+
 // get courses view
 router.get('/courses', (req, res) => {
   res.render('courses', { title: "Courses", AppName })
@@ -40,6 +45,7 @@ router.get('/courseDetails', (req, res) => {
 router.get('/enrolled', (req, res) => {
   res.render('enrolled', { title: 'Enrolled', AppName })
 })
+
 
 router.get('/join', function (req, res) {
   res.render('auth/join', {
