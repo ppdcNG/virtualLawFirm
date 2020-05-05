@@ -19,6 +19,10 @@ exports.registrationPage = (req, res) => {
     res.render('client/client-join', { title: 'Register', ABS_PATH })
 };
 
+exports.login2 = (req, res) => {
+    res.render('client/login2', { title: 'Login', AppName, ABS_PATH })
+}
+
 exports.legalDocsPage = (req, res) => {
     res.render('client/legal-docs', { title: 'Legal Documents', ABS_PATH, AppName })
 }

@@ -17,18 +17,8 @@
             <span class="navbar-toggler-icon"></span>
             </button>
 
-            <ul class="navbar-nav ml-auto nav-flex-icons">
-                <li class="nav-item avatar">
-                    <a class="nav-link p-0" href="#">
-                    <img src="https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1" class="rounded-circle z-depth-0"
-                        alt="avatar image" height="40">
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
-                </li>    
+            <ul class="navbar-nav ml-auto nav-flex-icons" id="isLoggedin">
+
             </ul>
         </nav>
     </header>
@@ -144,44 +134,10 @@
 
     </section>
 
-
 <div class="h-50"></div>
 {{>footer}}
 
 </main>
 
-<script>
-    let width = "200";
-
-    document.querySelector("#mySidenav").style.width = width;
-    document.querySelector("#main").style.marginLeft = width;
-    
-    function openNav() {
-        document.querySelector("#mySidenav").style.width = width;
-        document.querySelector("#main").style.marginLeft = width;
-        document.querySelector("#menuIcon").style.display = "none";
-    }
-
-    function closeNav() {
-        document.querySelector("#mySidenav").style.width = "0";
-        document.querySelector("#main").style.marginLeft = "0";
-        document.querySelector("#menuIcon").style.display = "block";
-    }
-
-    function sideNav(x) {
-        if (x.matches) { 
-            document.querySelector("#mySidenav").style.width = "0";
-            document.querySelector("#main").style.marginLeft = "0";
-            document.querySelector("#menuIcon").style.display = "block";
-        } else {
-            document.querySelector("#mySidenav").style.width = width;
-            document.querySelector("#main").style.marginLeft = width;
-            document.querySelector("#menuIcon").style.display = "none";
-        }
-    }
-
-    let x = window.matchMedia("(max-width: 700px)")
-    sideNav(x)
-    x.addListener(sideNav)
-</script>
-
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/elearning.js"></script>

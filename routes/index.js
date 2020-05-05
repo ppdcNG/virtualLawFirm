@@ -12,12 +12,16 @@ const admin = require('firebase-admin');
 router.get('/', function (req, res, next) {
   let authId = req.user ? req.user.authId : false
   let link = authId ? "findLaywer" : 'join';
+
+  let { photoURL } = req.user ? req.user : 'https://images.pexels.com/photos/399772/pexels-photo-399772.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
+
   res.render('index', {
     title: "A&E VL",
     path: "/",
     AppName,
     authId,
-    link
+    link,
+    photoURL
   });
 });
 
@@ -25,27 +29,6 @@ router.get('/', function (req, res, next) {
 router.get('/legalAdvice', (req, res) => {
   res.render('legal-advice', { title: "Free Legal Advice", AppName });
 });
-
-// get e-learning view 
-router.get('/e-learning', (req, res) => {
-  res.render('e-learning', { title: 'E-Learning Portal', AppName })
-});
-
-// get courses view
-router.get('/courses', (req, res) => {
-  res.render('courses', { title: "Courses", AppName })
-});
-
-// get course details 
-router.get('/courseDetails', (req, res) => {
-  res.render('course-details', { title: "Course Details", AppName })
-});
-
-// enrolled view 
-router.get('/enrolled', (req, res) => {
-  res.render('enrolled', { title: 'Enrolled', AppName })
-})
-
 
 router.get('/join', function (req, res) {
   res.render('auth/join', {

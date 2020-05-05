@@ -553,3 +553,6 @@ $("#complaintForm").submit((e) => {
 $("#invoiceForm").submit((e) => {
     e.preventDefault();
 })
+
+
+const logout = () => localStorage.removeItem("uid");

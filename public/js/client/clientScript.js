@@ -48,6 +48,7 @@ const clientSignIn = async (email, password) => {
         buttonLoad('clientLoginButton')
         let res = await firebase.auth().signInWithEmailAndPassword(email, password);
         let uid = res.user.uid;
+        localStorage.setItem("uid", uid);
         let idToken = await res.user.getIdToken();
 
         let req = { idToken, uid };
