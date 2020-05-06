@@ -99,6 +99,8 @@ $("#clientRegisterForm").submit(e => {
             if (!response.err) {
                 $("#close").trigger("click");
                 $.notify("A confirmation email has been sent to your inbox", { type: "success" });
+                $("#registerPane").hide();
+                $("#signupComplete").fadeIn();
             } else {
                 $("#close").trigger("click");
                 $.notify(response.message, { type: "warning" });

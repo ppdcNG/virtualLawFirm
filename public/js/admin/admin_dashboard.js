@@ -190,12 +190,30 @@ function clearLoad(id, text) {
 }
 
 const verifyLawyer = id => {
+  buttonLoad('verify');
   $.ajax({
     url: `${ABS_PATH}admin/verifyLawyer?id=${id}`,
     type: "POST",
     success: function (response) {
       clearLoad("verify", "verified");
       $.notify("Lawyer verified!", { type: "success" });
+    },
+    error: err => console.log("error", err)
+  });
+}
+
+const suspendLawyer = id => {
+  buttonLoad('suspendButton');
+  $.ajax({
+    url: `${ABS_PATH}admin/suspendLawyer?id=${id}`,
+    type: "POST",
+    success: function (response) {
+      if (response.err) {
+        $.notify(response.message, { type: danger });
+        return;
+      }
+      clearLoad("suspendButton", "Suspend");
+      $.notify("Lawyer suspended!", { type: "success" });
     },
     error: err => console.log("error", err)
   });

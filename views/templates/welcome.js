@@ -155,7 +155,7 @@ exports.welcomeEmail = option => {
             <td style="overflow-wrap:break-word;word-break:break-word;padding:30px 20px 43px;font-family:'Montserrat',sans-serif;" align="left">
                 
         <div style="color: #000000; line-height: 130%; text-align: center; word-wrap: break-word;">
-            <p style="font-size: 14px; line-height: 130%;"><strong><span style="font-size: 48px; line-height: 62.4px; font-family: helvetica, sans-serif; color: #ffffff;"><span style="font-size: 38px; line-height: 49.4px;">WELCOME TO A&amp;E VIRTUAL LAW</span><br /></span></strong></p>
+            <p style="font-size: 14px; line-height: 130%;"><strong><span style="font-size: 48px; line-height: 62.4px; font-family: helvetica, sans-serif; color: #ffffff;"><span style="font-size: 38px; line-height: 49.4px;">Welcome to Lawtrella</span><br /></span></strong></p>
         </div>
 
             </td>
@@ -302,7 +302,7 @@ exports.welcomeEmail = option => {
             <td style="overflow-wrap:break-word;word-break:break-word;padding:20px;font-family:'Montserrat',sans-serif;" align="left">
                 
         <div style="color: #000; line-height: 120%; text-align: left; word-wrap: break-word;">
-            <div style="font-family: arial, helvetica, sans-serif;"><span style="font-size: 12px; color: #999999; line-height: 14.4px;">You received this email because you signed up for A&amp;E Virtual Law Firm.</span></div>
+            <div style="font-family: arial, helvetica, sans-serif;"><span style="font-size: 12px; color: #999999; line-height: 14.4px;">You received this email because you signed up for LawTrella.</span></div>
         <div style="font-family: arial, helvetica, sans-serif;">&nbsp;</div>
         </div>
 

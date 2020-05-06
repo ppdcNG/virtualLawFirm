@@ -8,18 +8,22 @@ $("#lawyerContact").submit(async function (e) {
     console.log(uid);
     let file = $("#profilePic")[0].files[0];
     let validImages = ['image/png', 'image/jpg', 'image/jpeg'];
-    if (validImages.indexOf(file.type) < 0) {
+    if (file && validImages.indexOf(file.type) < 0) {
         $.notify('Invalid File type provided. Valid Files' + validImages.join(' '), { type: "warning" });
         clearLoad('saveContact', 'Save');
 
         return false;
     }
 
-    let task = await firebase.storage().ref('userfiles/' + uid).put(file);
-    console.log(task);
-    let url = await task.ref.getDownloadURL();
+    if (file) {
+        let task = await firebase.storage().ref('userfiles/' + uid).put(file);
+        console.log(task);
+        let url = await task.ref.getDownloadURL();
 
-    form.photoUrl = url;
+        form.photoUrl = url;
+    }
+
+
 
     $.ajax({
         url: ABS_PATH + "lawyer/updateContact",
@@ -70,25 +74,25 @@ $("#updateRecord").submit(async function (e) {
 
 });
 
-$("#selectDoc").submit(async function (e) {
-    e.preventDefault();
-    let doc = form2js("selectDoc", '.');
-    console.log(doc);
-    let uid = $("#uid").val();
-    let path = 'lawyerdocs/' + uid + '/' + doc.title;
-    let file = $("#docFile")[0].files[0];
-    let task = await firebase.storage().ref(path).put(file);
-    console.log(task);
-    let url = await task.ref.getDownloadURL()
-    console.log(url);
-    doc.url = url;
-    documents.push(doc);
-    renderDocuments();
+// $("#selectDoc").submit(async function (e) {
+//     e.preventDefault();
+//     let doc = form2js("selectDoc", '.');
+//     console.log(doc);
+//     let uid = $("#uid").val();
+//     let path = 'lawyerdocs/' + uid + '/' + doc.title;
+//     let file = $("#docFile")[0].files[0];
+//     let task = await firebase.storage().ref(path).put(file);
+//     console.log(task);
+//     let url = await task.ref.getDownloadURL()
+//     console.log(url);
+//     doc.url = url;
+//     documents.push(doc);
+//     renderDocuments();
 
-    clearLoad('saveDoc', 'Save');
-    $("#selectDoc").trigger("reset");
+//     clearLoad('saveDoc', 'Save');
+//     $("#selectDoc").trigger("reset");
 
-});
+// });
 
 
 const renderDocument = (i, document) => {
@@ -124,33 +128,28 @@ const removeDocument = async i => {
 $("#updateUpload").submit(async function (e) {
     e.preventDefault();
     let form = form2js("updateUpload", ".");
-    form.documents = documents;
     form = JSON.stringify(form);
-
-    if (!documents.length < 1) {
-        $.ajax({
-            url: ABS_PATH + "lawyer/updateUploads",
-            data: { data: form },
-            type: "POST",
-            success: function (response) {
-                console.log(response);
-                if (!response.err) {
-                    clearLoad('saveUpload', 'Submit');
-                    $.notify("Saved!", { type: "success" });
-                } else {
-                    clearLoad('saveUpload', 'Submit');
-                    $.notify(response.message, { type: "warning" });
-                }
-            },
-            error: e => {
+    $.ajax({
+        url: ABS_PATH + "lawyer/updateUploads",
+        data: { data: form },
+        type: "POST",
+        success: function (response) {
+            console.log(response);
+            if (!response.err) {
                 clearLoad('saveUpload', 'Submit');
-                console.log('error', e);
+                $.notify("Saved!", { type: "success" });
+            } else {
+                clearLoad('saveUpload', 'Submit');
+                $.notify(response.message, { type: "warning" });
             }
-        })
-    } else {
-        clearLoad('saveUpload', 'Submit');
-        $.notify("You have not uploaded any document", { type: "warning" });
-    }
+        },
+        error: e => {
+            clearLoad('saveUpload', 'Submit');
+            console.log('error', e);
+        }
+    });
+
+
 });
 
 $(document).ready(() => {
@@ -176,7 +175,9 @@ const updateContactForm = contact => {
     if (!contact) {
         return;
     }
+    console.log(contact);
     js2form('lawyerContact', contact, '.');
+    $("#state").val(contact.state).trigger('change');
     $('#lawyerContact input').trigger('change');
     $('#lawyerContact textarea').trigger('change');
 }

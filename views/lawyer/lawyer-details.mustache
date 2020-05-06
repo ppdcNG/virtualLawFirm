@@ -153,30 +153,6 @@
                 </div>
                 <!-- Accordion card -->
 
-                <!-- Accordion card -->
-                <div class="card">
-
-                    <!-- Card header -->
-                    <div class="card-header" role="tab" id="headingThree3">
-                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx" href="#documents"
-                        aria-expanded="false" aria-controls="documents">
-                        <h5 class="mb-0 text-default">
-                        Documents <i class="fas fa-angle-down rotate-icon"></i>
-                        </h5>
-                    </a>
-                    </div>
-
-                    <!-- Card body -->
-                    <div id="documents" class="collapse" role="tabpanel" aria-labelledby="headingThree3" data-parent="#accordionEx">
-                        <div class="card-body">
-                            <ul class="list-group list-group-horizontal">
-                                {{{documents}}}
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- Accordion card -->
 
                 <!-- Accordion card -->
                 <div class="card">
@@ -217,9 +193,9 @@
                 {{! buttons }}
                 <div class="mt-3">
                     <button class="btn btn-success" onclick="verifyLawyer('{{lawyer.authId}}')" id="verify">Verify</button>
-                    <button class="btn btn-danger">Delete</button>
-                    <button class="btn btn-warning">Suspend</button>
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#msgModal">Send Message</button>
+                    <button class="btn btn-danger" onclick = "deleteLawyer('{{lawyer.authId}}')" id = "deleteButton">Delete</button>
+                    <button class="btn btn-warning" onclick = "suspendLawyer('{{lawyer.authId}}')" id = "suspendButton">Suspend</button>
+                    <button class="btn btn-primary" id = "messageButton" onclick = "sendLawyerMessage('{{lawyer.authId}}')" data-toggle="modal" data-target="#msgModal">Send Message</button>
                 </button>
 
             </div>
@@ -267,9 +243,11 @@
 <script src="{{ABS_PATH}}js/admin/admin_dashboard.js"></script>
 
 <script>
-  loadBtn("verify");
 
   if ($("#status").text() === 'verified') {
       $("#verify").text('verified').addClass('disabled');
+  }
+  if($("#status").text() === 'suspended'){
+      $("#suspendButton").text('Suspended').addClass('disabled');
   }
 </script>

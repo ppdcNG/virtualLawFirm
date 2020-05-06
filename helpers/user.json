@@ -1,0 +1,41 @@
+{
+    "portfolio": {
+        "tags": [
+            "asset management and finance management",
+            "aviation law",
+            "Criminal"
+        ],
+        "workExperience": "4",
+        "consultationFee": "4000",
+        "specialization": "Criminal Law"
+    },
+    "dateRegistered": 1573637157358,
+    "status": "pending",
+    "contact": {
+        "lga": "Ogbomosho North",
+        "address": "House 2, Block L Karmo District",
+        "state": "Adamawa",
+        "photoUrl": "https://firebasestorage.googleapis.com/v0/b/virtuallawfirm-2478e.appspot.com/o/userfiles%2FFCC9ElmpOnbsSw3jxiy5BdLukTE3?alt=media&token=8faa8420-9be7-4416-88d2-20a567b08b9a",
+        "country": "Nigeria",
+        "name": "Public and Private Development Centre",
+        "briefProfile": "Centre asdfj;lakjsd;kfja;sdjflasdjflkasjdf"
+    },
+    "email": "kunle@procurementmonitor.org",
+    "name": "Kunle Adelowo",
+    "record": {
+        "misconductInvestigation": "no",
+        "misconductIndictment": "no",
+        "courtEnrollmentNumber": "123456",
+        "nbaBranch": "Abuja",
+        "criminalInvestigation": "yes",
+        "yearOfEnrollment": "2016",
+        "criminalRecord": "yes"
+    },
+    "authId": "FCC9ElmpOnbsSw3jxiy5BdLukTE3",
+    "accountDetails": {
+        "bvn": "23455678",
+        "bankName": "Diamion Bank",
+        "accountNumber": "7758365342",
+        "accountName": "Adekunle Adelowo"
+    }
+}

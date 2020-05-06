@@ -50,10 +50,12 @@ const numberOfFields = (obj) => {
 
 exports.percentageComplete = (obj) => {
   let count = numberOfFields(obj);
+  let userFields = require('../helpers/user.json');
+  let total = numberOfFields(userFields);
   console.log('count', count)
-  let total = 30
   let percent = (count / total) * 100
-  return percent.toFixed(2);
+  percent = percent > 100 ? 100 : percent;
+  return percent.toFixed(0);
 }
 
 exports.renderDocuments = docs => {
