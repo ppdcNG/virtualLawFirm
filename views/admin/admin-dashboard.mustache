@@ -294,7 +294,7 @@
 
         <div class="d-flex justify-content-between">
           <h4 data-aos="fade-right" data-aos-duration="1500">Courses</h4>
-          <button class="btn btn-default float-right" data-toggle="modal" data-target="#coursesModal">Add new <i class="fas fa-plus"></i></button>
+          <button class="btn btn-default float-right" id = "addCourseButton">Add new <i class="fas fa-plus"></i></button>
         </div>
         <hr/>
 
@@ -316,7 +316,7 @@
 
                       <div class="row">
                         <div class="col">
-                          <a href="/editCourseDetails" class="btn btn-dafault">Edit</a>
+                          <a href="/admin/editCourseDetails" class="btn btn-dafault">Edit</a>
                         </div>
                         <div class="col">
                           <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#detailsModal">View Details</a>
@@ -329,8 +329,8 @@
 
         </div>
 
-        <div class="d-flex justify-content-center">
-          <div class="spinner-grow slow" role="status" id="loadingCourses">
+        <div class="w-100 d-flex justify-content-center" id="loadingCourses">
+          <div class="spinner-grow slow" role="status">
             <span class="sr-only">Loading...</span>
           </div>
         </div>
@@ -345,10 +345,10 @@
 </main>
 
 {{! add courses modal }}
-<div class="modal fade" id="coursesModal" tabindex="-1" role="dialog" aria-labelledby="coursesModal"
+<div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="coursesModal"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content p-3">
       <div class="modal-header">
         <h5 class="modal-title">Add new course</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -356,7 +356,9 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form id = "addCourseForm" class = "w-100">
+            <input type = "hidden" id = "courseMode" value = "add"/>
+            <input type = "hidden" id = "courseId" />
             <div class="mb-3 md-form">
                 <label for="title">Title</label>
                 <input type="text" name="title" class="form-control" required>
@@ -364,7 +366,7 @@
             <div class="mb-3 md-form">
                 <div class="custom-file">
                     <input id="courseImage" type="file" class="custom-file-input">
-                    <label class="custom-file-label" for="courseImage" data-browse="Upload">Upload Course Image</label>
+                    <label class="custom-file-label" for="courseImage" data-browse="Upload">Choose Course Image</label>
                 </div>
             </div>
             <div class="mb-3 md-form">
@@ -372,15 +374,23 @@
                 <input type="number" name="price" class="form-control" required>
             </div>
 
-            <div class="md-form">
-              <textarea id="desc" name="details" class="md-textarea form-control" rows="3"></textarea>
+            <div class="md-form mb-3">
+              <textarea id="desc" name="details" class="md-textarea form-control" rows="3" required></textarea>
               <label for="desc">Description</label>
             </div>
+
+            <div class="md-form">
+              <span class="text-muted">Tags</span>
+              <select class="tags form-control mt-2" id="tags" name="tags[]" multiple="multiple" style = "width: 100%" required>
+                  {{{tags}}}
+              </select>
+            </div>
+            
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-default">Save changes</button>
+        <button type="button" id = "submitCourseFormButton" class="btn btn-default">Add Course</button>
       </div>
     </div>
   </div>
@@ -455,9 +465,6 @@
           </li>
           <li class="list-group-item">
             <div class="md-v-line"></div><i class="fas fa-map-marker-alt mr-3"></i><span id="loc"></span>
-          </li>
-          <li class="list-group-item">
-            <div class="md-v-line"></div><i class="fas fa-briefcase mr-3"></i><b>Years of Experience</b> <span id="exp"></span>
           </li>
           <li class="list-group-item">
             <div class="md-v-line"></div><i class="fas fa-money-bill-wave mr-3"></i><b>Fee</b> &#8358;<span id="fee"></span>

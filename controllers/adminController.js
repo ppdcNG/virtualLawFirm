@@ -1,7 +1,6 @@
 var ABS_PATH = require("../config").ABS_PATH;
 const { AppName, PAYSTACK_PUB_KEY } = require("../config");
 
-
 const { sendmail, welcomeMail } = require("../helpers/mail");
 const { token, tagOptions, lawyerOptions, is_empty, renderDocuments } = require("../helpers");
 const admin = require('firebase-admin');
@@ -23,7 +22,7 @@ exports.newUSer = (req, res) => {
   res.render("admin/new-user", { title: "New user", ABS_PATH });
 };
 
-exports.courseDetails = (req, res) => {
+exports.editCourseDetails = (req, res) => {
   res.render("admin/course-details", { title: "Course Details", ABS_PATH, AppName });
 }
 
@@ -370,29 +369,40 @@ exports.details = async (req, res) => {
 
 exports.verifyLawyer = async (req, res) => {
   let { id } = req.query;
-  let snapshot = await admin.firestore().collection('lawyers').doc(id).get().catch((e) => { console.log(e) });
-  if (!snapshot.exists) {
+  let LawyerRef = admin.firestore().doc(`lawyers/${id}`);
+  try {
+    await LawyerRef.update({ status: 'verified' });
     res.send({
-      err: "error",
-      status: "failed",
-      message: "There is no user with this id"
-    });
-    return;
+      message: 'Lawyer Verified Successfully',
+      status: 'success'
+    })
   }
-  let lawyer = snapshot.data();
-  let newlawyer = { ...lawyer, status: 'verified' }
-  await admin.firestore().collection('lawyers').doc(id).set(newlawyer).catch((e) => {
-    console.log(e);
-    res.status(400).send({
-      err: "error",
-      status: "failed",
+  catch (e) {
+    res.send({
+      err: "error occured",
       message: e.message
-    });
-  });
-  res.status(200).send({
-    status: "success",
-    message: "Lawyer status has been updated"
-  });
+    })
+  }
+
+}
+exports.suspendLawyer = async (req, res) => {
+  let { id } = req.query;
+  let LawyerRef = admin.firestore().doc(`lawyers/${id}`);
+  try {
+    await LawyerRef.update({ status: 'suspended' });
+    res.send({
+      message: 'Lawyer Suspended Successfully',
+      status: 'success'
+    })
+  }
+  catch (e) {
+    res.send({
+      err: "error occured",
+      message: e.message
+    })
+  }
+
+
 }
 
 exports.addDoc = async (req, res) => {

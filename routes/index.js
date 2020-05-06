@@ -4,26 +4,36 @@ var router = express.Router();
 var { sendAdminNewCase, forgotPasswordMail } = require('../helpers/mail');
 var { token } = require('../helpers');
 var requireLogin = require('../middlewares/requireLogin');
+var requireUser = require('../middlewares/requireUser')
 
 const { AppName, ABS_PATH } = require("../config");
 const admin = require('firebase-admin');
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  let authId = req.user ? req.user.authId : false
+router.get('/', requireUser, function (req, res) {
+
+  let authId = req.user ? req.user.uid : false
+  let photoURL = req.user ? req.user.photoURL : false;
+  console.log(photoURL);
   let link = authId ? "findLaywer" : 'join';
   res.render('index', {
     title: "A&E VL",
     path: "/",
     AppName,
     authId,
-    link
+    link,
+    photoURL
   });
 });
 
 // get legal advice view
 router.get('/legalAdvice', (req, res) => {
   res.render('legal-advice', { title: "Free Legal Advice", AppName });
+});
+
+// get e-learning view 
+router.get('/e-learning', (req, res) => {
+  res.render('e-learning', { title: 'E-Learning Portal', AppName })
 });
 
 // get courses view
@@ -36,6 +46,12 @@ router.get('/courseDetails', (req, res) => {
   res.render('course-details', { title: "Course Details", AppName })
 });
 
+// enrolled view 
+router.get('/enrolled', (req, res) => {
+  res.render('enrolled', { title: 'Enrolled', AppName })
+})
+
+
 router.get('/join', function (req, res) {
   res.render('auth/join', {
     path: "/join"
@@ -47,9 +63,16 @@ router.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
-router.get('/test', async (req, res) => {
-  await sendAdminNewCase('kunle@procurementmonitor.org', 'Kunle', 'Sadiq');
-  console.log("sent");
+router.get('/test', requireUser, async (req, res) => {
+  let fs = require('fs');
+  let uid = req.user.uid;
+  let user = await admin.firestore().doc(`lawyers/${uid}`).get();
+  user = user.data();
+  let userJSON = JSON.stringify(user);
+  fs.writeFile('user.json', userJSON, (err) => {
+    res.send({ message: 'Written user' });
+  });
+
 
 });
 

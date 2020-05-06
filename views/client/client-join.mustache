@@ -1,7 +1,7 @@
 {{> header}}
 
-<div class="container">
-    <div class="card mt-5 mb-5">
+<div class="container d-flex flex-column justify-content-center align-items-center">
+    <div class="card mt-5 mb-5" id = "registerPane" style = "min-width: 70%">
         <h5 class="card-header special-color white-text text-center py-4">
             <strong>Sign up</strong>
         </h5>
@@ -47,7 +47,7 @@
                 <!-- Terms of service -->
                 <p>By clicking
                     <em>Register</em> you agree to our
-                    <a href="" target="_blank">terms of service</a></p>
+                    <a href="#" data-toggle = "modal" data-target = "#exampleModalCenter">terms of service</a></p>
 
             </form>
             <!-- Form -->
@@ -55,15 +55,18 @@
         </div>
 
     </div>
+    <div  id = "signupComplete" style = "display: none">
+      <div class= "card mt-5 mb-5 p-5">
+        <div calss = "card-body p-3">
+          <div  class = "d-flex flex-column justify-content-around align-items-center">
+            <i class = "fas fa-check fa-7x green white-text mb-3"></i>
+            <span class = "h3 grey-text">Verification Email Been Sent</span>
+            <span class = "h6 grey-text">Check your mail and follow link to complete your registration</span>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="display:none">
-  T & C
-</button>
-
-{{> footer}}
-<script src="{{ABS_PATH}}js/auth.js"></script>
-  <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
-  <script src="{{ABS_PATH}}js/client/clientScript.js"></script>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -135,3 +138,9 @@
     </div>
   </div>
 </div>
+
+{{> footer}}
+<script src="{{ABS_PATH}}js/auth.js"></script>
+  <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+  <script src="{{ABS_PATH}}js/client/clientScript.js"></script>
+

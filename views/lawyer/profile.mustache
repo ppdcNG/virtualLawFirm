@@ -45,6 +45,36 @@
     [data-browse="Select"]::after {
         background: #49bcad;
     }
+    .select2-container--default .select2-selection--single {
+        background-color: #fff;
+        border: none;
+        border-bottom: 1px solid #ced4da;
+    }
+    .select2-container .select2-selection--single {
+        box-sizing: content-box;
+        height: auto;
+       
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        font-weight: 400;
+    }
+
+    .select2-container--default.select2-container--focus .select2-selection--multiple {
+        border: none;
+        border-bottom: 1px solid #ced4da;
+    }
+    .select2-container--default .select2-selection--multiple {
+        background-color: white;
+        border: none;
+        cursor: text;
+        border-bottom: 1px solid #ced4da;
+        padding-bottom: 5px;
+    }
+    .md-form .text-muted{
+        font-size: .8rem;
+        margin-left: 6px;
+    }
+    
 </style>
 <header>
   <!--Navbar -->
@@ -86,6 +116,20 @@
 
 <input type = "hidden" id = "uid" value = "{{uid}}"/>
 <input type = "hidden" id = "displayName" value = "{{displayName}}"/>
+<section id = "profileStatus">
+        <div class = "container text-center pt-5">
+            <span class = "text-center h3">Level of Completion</span>
+            <div class="progress mb-5 mt-3" style = "height: 2rem">
+            <div class="progress-bar {{progressColor}}" role="progressbar" style="width: {{progress}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{progress}}%</div>
+            </div>
+            <span class = "h3">Account Status</span>
+            <div>{{status}}</div>
+            {{{statusIcon}}}
+        
+        </div>
+        
+
+</section>
 
 <section id="register-section" class="h-150 mt-3">
     <div class="container">
@@ -111,18 +155,14 @@
         </div>
         
         <p class="text-center blue-text">Click on any number to return to a section</p>
-  
-        <span>Level of Completion</span>
-        <div class="progress mb-3">
-          <div class="progress-bar" role="progressbar" style="width: {{progress}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{progress}}%</div>
-        </div>
         
             <div class="row setup-content" id="step-1">
                 <div class="col-md-12">
                     <h3> Profile </h3>
                     <hr/>
 
-                    <form id="lawyerContact" role="form" class="needs-validation" novalidate>
+                    <form id="lawyerContact" role="form" class="needs-validation px-5" novalidate>
+                        <input type = "hidden" name = "photoUrl"  value = "{{photoUrl}}" />
                         <img id="uploadedPic" src="https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1" alt="profile pic" class="rounded-circle mx-auto d-block" width="100" />
                         <div class="md-form">
                             <div class="custom-file">
@@ -282,34 +322,6 @@
 
                 {{! upload docs }}
                 <form id="updateUpload">
-
-                    <div>
-                        <div class="container">
-                            <div class="row" id="uploadedDocs">
-                                <div class="col-md-3">
-                                    <!-- Card -->
-                                    <div class="card">
-                                        <!-- Card image -->
-
-                                        <!-- Card content -->
-                                        <div class="card-body">
-                                            <h4 class="card-title"><a>Doc title</a></h4>
-                                            <a href="#" class="btn btn-danger">Delete</a>
-                                        </div>
-                                    </div>
-                                    <!-- Card -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr/>
-
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#document">
-                    Upload ID Card
-                    </button>
-
                     <hr/>
 
                     <div class="md-form">

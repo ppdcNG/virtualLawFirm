@@ -59,8 +59,8 @@ exports.signup = async (req, res) => {
 
     let sendgridOption = {
         to: email,
-        from: "welcome@virtualLaw.com",
-        subject: "Welcome to A & E Law firm",
+        from: "welcome@lawtrella.com",
+        subject: "Welcome to LawTrella",
         text: `Thank you for signing up this is your token ${tok}`
     };
     welcomeMail(mailOptions, res);

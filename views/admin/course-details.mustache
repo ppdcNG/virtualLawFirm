@@ -3,7 +3,6 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
 <header>
-  <!--Navbar -->
   <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
     <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
@@ -52,16 +51,20 @@
   </li>
 </ul>
 <div class="tab-contents border pt-5 container" id="myTabcontentsMD">
-  <div class="tab-pane fade show active" id="content-md" role="tabpanel" aria-labelledby="content-tab-md">
-      <div class="md-form w-25">
+  <div class="tab-pane fade show active" id="contents-md" role="tabpanel" aria-labelledby="content-tab-md">
+      <div class="md-form w-25 container">
         <input type="text" id="price" class="form-control">
-        <label for="form1">Set Price</label>
+        <label for="form1">Price</label>
       </div>
 
-      <div class="text-right"><button class="btn" data-toggle="modal" data-target="#add-content-modal">Add Content</button></div>
+      <div class="text-right">
+        <button class="btn" data-toggle="modal" data-target="#add-lesson-modal">Add Lesson</button>
+        <button class="btn" data-toggle="modal" data-target="#add-question-modal">Add Question</button>
+      </div>
+
       <h5>Content List</h5>
       <hr/>
-      <ul class="list-group list-group-flush">
+      <ul class="list-group list-group-flush" id="course-content-list">
         <li class="list-group-item">Cras justo odio</li>
         <li class="list-group-item">Dapibus ac facilisis in</li>
         <li class="list-group-item">Morbi leo risus</li>
@@ -80,55 +83,39 @@
 </main>
 
 
-{{! add content modal  }}
-<div class="modal fade" id="add-content-modal" tabindex="-1" role="dialog" aria-labelledby="addContentModal"
+{{! add lesson modal  }}
+<div class="modal fade" id="add-lesson-modal" tabindex="-1" role="dialog" aria-labelledby="addLessonModal"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addContentModal">Modal title</h5>
+        <h5 class="modal-title">Add Lesson</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <div class="container">
+      <div class="modal-body container">
 
-<!-- Material form contact -->
-<div class="card">
+          <form id="lessonForm">
+              <div class="mb-3 md-form">
+                  <label for="title">Title</label>
+                  <input type="text" name="title" class="form-control" required>
+              </div>
 
-    <!--Card content-->
-    <div class="card-body px-lg-5 pt-0">
+              <div class="md-form">
+                <textarea id="desc" name = "description" class="md-textarea form-control" rows="3"></textarea>
+                <label for="desc">Description</label>
+              </div>
 
-        <!-- Form -->
-        <form class="text-center" style="color: #757575;" action="#!">
+              <div class="md-form">
+                  <div class="custom-file">
+                      <input id="module" type="file" class="custom-file-input">
+                      <label class="custom-file-label" for="module" data-browse="Upload">Upload Module</label>
+                  </div>
+              </div>
+              <button type="submit" id="saveDoc" class="btn btn-primary">Save</button>
+          </form>
 
-            <div class="md-form mt-3">
-                <input type="text" id="title" class="form-control">
-                <label for="title">Title</label>
-            </div>
-
-            <span>Content Type</span>
-            <select class="mdb-select">
-                <option value="" disabled>Choose option</option>
-            </select>
-
-            <div class="md-form">
-                <textarea id="note" class="form-control md-textarea" rows="3"></textarea>
-                <label for="note">Note</label>
-            </div>
-
-            <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">ADD</button>
-
-        </form>
-        <!-- Form -->
-
-    </div>
-
-</div>
-<!-- Material form contact -->
-
-        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -137,6 +124,25 @@
   </div>
 </div>
 
+{{! add question modal  }}
+<div class="modal fade" id="add-question-modal" tabindex="-1" role="dialog" aria-labelledby="addQuestionModal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Question</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {{> footer}}
 
@@ -150,5 +156,21 @@
 <script src="{{ABS_PATH}}js/admin/admin_docs.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script src="{{ABS_PATH}}js/admin/admin_courses.js"></script>  
+
+<script>
+  $('#contentType').select2();
+
+  $("#contentType").change(() => {
+    let ct = document.querySelector("#contentType").value;
+
+    if (ct === "lesson") {
+      $("#lessonSection").css("display", "block");
+      $("#questionSection").css("display", "none");
+    } else if (ct === "question") {
+      $("#lessonSection").css("display", "none");
+      $("#questionSection").css("display", "block");
+    }
+
+  })
 
 </script>

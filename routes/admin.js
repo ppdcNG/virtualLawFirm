@@ -16,7 +16,7 @@ router.get("/newUser", requireAdmin, adminController.newUSer);
 router.post("/fetchLawyers", adminController.fetchLawyers);
 router.get('/details', requireAdmin, adminController.details);
 router.get('/addAdminUser', requireAdmin, adminController.addAdminUser);
-router.get('/editCourseDetails', requireAdmin, adminController.courseDetails);
+router.get('/editCourseDetails', requireAdmin, adminController.editCourseDetails);
 
 router.post("/testmail", (req, res) => {
   const message = req.body;
@@ -27,7 +27,8 @@ router.post("/sendLawyerInvite", adminController.sendLawyerInvite);
 
 router.post('/verifyLawyerEmail', adminController.verifyLawyerEmail);
 router.post('/verifyUserEmail', adminController.verifyUserEmail);
-router.post('/verifyLawyer', adminController.verifyLawyer);
+router.post('/verifyLawyer', requireAdmin, adminController.verifyLawyer);
+router.post('/suspendLawyer', requireAdmin, adminController.suspendLawyer);
 router.get('/downloadLegalDoc', adminController.downloadDoc);
 router.get('/videoChat', requireLogin, adminController.videoCall);
 

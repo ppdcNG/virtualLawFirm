@@ -5,7 +5,6 @@ const { sendmail, welcomeMail } = require("../helpers/mail");
 const { token, tagOptions, percentageComplete } = require("../helpers");
 const moment = require('moment')
 
-const { states } = require('./states');
 
 var admin = require("firebase-admin");
 // var auth = admin.auth();
@@ -14,6 +13,13 @@ var admin = require("firebase-admin");
 
 
 exports.profile = async (req, res) => {
+    const { states } = require('./states');
+    let statusCheck = {
+        'pending': `<i class="far fa-clock fa-3x  text-warning"></i>`,
+        'verified': `<i class="fas fa-check-circle fa-3x  text-success"></i>`,
+        suspended: `<i class="fas fa-exclamation-triangle fa-3x  text-danger"></i>`,
+        consulting: `<i class="fas fa-check-circle fa-3x  text-success"></i>`
+    }
     let user = req.user;
     let uid = req.user.uid;
     let lawyer = await admin.firestore().collection('lawyers').doc(uid).get().catch((e) => {
@@ -29,17 +35,35 @@ exports.profile = async (req, res) => {
 
     let lawyerdetails = lawyer.data();
     let progress = percentageComplete(lawyerdetails);
+    let progressColor = "";
+    if (progress >= 50) {
+        progressColor = progress > 90 ? 'bg-success' : 'bg-warning';
+    }
+    else progressColor = 'bg-danger';
 
     let photoUrl = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
     let tags = tagOptions();
+    let statusIcon = statusCheck[lawyerdetails.status];
 
     let options = `<option></option>`
     for (var state in states) {
-        option = `<option>${states[state]}</option>`;
+        option = `<option value = "${states[state]}">${states[state]}</option>`;
         options += option;
     }
 
-    res.render("lawyer/profile", { title: "Lawyer profile", ABS_PATH, AppName, photoUrl, uid: user.uid, tags, options, progress });
+    res.render("lawyer/profile", {
+        title: "Lawyer profile",
+        ABS_PATH,
+        AppName,
+        photoUrl,
+        uid: user.uid,
+        tags,
+        options,
+        progress,
+        progressColor,
+        status: lawyerdetails.status,
+        statusIcon
+    });
 };
 
 
@@ -115,12 +139,12 @@ exports.dashboard = (req, res) => {
 };
 
 exports.updateContact = async (req, res) => {
-    let { photoUrl, name, address, country, lga, briefProfile } = req.body;
+    let { photoUrl, name, address, country, state, lga, briefProfile } = req.body;
     if (!photoUrl) {
         let returnObj = {
             err: "error",
             message: "Some fields are missiong",
-            status: "success"
+            status: "danger"
         };
         return res.status(400).send(returnObj);
     }
@@ -137,7 +161,7 @@ exports.updateContact = async (req, res) => {
     if (user.exists) {
         user = user.data();
         await admin.auth().updateUser(req.user.uid, { photoUrl });
-        user.contact = { photoUrl, name, address, country, lga, briefProfile };
+        user.contact = { photoUrl, name, address, country, lga, briefProfile, state };
         user.status = "pending";
         await admin.firestore().collection('lawyers').doc(req.user.uid).set(user);
         let returnObj = {
@@ -150,7 +174,7 @@ exports.updateContact = async (req, res) => {
 
 exports.updateRecord = async (req, res) => {
     let data = JSON.parse(req.body.data);
-    let { courtEnrollmentNumber, yearOfEnrollment, criminalRecord, criminalInvestigation, misconductIndictment, misconductInvestigation, accountDetails } = data;
+    let { courtEnrollmentNumber, yearOfEnrollment, criminalRecord, nbaBranch, criminalInvestigation, misconductIndictment, misconductInvestigation, accountDetails } = data;
     console.log(accountDetails);
     let user = await admin.firestore().collection('lawyers').doc(req.user.uid).get().catch((e) => {
         console.log(e);
@@ -162,10 +186,10 @@ exports.updateRecord = async (req, res) => {
         return res.status(400).send(returnObj);
     });
     if (user.exists) {
+        let batch = admin.firestore().batch();
         user = user.data();
-        user.record = { courtEnrollmentNumber, yearOfEnrollment, criminalRecord, criminalInvestigation, misconductIndictment, misconductInvestigation };
+        user.record = { courtEnrollmentNumber, yearOfEnrollment, criminalRecord, nbaBranch, criminalInvestigation, misconductIndictment, misconductInvestigation };
         user.accountDetails = accountDetails
-        user.status = "pending";
         let docref = admin.firestore().collection('lawyersList').doc(req.user.uid);
         let docref2 = admin.firestore().collection('lawyers').doc(req.user.uid);
         batch.set(docref, user);
@@ -182,7 +206,7 @@ exports.updateRecord = async (req, res) => {
 exports.updateUploads = async (req, res) => {
     let batch = admin.firestore().batch();
     let data = JSON.parse(req.body.data);
-    let { specialization, workExperience, tags, consultationFee, documents } = data;
+    let { specialization, workExperience, tags, consultationFee } = data;
     let user = await admin.firestore().collection('lawyers').doc(req.user.uid).get().catch((e) => {
         console.log(e);
         let returnObj = {
@@ -195,7 +219,6 @@ exports.updateUploads = async (req, res) => {
     if (user.exists) {
         user = user.data();
         user.portfolio = { specialization, tags, workExperience, consultationFee };
-        user.docs = documents
         let docref = admin.firestore().collection('lawyersList').doc(req.user.uid);
         let docref2 = admin.firestore().collection('lawyers').doc(req.user.uid);
         batch.set(docref, user);
