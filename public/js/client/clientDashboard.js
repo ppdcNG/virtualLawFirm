@@ -658,3 +658,5 @@ const gotoMeeting = (taskId, meetingId) => {
     window.location = url;
 }
 
+
+const logout = () => localStorage.removeItem("uid");
