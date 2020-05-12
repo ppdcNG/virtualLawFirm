@@ -51,7 +51,7 @@
             <a class="nav-link" href="/e-learning">
               <i class="fas fa-graduation-cap"></i> e-Learning
             </a>
-          </li>          
+          </li>
         </ul>
 
         <ul class="navbar-nav ml-auto nav-flex-icons">
@@ -226,6 +226,56 @@
     $('#signup').click(function() {
       $('#signup').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
     });
+  </script>
+
+  <script>
+    (function() {
+        let isLoggedin = `
+            <li class="nav-item avatar">
+                <a class="nav-link p-0" href="#">
+                <img src="{{{photoURL}}}" class="rounded-circle z-depth-0"
+                    alt="avatar image" height="40">
+                </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light" onclick="logout()" href="{{ABS_PATH}}logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </li>
+        `;
+        let isNotLoggedIn = `
+          <li class="nav-item">
+            <a class="nav-link waves-effect waves-light unique-color" data-toggle="modal" data-target="#lawyerRegModal">
+              <i class="fas fa-sign-in-alt"></i>Lawyer Register
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect waves-light default-color" href="/client/join">
+              <i class="fas fa-sign-in-alt"></i> Client Register
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect waves-light" data-toggle="modal" data-target="#loginFormModal">
+              Login
+            </a>
+          </li>
+        `;
+
+        try {
+            if (localStorage.getItem("uid")) {
+                $("#isLoggedin").html(isLoggedin);
+            } else {
+                $("#isLoggedin").html(isNotLoggedIn);
+            }
+        } catch (err) {
+            console.log("error", err)
+        }
+    }());
+
+    function logout() {
+      localStorage.removeItem("uid");
+    }
+  
   </script>
 
 </body>

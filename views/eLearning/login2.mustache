@@ -1,0 +1,71 @@
+{{> header}}
+
+<nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+    <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+        aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/">Home
+            <span class="sr-only">(current)</span>
+            </a>
+        </li>
+        </ul>
+
+    </div>
+</nav>
+
+<main style="min-height: 70vh" class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="card mt-5 mb-5 col-6 p-0">
+            <h5 class="card-header special-color white-text text-center py-4">
+                <strong>Welcome to {{AppName}}!</strong>
+            </h5>
+
+            <div class="card-body px-lg-5">
+
+                <form id = "clientLogin">
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <i class="fas fa-envelope prefix grey-text"></i>
+                            <input type="email" name = "email" id="email" class="form-control validate" required>
+                            <label data-error="wrong" data-success="right" for="email">Your email</label>
+                        </div>
+
+                        <div class="md-form mb-4">
+                            <i class="fas fa-lock prefix grey-text"></i>
+                            <input type="password" name = "password" id="pass" class="form-control validate" required>
+                            <label data-error="wrong" data-success="right" for="pass">Your password</label>
+                        </div>
+
+                        <div class="text-center">
+                            <p>Don't have an account? <a href="/client/join">Register now</a></p>
+                            <p class="text-center">Click <a href="/forgot">here</a> if you've forgotten your password</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button id = "clientLoginButton" class="btn btn-default" type = "submit">Login</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+{{> footer}}
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="{{ABS_PATH}}js/lawyer/lawyerScript.js"></script>
+<script src="{{ABS_PATH}}js/client/clientScript.js"></script>
+
+<script>
+  $('#login').click(function() {
+    $('#login').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+  });
+</script>

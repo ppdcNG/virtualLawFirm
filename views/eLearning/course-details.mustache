@@ -1,0 +1,139 @@
+{{> header }}
+
+<style>
+    .checked {
+        color: orange;
+    }
+</style>
+
+<header>
+    <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+        <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+        aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto nav-flex-icons" id="isLoggedin">
+                <li class="nav-item avatar dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <img src='https://images.pexels.com/photos/399772/pexels-photo-399772.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' class="rounded-circle z-depth-0"
+                        width="50" />
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                    aria-labelledby="navbarDropdownMenuLink-55">
+                        <a class="dropdown-item" href="/client/dashboard">Go to Dashboard</a>
+                        <a class="dropdown-item" href="#">My List</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">My Certificates</a>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </nav>
+</header>
+
+<section class="jumbotron default-color mt-0">
+    <div class="container p-3">
+        <div class="row">
+            <div class="col-md-8">
+                <p><a class="text-muted" href="/e-learning">&larr; Back to e-Learning Portal</a></p>
+                <h3 class="text-white" data-aos="fade-right" data-aos-duration="1500">Business Law Certification</h3>
+                <hr width="100" align="left"/>
+                <p class="text-muted">
+                    <span>Course Rating</span> : 
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="pl-2" id="numberRated"><em>(123)</em></span>
+                </p>
+            </div>
+            <div class="col-md-4 p-1">
+                <button class="btn white text-muted">
+                    <h6 class="text-success" id="price">free</h6>
+                    <hr class="m-0" />
+                    <h5>Enroll</h5>
+                </button>
+                <p class="my-1"><a><i class="fas fa-plus"></i> Add to My List</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main class="container pt-3">
+    <div class="row">
+        <div class="col-md-8">
+            <section class="mb-5">
+                <h4 data-aos="zoom-out" data-aos-duration="1000">About Course</h4>
+                <hr width="100" align="left"/>
+
+                <p class="text-justify">
+                    In this course, you will learn about Business Law.
+                    You will learn modern practices as practiced accross in the world.
+                    We will cover the basic fundamentals of business law and gain on-demand skills.
+                </p>
+            </section>
+
+            <section class="mb-3">
+                <h4 data-aos="zoom-out" data-aos-duration="1000">Outline</h4>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Introduction</li>
+                    <li class="list-group-item">Things</li>
+                    <li class="list-group-item">More things</li>
+                    <li class="list-group-item">Questions</li>
+                    <li class="list-group-item">Later you can show me things</li>
+                </ul>
+            </section>
+
+            <div class="border text-center p-3">
+                <a class="">Enroll to Access Course Content</a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="border">
+                <ul class="list-group-flush">
+                    <li class="list-group-item">
+                        <div class="md-v-line"></div><i class="fas fa-laptop mr-4 pr-3"></i> Intermediate Level
+                    </li>
+                    <li class="list-group-item">
+                        <div class="md-v-line"></div><i class="fas fa-video mr-5"></i> 10 Videos (300 mins.)
+                    </li>
+                    <li class="list-group-item">
+                        <div class="md-v-line"></div><i class="fas fa-language mr-5"></i> English
+                    </li>
+                    <li class="list-group-item">
+                        <div class="md-v-line"></div><i class="fas fa-certificate mr-5"></i> Certificate of Completion
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+</main>
+
+<div class="h-25"></div>
+
+{{> footer}}
+
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/elearning.js"></script>
+<script src="{{ABS_PATH}}js/libraries/rating.js"></script>
