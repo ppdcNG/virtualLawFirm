@@ -11,13 +11,15 @@ const admin = require('firebase-admin');
 
 /* GET home page. */
 router.get('/', requireUser, function (req, res) {
-
+  console.log(req.user);
   let authId = req.user ? req.user.uid : false
   let photoURL = req.user ? req.user.photoURL : false;
-  console.log(photoURL);
+  let loggedIn =
+    console.log(photoURL);
   let link = authId ? "findLaywer" : 'join';
 
-  let { photoURL } = req.user ? req.user : 'https://images.pexels.com/photos/399772/pexels-photo-399772.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
+  photoURL = photoURL === "" ? 'https://images.pexels.com/photos/399772/pexels-photo-399772.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' : photoURL;
+  console.log(photoURL);
 
   res.render('index', {
     title: "A&E VL",

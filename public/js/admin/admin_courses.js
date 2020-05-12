@@ -12,6 +12,10 @@ $(document).ready(() => {
     });
 
     $('#addCourseButton').click(function () {
+        $("#addCourseForm")[0].reset();
+        $("#addCourseForm input").trigger('change');
+        $("#addCourseForm textarea").trigger('change');
+        $("#tags").trigger('change');
         $("#courseMode").val("add");
         $("#courseModal").modal('show');
     })
@@ -150,4 +154,7 @@ const renderCourse = (course, courseId) => {
     
     `
 }
+
+/// course Details Pages
+
 
