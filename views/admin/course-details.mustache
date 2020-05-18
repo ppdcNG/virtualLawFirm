@@ -65,59 +65,32 @@
               aria-selected="true">Contents</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="resources-tab-md" data-toggle="tab" href="#resources-md" role="tab" aria-controls="resources-md"
+            <a class="nav-link" id="stats-tab-md" data-toggle="tab" href="#stats-md" role="tab" aria-controls="stats-md"
               aria-selected="false">Course Stats</a>
           </li>
         </ul>
-<div class="tab-contents border pt-5 container" id="myTabcontentsMD">
-  <div class="tab-pane fade show active" id="contents-md" role="tabpanel" aria-labelledby="content-tab-md">
-
-      <input type = "hidden" id = "courseId" value = "{{courseId}}" />
-
-      {{! <form class = "" id = "form-details">
-        <div class = "row">
-        <div class = "col-md-6 md-form pl-5">
-          <input type="text" id="title" name = "title" class="form-control">
-          <label class = "ml-5" for="title">Title</label>
-        </div>
-        <div class = "col-md-6 md-form pl-5">
-          <input type="number" id="price" class="form-control">
-          <label class = "ml-5" for="price">Price</label>
-        </div>
-        <div class = "col-md-6 md-form pl-5">
-          <textarea id="desc" name="details" class="md-textarea form-control" rows="3" required></textarea>
-          <label class = "ml-5" for="desc">Description</label>
-        </div>
-        <div class = "col-md-6 md-form pl-5">
-          <input type="text" id="price" class="form-control">
-          <label class = "ml-5" for="price">Banner</label>
-        </div>
-        
-        </div>
-      </form> }}
-      
-
-      <div class="text-right">
-        <button class="btn" id="addLessonButton">Add Lesson</button>
-        <button class="btn" id = "addQuestionButton">Add Question</button>
-      </div>
-
-      <h5>Content List</h5>
-      <hr/>
-      <ul class="list-group list-group-flush" id="contentList">
-        <div class="d-flex justify-content-center">
-          <div class="spinner-grow slow" role="status" id="loadingTasks">
-            <span class="sr-only">Loading...</span>
+    <div class="tab-contents border pt-5 container" id="myTabcontentsMD">
+      <div class="tab-pane fade show active" id="contents-md" role="tabpanel" aria-labelledby="content-tab-md">
+          <input type = "hidden" id = "courseId" value = "{{courseId}}" />
+          <div class="text-right">
+            <button class="btn" id="addLessonButton">Add Lesson</button>
+            <button class="btn" id = "addQuestionButton">Add Question</button>
           </div>
-        </div>
-      </ul>
-  </div>
-  <div class="tab-pane fade" id="resources-md" role="tabpanel" aria-labelledby="resources-tab-md">
-    <p class="p-5">
-      Resources
-    </p>
-  </div>
-</div>
+
+          <h5>Content List</h5>
+          <hr/>
+          <ul class="list-group list-group-flush" id="contentList">
+            <div class="d-flex justify-content-center">
+              <div class="spinner-grow slow" role="status" id="loadingTasks">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </ul>
+      </div>
+      <div class="tab-pane fade" id="stats-md" role="tabpanel" aria-labelledby="stats-tab-md">
+        
+      </div>
+    </div>
     </section>
     <div class="h-25"></div>
 </main>

@@ -133,7 +133,8 @@ const renderNotification = i => {
   let notifications = task.activities || []
   let typeDict = { payment: renderPaymentNotification, meeting: renderMeetingNotification };
   let noteHTML = '';
-  notifications.reverse().forEach((note, noteId) => {
+  let notcopy = [...notifications]
+  notcopy.reverse().forEach((note, noteId) => {
     noteHTML += typeDict[note.type](note, i, noteId);
   });
   console.log(noteHTML);

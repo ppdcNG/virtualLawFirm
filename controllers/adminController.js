@@ -222,17 +222,14 @@ exports.verifyUserEmail = async (req, res) => {
     res.send(obj);
     return;
   }
-  let idCard = req.files.idCard
-  let ext = idCard.name.split('.');
-  ext = ext[ext.length - 1];
-  console.log(password)
+
   let data = userDetails.data();
   let { email, firstname, lastname, phone } = data;
   let dateRegistered = new Date().getTime()
   let displayName = firstname + " " + lastname;
   let user = await admin
     .auth()
-    .createUser({ email, password, emailVerified: true, displayName, phoneNumber: phone })
+    .createUser({ email, password, emailVerified: true, displayName })
     .catch(e => {
       // console.log(e);
       // console.log(e.message);
@@ -245,12 +242,7 @@ exports.verifyUserEmail = async (req, res) => {
       return;
     });
   console.log(user);
-  let filename = `assets/${user.uid}.${ext}`;
-  console.log(filename)
-  await idCard.mv(filename, (err) => {
-    if (err) res.status(400).send(err);
 
-  })
   let client = {
     name: firstname + " " + lastname,
     email: email,

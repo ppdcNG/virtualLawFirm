@@ -1,6 +1,6 @@
 const renderPaymentNotification = (note, taskId, noteId) => {
     let time = moment(Math.abs(note.timestamp));
-    let read = note.read ? "" : 'default-color';
+    let read = note.read ? "" : 'read-color';
 
     return `<li class="list-group-item ${read}" onclick = "markAsRead('${taskId}', '${noteId}')">
                 <div class="d-flex w-100 justify-content-between">
@@ -14,7 +14,7 @@ const renderPaymentNotification = (note, taskId, noteId) => {
 }
 const renderMeetingNotification = (note, taskId, noteId) => {
     let time = moment(Math.abs(note.timestamp))
-    let read = note.read ? "" : 'default-color'
+    let read = note.read ? "" : 'read-color'
     console.log('meetingid', note.meetingId);
 
     return `<li class="list-group-item ${read}" onclick = "markAsRead('${taskId}', '${noteId}')">
@@ -111,7 +111,8 @@ const renderNotification = i => {
     let notifications = task.activities || []
     let typeDict = { payment: renderPaymentNotification, meeting: renderMeetingNotification };
     let noteHTML = '';
-    notifications.reverse().forEach((note, noteId) => {
+    let notcopy = [...notifications]
+    notcopy.reverse().forEach((note, noteId) => {
         noteHTML += typeDict[note.type](note, i, noteId);
     });
     console.log(noteHTML);
