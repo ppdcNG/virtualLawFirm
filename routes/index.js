@@ -17,7 +17,7 @@ router.get('/', requireUser, function (req, res) {
   console.log(photoURL);
   let link = authId ? "findLaywer" : 'join';
 
-  let { photoURL } = req.user ? req.user : 'https://images.pexels.com/photos/399772/pexels-photo-399772.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
+  // let { photoURL } = req.user ? req.user : 'https://images.pexels.com/photos/399772/pexels-photo-399772.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
 
   res.render('index', {
     title: "A&E VL",
