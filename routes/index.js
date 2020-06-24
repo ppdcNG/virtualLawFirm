@@ -4,13 +4,17 @@ var router = express.Router();
 var { sendAdminNewCase, forgotPasswordMail } = require('../helpers/mail');
 var { token } = require('../helpers');
 var requireLogin = require('../middlewares/requireLogin');
+var requireUser = require('../middlewares/requireUser')
 
-const AppName = require("../config").AppName;
+const { AppName, ABS_PATH } = require("../config");
 const admin = require('firebase-admin');
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  let authId = req.user ? req.user.authId : false
+router.get('/', requireUser, function (req, res) {
+
+  let authId = req.user ? req.user.uid : false
+  let photoURL = req.user ? req.user.photoURL : false;
+  console.log(photoURL);
   let link = authId ? "findLaywer" : 'join';
 
   let { photoURL } = req.user ? req.user : 'https://images.pexels.com/photos/399772/pexels-photo-399772.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
@@ -39,17 +43,41 @@ router.get('/join', function (req, res) {
 router.get('/logout', (req, res) => {
   res.clearCookie('session');
   res.redirect('/');
-})
+});
 
-router.get('/test', async (req, res) => {
-  await sendAdminNewCase('kunle@procurementmonitor.org', 'Kunle', 'Sadiq');
-  console.log("sent");
+router.get('/test', requireUser, async (req, res) => {
+  let fs = require('fs');
+  let uid = req.user.uid;
+  let user = await admin.firestore().doc(`lawyers/${uid}`).get();
+  user = user.data();
+  let userJSON = JSON.stringify(user);
+  fs.writeFile('user.json', userJSON, (err) => {
+    res.send({ message: 'Written user' });
+  });
+
 
 });
 
-router.get('/meetings', requireLogin, (req, res) => {
+router.get('/meetings', requireLogin, async (req, res) => {
+  let { taskId, meetingId } = req.query;
+  let path = `meetingSchedules/${taskId}/meetings/${meetingId}`;
+  let snapshot = await admin.firestore().doc(path).get();
+  let data = snapshot.data();
+  let uid = req.query.uid;
+  let present = ""
+  if (data.activeMembers) {
+    present = data.activeMembers.find(member => member.uid == uid) || "";
 
-  res.render('meetings', { AppName, title: "Lawtrella Meetings", uid: req.query.uid, meetingId: req.query.meetingId });
+  }
+  let join = present ? "Re-join" : 'Join';
+
+  res.render('meetings', {
+    AppName, ABS_PATH, title: "Lawtrella Meetings", uid: req.query.uid,
+    meetingId: req.query.meetingId, taskId: req.query.taskId, username: req.user.displayName,
+    photoUrl: req.user.photoURL,
+    present,
+    join
+  });
 });
 
 router.get('/forgot', (req, res) => {

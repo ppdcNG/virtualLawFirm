@@ -14,6 +14,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/css/bootstrap-notify.css" rel="stylesheet">
   <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
 
 
@@ -68,39 +69,82 @@
   </header>
   <input type = "hidden" id = "meetingId" value = "{{meetingId}}" />
   <input type = "hidden" id = "uid" value = "{{uid}}" />
+  <input type = "hidden" id = "taskId" value = "{{taskId}}" />
+  <input type = "hidden" id = "username" value = "{{username}}" />
+  <input type = "hidden" id = "photoUrl" value  = "{{photoUrl}}" />
+  <input type = "hidden" id = "present" value  = "{{present}}" />
+  <input type = "hidden" id = "join" value  = "{{join}}" />
+
   <main>
     <section class="container py-5">
       <h2 data-aos="fade-right" data-aos-duration="1000">Welcome To {{AppName}} meetings</h2>
       <hr width="100" align="left" />
       <div class="edge-header default-color" style = "margin-bottom: -9em; height: 9em;"></div>
       <div id = "membersSection" class = "container py-5 d-flex flex-column">
-        
-        <h3 data-aos ="fad-right" data-aos-duration="1000" class = "white-text" class = "h3">Active Members</h3>
-        <div id = "members">
-          <div class="spinner-grow slow" class = "text-center" role="status" id="loadingTasks">
-            <span class="sr-only">Loading...</span>
+        <h3 data-aos ="fad-right" data-aos-duration="1000" class = "white-text" class = "h3">Meeting Details</h3>
+      </div>
+      <div class="card text-center" id = "meetingDetails">
+        <div class="card-body">
+          <div>
+            <i class="fas fa-users fa-5x"></i>
+            <h5 class="card-title">Meeting Date</h5>
+            <p class="card-text" id = "meetingDate"></p>
+            <h5 class="card-title">Meeting Time</h5>
+            <p class="card-text" id = "meetingTime"></p>
+            <h5 class="card-title">Active Members <span id = "memberNumber"></span></h5>
+            <p class="card-text" id = "meetingMembers">With supporting text below as a natural lead-in to additional content.</p>
+            <button type = "button" class = "btn btn-success waves-effect px-3"  id = "joinButton"><i class="fas fa-phone pr-2" aria-hidden="true"></i>{{join}} Call</button>
           </div>
         </div>
-        
-      </div>
-    </section>
-    <section class = "container" id = "videoSection" style = "display:none">
-      <div class = "d-flex justify-content-between">
-        <div class="d flex justify-content-around">
-          <button type="button" class="btn btn-elegant waves-effect px-3" onclick = "toggleScreenSharing()"><i class="fas fa-desktop pr-2" aria-hidden="true"></i>Share Screen</button>
-          <button type="button" class="btn btn-elegant waves-effect px-3" onclick = "toggleMic()"><i class="fas fa-microphone pr-2" aria-hidden="true"></i>Toggle Mic</button>
-          <button type="button" class="btn btn-elegant waves-effect px-3" onclick = "toggleVideo()"><i class="fas fa-video pr-2" aria-hidden="true"></i>Toggle Video</button>
-          <button type="button" class="btn btn-elegant waves-effect px-3" onclick = "hangup()"><i class="fas fa-phone-slash pr-2" aria-hidden="true"></i>Hang Up</button>
-        
-        </div>
-        <div class="example z-depth-5">
-          <video width = "200" height = "200" class = "video-fluid z-depth-1" id="localVideo" muted autoplay playsinline></video>
+        <div id = "loadingOverlay" class = "w-100 h-100  flex-colum justify-content-center" style = "position: absolute; left: auto; background-color: rgba(0,0,0, 0.4)">
+            <div class="spinner-grow slow align-middle align-self-center" role="status" id="loadingSpinner"><span class="sr-only">Loading...</span></div>
         </div>
       </div>
-      <div id = "remoteStreams" class = "row">
+      
+    </section>
+    <div id = "videoSection" class = "p-5 m-5">
+      <div class = "row justify-content-center p-2" >
+        <div class="card col-sm-4 p-3">
+          <div class = "card-header">{{username}}</div>
+          <div id="localVideo" class = " align-self-center p-2 m-2" style = "width: 400; height:300;"></div>
+          <div id = "avartar" class = "align-self-center p-2 m-3" style = "display: none">
+            <img id = "avi" src="{{photoUrl}}" style="width:100;height:100" class="rounded-circle mx-auto d-block" alt="profile_pic">
+          </div>
+          <div class=" align-self-center w-45 d-flex justify-content-around">
+            <a class="btn-floating btn-lg btn-outline-danger mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Screen Sharing" data-tg onclick = "toggleScreen()" id = "shareScreenButton"><i class="fas fa-desktop"></i></a>
+            <a class="btn-floating btn-lg btn-outline-elegant mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Microphone" onclick = "toggleAudio()" id = "audioButton"><i class="fas fa-microphone"></i></a>
+            <a class="btn-floating btn-lg btn-outline-elegant mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Video" onclick = "toggleVideo()" id = "videoButton"><i class="fas fa-video"></i></a>
+            <a class="btn-floating btn-lg btn-outline-danger mx-3 meeting-button" data-toggle = "tooltip" title = "Hangup " onclick = "hangup()" id = "hangupButton"><i class="fas fa-phone-slash"></i></a>
+          </div>
+        </div>
+      </div>
+      <div id = "remoteStreams" class = "row justify-content-center m-5">
+        {{! <div class="card col-sm-4 p-3">
+          <div id="localVideo" class = " align-self-center p-2" style = "width: 400; height:300"></div>
+          <div class=" align-self-center w-45 d-flex justify-content-around">
+            <a class="btn-floating btn-lg btn-outline-secondary mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Screen Sharing" data-tg onclick = "toggleScreen()" id = "shareScreenButton"><i class="fas fa-desktop"></i></a>
+            <a class="btn-floating btn-lg btn-outline-danger mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Microphone" onclick = "toggleAudio()" id = "audioButton"><i class="fas fa-microphone-slash"></i></a>
+            <a class="btn-floating btn-lg btn-outline-default mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Video" onclick = "toggleVideo()" id = "videoButton"><i class="fas fa-video"></i></a>
+            <a class="btn-floating btn-lg btn-outline-danger mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle " onclick = "hangup()" id = "hangupButton"><i class="fas fa-phone-slash"></i></a>
+          </div>
+        </div>
+        <div class="card col-sm-4 p-3 mx-3">
+          <div class = "card-header">Adekunle Adelowo</div>
+          <div id="localVideo" class = " align-self-center p-2" style = "width: 400; height:300"></div>
+          <div id = "avartar" style = "width: 400; height:300">
+            <img src="https://firebasestorage.googleapis.com/v0/b/virtuallawfirm-2478e.appspot.com/o/userfiles%2FFCC9ElmpOnbsSw3jxiy5BdLukTE3?alt=media&amp;token=8faa8420-9be7-4416-88d2-20a567b08b9a" style="width:150;height:150" class="rounded-circle mx-auto d-block" alt="profile_pic">
+          </div>
+          
+          <div class=" align-self-center w-45 d-flex justify-content-around">
+            <a class="btn-floating btn-lg btn-outline-secondary mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Screen Sharing" data-tg onclick = "toggleScreen()" id = "shareScreenButton"><i class="fas fa-desktop"></i></a>
+            <a class="btn-floating btn-lg btn-outline-danger mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Microphone" onclick = "toggleAudio()" id = "audioButton"><i class="fas fa-microphone-slash"></i></a>
+            <a class="btn-floating btn-lg btn-outline-default mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle Video" onclick = "toggleVideo()" id = "videoButton"><i class="fas fa-video"></i></a>
+            <a class="btn-floating btn-lg btn-outline-danger mx-3 meeting-button" data-toggle = "tooltip" title = "Toggle " onclick = "hangup()" id = "hangupButton"><i class="fas fa-phone-slash"></i></a>
+          </div>
+        </div> }}
         
       </div>
-    </section>
+    </div>
     
   </main>
 
@@ -112,10 +156,9 @@
     AOS.init();
   </script>
   
-  <script src="{{ABS_PATH}}js/auth.js"></script>
-  <script src="{{ABS_PATH}}js/admin/videoChatModule.js"></script>
-  <script src="{{ABS_PATH}}js/meetingRender.js"></script>
-  <script src="{{ABS_PATH}}js/videoChat.js"></script>
+  <script src="{{{ABS_PATH}}}js/auth.js"></script>
+  <script src="https://cdn.agora.io/sdk/release/AgoraRTCSDK-3.0.2.js"></script>
+  <script src="{{{ABS_PATH}}}js/meetings.js"></script>
   
 </body>
 

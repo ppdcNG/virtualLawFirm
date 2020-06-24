@@ -190,12 +190,30 @@ function clearLoad(id, text) {
 }
 
 const verifyLawyer = id => {
+  buttonLoad('verify');
   $.ajax({
     url: `${ABS_PATH}admin/verifyLawyer?id=${id}`,
     type: "POST",
     success: function (response) {
       clearLoad("verify", "verified");
       $.notify("Lawyer verified!", { type: "success" });
+    },
+    error: err => console.log("error", err)
+  });
+}
+
+const suspendLawyer = id => {
+  buttonLoad('suspendButton');
+  $.ajax({
+    url: `${ABS_PATH}admin/suspendLawyer?id=${id}`,
+    type: "POST",
+    success: function (response) {
+      if (response.err) {
+        $.notify(response.message, { type: danger });
+        return;
+      }
+      clearLoad("suspendButton", "Suspend");
+      $.notify("Lawyer suspended!", { type: "success" });
     },
     error: err => console.log("error", err)
   });
@@ -264,6 +282,41 @@ const prev = async () => {
   $("#loadingTasks").css('display', 'none');
   $("#adminCases").html(casesHtml);
 
+
+}
+
+const contactModal = () => {
+  $("#contactModal").modal('show');
+}
+
+
+const renderTableLoading = () => {
+  return ``
+}
+
+const historyModal = i => {
+  console.log('openning notification', i)
+  renderNotification(i);
+  $("#historyModal").modal('show');
+}
+
+const countUnread = (notifications) => {
+  let count = 0;
+  notifications.forEach((note, i) => {
+    note.read || count++;
+  });
+  return count;
+}
+async function markAsRead(taskId, noteId) {
+  let uid = $("#uid").val();
+  console.log(taskId);
+  TASKS[taskId].activities[noteId].read = true;
+  let notification = TASKS[taskId].activities;
+
+  await firebase.firestore().collection('cases').doc(uid).collection('tasks').doc(taskId).update({ activities: notification }).catch((e) => {
+    console.log(e);
+  });
+  renderNotification(taskId);
 
 }
 

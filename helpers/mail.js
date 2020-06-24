@@ -22,9 +22,9 @@ exports.welcomeMail = (options, res) => {
   let html = welcomeEmail(templateOptions).toString();
   let messageOptions = {
     to,
-    subject: "Welcome To A $ E Law",
-    from: "lawyer@virtualLaw.com",
-    text: "Welcome to A & E Law",
+    subject: "Welcome To LawTrella",
+    from: "selcome@lawtrella.com",
+    text: "Welcome to Lawtrella",
     html
   };
 

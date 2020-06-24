@@ -63,8 +63,8 @@ exports.signup = async (req, res) => {
 
     let sendgridOption = {
         to: email,
-        from: "welcome@virtualLaw.com",
-        subject: "Welcome to A & E Law firm",
+        from: "welcome@lawtrella.com",
+        subject: "Welcome to LawTrella",
         text: `Thank you for signing up this is your token ${tok}`
     };
     welcomeMail(mailOptions, res);
@@ -287,7 +287,7 @@ exports.verifyConsultationFee = async (req, res) => {
             return;
         }
         let activity = {
-            message: `${user.displayName} paid consultation fee for ${task.lawyer.name}`,
+            message: `${user.displayName} paid consultation fee for Legal Counsel of ${task.lawyer.name}`,
             timestamp: time,
             amount: body.data.amount,
             read: false,
@@ -295,6 +295,7 @@ exports.verifyConsultationFee = async (req, res) => {
             title: "Payment"
         }
         task.activities = [activity];
+        payrecord.amount = body.data.amount;
         console.log(err, body);
         // let ref = await admin.firestore().collection('cases').add(task).catch((e) => console.log(e));
         // await admin.firestore().collection('clients').doc(uid).collection('tasks').doc(ref.id).set(task);
@@ -305,16 +306,93 @@ exports.verifyConsultationFee = async (req, res) => {
 
         let batch = admin.firestore().batch();
         let taskRef = admin.firestore().collection('cases').doc();
-        let clientsRef = admin.firestore().collection('clients').doc(taskRef.id);
-        let lawyersRef = admin.firestore().collection('lawyers').doc(taskRef.id);
+        let clientsRef = admin.firestore().collection('clients').doc(uid).collection('tasks').doc(taskRef.id);
+        let lawyersRef = admin.firestore().collection('lawyers').doc(lawyerId).collection('tasks').doc(taskRef.id);
         let transactionsRef = admin.firestore().collection('transactions').doc();
         batch.set(clientsRef, task);
         batch.set(lawyersRef, task);
         batch.set(taskRef, task);
         batch.set(transactionsRef, payrecord);
-        await batch.commit();
+        try {
+            await batch.commit();
+            res.send({ status: 'success', message: "Transaction Successfull. Case has been created" });
+        }
+        catch (e) {
+            console.log(e);
+            res.send({ status: 'error', message: e.message });
 
-        res.send({ status: 'success', message: "Transaction Successfull. Case has been created" });
+        }
+
+
+
+
+    })
+}
+exports.verifyInvoiceFee = async (req, res) => {
+    let payload = req.body
+    console.log(payload);
+    let { paystackRef, taskId, lawyerId, clientId } = payload
+
+    let time = new Date().getTime();
+    let user = {
+        uid: req.user.uid,
+        email: req.user.email,
+        displayName: req.user.displayName,
+        photoURL: req.user.photoURL || "",
+        phoneNumber: req.user.phoneNumber || ""
+    }
+
+    let payrecord = {
+        type: "invoice",
+        payer: user,
+        payee: {
+            uid: payload.lawyerId,
+            name: payload.lawyerName,
+            photoURL: payload.lawyerPhoto
+        },
+        ref: paystackRef,
+        date: 0 - time,
+    }
+
+    var paystack = require('paystack')(PAYSTACK_PUB_KEY);
+    var pay = paystack.transaction.verify(paystackRef, async (err, body) => {
+        console.log(err);
+        if (err) {
+            res.send({ status: "failed", message: "Transaction Failed" });
+            return;
+        }
+        let activity = {
+            message: `${user.displayName} paid Invoice fee "${payload.subject}" to  ${payload.lawyerName}`,
+            timestamp: time,
+            amount: body.data.amount,
+            read: false,
+            type: "payment",
+            title: "Payment"
+        }
+        let note = admin.firestore.FieldValue.arrayUnion(activity);
+        delValue = admin.firestore.FieldValue.delete();
+
+        let batch = admin.firestore().batch();
+        let taskRef = admin.firestore().collection('cases').doc(taskId);
+        let clientsRef = admin.firestore().collection('clients').doc(clientId).collection('tasks').doc(taskId);
+        let lawyersRef = admin.firestore().collection('lawyers').doc(lawyerId).collection('tasks').doc(taskId);
+        let transactionsRef = admin.firestore().collection('transactions').doc();
+        batch.update(clientsRef, { activities: note, pendingPayment: delValue });
+        batch.update(lawyersRef, { activities: note, pendingPayment: delValue });
+        batch.update(taskRef, { activities: note, pendingPayment: delValue });
+        batch.set(transactionsRef, payrecord);
+        try {
+            await batch.commit();
+            res.send({ status: 'success', message: "Transaction Successfull. Invoice Payment has been received" });
+        }
+        catch (e) {
+            console.log(e);
+            res.send({ status: 'error', message: e.message });
+
+        }
+
+
+
 
     })
 }

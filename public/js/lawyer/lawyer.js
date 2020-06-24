@@ -5,6 +5,7 @@ var CHATS = [];
 var CHAT_MESSAGES = [];
 var Chatlistener = null;
 var CHAT_ID = null;
+var MEETINGS = {};
 
 $(document).ready(function () {
     fetchCases();
@@ -35,26 +36,7 @@ const handleCaseFetch = cases => {
 }
 
 
-const renderCases = (task, taskId) => {
-    let formattedTimestamp = Math.abs(task.timestamp);
-    let time = moment(formattedTimestamp).format("dddd, MMMM Do YYYY");
-    let count = task.activities ? countUnread(task.activities) : 0;
-    let badge = count > 0 ? `<span class="badge badge-danger ml-2">${count}</span>` : `<span class="badge badge-light ml-2">${task.activities || 0}</span>`;
-    return `<tr>
-        <td>
-        <a class="elegant-text" onclick = "viewClientDetails('${taskId}')"  data-toggle = "tooltip" title = "View client details">${task.client.displayName}</a></li>
-        </td>
-        <td><a class = "elegant-text" onclick = "viewTaskDetails('${taskId}')" data-toggle = "tooltip" title = "View task detials">${task.subject}</a></td>
-        <td>${task.status}</td>
-        <th scope="row">${time}</th>
-        <td>
-            <button class="btn special-color text-white mr-4" data-toggle="tooltip" title = "Notifications about your Case" onclick = "openNotificationModal('${taskId}')" data-target="#notificationModal"><i class="far fa-bell pr-2"></i>${badge}</button>            
-            <button class="btn" data-toggle="modal" data-target="#meetingModal"><i class="far fa-calendar-alt"></i></button>
-            <button class="btn border" data-toggle="modal" data-target="#invoiceModal"><i class="fas fa-file-invoice"></i></button>
-            <button class="py-2 px-4 border red-text" data-toggle="modal" data-target="#closeModal"><i class="fas fa-times"></i></button>
-        </td>
-    </tr>`;
-}
+
 
 $("#scheduleMeetingForm").submit(e => {
     e.preventDefault();
@@ -116,27 +98,7 @@ const chatWithClient = () => {
     });
 }
 
-const renderTaskModal = (task, taskId) => {
 
-    $("#taskId").val(taskId);
-    $("#clientName").text(task.client.name);
-    $("#clientDetailsList").html(`
-        <img src="${task.client.photoURL || image_placeholder}" class="rounded-circle z-depth-0 mr-2"
-                    alt="lawyerPic" height="70"/>
-        <hr width="50" />
-        <ul class="list-group">
-            <li class="list-group-item"><i class="fas fa-user float-left"></i>${task.client.displayName}</li>
-            <li class="list-group-item"><i class="fas fa-mobile float-left"></i></i>${task.client.phoneNumber || "N/A"}</li>
-            <li class="list-group-item"><i class="fas fa-at float-left"></i>${task.client.email || "N/A"}</li>
-        </ul>
-        <div class="list-group border p-2">
-            <h6>Task Description</h6>
-            <hr width="100" />
-            <p class="text-justify">${task.issue}</p>
-        </div>
-    `);
-
-}
 
 const fetchChats = async () => {
     let myId = $("#uid").val();
@@ -151,16 +113,6 @@ const fetchChats = async () => {
     console.log(CHATS);
 
 
-}
-
-const renderChatList = (chat) => {
-    return `
-    <li class="list-group-item mb-1">
-        <a href = "#" onclick = "viewChat('${chat.chatId}')">
-        <img src="${chat.clientPhoto}" class="rounded-circle z-depth-0 "
-            alt="lawyer Pic" height="50" width="50"><br/>  ${chat.clientName} </a>
-    </li>
-    `;
 }
 
 const listenForChatMessages = async (chatId) => {
@@ -199,48 +151,7 @@ const viewChat = chatId => {
 
 }
 
-const renderSenderChat = (chat) => {
 
-    let momentDate = new moment(Math.abs(chat.timestamp));
-    let timeago = momentDate.fromNow();
-
-    return `<div class="container align-self-end " style = "width: 50%">
-                <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-2 h5 teal-text">${chat.senderName}</h5>
-                <small class = "text-muted">${timeago}</small>
-                </div>
-                <p class="mb-2 blue-grey-text">${chat.message}</p>
-            </div>`;
-}
-
-const renderReceiverChat = (chat) => {
-    let momentDate = new moment(Math.abs(chat.timestamp));
-    let timeago = momentDate.fromNow();
-
-    return `<div class="container" style = "width: 50%">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-2 h5 teal-text">${chat.senderName}</h5>
-                    <small class = "text-muted">${timeago}</small>
-                </div>
-                <p class="mb-2 blue-grey-text">${chat.message}</p>
-            </div>`;
-}
-const renderChats = (chats, append = false) => {
-
-    if (is_empty(chats)) {
-        $("#chatsContainer").html("<h4>No chats Available Be the first to send a message</h4>");
-    }
-    let uid = $("#uid").val();
-    let chathtml = "";
-    chats.map((chat) => {
-        chathtml += chat.senderId == uid ? renderSenderChat(chat) : renderReceiverChat(chat);
-    })
-
-    append ? $("#chatsContainer").append(chathtml) : $("#chatsContainer").html(chathtml);
-
-    $("#chatsContainer").animate({ scrollTop: $('#chatsContainer').prop("scrollHeight") }, 1000);
-
-}
 
 const sendChat = async (chatId, message) => {
     let uid = $("#uid").val();
@@ -261,14 +172,8 @@ const sendChat = async (chatId, message) => {
 
 }
 const openNotificationModal = i => {
-    let task = TASKS[i];
-    let notifications = task.activities || []
-    let typeDict = { payment: renderPaymentNotification, meeting: renderMeetingNotification };
-    let noteHTML = '';
-    notifications.forEach((note, noteId) => {
-        noteHTML = typeDict[note.type](note, i, noteId);
-    });
-    $('#notificationList').html(noteHTML);
+    console.log('openning notification')
+    renderNotification(i);
     $("#notificationModal").modal('show');
 }
 
@@ -282,44 +187,224 @@ const countUnread = (notifications) => {
 async function markAsRead(taskId, noteId) {
     let uid = $("#uid").val();
     console.log(taskId);
-    TASKS[taskId].activities[noteId] = true;
-    let notification = TASKS[taskId].activities
+    TASKS[taskId].activities[noteId].read = true;
+    let notification = TASKS[taskId].activities;
 
-    await firebase.firestore().collection('clients').doc(uid).collection('tasks').doc(taskId).update({ activities: notification }).catch((e) => {
+    await firebase.firestore().collection('lawyers').doc(uid).collection('tasks').doc(taskId).update({ activities: notification }).catch((e) => {
         console.log(e);
     });
-    $(this).removeClass('default-color');
+    renderNotification(taskId);
 
 }
 
 
-const renderPaymentNotification = (note, taskId, noteId) => {
-    let time = moment(Math.abs(note.timestamp));
-    let read = note.read ? "" : 'default-color';
+const openMeetingModal = async taskId => {
+    let meetingRef = MEETINGS[taskId];
+    let notification = $.notify('Please Wait...', { type: "primary", delay: 0 });
+    let meetingsHTML = "";
+    if (meetingRef) {
+        console.log("theres meeting")
+        Object.keys(meetingRef).forEach((meetingId) => {
+            let meeting = meetingRef[meetingId];
+            console.log(meetingId)
+            meetingsHTML += renderMeeting(meeting, meetingId, taskId);
+        });
+        notification.close()
 
-    return `<li class="list-group-item ${read}" onclick = "markAsRead('${taskId}', '${noteId}')">
-                <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-2 h5">${note.title}</h5>
-                <small>${time.fromNow()}</small>
-                </div>
-                <p class="mb-2">
-                ${note.message}</p>
-                <small>Mark as read</small>
-            </li>`
-}
-const renderMeetingNotification = (note, taskId, noteId) => {
-    let time = moment(Math.abs(note.timestamp))
-    let read = note.read ? "" : 'default-color'
+    }
 
-    return `<li class="list-group-item ${read}" onclick = "markAsRead('${taskId}', '${noteId}')">
-        <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-2 h5">${note.title}</h5>
-        <small>${time.fromNow()}</small>
-        </div>
-        <p class="mb-2">
-        ${note.message}.</p>
-        <div class = "d-flex w-40">
-        <button class = "btn btn-outline-default" onclick = "gotoMeetings('${note.meetingId}')"><i class="fas fa-video pr-2"></i> Join Meeting</button>
-        </div>
-    </li>`
+    else {
+        console.log("theres no meeting");
+        let meetingSnapshot = await firebase.firestore().collection('meetingSchedules').doc(taskId).collection('meetings').get();
+        MEETINGS[taskId] = {};
+        meetingSnapshot.forEach((ref) => {
+            let meeting = ref.data();
+            console.log(meeting);
+            MEETINGS[taskId][ref.id] = meeting;
+            meetingsHTML += renderMeeting(meeting, ref.id, taskId);
+        });
+        notification.close();
+
+    }
+    $("#meetingList").html(meetingsHTML);
+    $(".taskId").each((id, ele) => { $(ele).val(taskId) });
+    $("#meetingModal").modal('show');
+
 }
+
+$("#scheduleMeetingForm").submit(async function (e) {
+    e.preventDefault();
+    buttonLoad('addMeetingButton');
+    let notification = $.notify('Please Wait...', { type: 'primary', delay: 0 });
+    let meeting = form2js('scheduleMeetingForm', '.', false);
+    console.log(meeting);
+    let task = TASKS[meeting.taskId];
+    let endstring = `${meeting.date}T${meeting.start}Z`
+    console.log(endstring);
+    meeting.start = new Date(`${meeting.date}T${meeting.start}+01:00`).getTime();
+    meeting.end = new Date(`${meeting.date}T${meeting.end}+01:00`).getTime();
+    meeting.timestamp = 0 - new Date().getTime();
+    meeting.date = new Date(meeting.date).getTime();
+    meeting.lawyerId = task.lawyerId;
+    meeting.clientId = task.userId;
+    meeting.lawyerName = task.lawyer.name;
+    meeting.clientName = task.client.displayName;
+
+    this.reset();
+    let url = ABS_PATH + 'lawyer/scheduleMeeting';
+
+    $.ajax({
+        url,
+        data: meeting,
+        type: "POST",
+        success: async function (response) {
+            console.log(response);
+            clearLoad('addMeetingButton', 'Set');
+            notification.close();
+            if (response.status == "success") {
+                $.notify(response.message, { type: 'success' });
+            }
+            else {
+                $.notify(response.message, { type: 'danger' });
+            }
+        },
+        error: e => {
+            console.log('error', e);
+            $.notify(e.message, { type: 'danger' });
+        }
+    });
+
+
+});
+
+$("#editScheduleForm").submit(function (e) {
+    e.preventDefault();
+    let edit = form2js('editScheduleForm', '.', false);
+    console.log(edit);
+    buttonLoad('editButton');
+    let notification = $.notify('Please Wait...', { type: 'primary', delay: 0 });
+    let meetingId = $("#meetingId").val();
+    let meeting = MEETINGS[edit.taskId][meetingId];
+    meeting.start = new Date(`${edit.date}T${edit.start}+01:00`).getTime();
+    meeting.end = new Date(`${edit.date}T${edit.end}+01:00`).getTime();
+    meeting.timestamp = 0 - new Date().getTime();
+    meeting.date = new Date(edit.date).getTime();
+
+
+    this.reset();
+    let url = ABS_PATH + `lawyer/editSchedule?meetingId=${meetingId}`;
+
+    $.ajax({
+        url,
+        data: meeting,
+        type: "POST",
+        success: async function (response) {
+            console.log(response);
+            clearLoad('editButton', 'Set');
+            notification.close();
+            if (response.status == "success") {
+                $.notify(response.message, { type: 'success' });
+            }
+            else {
+                $.notify(response.message, { type: 'danger' });
+            }
+        },
+        error: e => {
+            console.log('error', e);
+            $.notify(e.message, { type: 'danger' });
+        }
+    });
+
+})
+
+const editMeeting = (taskId, meetingId) => {
+    let meeting = MEETINGS[taskId][meetingId];
+    console.log(meeting);
+    meeting = { ...meeting, ...convertToFormTime(meeting) };
+    // console.log(meeting);
+    // meeting.date = moment(meeting.date).format('')
+    $("#meetingId").val(meetingId);
+    $("#scheduleMeetingForm").fadeOut();
+    js2form('editScheduleForm', meeting);
+    $("#editScheduleForm").fadeIn();
+}
+
+const cancelEdit = () => {
+    $("#editScheduleForm")[0].reset();
+    $("#editScheduleForm").fadeOut();
+    $("#scheduleMeetingForm").fadeIn();
+}
+
+const convertToFormTime = meeting => {
+    let date = moment(parseInt(meeting.date)).format('YYYY-MM-DD');
+    let start = moment(parseInt(meeting.start)).format('HH:mm');
+    let end = moment(parseInt(meeting.end)).format("HH:mm");
+
+    return { start, date, end };
+
+}
+
+
+
+$("#invoiceForm").submit(async function (e) {
+    e.preventDefault();
+    buttonLoad('raiseInvoiceButton');
+    let notification = $.notify('Please Wait...', { type: 'primary', delay: 0 });
+    let invoice = form2js('invoiceForm', '.', false);
+    let task = TASKS[invoice.taskId];
+    invoice.timestamp = new Date().getTime();
+    invoice.lawyerId = task.lawyerId;
+    invoice.clientId = task.userId;
+    invoice.lawyerName = task.lawyer.name;
+    invoice.clientName = task.client.displayName;
+    this.reset();
+    let url = ABS_PATH + 'lawyer/raiseInvoice';
+
+    $.ajax({
+        url,
+        data: invoice,
+        type: "POST",
+        success: async function (response) {
+            console.log(response);
+            $("#invoiceModal").modal('close');
+            clearLoad('raiseInvoiceButton', 'Submit');
+            notification.close();
+            if (response.status == "success") {
+                $.notify(response.message, { type: 'success' });
+            }
+            else {
+                $.notify(response.message, { type: 'danger' });
+            }
+        },
+        error: e => {
+            console.log('error', e);
+            $.notify(e.message, { type: 'danger' });
+        }
+    });
+
+});
+
+const openInvoiceModal = taskId => {
+    $("#invoiceTaskId").val(taskId);
+    $("#invoiceModal").modal('show');
+}
+
+const pendingInvoiceModal = taskId => {
+    let invoice = TASKS[taskId].pendingPayment;
+    console.log(invoice);
+    let date = moment(Math.abs(parseInt(invoice.timestamp))).format("MMMM Do YYYY");
+    $("#invoiceAmount").html(accounting.formatMoney(invoice.amount, '&#8358;'));
+    $("#invoiceDate").text(date);
+    $("#invoiceDescription").text(invoice.description);
+    $("#invoiceTitle").text(invoice.subject);
+    $("#pendingInvoiceModal").modal('show');
+
+}
+
+
+const gotoMeeting = (taskId, meetingId) => {
+    let url = ABS_PATH + `meetings/?meetingId=${meetingId}&taskId=${taskId}`;
+    window.location = url;
+}
+
+

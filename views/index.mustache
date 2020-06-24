@@ -47,15 +47,50 @@
           <li class="nav-item">
             <a class="nav-link" href="#">FAQs</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link waves-effect waves-dark white text-success btn btn-circle" href="/e-learning">
+          <li class="nav-item active">
+            <a class="nav-link" href="/e-learning">
               <i class="fas fa-graduation-cap"></i> e-Learning
             </a>
           </li>
         </ul>
 
+<<<<<<< HEAD
         <ul class="navbar-nav ml-auto nav-flex-icons" id="isLoggedin">
 
+=======
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+          {{#photoURL}}
+            <li class="nav-item avatar">
+              <a class="nav-link p-0" href="#">
+              <img src="{{ photoURL }}" class="rounded-circle z-depth-0"
+                  alt="avatar image" height="40" width = "40">
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </li>
+          {{/photoURL}}
+          {{^photoURL}}
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light unique-color" data-toggle="modal" data-target="#lawyerRegModal">
+                <i class="fas fa-sign-in-alt"></i>Lawyer Register
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light default-color" href="/client/join">
+                <i class="fas fa-sign-in-alt"></i> Client Register
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light" data-toggle="modal" data-target="#loginFormModal">
+                Login
+              </a>
+            </li>
+          {{/photoURL}}
+          
+>>>>>>> 7c6b4f9e3aeb0d852fbf94ccea12a0cc551c1db2
         </ul>
       </div>
     </nav>
@@ -65,7 +100,7 @@
   <main>
     <div class="jumbotron parent-box text-center" style="height:70vh;background: url(https://images.pexels.com/photos/534204/pexels-photo-534204.jpeg?cs=srgb&dl=close-up-court-courthouse-534204.jpg&fm=jpg) no-repeat;background-size:100% 100%;padding:0;margin:0">
       <div class="child-box text-light" style="background:rgba(0,0,0,0.7);">
-          <h1 data-aos="fade-right" data-aos-duration="2000">Welcome to the LawTrella</h1>
+          <h1 class = "h1" data-aos="fade-right" data-aos-duration="2000">Welcome to the LawTrella</h1>
           <p data-aos="fade-left" class="grey-text">Your customized legal service is just a few clicks away</p>
 
           <a data-aos="fade-right" data-aos-duration="2000" class="btn btn-default mt-5" href="#main-section">Get Started <i class="fas fa-angle-double-down"></i></a>
