@@ -67,12 +67,13 @@
                 </p>
             </div>
             <div class="col-md-4 p-1">
-                <button class="btn white text-muted">
+                <button class="btn white text-muted" id="enroll-btn">
                     <h6 class="text-success" id="price">free</h6>
                     <hr class="m-0" />
-                    <h5>Enroll</h5>
+                    <h5 id="enroll-status">Enroll</h5>
                 </button>
-                <p class="my-1"><a><i class="fas fa-plus"></i> Add to My List</p>
+                <p class="my-2"><a class="shadow p-1 white-text"><i class="fas fa-plus"></i> Add to My List</a></p>
+                <p class="my-2"><a class="shadow p-2 white-text" href="/e-learning/mylist">Go to My List <i class="fas fa-caret-right"></i></a></span></p>
             </div>
         </div>
     </div>
@@ -92,7 +93,7 @@
                 </p>
             </section>
 
-            <section class="mb-3">
+            <section class="mb-3" id="course-outline">
                 <h4 data-aos="zoom-out" data-aos-duration="1000">Outline</h4>
 
                 <ul class="list-group list-group-flush">
@@ -102,11 +103,31 @@
                     <li class="list-group-item">Questions</li>
                     <li class="list-group-item">Later you can show me things</li>
                 </ul>
+
+                <div class="border text-center p-3">
+                    <a href="#enroll-btn">Enroll to Access Course Content</a>
+                </div>
+            </section>
+            
+            <section id="course-content">
+                <div class="card p-3">
+                    <h6 class="my-3 text-success">LESSON 1</h6>
+                    <h4>
+                        <span>Introduction</span>
+                        <span class="float-right"><button class="btn btn-sm" data-toggle="modal" data-target="#lessonModal">Play Lesson</button></span>
+                    </h4>
+                </div>
+                
+                <div class="card p-3">
+                    <h6 class="my-3 text-success">LESSON 2</h6>
+                    <h4>
+                        <span>Example Content</span>
+                        <span class="float-right"><button class="btn btn-sm" data-toggle="modal" data-target="#lessonModal">Play Lesson</button></span>
+                    </h4>
+                </div>
             </section>
 
-            <div class="border text-center p-3">
-                <a class="">Enroll to Access Course Content</a>
-            </div>
+
         </div>
 
         <div class="col-md-4">
@@ -128,6 +149,19 @@
             </div>
         </div>
 
+        {{! MODALS SECTION }}
+        <div class="modal fade" id="lessonModal" tabindex="-1" role="dialog" aria-labelledby="lessonModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/y881t8ilMyc" frameborder="0" allowfullscreen></iframe>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 </main>
 
 <div class="h-25"></div>
@@ -137,3 +171,12 @@
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/elearning.js"></script>
 <script src="{{ABS_PATH}}js/libraries/rating.js"></script>
+
+<script>
+    // enroll button 
+    $("#enroll-btn").click(async () => {
+        await $("#course-outline").css("display", "none");
+        await $("#course-content").css("display", "block");
+        $("#enroll-status").text("Enrolled");
+    })
+</script>

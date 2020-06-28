@@ -188,7 +188,7 @@
 
                         <div class="md-form">
                             <span class="text-muted">State:</span>
-                            <select class="states form-control mt-2" id="state" name="state">
+                            <select class="browser-default custom-select" mt-2" id="state" name="state">
                                 {{{options}}}
                             </select>
                         </div>
@@ -215,7 +215,7 @@
                     <h3> Record</h3>
                     <hr/>
 
-                    <form id="updateRecord">
+                    <form id="updateRecord ">
                         <div class="md-form">
                             <input type="number" class="form-control" name="courtEnrollmentNumber" required/>
                             <label class="label">Supreme Court Enrollment Number:</label>
@@ -407,8 +407,9 @@ aria-hidden="true">
     loadBtn('saveUpload');
 
     $('.tags').select2({
-        maximumSelectionLength: 5
+        maximumSelectionLength: 5,
+        width: 80
     });
 
-    $('.states').select2();
+
 </script>
