@@ -1,7 +1,20 @@
 {{> header}}
 
-<nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
-    <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
+{{! <style>
+    #embeddedDoc {
+        pointer-events: none;
+    }
+    #embeddedDoc::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+    }
+</style> }}
+
+<nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark default-color">
+    <a class="h4 navbar-brand  p-3" href="#">{{AppName}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
         aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -20,42 +33,55 @@
 </nav>
 
 <div class="row">
-    <div class="col-12">
-        <section class="h-50">
-            <div class="row" style="background-image: linear-gradient(to right, #95c8cc, #fff, #fff, #fff)">
-                <div class="col-md-6 pl-5 pb-3">
-                    <div class="h-25"></div>
-                    <h2 class="text-uppercase">legal documents</h2>
-                    <p>Looking for prepared and iron clad contracts, agreements, licenses documents and other legal documents curated for your specific needs?. Well look no further, Lawtrella legal documents is your one stop hive for legal documents in Nigeria</p>
-                </div>
-
-                <div class="col-md-6 text-center">
-                    <img src="https://image.freepik.com/free-vector/documents-concept-illustration_114360-138.jpg" width="60%">
-                </div>
-            </div>
-        </section>
-    </div>
-</div>
-<div class="row">
     <section class="container">
-        <div class="text-center">
-            <div class="card unique-color white-text"><b>Register or login to your account for a discount!</b></div>
+        <div class="mt-5">
+            <h4 class="text-uppercase font-weight-bold">legal documents</h4>
+            <p class="text-justify">
+                Looking for prepared and iron clad contracts, agreements, licenses documents and other legal documents curated for your specific needs?.
+                Well look no further, Lawtrella legal documents is your one stop hive for legal documents in Nigeria
+            </p>
+
+            <form class="form row py-3">
+                <label for="filter" class="font-weight-bold col-md-12">Filter Category</label>
+                <input type="search" name="filter" class="form-control col-md-4 ml-3" />
+            </form>
         </div>
+
         <br/>
-        <br/>
-        <form class="md-form form-inline mt-0 border p-2 row">
-            <div class="md-form col-12 d-flex justify-content-center">
-                <span class="text-muted mr-1">Search Document:</span>
-                <select class="form-control w-75 documentSearch" name="">
-                    <option value="" selected>Select Documents</option>
-                    
-                </select>
-            </div>
-        </form>
+
+{{! <button id="triggerDocModal" class="btn" data-toggle="modal" data-target="#documentModal"></button> }}
+
+<div class="modal fade" id="documentPreviewModal" tabindex="-1" role="dialog" aria-labelledby="documentModalTitle"
+  aria-hidden="true">
+
+  <div class="modal-dialog modal-lg modal-center" role="document">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="font-weight-bold w-100 modal-title" id="updateProfileModalTitle">Document Title <span class="float-right">N10000</span></h4>
+        <button type="button" id="closeProfileModal" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 class="w-100">Preview</h5>
+
+        <iframe src="{{ABS_PATH}}images/TestDocument.pdf#toolbar=0" id="embeddedDoc"
+            width="100%" height="300"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button class="btn default-color white-text" onclick="payLegalDoc('${id}')"><i class="fa fa-download"></i> Download</div>
+      </div>
+    </div>
+  </div>
+</div>
 
         {{! card deck  }}
-        <div class="row row-cols-4 row-cols-md-4" id="documents">
+        <div class="container">
+            <div class="row row-cols-4 row-cols-md-4" id="documents">
 
+
+            </div>
         </div>
         {{! / card deck  }}
 
