@@ -1,6 +1,5 @@
 
 
-
 const renderDocs = (id, document) => {
     console.log(document);
     let description = document.description ? (document.description.length > 45 ? document.description.substr(0, 21) + '...' : document.description) : "No Description"
@@ -24,6 +23,36 @@ const showModal = id => {
     $('#documentPreviewModal').modal('show');
 }
 
+$("#searchFilterForm").submit(async (e) => {
+    e.preventDefault();
+    let form = form2js("searchFilterForm", ".");
+    let documentsHTML = "";
+
+    if (Object.entries(form).length === 0) {
+        fetchDoc();
+    } else {
+        const snapshot = await firebase.firestore().collection('legalDocs').where('title', '==', form.filter).get();
+
+        if (snapshot.empty) {
+            console.log('No matching documents.');
+            $("#documents").html('No Matching Documents')
+            return;
+        }
+        snapshot.forEach(doc => {
+            console.log(doc.id, '=>', doc.data());
+            documentsHTML += renderDocs(doc.id, doc.data());
+            $("#documents").html(documentsHTML);
+        });
+    }
+
+})
+
+$("#resetFilterBtn").click(() => {
+    $("#searchFilterForm")[0].reset();
+    fetchDoc();
+})
+
+
 let LEGAL_DOCS = {};
 const fetchDoc = () => {
     firebase.firestore().collection('legalDocs').onSnapshot((documents) => {
@@ -37,7 +66,6 @@ const fetchDoc = () => {
         documentsHTML == '' ? $("#documents").html('No Documents Available') : $("#documents").html(documentsHTML);
     });
 }
-
 fetchDoc();
 
 const payLegalDoc = id => {

@@ -41,9 +41,10 @@
                 Well look no further, Lawtrella legal documents is your one stop hive for legal documents in Nigeria
             </p>
 
-            <form class="form row py-3">
+            <form class="form row py-3" id="searchFilterForm">
                 <label for="filter" class="font-weight-bold col-md-12">Filter Category</label>
                 <input type="search" name="filter" class="form-control col-md-4 ml-3" />
+                <button type="button" id="resetFilterBtn" class="border-0 px-2 bg-warning white-text">Reset Filter</button>
             </form>
         </div>
 
@@ -95,6 +96,7 @@
 {{> footer}}
 
 <script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
 <script src="{{ABS_PATH}}js/legalDocs.js"></script>
