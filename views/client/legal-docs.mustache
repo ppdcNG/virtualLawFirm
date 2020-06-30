@@ -49,9 +49,24 @@
 
         <br/>
 
-{{! <button id="triggerDocModal" class="btn" data-toggle="modal" data-target="#documentModal"></button> }}
+        {{! card deck  }}
+        <div class="container">
+            <div class="row row-cols-4 row-cols-md-4" id="documents">
 
-<div class="modal fade" id="documentPreviewModal" tabindex="-1" role="dialog" aria-labelledby="documentModalTitle"
+
+            </div>
+        </div>
+        {{! / card deck  }}
+
+            <div class="d-flex justify-content-center my-5">
+                <div class="spinner-grow" role="status" id="loading">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+
+    </section>
+
+    <div class="modal fade" id="documentPreviewModal" tabindex="-1" role="dialog" aria-labelledby="documentModalTitle"
   aria-hidden="true">
 
   <div class="modal-dialog modal-lg modal-center" role="document">
@@ -70,28 +85,11 @@
             width="100%" height="300"></iframe>
       </div>
       <div class="modal-footer">
-        <button class="btn default-color white-text" onclick="payLegalDoc('${id}')"><i class="fa fa-download"></i> Download</div>
+        <button class="btn default-color white-text" onclick="payLegalDoc()"><i class="fa fa-download"></i> Download</div>
       </div>
     </div>
   </div>
 </div>
-
-        {{! card deck  }}
-        <div class="container">
-            <div class="row row-cols-4 row-cols-md-4" id="documents">
-
-
-            </div>
-        </div>
-        {{! / card deck  }}
-
-            <div class="d-flex justify-content-center my-5">
-                <div class="spinner-grow" role="status" id="loading">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </div>
-
-    </section>
 </div>
  
 {{> footer}}
