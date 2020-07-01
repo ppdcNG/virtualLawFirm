@@ -91,3 +91,70 @@ exports.copyLawyers = async () => {
   await batch.commit();
   console.log('successfully written');
 }
+
+// categories helper function() 
+exports.familyLawOptions = () => {
+  let tagsHTML = '';
+  let tags = require('../config/categories/family-law.json');
+  tags.slice([0], [10]).forEach((value, index) => {
+    tagsHTML += `<option value = "${value["family law"]}" selected>${value["family law"]}</option>`;
+  });
+
+  return tagsHTML;
+}
+
+exports.administrativePublicLawOptions = () => {
+  let tagsHTML = '';
+  let tags = require('../config/categories/administrative-public-law.json');
+  tags.slice([0], [10]).forEach((value, index) => {
+    tagsHTML += `<option value = "${value["administrative public law"]}" selected>${value["administrative public law"]}</option>`;
+  });
+
+  return tagsHTML;
+}
+
+exports.landPropertyLawOptions = () => {
+  let tagsHTML = "";
+  let tags = require('../config/categories/land-property-law.json');
+  tags.slice([0], [10]).forEach((value, index) => {
+    tagsHTML += `<option value = "${value["land/property law"]}" selected>${value["land/property law"]}</option>`;
+  })
+  return tagsHTML;
+}
+
+exports.financeCommercialLawOptions = () => {
+  let tagsHTML = "";
+  let tags = require('../config/categories/finance-commercial-law.json');
+  tags.slice([0], [10]).forEach((value, index) => {
+    tagsHTML += `<option value = "${value["finance/commercial law"]}" selected>${value["finance/commercial law"]}</option>`;
+  })
+  return tagsHTML;
+}
+
+exports.digitalEntertainmentLawOptions = () => {
+  let tagsHTML = "";
+  let tags = require('../config/categories/digital-ent-sports.json');
+  tags.slice([0], [10]).forEach((value, index) => {
+    tagsHTML += `<option value = "${value["digital/ip law/entertainment/sports"]}" selected>${value["digital/ip law/entertainment/sports"]}</option>`;
+  })
+  return tagsHTML;
+}
+
+exports.energyProjectsLawOptions = () => {
+  let tagsHTML = "";
+  let tags = require('../config/categories/energy-projects.json');
+  tags.slice([0], [10]).forEach((value, index) => {
+    tagsHTML += `<option value = "${value["energy/projects"]}" selected>${value["energy/projects"]}</option>`;
+  })
+  return tagsHTML;
+}
+
+exports.othersOptions = () => {
+  let tagsHTML = "";
+  let tags = require('../config/categories/others.json');
+  tags.slice([0], [10]).forEach((value, index) => {
+    tagsHTML += `<option value = "${value.others}" selected>${value.others}</option>`;
+  })
+  return tagsHTML;
+}
+
