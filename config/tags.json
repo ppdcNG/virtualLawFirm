@@ -33,7 +33,7 @@
         "tagName": "copyright"
     },
     {
-        "tagName": "corporate"
+        "tagName": "corporate (Company secretarial)"
     },
     {
         "tagName": "cyber security"
@@ -63,7 +63,10 @@
         "tagName": "electricity tariff dispute"
     },
     {
-        "tagName": "environment and natural resources"
+        "tagName": "environment"
+    },
+    {
+        "tagName": "natural resources"
     },
     {
         "tagName": "employee benefits"
@@ -75,7 +78,7 @@
         "tagName": "sports betting"
     },
     {
-        "tagName": "Sports contracts"
+        "tagName": "sports contracts"
     },
     {
         "tagName": "government contracts"
@@ -90,7 +93,7 @@
         "tagName": "health Policy"
     },
     {
-        "tagName": "Medical Negligence"
+        "tagName": "medical negligence"
     },
     {
         "tagName": "immigration"
@@ -120,7 +123,7 @@
         "tagName": "international investment"
     },
     {
-        "tagName": "IP and technology transactions"
+        "tagName": "ip and technology transactions"
     },
     {
         "tagName": "joint venture agreement"
@@ -144,10 +147,16 @@
         "tagName": "pension"
     },
     {
-        "tagName": "pharmaceuticals and biotech regulation"
+        "tagName": "pharmaceuticals"
     },
     {
-        "tagName": "privacy and data protection"
+        "tagName": "biotech regulation"
+    },
+    {
+        "tagName": "privacy"
+    },
+    {
+        "tagName": "data protection"
     },
     {
         "tagName": "private equity"
@@ -156,7 +165,7 @@
         "tagName": "public procurement"
     },
     {
-        "tagName": "Public Private partnership"
+        "tagName": "public private partnership"
     },
     {
         "tagName": "real estate"
@@ -165,10 +174,16 @@
         "tagName": "securities"
     },
     {
-        "tagName": "trade secrets and disclosure"
+        "tagName": "trade secrets"
     },
     {
-        "tagName": "trademark and branding"
+        "tagName": "non-disclosure"
+    },
+    {
+        "tagName": "trademark"
+    },
+    {
+        "tagName": "branding"
     },
     {
         "tagName": "startup law"
@@ -180,10 +195,10 @@
         "tagName": "property purchase"
     },
     {
-        "tagName": "Tax"
+        "tagName": "tax"
     },
     {
-        "tagName": "Tax dispute"
+        "tagName": "tax dispute"
     },
     {
         "tagName": "hire purchase agreement"
@@ -195,10 +210,13 @@
         "tagName": "inheritance dispute"
     },
     {
-        "tagName": "property dispute"
+        "tagName": "property disp"
     },
     {
-        "tagName": "Arson"
+        "tagName": "ute"
+    },
+    {
+        "tagName": "arson"
     },
     {
         "tagName": "assault"
@@ -231,7 +249,7 @@
         "tagName": "homicide"
     },
     {
-        "tagName": "Alimony"
+        "tagName": "alimony"
     },
     {
         "tagName": "discrimination"
@@ -243,10 +261,10 @@
         "tagName": "employee rights"
     },
     {
-        "tagName": "Criminal"
+        "tagName": "criminal"
     },
     {
-        "tagName": "Enforcement of contract"
+        "tagName": "enforcement of contract"
     },
     {
         "tagName": "adoption"
@@ -258,10 +276,16 @@
         "tagName": "election-law"
     },
     {
-        "tagName": "maritime and ships"
+        "tagName": "maritime"
+    },
+    {
+        "tagName": "shipping"
     },
     {
         "tagName": "entertainment law"
+    },
+    {
+        "tagName": "Influencer contracts"
     },
     {
         "tagName": "class actions"
@@ -273,25 +297,25 @@
         "tagName": "mediation"
     },
     {
-        "tagName": "Islamic law"
+        "tagName": "islamic law"
     },
     {
-        "tagName": "Islamic finance"
+        "tagName": "islamic finance"
     },
     {
-        "tagName": "Islamic banking"
+        "tagName": "islamic banking"
     },
     {
         "tagName": "community property"
     },
     {
-        "tagName": "food poisoning"
+        "tagName": "health law (food poisoning)"
     },
     {
         "tagName": "workplace injuries"
     },
     {
-        "tagName": "Wrongful-death"
+        "tagName": "wrongful-death"
     },
     {
         "tagName": "landlord and tenants"
@@ -313,5 +337,44 @@
     },
     {
         "tagName": "trademark licensing"
+    },
+    {
+        "tagName": "fintech"
+    },
+    {
+        "tagName": "enforcement of Judgement"
+    },
+    {
+        "tagName": "garnishee proceedings"
+    },
+    {
+        "tagName": "oil and gas"
+    },
+    {
+        "tagName": "power"
+    },
+    {
+        "tagName": "mining"
+    },
+    {
+        "tagName": "forestry"
+    },
+    {
+        "tagName": "divorce"
+    },
+    {
+        "tagName": "prenuptial agreement"
+    },
+    {
+        "tagName": "separation"
+    },
+    {
+        "tagName": "annulment"
+    },
+    {
+        "tagName": "domicile"
+    },
+    {
+        "tagName": "child support"
     }
 ]
