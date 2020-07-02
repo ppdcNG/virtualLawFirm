@@ -2,7 +2,7 @@ const { ABS_PATH, AppName, PAYSTACK_PUB_KEY } = require("../config");
 
 
 const { sendmail, welcomeMail, inviteEmail } = require("../helpers/mail");
-const { token, tagOptions, percentageComplete } = require("../helpers");
+const { token, tagOptions, percentageComplete, familyLawOptions, administrativePublicLawOptions, landPropertyLawOptions, financeCommercialLawOptions, digitalEntertainmentLawOptions, energyProjectsLawOptions, othersOptions } = require("../helpers");
 
 
 var admin = require("firebase-admin");
@@ -11,8 +11,16 @@ var admin = require("firebase-admin");
 
 exports.findLawyer = (req, res) => {
     let tags = tagOptions();
+    let familyLaw = familyLawOptions();
+    let administrativePublicLaw = administrativePublicLawOptions();
+    let landPropertyLaw = landPropertyLawOptions();
+    let financeCommercialLaw = financeCommercialLawOptions();
+    let digitalEntertainmentLaw = digitalEntertainmentLawOptions();
+    let energyProjectsLaw = energyProjectsLawOptions();
+    let others = othersOptions();
+
     let { photoURL, displayName, email, phoneNumber } = req.user;
-    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, AppName, photoURL, tags, displayName, email, phoneNumber })
+    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, AppName, photoURL, tags, displayName, email, phoneNumber, familyLaw, administrativePublicLaw, landPropertyLaw, financeCommercialLaw, digitalEntertainmentLaw, energyProjectsLaw, others });
 };
 
 exports.registrationPage = (req, res) => {

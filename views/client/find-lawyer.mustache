@@ -1,5 +1,9 @@
 {{> header}}
 <style>
+  * select {
+    max-height: 200px !important;
+    overflow: auto !important;
+  }
   @media only screen and (max-width: 600px) {
     .list-group-item * {
       margin: 0 10px;
@@ -45,7 +49,165 @@
 </header>
 
 <main class="mb-5">
-  <div class="container" id="findLawyersSection">
+
+  <section class="container">
+    <div class="mt-5">
+        <h4 class="text-uppercase font-weight-bold">find a lawyer</h4>
+        <p class="text-justify">
+            Looking for prepared and iron clad contracts, agreements, licenses documents and other legal documents curated for your specific needs?. 
+            Well look no further, Lawtrella legal documents is your one stop hive for legal documents in Nigeria.
+        </p>
+    </div>
+
+    <section class="h-50" style="display:none" id="loading">
+      <div class="spinner-border text-warning" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </section>
+
+    <div class="row row-cols-1 row-cols-md-2 mt-5 pt-3" id="findALawyer" data-aos="zoom-in" data-aos-duration="1000">
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100" style="background-image: url({{ABS_PATH}}images/bg1.png);background-size: cover;background-position: 50% 50%;">
+          <div class="card-body rgba-black-strong white-text py-5">
+            <h4 class="card-title font-weight-bold py-3">Family Law</h4>
+            <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+
+            <form id="categ--family-law">
+              <div style="display:none">
+                <select class="tags form-control mt-2" name="tags[]" multiple="multiple" required>
+                    {{{familyLaw}}}
+                </select>
+              </div>
+              <button type="submit" class="btn btn-warning btn-md">Select</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100" style="background-image: url({{ABS_PATH}}images/bg2.png);background-size: cover;background-position: 50% 50%;">
+          <div class="card-body rgba-black-strong white-text py-5">
+            <h4 class="card-title font-weight-bold py-3">Administrative Public Law</h4>
+            <p class="card-text white-text">Get lawyersfor your administrative and public matters, food law, sports betting, e.t.c</p>
+
+            <form id="categ--adminPublicLaw">
+              <div style="display:none">
+                <select class="tags form-control mt-2" name="tags[]" multiple="multiple" required>
+                    {{{administrativePublicLaw}}}
+                </select>
+              </div>
+              <button type="submit" class="btn btn-warning btn-md">Select</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100" style="background-image: url({{ABS_PATH}}images/bg3.png);background-size: cover;background-position: 50% 50%;">
+          <div class="card-body rgba-black-strong white-text py-5">
+            <h4 class="card-title font-weight-bold py-3">Land and Property</h4>
+            <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+
+            <form id="categ--landProperty">
+              <div style="display:none">
+                <select class="tags form-control mt-2" name="tags[]" multiple="multiple" required>
+                    {{{landPropertyLaw}}}
+                </select>
+              </div>
+              <button type="submit" class="btn btn-warning btn-md">Select</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100" style="background-image: url({{ABS_PATH}}images/bg4.png);background-size: cover;background-position: 50% 50%;">
+          <div class="card-body rgba-black-strong white-text py-5">
+            <h4 class="card-title font-weight-bold py-3">Finance / Comercial Law</h4>
+            <p class="card-text white-text">Finance and commercial related matters</p>
+
+            <form id="categ--financeCommercial">
+              <div style="display:none">
+                <select class="tags form-control mt-2" name="tags[]" multiple="multiple" required>
+                    {{{financeCommercialLaw}}}
+                </select>
+              </div>
+              <button type="submit" class="btn btn-warning btn-md">Select</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+          <div class="card h-100" style="background-image: url({{ABS_PATH}}images/bg5.png);background-size: cover;background-position: 50% 50%;">
+            <div class="card-body rgba-black-strong white-text py-5">
+              <h4 class="card-title font-weight-bold py-3">Digital / Entertainment and Sport</h4>
+              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+
+              <form id="categ--digitalEntertainmentSport">
+                <div style="display:none">
+                  <select class="tags form-control mt-2" name="tags[]" multiple="multiple" required>
+                      {{{digitalEntertainmentLaw}}}
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-warning btn-md">Select</button>
+              </form>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100" style="background-image: url({{ABS_PATH}}images/bg6.png);background-size: cover;background-position: 50% 50%;">
+          <div class="card-body rgba-black-strong white-text py-5">
+            <h4 class="card-title font-weight-bold py-3">Energy Projects</h4>
+            <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+
+            <form id="categ--energyProjects">
+              <div style="display:none">
+                <select class="tags form-control mt-2" name="tags[]" multiple="multiple" required>
+                    {{{energyProjectsLaw}}}
+                </select>
+              </div>
+              <button type="submit" class="btn btn-warning btn-md">Select</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+          <div class="card h-100" style="background-image: url({{ABS_PATH}}images/bg7.png);background-size: cover;background-position: 50% 50%;">
+            <div class="card-body rgba-black-strong white-text py-5">
+              <h4 class="card-title font-weight-bold py-3">Others</h4>
+              <p class="card-text white-text">Other categories including environmental, arson, medical negligence</p>
+
+            <form id="categ--others">
+              <div style="display:none">
+                <select class="tags form-control mt-2" name="tags[]" multiple="multiple" required>
+                    {{{others}}}
+                </select>
+              </div>
+              <button type="submit" class="btn btn-warning btn-md">Select</button>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="container" id="fetchMatchingLawyerSection" style="display:none">
+      <div class="d-flex mb-3 pt-5">
+        <h4 class="mr-auto font-weight-bold">Matching Lawyers</h4>
+        <button class="btn btn-sm btn-warning font-weight-bold" id="backToFindLawyer"><i class="fas fa-caret-left"></i> Go Back</button>
+      </div>
+      <div class="row row-cols-1 row-cols-md-2 mt-5 pt-3" id="fetchMatchingLawyers">
+
+      </div>
+  </section>
+
+  <div class="container" id="findLawyersSection" style="display:none;overflow: scroll">
     <h2 class="text-center mt-2">What's the Issue? Let's help</h2>
 
     {{! hidden elements }}
@@ -130,6 +292,8 @@
     $('#tags').select2({
       maximumSelectionLength: 3
     });
+
+    $('.category--tags').select2();
 
     loadBtn('next');
 </script>

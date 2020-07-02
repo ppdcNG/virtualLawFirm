@@ -1,25 +1,57 @@
 
 
-
 const renderDocs = (id, document) => {
     console.log(document);
     let description = document.description ? (document.description.length > 45 ? document.description.substr(0, 21) + '...' : document.description) : "No Description"
     return `
-    <div class = "col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="card-body">
-                <h4 class="card-title">${document.title || "N/A"}</h4>
-                <p class="card-text text-justify" data-toggle = "tooltip" title = "${document.description}">${description}</p>
-                <hr/>
-                <h5>&#8358;${accounting.formatNumber(document.price) || "N/A"}
-                </h5>
-                <hr/>
-                <button class="btn btn-default btn-md" onclick="payLegalDoc('${id}')"><i class="fa fa-download"></i> Download</button>
+        <div class="col-md-4 mb-4">
+            <div class="card" style="background-color: #C8F2EF;height:250px">
+                <div class="card-body">
+                    <h4 class="card-title"><a>${document.title || "N/A"}</a></h4>
+                    <p class="card-text">${document.description}</p>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-warning btn-sm" onclick="showModal('${id}')">Preview</a>
+                    <p class="float-right font-weight-bold pt-2">&#8358; ${accounting.formatNumber(document.price) || "N/A"}</p>
+                </div>
             </div>
         </div>
-    </div>
     `
 }
+
+const showModal = id => {
+    $('#documentPreviewModal').modal('show');
+}
+
+$("#searchFilterForm").submit(async (e) => {
+    e.preventDefault();
+    let form = form2js("searchFilterForm", ".");
+    let documentsHTML = "";
+
+    if (Object.entries(form).length === 0) {
+        fetchDoc();
+    } else {
+        const snapshot = await firebase.firestore().collection('legalDocs').where('title', '==', form.filter).get();
+
+        if (snapshot.empty) {
+            console.log('No matching documents.');
+            $("#documents").html('No Matching Documents')
+            return;
+        }
+        snapshot.forEach(doc => {
+            console.log(doc.id, '=>', doc.data());
+            documentsHTML += renderDocs(doc.id, doc.data());
+            $("#documents").html(documentsHTML);
+        });
+    }
+
+})
+
+$("#resetFilterBtn").click(() => {
+    $("#searchFilterForm")[0].reset();
+    fetchDoc();
+})
+
 
 let LEGAL_DOCS = {};
 const fetchDoc = () => {
@@ -34,7 +66,6 @@ const fetchDoc = () => {
         documentsHTML == '' ? $("#documents").html('No Documents Available') : $("#documents").html(documentsHTML);
     });
 }
-
 fetchDoc();
 
 const payLegalDoc = id => {
