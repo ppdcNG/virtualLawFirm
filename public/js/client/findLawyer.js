@@ -192,7 +192,7 @@ const foundMatchingLawyer = lawyer => {
                                 alt="avatar image" height="80" width="80">
                         </div>
                         <div class="d-flex justify-content-between">
-                            <button class="btn btn-warning btn-sm"></button><button class="btn btn-warning btn-sm"></button><button class="btn btn-warning btn-sm"></button>
+                            <button class="btn btn-warning btn-sm">${portfolio.specialization}</button><button class="btn btn-warning btn-sm"></button><button class="btn btn-warning btn-sm"></button>
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between">
