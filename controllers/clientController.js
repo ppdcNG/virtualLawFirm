@@ -32,9 +32,9 @@ exports.confirm = (req, res) => {
 };
 
 exports.signup = async (req, res) => {
-    let { email, firstname, lastname, phone } = req.body;
-    phone = "+234" + phone.substr(1, phone.length - 1);
-    let data = { email, firstname, lastname, phone };
+    let { email, name } = req.body;
+
+    let data = { email, name };
     let tok = token();
     let user = await admin.auth().getUserByEmail(email).catch((e) => {
         let error = { err: e, message: e.message, status: 'failed' }
@@ -56,7 +56,7 @@ exports.signup = async (req, res) => {
 
     let clickLink = ABS_PATH + "client/confirm/?token=" + tok;
     let mailOptions = {
-        name: `${firstname} ${lastname}`,
+        name: `Sir/Ma`,
         link: clickLink,
         to: email
     };
@@ -67,8 +67,14 @@ exports.signup = async (req, res) => {
         subject: "Welcome to LawTrella",
         text: `Thank you for signing up this is your token ${tok}`
     };
-    welcomeMail(mailOptions, res);
-    res.send({ status: "success" });
+    try {
+        welcomeMail(mailOptions, res);
+        res.send({ status: "success" });
+    }
+    catch (e) {
+        res.send({ err: true, message: e.message });
+    }
+
 }
 exports.userLogin = async (req, res) => {
     let { idToken, uid } = req.body;

@@ -1,0 +1,234 @@
+:root {
+    --main-color: #3BD1C7;
+    --accent-colr: #F8B24F;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+h1, h2, h3, h5 .navbar-brand {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: cetner;
+    margin-left: 1rem;
+}
+
+.nave-item a {
+    font-size: .8em;
+}
+
+li.nav-item.avartar {
+    height: 50px;
+    width: 50px
+}
+
+.lt-contact-strip {
+    color: white;
+    background-color: var(--main-color);
+}
+
+/* custom button classes */
+
+.lt-btn-accent {
+    color: white;
+    background-color: var(--accent-colr);
+}
+
+.lt-btn-accent-outline {
+    color: var(--accent-colr);
+    border: 1px solid var(--accent-colr);
+    background: white;
+}
+
+.lt-btn-secondary {
+    color: white;
+    background: var(--main-color);
+}
+
+/* hero section */
+
+section.hero {
+    height: 90vh;
+    background: rgba(0, 0, 0, .3) url(/images/bgone.png) no-repeat center;
+    background-size: cover;
+    color: white;
+}
+
+section.hero .lt-bg-overlay {
+    height: 100%;
+    background-color: rgba(0, 0, 0, .7);
+}
+
+section.hero h1 {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+section.hero h1, section.hero h5 {
+    background-color: rgba(0, 0, 0, .3);
+    padding: 1rem;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.right p {
+    margin-right: 2rem;
+    font-size: 1.4rem;
+    line-height: 1.8;
+    color: rgb(235, 230, 230);
+}
+
+.right a.btn {
+    font-weight: bold;
+    margin-top: 1.5rem;
+}
+
+/* secton two */
+
+section.two {
+    background: black url(/images/bgtwo.jpg) no-repeat center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+section.two h2 {
+    color: var(--main-color);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+section.two p {
+    color: rgb(206, 199, 199);
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+section.two a {
+    font-weight: bold;
+    margin-top: 2rem;
+}
+
+/* secton three */
+
+.lt-feature-card {
+    margin-top: 3rem;
+}
+
+.lt-feature-card img {
+    width: 513px;
+    height: 279px;
+}
+
+.lt-feature-card a {
+    margin-top: -1.5rem;
+}
+
+.lt-feature-card p {
+    margin-top: 1rem;
+    color: rgb(109, 107, 107);
+    line-height: 1.8;
+    width: 513px;
+}
+
+/* section four */
+
+section.four {
+    background: black url(/images/bgthree.jpg) no-repeat center;
+    background-size: cover;
+}
+
+.lt-feature-icon {
+    height: 250px;
+    width: 250px;
+    border: 1px solid black;
+    background-color: var(--main-color);
+    color: black;
+    cursor: pointer;
+    transition: background-color 500ms ease-in;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.lt-feature-icon:hover {
+    background-color: var(--accent-colr);
+    color: white
+}
+
+.lt-feature-icon img {
+    width: 89px;
+    height: 95px;
+}
+
+.lt-feature-icon h4 {
+    font-family: 'Josefin Sans', sans-serif;
+    margin-bottom: .8rem;
+    text-transform: uppercase;
+}
+
+.lt-feature-icon p {
+    text-align: center;
+    margin: 0;
+    margin-top: 1rem;
+    font-size: .8rem;
+}
+
+/* Login and Signup Modal */
+
+div.modal-content {
+    background-color: #C8F2EF;
+}
+
+.lt-link {
+    color: teal
+}
+
+.lt-link-bold {
+    color: teal;
+    font-weight: bold;
+}
+
+/* login Validation */
+
+p.valid {
+    display: none;
+}
+
+p.error {
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+
+.recover-success, .signup-success {
+    display: none !important;
+}
+
+@media screen and (max-width:600px) {
+    section.four .row {
+        display: block;
+    }
+    .lt-feature-description {
+        padding: 2rem;
+    }
+    .nav-item a {
+        border: 1px solid var(--accent-colr);
+        margin: .375rem;
+        text-align: center;
+    }
+    .nav-item {
+        margin: 0;
+    }
+}

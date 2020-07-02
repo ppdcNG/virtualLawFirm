@@ -30,23 +30,34 @@ $("#laywerConfirm").submit(function (e) {
   });
 });
 
-$("#lawyerLogin").submit(function (e) {
+$("#lawyerLoginForm").submit(function (e) {
   e.preventDefault();
-  let form = form2js("lawyerLogin", ".");
+  let form = form2js("lawyerLoginForm", ".");
 
   let { email, password } = form;
 
   signIn(email, password);
 });
 var uservar;
+
+$("#lawyerSignupTerms").change((e) => {
+  let checked = $("#lawyerSignupTerms").is(':checked');
+  if (checked) {
+    $("#lawyerSignupTerms").removeClass('is-invalid');
+    $("#lawyerSignupButton").removeClass('disabled');
+  }
+  else {
+    $("#lawyerSignupButton").addClass("disabled");
+  }
+
+})
 const signIn = async (email, password) => {
+  buttonLoad('lawyerLoginButton')
   try {
     let res = await firebase.auth().signInWithEmailAndPassword(email, password);
     let uid = res.user.uid;
     let idToken = await res.user.getIdToken();
-
     let req = { idToken, uid };
-
     let url = ABS_PATH + "lawyer/lawyerLogin";
     $.ajax({
       url: url,
@@ -55,16 +66,23 @@ const signIn = async (email, password) => {
       success: function (response) {
         console.log(response);
         if (response.status == "success") {
+          $("#lawyerLogin").modal('hide');
           $.notify("Logging in", { type: "success" });
-          setTimeout(function () { window.location = ABS_PATH + 'lawyer/dashboard' }, 2000);
+          clearLoad('lawyerLoginButton')
+          $.notify("Logging in", { type: "success" });
+          window.location.reload();
+          // setTimeout(function () { window.location = ABS_PATH + 'lawyer/dashboard' }, 2000);
         }
       },
       error: e => console.log(e)
     });
   } catch (e) {
     console.log(e);
+    clearLoad('lawyerLoginButton', "LOGIN");
     $.notify(e.message, { type: "danger" });
-    $('#login').html('LOGIN');
+    $("#lawyerloginError").html(e.message);
+    $("#lawyerloginError").removeClass('valid');
+    $.notify(e.message, { type: "warning" });
   }
 };
 
@@ -72,7 +90,12 @@ const signIn = async (email, password) => {
 $("#lawyerRegisterForm").submit(e => {
   e.preventDefault();
   var form = form2js("lawyerRegisterForm", ".");
-
+  if (!$("#lawyerSignupTerms").is(':checked')) {
+    $.notify('Please accept the terms and conditions');
+    $("#lawyerSignupTerms").addClass('is-invalid');
+    return false
+  }
+  buttonLoad('lawyerSignupButton')
   $.ajax({
     url: ABS_PATH + "lawyer/lawyerRegister",
     data: form,
@@ -82,13 +105,17 @@ $("#lawyerRegisterForm").submit(e => {
 
       console.log(response);
       if (!response.err) {
-        $("#close").trigger("click");
+
+        clearLoad('lawyerSignupButton', "Signup As Lawyer");
         $.notify("A confirmation email has been sent to your inbox", { type: "success" });
-        $('#signup').html('<span>Sign up</span>').removeClass('disabled');
+        $("#lawyerMyTab").hide();
+        $("#lawyerMyTabContent").hide();
+        $("#lawyerSignupComplete").removeClass('signup-success');
       } else {
-        $("#close").trigger("click");
+        clearLoad('lawyerSignupButton', "Signup As Lawyer")
+        $("#lawyersignupError").html(response.message);
+        $("#lawyersignupError").removeClass('valid');
         $.notify(response.message, { type: "warning" });
-        $('#signup').html('<span>Sign up</span>').removeClass('disabled');
       }
     },
     error: e => console.log(e)

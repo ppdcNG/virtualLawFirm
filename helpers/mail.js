@@ -28,10 +28,7 @@ exports.welcomeMail = (options, res) => {
     html
   };
 
-  sendgrid.send(messageOptions).catch(e => {
-    console.log(e);
-    console.log(e.message);
-  });
+  return sendgrid.send(messageOptions);
 };
 
 exports.inviteEmail = async (email) => {
