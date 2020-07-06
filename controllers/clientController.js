@@ -23,6 +23,10 @@ exports.findLawyer = (req, res) => {
     res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, AppName, photoURL, tags, displayName, email, phoneNumber, familyLaw, administrativePublicLaw, landPropertyLaw, financeCommercialLaw, digitalEntertainmentLaw, energyProjectsLaw, others });
 };
 
+exports.askALawyer = (req, res) => {
+    res.render('client/ask-lawyer', { title: 'Ask a Lawyer', ABS_PATH, AppName })
+}
+
 exports.registrationPage = (req, res) => {
     res.render('client/client-join', { title: 'Register', ABS_PATH })
 };
