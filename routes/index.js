@@ -11,20 +11,17 @@ const admin = require('firebase-admin');
 
 /* GET home page. */
 router.get('/', requireUser, function (req, res) {
-
-  let authId = req.user ? req.user.uid : false
+  console.log(req.user);
+  let uid = req.user ? req.user.uid : false
   let photoURL = req.user ? req.user.photoURL : false;
+  photoURL = !photoURL ? 'https://images.pexels.com/photos/399772/pexels-photo-399772.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' : photoURL;
   console.log(photoURL);
-  let link = authId ? "findLaywer" : 'join';
-
-  // let { photoURL } = req.user ? req.user : 'https://images.pexels.com/photos/399772/pexels-photo-399772.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500';
 
   res.render('index', {
-    title: "A&E VL",
+    title: AppName,
     path: "/",
     AppName,
-    authId,
-    link,
+    uid,
     photoURL
   });
 });
@@ -104,6 +101,7 @@ router.post('/resetPassword', async (req, res) => {
   console.log(passwordToken);
   let now = new Date().getTime();
   if (now - passwordToken.timestamp > (24 * 60 * 60 * 1000)) {
+    await admin.firestore().collection('passwordTokens').doc(token).delete()
     res.status(200).send({
       message: 'Token Expired',
       status: 'success'
@@ -152,7 +150,8 @@ router.post('/recoverPassword', async (req, res) => {
 
   res.status(501).send({
     message: "We had a problem sending mail to " + email,
-    status: 'danger'
+    status: 'danger',
+    err: true
   })
 
 });

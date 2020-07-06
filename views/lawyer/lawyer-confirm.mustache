@@ -1,48 +1,76 @@
-{{> header}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lawtrella: Online Legal Services</title>
+    <!--Bootstrap Core-->
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ABS_PATH}}stylesheets/landing.css">
+    <style>
+    .card.forgot-container{
+        background-color: #C8F2EF;
+        max-width: 500px;
 
-<div class="container">
-    <div class="card mt-5 mb-5">
-        <h5 class="card-header light-blue lighten-4 text-center py-4">
-            <strong>Choose a password to continue</strong>
+    }
+    </style>
+</head>
+<body>
+
+
+
+<div class="container d-flex flex-column justify-content-center align-items-center">
+    <div class="card mt-5 mb-5 forgot-container">
+        <h5 class="card-header  lighten-4 text-center py-4">
+            <strong style = "color: var(--accent-colr)">Choose a password to continue</strong>
         </h5>
 
         <div class="card-body px-lg-5">
-
-            <form class="text-center" style="color: #757575;" id="laywerConfirm">
-
-                <input type="hidden" name="token" value="{{ token }}" />
-                    
-
-                <div class="md-form mt-0">
-                    <input type="password" id="pwd" name="password" class="form-control" required>
+            <form id = "laywerConfirm" class="border border-light p-5" >
+                <p class="h4 mb-4">Select A password</p>
+                <p id = "confirmError" class = "error valid">Username already exists</p>
+                <input type = "hidden" name = "token" value = "{{token}}"/>
+                <div class= "mb-4">
                     <label for="email">Password</label>
+                    <input id = "password" name = "password" type="password"  class="form-control" required>
+                    <div class = "invalid-feedback">Passwords must match</div>
                 </div>
-
-                 <div class="md-form mt-0">
-                    <input type="password" id="pwd2" name="confirmPassword" class="form-control" required>
-                    <label for="pwd">Confirm Password</label>
+                <div class = "mb-4">
+                    <label for="password">Confirm Password</label>
+                    <input id = "confirmPassword" name = "confirmPassword" type="password"  class="form-control">
+                    <div class = "invalid-feedback">Paswords must match</div>
                 </div>
-
-                <button class="btn btn-outline-dark btn-rounded btn-block my-4 waves-effect z-depth-0" id="continue" type="submit">Continue</button>
-
-                <hr>
-
+                <div class = "d-flex flex-column justify-content-center">
+                    <button  id = "continue" class = "btn lt-btn-accent mt-3" type = "submit">CREATE MY ACCOUNT</button>
+                </div>                
             </form>
-            <!-- Form -->
-
+           <div id = "recoverComplete" class = "signup-success d-flex flex-column align-items-center justify-content-between p-5 lt-accent-bg">
+                <h2 class = "pl-2 text-white">Account Created</h2>
+                <i class="fas fa-check fa-5x text-white"></i>
+                <p class = "pl-2 text-white">Your Account has been successfully created you may now login</p>
+                <a id = "gotoLogin" href = "{{ABS_PATH}}?#loginModal" type = "button" onclick = "dismiss('signup')" class = "btn lt-btn-secondary btn-expand">Login</a>
+            </div>
         </div>
+        
 
     </div>
 </div>
 
-<div style="position: fixed;bottom:0;width:100vw;">
-    {{> footer}}
-</div>
+<br/><br/><br/>
+
+{{> footer}}
 
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
 <script src="{{ABS_PATH}}js/lawyer/lawyerScript.js"></script>
 
 <script>
-    loadBtn('continue');
 </script>
+</body>
+</html>
+

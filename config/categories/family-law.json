@@ -1,77 +1,27 @@
 [
-    {
-        "family law": "child abuse"
-    },
-    {
-        "family law": "child welfare"
-    },
-    {
-        "family law": "child custody and visitation"
-    },
-    {
-        "family law": "alimony"
-    },
-    {
-        "family law": "adoption"
-    },
-    {
-        "family law": "domestic violence"
-    },
-    {
-        "family law": "divorce"
-    },
-    {
-        "family law": "prenuptial agreements"
-    },
-    {
-        "family law": "separation"
-    },
-    {
-        "family law": "annulment"
-    },
-    {
-        "family law": "domicile"
-    },
-    {
-        "family law": "child support"
-    },
-    {
-        "family law": "family law"
-    },
-    {
-        "family law": "child abuse"
-    },
-    {
-        "family law": "child welfare"
-    },
-    {
-        "family law": "child custody and visitation"
-    },
-    {
-        "family law": "alimony"
-    },
-    {
-        "family law": "adoption"
-    },
-    {
-        "family law": "domestic violence"
-    },
-    {
-        "family law": "divorce"
-    },
-    {
-        "family law": "prenuptial agreements"
-    },
-    {
-        "family law": "separation"
-    },
-    {
-        "family law": "annulment"
-    },
-    {
-        "family law": "domicile"
-    },
-    {
-        "family law": "child support"
-    }
+    "child abuse",
+    "child welfare",
+    "child custody and visitation",
+    "alimony",
+    "adoption",
+    "domestic violence",
+    "divorce",
+    "prenuptial agreements",
+    "separation",
+    "annulment",
+    "domicile",
+    "child support",
+    "family law",
+    "child abuse",
+    "child welfare",
+    "child custody and visitation",
+    "alimony",
+    "adoption",
+    "domestic violence",
+    "divorce",
+    "prenuptial agreements",
+    "separation",
+    "annulment",
+    "domicile",
+    "child support"
 ]

@@ -22,8 +22,15 @@ exports.newUSer = (req, res) => {
   res.render("admin/new-user", { title: "New user", ABS_PATH });
 };
 
-exports.editCourseDetails = (req, res) => {
-  res.render("admin/course-details", { title: "Course Details", ABS_PATH, AppName });
+exports.editCourseDetails = async (req, res) => {
+  let { id } = req.query;
+  if (!id) {
+    res.status(403).send({ message: "bad Request missing Params" });
+    return;
+  }
+  let courseRef = await admin.firestore().doc(`courses/${id}`).get().catch((e) => { console.log(e) });
+  let { courseImage, title, dateAdded } = courseRef.data();
+  res.render("admin/course-details", { title: "Course Details", ABS_PATH, AppName, courseImage, courseTitle: title, courseId: id });
 }
 
 exports.adminLogin = async (req, res) => {
@@ -142,7 +149,7 @@ exports.verifyLawyerEmail = async (req, res) => {
     return;
   }
   let data = userDetails.data();
-  let { email, firstname, lastname } = data;
+  let { email, name } = data;
   let user = await admin
     .auth()
     .createUser({ email, password })
@@ -157,10 +164,11 @@ exports.verifyLawyerEmail = async (req, res) => {
       res.send(obj);
       return;
     });
-  await admin.auth().updateUser(user.uid, { emailVerified: true, displayName: firstname + " " + lastname });
+  if (!user) return;
+  await admin.auth().updateUser(user.uid, { emailVerified: true, displayName: name });
   let dateRegistered = new Date().getTime()
   let lawyer = {
-    name: firstname + " " + lastname,
+    name: name,
     email: email,
     authId: user.uid,
     dateRegistered,
@@ -191,6 +199,7 @@ exports.verifyUserEmail = async (req, res) => {
     res.send(obj)
     return;
   }
+
   let userDetails = await admin
     .firestore()
     .collection("usersTemp")
@@ -215,17 +224,13 @@ exports.verifyUserEmail = async (req, res) => {
     res.send(obj);
     return;
   }
-  let idCard = req.files.idCard
-  let ext = idCard.name.split('.');
-  ext = ext[ext.length - 1];
-  console.log(password)
+
   let data = userDetails.data();
-  let { email, firstname, lastname, phone } = data;
+  let { email, name } = data;
   let dateRegistered = new Date().getTime()
-  let displayName = firstname + " " + lastname;
   let user = await admin
     .auth()
-    .createUser({ email, password, emailVerified: true, displayName, phoneNumber: phone })
+    .createUser({ email, password, emailVerified: true, displayName: name })
     .catch(e => {
       // console.log(e);
       // console.log(e.message);
@@ -237,18 +242,14 @@ exports.verifyUserEmail = async (req, res) => {
       res.send(obj);
       return;
     });
-  console.log(user);
-  let filename = `assets/${user.uid}.${ext}`;
-  console.log(filename)
-  await idCard.mv(filename, (err) => {
-    if (err) res.status(400).send(err);
 
-  })
+  admin.firestore().collection('usersTemp').doc(token).delete();
   let client = {
-    name: firstname + " " + lastname,
+    name,
     email: email,
     authId: user.uid,
-    dateRegistered
+    dateRegistered,
+    profileComplete: false
   };
   console.log(client);
   await admin

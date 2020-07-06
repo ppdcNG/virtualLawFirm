@@ -1,0 +1,247 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet"> 
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Data-aos -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+
+  <style type="text/css">
+    body {font-family: 'Lato', sans-serif; scroll-behavior: smooth;padding:0;margin:0;width:100vw !important;overflow-x:hidden}
+    div.parent-box { display: table; width:100%;}
+    div.child-box { display: table-cell; vertical-align: middle; font-size: xx-large; }
+  </style>
+
+  <title>Lawtrella: Tailored Online Legal Services</title>
+</head>
+
+<body>
+  <header>
+    <!--Navbar -->
+    <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+      <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+        aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">FAQs</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/e-learning">
+              <i class="fas fa-graduation-cap"></i> e-Learning
+            </a>
+          </li>
+        </ul>
+
+
+        <ul class="navbar-nav ml-auto nav-flex-icons" id="isLoggedin">
+
+
+        <ul class="navbar-nav ml-auto nav-flex-icons">
+          {{#photoURL}}
+            <li class="nav-item avatar">
+              <a class="nav-link p-0" href="#">
+              <img src="{{ photoURL }}" class="rounded-circle z-depth-0"
+                  alt="avatar image" height="40" width = "40">
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </li>
+          {{/photoURL}}
+          {{^photoURL}}
+            <li class="nav-item">
+            <a class="nav-link" href="#">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light unique-color" data-toggle="modal" data-target="#lawyerRegModal">
+                <i class="fas fa-sign-in-alt"></i>Lawyer Register
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light default-color" href="/client/join">
+                <i class="fas fa-sign-in-alt"></i> Client Register
+              </a>
+            </li>
+            <li class="nav-item active">
+            <a class="nav-link" href="/e-learning">
+              <i class="fas fa-graduation-cap"></i> e-Learning
+            </a>
+          </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light" data-toggle="modal" data-target="#loginFormModal">
+                Login
+              </a>
+            </li>
+          {{/photoURL}}
+
+        </ul>
+      </div>
+    </nav>
+    <!--/.Navbar -->
+  </header>
+
+  <main>
+    <div class="jumbotron parent-box text-center" style="height:70vh;background: url(https://images.pexels.com/photos/534204/pexels-photo-534204.jpeg?cs=srgb&dl=close-up-court-courthouse-534204.jpg&fm=jpg) no-repeat;background-size:100% 100%;padding:0;margin:0">
+      <div class="child-box text-light" style="background:rgba(0,0,0,0.7);">
+          <h1 class = "h1" data-aos="fade-right" data-aos-duration="2000">Welcome to the LawTrella</h1>
+          <p data-aos="fade-left" class="grey-text">Your customized legal service is just a few clicks away</p>
+
+          <a data-aos="fade-right" data-aos-duration="2000" class="btn btn-default mt-5" href="#main-section">Get Started <i class="fas fa-angle-double-down"></i></a>
+      </div>
+    </div>
+
+    <section id="main-section" class="pt-5" style="min-height: 60vh">
+      <div class="container text-center">
+        <h3>What would you like to do?</h3>
+        <hr width="100"/>
+        <a class="btn btn-elegant" href="/client/{{link}}"><i class="fas fa-gavel"></i> Find a Lawyer<br/><span class="text-muted">Login or Register to meet your lawyer</span></a>
+        <a class="btn btn-elegant" href="/legalAdvice"><i class="fas fa-comment"></i> Free Legal Advice<br/><span class="text-muted">Get to access free limited legal advice</span></a>
+        <a class="btn btn-elegant" href="/client/docs"><i class="fas fa-file-alt"></i> Legal Documents<br/><span class="text-muted">Registered users, login for a discount</span></a>
+      </div>
+    </section>
+
+    <!-- Login modal -->
+    <div class="modal fade" id="loginFormModal" tabindex="-1" role="dialog" aria-labelledby="loginModal"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">Welcome Back</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form id = "clientLogin">
+          <div class="modal-body mx-3">
+          
+            <p class="text-center h5">Login as client</p>
+            <hr/>
+            <p class="dark-link text-center h6">Or go to <a class="dark-link" href="/lawyer/login">Lawyer Login</a></p>
+            <hr width="50"/>
+            <div class="md-form mb-5">
+              <i class="fas fa-envelope prefix grey-text"></i>
+              <input type="email" name = "email" id="email" class="form-control validate" required>
+              <label data-error="wrong" data-success="right" for="email">Your email</label>
+            </div>
+
+            <div class="md-form mb-4">
+              <i class="fas fa-lock prefix grey-text"></i>
+              <input type="password" name = "password" id="pass" class="form-control validate" required>
+              <label data-error="wrong" data-success="right" for="pass">Your password</label>
+            </div>
+
+            <div class="text-center">
+              <p>Don't have an account? <a href="/client/join">Register now</a></p>
+              <p class="text-center">Click <a href="/forgot">here</a> if you've forgotten your password</p>
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button id = "clientLoginButton" class="btn btn-default" type = "submit">Login</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+  <!-- lawyer Reg modal -->
+  
+    <div class="modal fade" id="lawyerRegModal" tabindex="-1" role="dialog" aria-labelledby="lawyerRegModal"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">Signup for your virtual law office</h4>
+            <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body mx-3">
+            <p class="text-center">Already have an account? <a href="/lawyer/login">Log in here</a></p>
+
+            <form id="lawyerRegisterForm">
+              <div class="md-form mb-5">
+                <i class="fas fa-user prefix grey-text"></i>
+                <input type="text" id="fname" name="firstname" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="firstName">Your First Name</label>
+              </div>
+
+              <div class="md-form mb-5">
+                <i class="fas fa-user prefix grey-text"></i>
+                <input type="text" id="lname" name="lastname" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="lastName">Last Name</label>
+              </div>
+
+              <div class="md-form mb-5">
+                <i class="fas fa-envelope prefix grey-text"></i>
+                <input type="email" id="mail" name="email" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="email">Your email</label>
+              </div>
+
+              <div class="md-form mb-4">
+                <i class="fas fa-phone-square prefix grey-text"></i>
+                <input type="number" id="phone" name="phone" class="form-control validate">
+                <label data-error="wrong" data-success="right" for="number">Your phone number</label>
+              </div>
+
+          </div>
+
+            <div class="modal-footer d-flex justify-content-center">
+              <button class="btn btn-default" id="signup" type="submit">Sign Up</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  {{> footer}}
+  <!-- Footer -->
+  
+  <script>
+    AOS.init();
+  </script>
+  
+  <script src="{{ABS_PATH}}js/auth.js"></script>
+  <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+  <script src="{{ABS_PATH}}js/lawyer/lawyerScript.js"></script>
+  <script src="{{ABS_PATH}}js/client/clientScript.js"></script>
+
+  <script>
+    $('#signup').click(function() {
+      $('#signup').html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
+    });
+  </script>
+
+ 
+
+</body>
+
+</html>

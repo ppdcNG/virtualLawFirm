@@ -1,4 +1,21 @@
-{{> header}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lawtrella: Online Legal Services</title>
+    <!--Bootstrap Core-->
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ABS_PATH}}stylesheets/landing.css">
+    <link rel="stylesheet" href="{{ABS_PATH}}stylesheets/find-lawyer.css">
+</head>
+<body>
+
 <style>
   * select {
     max-height: 200px !important;
@@ -10,43 +27,8 @@
     }
   }
 </style>
-<header>
-  <!--Navbar -->
-  <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
-    <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
-      aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+{{> navbar}}
 
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-      </ul>
-
-      <ul class="navbar-nav ml-auto nav-flex-icons">
-        <li class="nav-item avatar">
-            <a class="nav-link p-0" href="#">
-            <img src="{{photoURL}}" class="rounded-circle z-depth-0"
-                alt="avatar image" height="40">
-            </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
-            <i class="fas fa-sign-out-alt"></i> Logout
-          </a>
-        </li>
-      </ul>
-
-        
-    </div>
-  </nav>
-  <!--/.Navbar -->
-</header>
 
 <main class="mb-5">
 
@@ -54,8 +36,7 @@
     <div class="mt-5">
         <h4 class="text-uppercase font-weight-bold">find a lawyer</h4>
         <p class="text-justify">
-            Looking for prepared and iron clad contracts, agreements, licenses documents and other legal documents curated for your specific needs?. 
-            Well look no further, Lawtrella legal documents is your one stop hive for legal documents in Nigeria.
+            Looking for representation in court, legal advice, e.t.c. Select top attorneys from the categories listed below
         </p>
     </div>
 
@@ -72,127 +53,71 @@
     <div class="row row-cols-1 row-cols-md-2 mt-5 pt-3" id="findALawyer" data-aos="zoom-in" data-aos-duration="1000">
 
       <div class="col-md-4 mb-4">
-        <div class="card h-100" style="background-image: url({{ABS_PATH}}images/bg1.png);background-size: cover;background-position: 50% 50%;">
-          <div class="card-body rgba-black-strong white-text py-5">
-            <h4 class="card-title font-weight-bold py-3">Family Law</h4>
-            <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
-
-            <form id="categ--family-law">
-              <div style="display:none">
-                <select class="tags form-control mt-2" name="tags[]" multiple="multiple" required>
-                    {{{familyLaw}}}
-                </select>
-              </div>
-              <button type="submit" class="btn btn-warning btn-md">Select</button>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card h-100" style="background-image: url({{ABS_PATH}}images/bg2.png);background-size: cover;background-position: 50% 50%;">
-          <div class="card-body rgba-black-strong white-text py-5">
-            <h4 class="card-title font-weight-bold py-3">Administrative Public Law</h4>
-            <p class="card-text white-text">Get lawyersfor your administrative and public matters, food law, sports betting, e.t.c</p>
-
-            <form id="categ--adminPublicLaw">
-              <div style="display:none">
-                <select class="tags form-control mt-2" name="tags[]" multiple="multiple" required>
-                    {{{administrativePublicLaw}}}
-                </select>
-              </div>
-              <button type="submit" class="btn btn-warning btn-md">Select</button>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card h-100" style="background-image: url({{ABS_PATH}}images/bg3.png);background-size: cover;background-position: 50% 50%;">
-          <div class="card-body rgba-black-strong white-text py-5">
-            <h4 class="card-title font-weight-bold py-3">Land and Property</h4>
-            <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
-
-            <form id="categ--landProperty">
-              <div style="display:none">
-                <select class="tags form-control mt-2" name="tags[]" multiple="multiple" required>
-                    {{{landPropertyLaw}}}
-                </select>
-              </div>
-              <button type="submit" class="btn btn-warning btn-md">Select</button>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card h-100" style="background-image: url({{ABS_PATH}}images/bg4.png);background-size: cover;background-position: 50% 50%;">
-          <div class="card-body rgba-black-strong white-text py-5">
-            <h4 class="card-title font-weight-bold py-3">Finance / Comercial Law</h4>
-            <p class="card-text white-text">Finance and commercial related matters</p>
-
-            <form id="categ--financeCommercial">
-              <div style="display:none">
-                <select class="tags form-control mt-2" name="tags[]" multiple="multiple" required>
-                    {{{financeCommercialLaw}}}
-                </select>
-              </div>
-              <button type="submit" class="btn btn-warning btn-md">Select</button>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-          <div class="card h-100" style="background-image: url({{ABS_PATH}}images/bg5.png);background-size: cover;background-position: 50% 50%;">
-            <div class="card-body rgba-black-strong white-text py-5">
-              <h4 class="card-title font-weight-bold py-3">Digital / Entertainment and Sport</h4>
+        <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg1.png);background-size: cover;background-position: 50% 50%;">
+            <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
+              <h5 class="card-title font-weight-bold py-3">Family Lawyers</h5>
               <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('familyLaw')">Select</button>
+            </div>
+        </div>
+      </div>
 
-              <form id="categ--digitalEntertainmentSport">
-                <div style="display:none">
-                  <select class="tags form-control mt-2" name="tags[]" multiple="multiple" required>
-                      {{{digitalEntertainmentLaw}}}
-                  </select>
-                </div>
-                <button type="submit" class="btn btn-warning btn-md">Select</button>
-              </form>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg2.png);background-size: cover;background-position: 50% 50%;">
+            <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
+              <h5 class="card-title font-weight-bold py-3">Administrative / Public Law</h5>
+              <p class="card-text white-text">Get lwayers for your administrative and public matters, food law, sports betting e.t.c</p>
+              <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('administrativePublicLaw')">Select</button>
             </div>
           </div>
       </div>
 
       <div class="col-md-4 mb-4">
-        <div class="card h-100" style="background-image: url({{ABS_PATH}}images/bg6.png);background-size: cover;background-position: 50% 50%;">
-          <div class="card-body rgba-black-strong white-text py-5">
-            <h4 class="card-title font-weight-bold py-3">Energy Projects</h4>
+        <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg3.png);background-size: cover;background-position: 50% 50%;">
+          <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
+            <h5 class="card-title font-weight-bold py-3">Land and Property</h5>
             <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
-
-            <form id="categ--energyProjects">
-              <div style="display:none">
-                <select class="tags form-control mt-2" name="tags[]" multiple="multiple" required>
-                    {{{energyProjectsLaw}}}
-                </select>
-              </div>
-              <button type="submit" class="btn btn-warning btn-md">Select</button>
-            </form>
+            <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('landPropertyLaw')">Select</button>
           </div>
         </div>
       </div>
 
       <div class="col-md-4 mb-4">
-          <div class="card h-100" style="background-image: url({{ABS_PATH}}images/bg7.png);background-size: cover;background-position: 50% 50%;">
-            <div class="card-body rgba-black-strong white-text py-5">
-              <h4 class="card-title font-weight-bold py-3">Others</h4>
-              <p class="card-text white-text">Other categories including environmental, arson, medical negligence</p>
+          <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg4.png);background-size: cover;background-position: 50% 50%;">
+            <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
+              <h5 class="card-title font-weight-bold py-3">Finance and Commercial Law</h5>
+              <p class="card-text white-text">Get legal experts in the matters of financial laws, commercial, business law e.t.c</p>
+              <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('financeCommercialLaw')">Select</button>
+            </div>
+          </div>
+      </div>
 
-            <form id="categ--others">
-              <div style="display:none">
-                <select class="tags form-control mt-2" name="tags[]" multiple="multiple" required>
-                    {{{others}}}
-                </select>
-              </div>
-              <button type="submit" class="btn btn-warning btn-md">Select</button>
-            </form>
+      <div class="col-md-4 mb-4">
+          <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg5.png);background-size: cover;background-position: 50% 50%;">
+            <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
+              <h5 class="card-title font-weight-bold py-3">Digital, Entertainment and Sports</h5>
+              <p class="card-text white-text">Find the best lawyers to handle your cases relating to digital entertaiment, sports and others</p>
+              <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('digitalEntertainmentLaw')">Select</button>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg6.png);background-size: cover;background-position: 50% 50%;">
+          <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
+            <h5 class="card-title font-weight-bold py-3">Energy Projects</h5>
+            <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+            <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('energyProjectsLaw')">Select</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+          <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg7.png);background-size: cover;background-position: 50% 50%;">
+            <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
+              <h5 class="card-title font-weight-bold py-3">Others</h5>
+              <p class="card-text white-text">Other categories including environmental, arson, medical negligence</p>
+              <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('others')">Select</button>
             </div>
           </div>
         </div>
@@ -201,13 +126,45 @@
     </div>
   </section>
 
-  <section class="container" id="fetchMatchingLawyerSection" style="display:none">
+  <section class="container" id="matchingLawyersSection" style="display:none">
       <div class="d-flex mb-3 pt-5">
-        <h4 class="mr-auto font-weight-bold">Matching Lawyers</h4>
+        <h5 class="mr-auto font-weight-bold">Matching Lawyers</h5>
         <button class="btn btn-sm btn-warning font-weight-bold" id="backToFindLawyer"><i class="fas fa-caret-left"></i> Go Back</button>
       </div>
       <div class="row row-cols-1 row-cols-md-2 mt-5 pt-3" id="fetchMatchingLawyers">
-
+        <div class="col-md-4 mb-4">
+          <div class="card h-100" style="background-color: #C8F2EF;">
+              <div class="lawyer-card card-body">
+                <div class = "row">
+                    <div class="col-md-8 d-flex flex-column justify-content-center">
+                        <h4 class="card-title font-weight-bold mr-auto mb-3">Adekunle Ajasin</h4>
+                        <div class="">
+                          <span class = "lawyer-tags">legal Law</span>
+                          <span class = "lawyer-tags">legal Law</span>
+                          <span class = "lawyer-tags">legal Law</span>
+                        </div>
+                    </div>
+                    <div class = "col-md-4 d-flex justify-content-center align-items-center">
+                      <img src="https://firebasestorage.googleapis.com/v0/b/virtuallawfirm-2478e.appspot.com/o/userfiles%2FbTCed6jbK6YhYfOvRIsp08h6RoI3?alt=media&amp;token=fb52b90c-b25c-4a21-82df-9135865928d6" class="rounded-circle z-depth-0" style = "border: 1px solid var(--accent-colr)" alt="avatar image" height="70" width="70">
+                    </div>
+                </div>
+                <div class = "d-flex flex-row justify-content-between mt-4">
+                  <div>
+                    <span class = "lawyer-feature-header">Location</span>
+                    <span class = "lawyer-feature-value">Lagos</span>
+                  </div>
+                  <div>
+                    <span class = "lawyer-feature-header">Consultation Fee</span>
+                    <span class = "lawyer-feature-value">&#8358; 7,000</span>
+                  </div>
+                  <div>
+                    <span class = "lawyer-feature-header">Years of Experience</span>
+                    <span class = "lawyer-feature-value">5</span>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
       </div>
   </section>
 
@@ -215,79 +172,179 @@
     <h2 class="text-center mt-2">What's the Issue? Let's help</h2>
 
     {{! hidden elements }}
-    <input value="{{email}}" id="clientEmail" style="display: none" />
-    <input value="{{displayName}}" id="displayName" style="display: none" />
-    <input value="{{phoneNumber}}" id="phoneNumber" style="display: none" />
+    <input value="{{email}}" id="clientEmail" type = "hidden" />
+    <input value="{{displayName}}" id="displayName" type = "hidden" />
+    <input value="{{phoneNumber}}" id="phoneNumber" type = "hidden" />
+    <input value="{{uid}}" id="uid" type = "hidden" />
     {{! hidden elements }}
-    <hr/>
-    <div class="d-flex justify-content-center">
-        <!-- Material form group -->
-        <form class="w-100 border p-3" id="findLawyerForm">
-            <!-- Material input -->
-            <div class="md-form form-group mt-5">
-                <input type="text" class="form-control" name="subject" id="subject" required>
-                <label for="subject">Subject</label>
-            </div>
-  
-            <div class="md-form mb-4 pink-textarea active-pink-textarea-2">
-                <textarea id="issues" class="md-textarea form-control" name="issue" rows="3" required></textarea>
-                <label for="form23">Type your issue here</label>
-            </div>
-
-              <div class="md-form">
-              <span class="text-muted">Select Tags Below</span>
-                  <select class="tags form-control mt-2" id="tags" name="tags[]" multiple="multiple" required>
-                      {{{tags}}}
-                  </select>
-              </div>
-
-              <button type="button" onclick="goBack()" class="btn"><i class="fas fa-arrow-left"></i> Back</button>
-
-              <div class="md-form text-right">
-                  <button type="submit" id="next" class="btn btn-default">Next <i class="fas fa-arrow-right"></i></button>
-              </div>
-          </form>
-          <!-- Material form group -->
-
-      </div>
+   
   </div>
 
-  <section class="container h-75" id="fetchLawyersSection" style="display:none;overflow: scroll">
-      <h3 class="text-center mt-3">Lawyers that match your Issue</h3>
-      <hr/>
-      <ul class="list-group list-group-flush" id="fetchlawyersList">
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-              <span class="flex-fill">
-              <img src="" alt="profile_pic" width="30"/>
-              Jessica Pearson</span> <br/>
-              <span class="badge badge-info badge-pill p-3">&#8358;<span style="font-size:larger">10000</span></span>
-              <a class="btn blue-text ml-4" onclick="payWithPaystack()">select</a>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-              <img src="" alt="profile_pic" width="30"/>
-              <span class="flex-fill">Harvey Specter</span>
-              <span class="badge badge-info badge-pill p-3">&#8358;<span style="font-size:larger">10000</span></span>
-              <a class="btn blue-text ml-4">select</a>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-              <img src="" alt="profile_pic" width="30"/>
-              <span class="flex-fill">Lewis Litt</span><br/>
-              <span class="badge badge-info badge-pill p-3">&#8358;<span style="font-size:larger">10000</span></span>
-              <a class="btn blue-text ml-4">select</a>
-          </li>
-      </ul>
-      <div class="md-form text-left">
-        <button type="submit" id="prev" class="btn btn-default"><i class="fas fa-arrow-left"> Back</i></button>
-      </div>
-  </section>
+  
 </main>
 
 {{> footer}}
+
+
+ <!-- Client Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="Login/Signup"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Login to Continue your consultation</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+     
+        <div class="modal-body">
+            <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link lt-link-bold active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login"
+                    aria-selected="true">LOGIN</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lt-link-bold" id="signup-tab" data-toggle="tab" href="#signup" role="tab" aria-controls="signup"
+                    aria-selected="false">SIGN UP</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                    <form id = "clientLogin" class="border border-light p-5" >
+                        <p class="h4 mb-4">Log In</p>
+                        <p id = "loginError" class = "error valid">Username already exists</p>
+                        <div class= "mb-4">
+                            <label for="email">Email</label>
+                            <input id = "loginEmail" name = "email" type="email"  class="form-control" required>
+                        </div>
+                        <div class = "mb-4">
+                            <label for="password">Password</label>
+                            <input id = "loginPassword" name = "password" type="password"  class="form-control">
+                        </div>
+                        <div class = "d-flex flex-column justify-content-center">
+                            <a class = "lt-link ml-2 small" data-toggle = "modal" href="#forgotModal">Forgot password?</a>
+                            <button  id = "clientLoginButton" class = "btn lt-btn-accent mt-3" type = "submit">LOGIN</button>
+                        </div>
+                        
+                        <hr width = "100%"/>
+                        <div class="d-flex flex-column text-center justify-content-center">
+                            <p class = "lt-link">Are you a Lawyer? Login Here Instead</p>
+                            <button type = "button" id = "toggleLawyerLogin" class = "btn lt-btn-secondary">LAWYER LOGIN</button>
+                        </div>                
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+                    <form id = "clientRegisterForm" class="border border-light p-5" ">
+                
+                        <p class="h4 mb-4">Sign Up</p>
+
+                        <p id = "signupError" class = "valid error"></p>
+                
+                        <div class = "mb-4">
+                            <label for="email">Email</label>
+                            <input id = "emailError" name = "email" type="email"  class="form-control" required>
+                            <div  class = "invalid-feedback">
+                                email is invalid
+                            </div>
+                        </div>
+                
+                        <div class = "mb-4">
+                            <label for="password">Full Name</label>
+                            <input id = "passwordError" name = "name" type="text"  class="form-control">
+                            
+                        </div>
+                        
+                        <div class="custom-control custom-checkbox">
+                            <input id = "terms" name = "terms" type="checkbox" class="custom-control-input">
+                            <label class="custom-control-label" for="terms">I have read and agreed to the <a class = "lt-link" href = "#termsnan">Terms and Conditions</a> of Lawtrella</label>
+                        </div>
+                        <div class = "d-flex flex-column justify-content-center">
+                            <button id = "clientSignupButton" class = "btn lt-btn-accent mt-3 disabled" type = "submit">SIGN UP</button>
+                        </div>
+                        
+                        <hr width = "100%"/>
+                        <div class="d-flex flex-column text-center justify-content-center">
+                            <p class = "lt-link-bold">Are you a Lawyer? Sign up Here Instead</p>
+                            <button type = "button" id = "toggleLawyerSignup"   class = "btn lt-btn-secondary">LAWYER SIGNUP</button>
+                        </div>                
+                    </form>
+                </div>
+            </div>
+            <div id = "signupComplete" class = "signup-success d-flex flex-column  justify-content-between align-items-center p-5">
+                <h2 class = "pl-2">Check your Mail</h2>
+                <lottie-player src="{{ABS_PATH}}/assets/lottiefile.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+                <p class = "pl-2">Thank you for signing up to Lawtrella check your inbox to verify your email</p>
+                <button id = "gotrecover" type = "button" onclick = "dismiss('signup')" class = "btn lt-btn-accent btn-expand">Got It</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- Recover Modal -->
+  <div class="modal " id="forgotModal" tabindex="-1" role="dialog" aria-labelledby="Recover Password"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div id = "recoverComplete" class = "recover-success d-flex flex-column  align-items-center justify-content-center p-5">
+                <h2 class = "pl-2">Check your Mail</h2>
+                <lottie-player src="{{ABS_PATH}}/assets/lottiefile.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+                <p class = "pl-2">Follow the prompt on your mail to reset your password</p>
+                <button id="gotsignup" type = "button" onclick = "dismiss('recover')" class = "btn lt-btn-accent btn-expand">Got It</button>
+            </div>
+            <form id = "recoverForm" class="border border-light p-5" >
+                <p class="h4 mb-4">Log In</p>
+                <p id = "recoverError" class = "error valid">Username already exists</p>
+                <div class= "mb-4">
+                    <label for="email">Email</label>
+                    <input id = "recoverEmail" name = "email" type="email"  class="form-control" required>
+                </div>
+            
+                <div class = "d-flex flex-column justify-content-center">
+                    
+                    <button  id = "recoverButton" class = "btn lt-btn-accent mt-3" type = "submit">RECOVER</button>
+                </div>              
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+   <!-- Verify Modal -->
+  <div class="modal " id="verifyModal" tabindex="-1" role="dialog" aria-labelledby="Recover Password"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div id = "recoverComplete" class = "d-flex flex-column  align-items-center justify-content-center p-5">
+                <h3 id = "verifyStatus" class = "pl-2">Please Wait</h3>
+                <lottie-player id = "verifyAnimation" src="{{ABS_PATH}}/assets/payment-confirm.json"  background="transparent"  speed="1"  style="display: none; width: 300px; height: 300px;" loop></lottie-player>
+                <i id = "verifyIcon" class="fas fa-sync fa-spin fa-5x lt-accent-color m-5"></i>
+                <p id = "verifyDescription" class = "pl-2">Please Wait while we set up your Matter</p>
+                <a  id="dashboardButton" style ="display:none"  href = "{{ABS_PATH}}client/dashboard" class = "btn lt-btn-accent btn-expand">Goto Dashboard</a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <script src="{{ABS_PATH}}js/client/findLawyer.js"></script>
+<script src="{{ABS_PATH}}js/client/clientScript.js"></script>
 
 
 
@@ -300,9 +357,13 @@
     $('.category--tags').select2();
 
     loadBtn('next');
+
+  
 </script>
 <script>
     const goBack = () => {
         window.history.back();
     }
 </script>
+</body>
+</html>

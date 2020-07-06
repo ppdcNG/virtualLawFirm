@@ -10,18 +10,29 @@ var admin = require("firebase-admin");
 
 
 exports.findLawyer = (req, res) => {
-    let tags = tagOptions();
-    let familyLaw = familyLawOptions();
-    let administrativePublicLaw = administrativePublicLawOptions();
-    let landPropertyLaw = landPropertyLawOptions();
-    let financeCommercialLaw = financeCommercialLawOptions();
-    let digitalEntertainmentLaw = digitalEntertainmentLawOptions();
-    let energyProjectsLaw = energyProjectsLawOptions();
-    let others = othersOptions();
-
-    let { photoURL, displayName, email, phoneNumber } = req.user;
-    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, AppName, photoURL, tags, displayName, email, phoneNumber, familyLaw, administrativePublicLaw, landPropertyLaw, financeCommercialLaw, digitalEntertainmentLaw, energyProjectsLaw, others });
+    let uid = req.user ? req.user.uid : false;
+    console.log(uid);
+    let photoURL = req.user ? req.user.photoURL : false;
+    photoURL = !photoURL ? 'https://images.pexels.com/photos/399772/pexels-photo-399772.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' : photoURL;
+    let displayName = req.user ? req.user.displayName : "";
+    let email = req.user ? req.user.email : "";
+    let phoneNumber = req.user ? req.user.phoneNumber : "";
+    res.render('client/find-lawyer', { uid, title: 'Client page', ABS_PATH, photoURL, displayName, email, phoneNumber });
 };
+
+exports.lawyerCategories = (req, res) => {
+    let categories = {
+        familyLaw: require('../config/categories/family-law.json'),
+        administrativePublicLaw: require('../config/categories/administrative-public-law.json'),
+        landPropertyLaw: require('../config/categories/land-property-law.json'),
+        financeCommercialLaw: require('../config/categories/family-law.json'),
+        digitalEntertainmentLaw: require('../config/categories/digital-ent-sports.json'),
+        energyProjectsLaw: require('../config/categories/energy-projects.json'),
+        others: require('../config/categories/others.json'),
+    }
+    res.send(categories);
+
+}
 
 exports.askALawyer = (req, res) => {
     res.render('client/ask-lawyer', { title: 'Ask a Lawyer', ABS_PATH, AppName })
@@ -44,9 +55,9 @@ exports.confirm = (req, res) => {
 };
 
 exports.signup = async (req, res) => {
-    let { email, firstname, lastname, phone } = req.body;
-    phone = "+234" + phone.substr(1, phone.length - 1);
-    let data = { email, firstname, lastname, phone };
+    let { email, name } = req.body;
+
+    let data = { email, name };
     let tok = token();
     let user = await admin.auth().getUserByEmail(email).catch((e) => {
         let error = { err: e, message: e.message, status: 'failed' }
@@ -68,7 +79,7 @@ exports.signup = async (req, res) => {
 
     let clickLink = ABS_PATH + "client/confirm/?token=" + tok;
     let mailOptions = {
-        name: `${firstname} ${lastname}`,
+        name: `Sir/Ma`,
         link: clickLink,
         to: email
     };
@@ -79,8 +90,14 @@ exports.signup = async (req, res) => {
         subject: "Welcome to LawTrella",
         text: `Thank you for signing up this is your token ${tok}`
     };
-    welcomeMail(mailOptions, res);
-    res.send({ status: "success" });
+    try {
+        welcomeMail(mailOptions, res);
+        res.send({ status: "success" });
+    }
+    catch (e) {
+        res.send({ err: true, message: e.message });
+    }
+
 }
 exports.userLogin = async (req, res) => {
     let { idToken, uid } = req.body;
@@ -265,12 +282,14 @@ exports.sendInvite = async (req, res) => {
 
 exports.verifyConsultationFee = async (req, res) => {
     let payload = JSON.parse(req.body.data);
-    let { paystackRef, task, lawyerId } = payload
+    let { paystackRef, lawyer, lawyerId } = payload
     let uid = req.user.uid;
     let time = new Date().getTime();
+    let task = {};
     task.timestamp = 0 - time;
     task.userId = uid;
     task.lawyerId = lawyerId;
+    task.lawyer = lawyer;
     let user = {
         uid: req.user.uid,
         email: req.user.email,
@@ -281,11 +300,12 @@ exports.verifyConsultationFee = async (req, res) => {
     task.client = user;
     task.payRef = paystackRef;
     task.status = "consulting";
+    task.title = "My Consultation-" + paystackRef.substr(0, 5);
 
     let payrecord = {
         type: "consultation",
         payer: user,
-        payee: task.lawyer,
+        payee: lawyer,
         ref: paystackRef,
         date: 0 - time,
     }
@@ -306,24 +326,21 @@ exports.verifyConsultationFee = async (req, res) => {
             type: "payment",
             title: "Payment"
         }
-        task.activities = [activity];
-        payrecord.amount = body.data.amount;
-        console.log(err, body);
-        // let ref = await admin.firestore().collection('cases').add(task).catch((e) => console.log(e));
-        // await admin.firestore().collection('clients').doc(uid).collection('tasks').doc(ref.id).set(task);
-        // await admin.firestore().collection('lawyers').doc(lawyerId).collection('tasks').doc(ref.id).set(task);
-        // payrecord.caseId = ref.id;
-        // payrecord.amount = body.data.amount / 1000
-        // await admin.firestore().collection('transactions').add(payrecord);
+
+
 
         let batch = admin.firestore().batch();
         let taskRef = admin.firestore().collection('cases').doc();
+        let activitiesRef = taskRef.collection('activities').doc();
         let clientsRef = admin.firestore().collection('clients').doc(uid).collection('tasks').doc(taskRef.id);
         let lawyersRef = admin.firestore().collection('lawyers').doc(lawyerId).collection('tasks').doc(taskRef.id);
         let transactionsRef = admin.firestore().collection('transactions').doc();
+        task.payRecord = transactionsRef.id;
+        payrecord.taskId = taskRef.id;
         batch.set(clientsRef, task);
         batch.set(lawyersRef, task);
         batch.set(taskRef, task);
+        batch.set(activitiesRef, activity);
         batch.set(transactionsRef, payrecord);
         try {
             await batch.commit();

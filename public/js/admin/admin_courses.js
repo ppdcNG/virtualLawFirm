@@ -12,6 +12,10 @@ $(document).ready(() => {
     });
 
     $('#addCourseButton').click(function () {
+        $("#addCourseForm")[0].reset();
+        $("#addCourseForm input").trigger('change');
+        $("#addCourseForm textarea").trigger('change');
+        $("#tags").trigger('change');
         $("#courseMode").val("add");
         $("#courseModal").modal('show');
     })
@@ -119,7 +123,7 @@ const editCourseButton = id => {
 
 
 const renderCourse = (course, courseId) => {
-    let title = course.title ? (course.title.length > 45 ? course.title.substr(0, 45) + '...' : course.title) : "No Description"
+    let title = course.title ? (course.title.length > 45 ? course.title.substr(0, 20) + '...' : course.title) : "No Description"
     return `
     <div class="col-md-4 mb-3 ">
         <div class="card mt-1 h-100">
@@ -132,7 +136,7 @@ const renderCourse = (course, courseId) => {
             </div>
 
             <div class="card-body">
-                <h4 class="card-title" data-toggle = "tooltip" title = "${course.title}">${title}</h4>
+                <h3 class="card-title" data-toggle = "tooltip" title = "${course.title}">${title}</h3>
                 <p class="card-text"></p>
 
                 <div class="row">
@@ -150,4 +154,7 @@ const renderCourse = (course, courseId) => {
     
     `
 }
+
+/// course Details Pages
+
 

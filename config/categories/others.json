@@ -1,77 +1,27 @@
 [
-    {
-        "others": "environment"
-    },
-    {
-        "others": "medical negligence"
-    },
-    {
-        "others": "negligence"
-    },
-    {
-        "others": "litigation"
-    },
-    {
-        "others": "arson"
-    },
-    {
-        "others": "assault"
-    },
-    {
-        "others": "battery"
-    },
-    {
-        "others": "bribery"
-    },
-    {
-        "others": "burglary"
-    },
-    {
-        "others": "discrimination"
-    },
-    {
-        "others": "human rights"
-    },
-    {
-        "others": "criminal"
-    },
-    {
-        "others": "credit card fraud"
-    },
-    {
-        "others": "computer fraud"
-    },
-    {
-        "others": "homicide"
-    },
-    {
-        "others": "election law"
-    },
-    {
-        "others": "class actions"
-    },
-    {
-        "others": "arbitrator"
-    },
-    {
-        "others": "mediation"
-    },
-    {
-        "others": "islamic"
-    },
-    {
-        "others": "workplace injuries"
-    },
-    {
-        "others": "wrongful-death"
-    },
-    {
-        "others": "enforcement of judgement"
-    },
-    {
-        "others": "garnishee proceeding"
-    },
-    {
-        "others": "torts"
-    }
+    "environment",
+    "medical negligence",
+    "negligence",
+    "litigation",
+    "arson",
+    "assault",
+    "battery",
+    "bribery",
+    "burglary",
+    "discrimination",
+    "human rights",
+    "criminal",
+    "credit card fraud",
+    "computer fraud",
+    "homicide",
+    "election law",
+    "class actions",
+    "arbitrator",
+    "mediation",
+    "islamic",
+    "workplace injuries",
+    "wrongful-death",
+    "enforcement of judgement",
+    "garnishee proceeding",
+    "torts"
 ]

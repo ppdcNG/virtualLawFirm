@@ -78,8 +78,8 @@ exports.confirm = (req, res) => {
 };
 
 exports.signup = async (req, res) => {
-    let { email, firstname, lastname, phone } = req.body;
-    let data = { email, firstname, lastname, phone };
+    let { email, name } = req.body;
+    let data = { email, name };
     let tok = token();
     let user = await admin.auth().getUserByEmail(email).catch((e) => {
         let error = { err: e, message: e.message, status: 'failed' }
@@ -101,14 +101,14 @@ exports.signup = async (req, res) => {
 
     let clickLink = ABS_PATH + "lawyer/confirm/?token=" + tok;
     let mailOptions = {
-        name: `${firstname} ${lastname}`,
+        name: `${name}`,
         link: clickLink,
         to: email
     };
 
     let sendgridOption = {
         to: email,
-        from: "welcome@virtualLaw.com",
+        from: "welcome@lawtrella.com",
         subject: "Welcome to A & E Law firm",
         text: `Thank you for signing up this is your token ${tok}`
     };
