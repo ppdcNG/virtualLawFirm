@@ -2,20 +2,42 @@
 let lawyersList = {};
 var ISSUE = '1';
 let TASKS = {};
+let CATEGORIES = null;
 
-async function handleFindLawyerSubmit(form, thisForm) {
-    $(thisForm).closest('.col-md-4').parent().css('display', 'none');
-    $("#loading").css('display', 'block');
+$(document).ready((e) => {
+    $.ajax({
+        type: "POST",
+        url: ABS_PATH + 'client/lawyerCategories',
+        data: {},
+        success: function (response) {
+            CATEGORIES = response;
+            $('.lt-btn-accent').each(function (index) {
+                $(this).removeClass('disabled');
+            })
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    });
+})
 
-    let lawyers = await firebase.firestore().collection('lawyers').where('portfolio.tags', 'array-contains-any', form.tags).get().catch((e) => {
+
+const fetchLawyers = async type => {
+    let categories = CATEGORIES[type];
+    categories = categories.slice(0, 10);
+    console.log(categories);
+    $("#findALawyer").fadeOut();
+    $("#loading").fadeIn();
+    let lawyers = await firebase.firestore().collection('lawyers').where('portfolio.tags', 'array-contains-any', categories).get().catch((e) => {
         console.log(e);
     });
 
     let lawyersHTML = '';
     lawyers.forEach(lawyer => {
         let lawyerData = lawyer.data();
+
         lawyersList[lawyer.id] = lawyerData;
-        lawyersHTML += foundMatchingLawyer(lawyer.data());
+        lawyersHTML += renderFoundLawyer(lawyer.data());
     });
 
     if (!lawyersHTML) {
@@ -23,133 +45,86 @@ async function handleFindLawyerSubmit(form, thisForm) {
     }
     $("#loading").css('display', 'none');
     $("#fetchMatchingLawyers").html(lawyersHTML);
-    $("#fetchMatchingLawyerSection").css('display', 'block');
+    $("#matchingLawyersSection").css('display', 'block');
+
+
 }
 
-// submit selected categories
-$("#categ--family-law").submit(async function (e) {
-    e.preventDefault();
-    let form = form2js("categ--family-law", ".");
-    handleFindLawyerSubmit(form, this);
-})
+const consultLawyer = (lawyerId) => {
+    let uid = $("#uid").val();
+    console.log('consulting lawyer');
+    if (!uid) {
+        $("#loginModal").modal('show');
+        return;
+    }
 
-$("#categ--adminPublicLaw").submit(async function (e) {
-    e.preventDefault();
-    let form = form2js("categ--adminPublicLaw", ".");
-    handleFindLawyerSubmit(form, this);
-});
-$("#categ--landProperty").submit(async function (e) {
-    e.preventDefault();
-    let form = form2js("categ--landProperty", ".");
-    handleFindLawyerSubmit(form, this);
-});
-$("#categ--financeCommercial").submit(async function (e) {
-    e.preventDefault();
-    let form = form2js("categ--financeCommercial", ".");
-    handleFindLawyerSubmit(form, this);
-});
-$("#categ--digitalEntertainmentSport").submit(async function (e) {
-    e.preventDefault();
-    let form = form2js("categ--digitalEntertainmentSport", ".");
-    handleFindLawyerSubmit(form, this);
-});
-$("#categ--energyProjects").submit(async function (e) {
-    e.preventDefault();
-    let form = form2js("categ--energyProjects", ".");
-    handleFindLawyerSubmit(form, this);
-});
-$("#categ--others").submit(async function (e) {
-    e.preventDefault();
-    let form = form2js("categ--others", ".");
-    handleFindLawyerSubmit(form, this);
-});
-// submit select categories end 
+    let fee = lawyersList[lawyerId].portfolio.consultationFee
 
-const foundMatchingLawyer = lawyer => {
+    payWithPaystack(fee, lawyerId)
+}
+
+
+
+const renderFoundLawyer = lawyer => {
     let { contact, portfolio, name, authId } = lawyer;
     let fee = accounting.formatNumber(portfolio.consultationFee);
 
-    return `<div class="col-md-6 mb-4">
-                <div class="card h-100" style="background-color: #C8F2EF;">
-                    <div class="card-body py-5">
-                        <div class="d-flex mb-3">
-                            <h4 class="card-title font-weight-bold py-3 mr-auto">${name}</h4>
-
-                            <img src="${contact.photoUrl}" class="rounded-circle z-depth-0"
-                                alt="avatar image" height="80" width="80">
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <button class="btn btn-warning btn-sm">${portfolio.specialization}</button><button class="btn btn-warning btn-sm"></button><button class="btn btn-warning btn-sm" onclick="payWithPaystack('${portfolio.consultationFee}', '${authId}')">Consult</button>
-                        </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between">
-                        <span>Location: Lagos</span><span>Consultation Fee: &#8358;${fee}</span><span>Experience: ${portfolio.workExperience} years</span>
+    return `
+    <div class="col-md-4 mb-4">
+       <div class="card h-100" style="background-color: #C8F2EF;">
+          <div class="lawyer-card card-body" onclick = "consultLawyer('${lawyer.authId}')">
+            <div class = "row">
+                <div class="col-md-8 d-flex flex-column justify-content-center">
+                    <h4 class="card-title font-weight-bold mr-auto mb-3">${name}</h4>
+                    <div class="">
+                    ${renderLawyerTags(portfolio.tags)}
                     </div>
                 </div>
+                <div class = "col-md-4 d-flex justify-content-center align-items-center">
+                  <img src="${contact.photoUrl}" class="rounded-circle z-depth-0" style = "border: 1px solid var(--accent-colr)" alt="avatar image" height="70" width="70">
+                </div>
             </div>
-            `
+            <div class = "d-flex flex-row justify-content-between mt-4">
+              <div>
+                <span class = "lawyer-feature-header">Specialization</span>
+                <span class = "lawyer-feature-value">${portfolio.specialization}</span>
+              </div>
+              <div>
+                <span class = "lawyer-feature-header">Consultation Fee</span>
+                <span class = "lawyer-feature-value">&#8358; ${fee}</span>
+              </div>
+              <div>
+                <span class = "lawyer-feature-header">Years of Experience</span>
+                <span class = "lawyer-feature-value">${portfolio.workExperience}</span>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+        `;
+
+
+}
+
+const renderLawyerTags = tags => {
+    let html = '';
+    tags.forEach((value, index) => {
+        html += `<span class = "lawyer-tags">${value}</span>`;
+    });
+    return html;
 }
 
 $("#backToFindLawyer").click(function () {
-    location.reload();
+    $("#findALawyer").fadeIn();
+    $("#matchingLawyersSection").fadeOut();
 });
 
-// $("#findLawyerForm").submit(async function (e) {
-//     e.preventDefault();
 
-//     let form = form2js("findLawyerForm", ".");
-//     console.log(form);
-//     ISSUE = JSON.stringify(form);
-
-//     // $.notify(response.message, {type: "Searching Lawyers.." });
-
-//     // form = JSON.stringify(form);
-
-//     // let data = {data: form }
-//     // console.log(data);
-//     let data = {};
-//     let lawyers = await firebase.firestore().collection('lawyers').where('portfolio.tags', 'array-contains-any', form.tags).get().catch((e) => {
-//         console.log(e);
-//     });
-//     console.log('firbase done')
-//     console.log(lawyers);
-//     let lawyersHTML = '';
-//     lawyers.forEach(lawyer => {
-//         let lawyerData = lawyer.data();
-//         lawyersList[lawyer.id] = lawyerData;
-//         lawyersHTML += renderFoundLawyer(lawyer.data());
-//     });
-//     $("#fetchlawyersList").html(lawyersHTML);
-//     $("#findLawyersSection").css('display', 'none');
-//     $("#fetchLawyersSection").css('display', 'block');
-//     clearLoad("next", "Next");
-// });
-// $("#prev").click(async function (e) {
-//     $("#fetchLawyersSection").css('display', 'none');
-//     $("#findLawyersSection").css('display', 'block');
-// });
-// const renderFoundLawyer = lawyer => {
-//     let { contact, portfolio, name, authId } = lawyer;
-//     let fee = accounting.formatNumber(portfolio.consultationFee);
-
-//     return `<li class="list-group-item d-flex justify-content-between align-items-center">
-//         <img src="${contact.photoUrl}" class="rounded-circle mr-1" alt="profile_pic" width="40" />
-//         <span class="flex-fill">${name}</span><br />
-//         <span class="flex-fill"><b>Specialization: </b>${portfolio.specialization}</span>
-//         <span class="flex-fill"><b>Experience: ${portfolio.workExperience} Years</b></span>
-//         <span class="badge badge-info badge-pill p-3" style="width:100px;">&#8358;<span style="font-size:larger">${fee}</span></span>
-//         <a class="btn blue-text ml-4" onclick="payWithPaystack('${portfolio.consultationFee}', '${authId}')">Consult</a>
-//     </li>
-// `
-// }
-
-// Paystack
 const payWithPaystack = (fee, id) => {
-    let lawyer = lawyersList[id];
+    let lawyerInfo = lawyersList[id];
     fee = parseInt(fee);
     console.log(fee);
     let clientEmail = $('#clientEmail').val();
-    let clientName = $('#displayName').val();
     let phoneNumber = $('#phoneNumber').val();
     let displayName = $("#displayName").val();
 
@@ -171,18 +146,14 @@ const payWithPaystack = (fee, id) => {
         // on success
         callback: function (response) {
             console.log(response);
-            let task = form2js("findLawyerForm", ".");
-            console.log(task);
-            task.lawyerId = id;
-            console.log(id);
-            console.log(lawyer);
-            task.lawyer = {
-                ...lawyer.contact, email: lawyer.email, uid: id, name: lawyer.name
+            $("#verifyModal").modal('show');
+            let lawyer = {
+                ...lawyerInfo.contact, email: lawyerInfo.email, uid: id, name: lawyerInfo.name
             }
 
             let dataObj = {
                 paystackRef: response.reference,
-                task,
+                lawyer,
                 lawyerId: id
             }
             console.log(dataObj)
@@ -196,13 +167,15 @@ const payWithPaystack = (fee, id) => {
                 data: req,
                 success: function (response) {
                     console.log("success", response);
-
+                    $('#verifyStatus').text('Matter Created');
+                    $("#verifyDescription").text('Your matter has been created and the lawyer has been notified, goto your dashboard to manage your matters')
+                    $("#verifyIcon").fadeOut();
+                    $("#verifyAnimation").fadeIn();
+                    $("#verifyAnimation")[0].play();
+                    $("#dashboardButton").fadeIn()
                     processingNotification.close();
                     $.notify(response.message, { type: response.status });
 
-                    setTimeout(() => {
-                        window.location = '/client/dashboard';
-                    }, 1000)
                 },
                 error: err => {
                     console.error("error", err)
@@ -218,4 +191,6 @@ const payWithPaystack = (fee, id) => {
     });
     handler.openIframe();
 }
+
+
 

@@ -1,0 +1,36 @@
+.card-body {
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.soft-teal-bg {
+    background-color: rgba(17, 100, 94, 0.314);
+}
+
+.lawyer-tags {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: .7rem;
+    background: var(--accent-colr);
+    padding-left: 8px;
+    padding-right: 8px;
+    color: white;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+
+.lawyer-info {
+    font-size: .8rem;
+    color: rgb(102, 95, 95);
+    display: inline-block;
+}
+
+.lawyer-card {
+    cursor: pointer;
+}
+
+.lawyer-feature-header {
+    font-size: .5rem;
+    color: rgb(114, 111, 111);
+    display: block;
+}

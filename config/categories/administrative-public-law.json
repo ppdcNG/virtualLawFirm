@@ -1,104 +1,36 @@
 [
-    {
-        "administrative public law": "antitrust and competition"
-    },
-    {
-        "administrative public law": "communication"
-    },
-    {
-        "administrative public law": "consumer protection"
-    },
-    {
-        "administrative public law": "cybersecurity"
-    },
-    {
-        "administrative public law": "cyberthreat"
-    },
-    {
-        "administrative public law": "employment dispute"
-    },
-    {
-        "administrative public law": "labour dispute"
-    },
-    {
-        "administrative public law": "education"
-    },
-    {
-        "administrative public law": "electricity tariff disputes"
-    },
-    {
-        "administrative public law": "employment benefits"
-    },
-    {
-        "administrative public law": "food law"
-    },
-    {
-        "administrative public law": "sports betting"
-    },
-    {
-        "administrative public law": "government contracts"
-    },
-    {
-        "administrative public law": "government Relations"
-    },
-    {
-        "administrative public law": "public administration"
-    },
-    {
-        "administrative public law": "health policy"
-    },
-    {
-        "administrative public law": "medical negligence"
-    },
-    {
-        "administrative public law": "immigration"
-    },
-    {
-        "administrative public law": "infrastructure"
-    },
-    {
-        "administrative public law": "marketing and advertising"
-    },
-    {
-        "administrative public law": "medical devices and technology regulation"
-    },
-    {
-        "administrative public law": "pensions"
-    },
-    {
-        "administrative public law": "pharmaceuticals"
-    },
-    {
-        "administrative public law": "biotech regulation"
-    },
-    {
-        "administrative public law": "privacy and data protection"
-    },
-    {
-        "administrative public law": "public procurements"
-    },
-    {
-        "administrative public law": "tax"
-    },
-    {
-        "administrative public law": "tax dispute"
-    },
-    {
-        "administrative public law": "bribery"
-    },
-    {
-        "administrative public law": "employee rights"
-    },
-    {
-        "administrative public law": "election law"
-    },
-    {
-        "administrative public law": "health law"
-    },
-    {
-        "administrative public law": "workplace injuries"
-    },
-    {
-        "administrative public law": "taxation"
-    }
+    "antitrust and competition",
+    "communication",
+    "consumer protection",
+    "cybersecurity",
+    "cyberthreat",
+    "employment dispute",
+    "labour dispute",
+    "education",
+    "electricity tariff disputes",
+    "employment benefits",
+    "food law",
+    "sports betting",
+    "government contracts",
+    "government Relations",
+    "public administration",
+    "health policy",
+    "medical negligence",
+    "immigration",
+    "infrastructure",
+    "marketing and advertising",
+    "medical devices and technology regulation",
+    "pensions",
+    "pharmaceuticals",
+    "biotech regulation",
+    "privacy and data protection",
+    "public procurements",
+    "tax",
+    "tax dispute",
+    "bribery",
+    "employee rights",
+    "election law",
+    "health law",
+    "workplace injuries",
+    "taxation"
 ]

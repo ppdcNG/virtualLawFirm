@@ -7,17 +7,17 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Legal Docs <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ABS_PATH}}client/docs">Legal Docs <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Consultation</a>
+                    <a class="nav-link" href="{{ABS_PATH}}legalAdvice">Consultation</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ABS_PATH}}e-learning">
                         <i class="fas fa-graduation-cap"></i> E-Learning
                     </a>
                 </li>
-                {{#photoURL}}
+                {{#uid}}
                     <li class="nav-item avatar" data-toggle = "tooltip" title = "Click to go to Dashboard">
                     <a class=" avartar nav-link p-0" href="/client/dashboard/">
                     <img src="{{ photoURL }}" class="rounded-circle z-depth-0"
@@ -29,15 +29,15 @@
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
                     </li>
-                {{/photoURL}}
-                {{^photoURL}}
+                {{/uid}}
+                {{^uid}}
                 <li class="nav-item">
                     <a href="#loginModal" data-toggle = "modal" class="btn lt-btn-accent">LOGIN</a>
                 </li>
                 <li class="nav-item">
                     <a href="#loginModal" onclick = "clientTab('signup')" data-toggle = "modal" class="btn lt-btn-accent-outline">SIGN UP</a>
                 </li>
-                {{/photoURL}}
+                {{/uid}}
             </ul>
         </div>
 </nav>

@@ -1,32 +1,12 @@
 [
-    {
-        "land/property law": "real estate"
-    },
-    {
-        "land/property law": "property sale"
-    },
-    {
-        "land/property law": "property purchase"
-    },
-    {
-        "land/property law": "leases"
-    },
-    {
-        "land/property law": "wills"
-    },
-    {
-        "land/property law": "inheritance dispute"
-    },
-    {
-        "land/property law": "property dispute"
-    },
-    {
-        "land/property law": "community property"
-    },
-    {
-        "land/property law": "landlord and tenants"
-    },
-    {
-        "land/property law": "property law"
-    }
+    "real estate",
+    "property sale",
+    "property purchase",
+    "leases",
+    "wills",
+    "inheritance dispute",
+    "property dispute",
+    "community property",
+    "landlord and tenants",
+    "property law"
 ]

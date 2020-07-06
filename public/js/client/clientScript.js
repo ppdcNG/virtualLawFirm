@@ -40,9 +40,9 @@ const clientTab = type => {
 
 function dismiss(type) {
     console.log('clear called');
-    if (type == 'login') {
-        $("#mytab").fadeIn();
-        $("#myTabContent").fadeIn();
+    if (type == 'recover') {
+        $("#recoverForm").fadeIn();
+        $("#forgotModal").modal('hide');
         $("#recoverComplete").addClass('recover-success');
     }
 
@@ -59,6 +59,10 @@ $("#clientConfirm").submit(function (e) {
     var form = form2js("clientConfirm", ".");
     if (form.password !== form.confirmPassword) {
         $.notify("Passwords must match", { type: "warning" });
+        $("#confirmError").html("Passwords must match");
+        $("#confirmError").removeClass('valid');
+        $("#password").addClass('is-invalid');
+        $("#confirmPassword").addClass('is-invalid');
         clearLoad('continue', 'Continue');
 
         return false;
@@ -76,9 +80,13 @@ $("#clientConfirm").submit(function (e) {
             console.log(response);
             if (!response.err) {
                 $.notify(response.message, { type: "success" });
-                setTimeout(function () { window.location = ABS_PATH }, 2000);
+                $("#clientConfirm").hide();
+
+                $("#recoverComplete").removeClass('signup-success');
             } else {
                 $.notify(response.message, { type: "warning" });
+                $("#confirmError").html(response.message);
+                $("#confirmError").removeClass('valid');
                 clearLoad('continue', 'Continue');
             }
         },
@@ -173,4 +181,36 @@ $("#clientRegisterForm").submit(e => {
         error: e => console.log(e)
     });
 });
+
+$("#recoverForm").submit(e => {
+    e.preventDefault();
+    var form = form2js("recoverForm", ".");
+
+
+    buttonLoad('recoverButton');
+
+    $.ajax({
+        url: ABS_PATH + "recoverPassword",
+        data: form,
+        type: "POST",
+        success: function (response) {
+            $("#recoverForm").trigger("reset");
+
+            console.log(response);
+            if (!response.err) {
+
+                $.notify("A confirmation email has been sent to your inbox", { type: "success" });
+
+                $("#recoverForm").hide();
+                $("#recoverComplete").removeClass('recover-success');
+            } else {
+                $("#recoverError").html(response.message);
+                $("#recoverError").removeClass('valid');
+                $.notify(response.message, { type: "warning" });
+            }
+            clearLoad('recoverButton', 'Sign Up');
+        },
+        error: e => console.log(e)
+    });
+})
 

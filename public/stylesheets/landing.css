@@ -3,6 +3,22 @@
     --accent-colr: #F8B24F;
 }
 
+.lt-main-bg {
+    background-color: var(--main-color);
+}
+
+.lt-accent-bg {
+    background-color: var(--accent-colr);
+}
+
+.lt-main-color {
+    color: var(--main-color)
+}
+
+.lt-accent-color {
+    color: var(--accent-colr);
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -21,8 +37,8 @@ h1, h2, h3, h5 .navbar-brand {
     margin-left: 1rem;
 }
 
-.nave-item a {
-    font-size: .7em;
+.nav-item a {
+    font-size: .8em;
 }
 
 li.nav-item.avartar {

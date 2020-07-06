@@ -4,11 +4,36 @@ $("#laywerConfirm").submit(function (e) {
   var form = form2js("laywerConfirm", ".");
   if (form.password !== form.confirmPassword) {
     $.notify("Passwords must match", { type: "warning" });
-    clearLoad('continue', 'Continue');
+    $("#confirmError").html("Passwords must match");
+    $("#confirmError").removeClass('valid');
+    $("#password").addClass('is-invalid');
+    $("#confirmPassword").addClass('is-invalid');
+    clearLoad('continue', 'CREATE MY ACCOUNT');
 
     return false;
   }
+
   $(this)[0].reset();
+  buttonLoad('continue');
+  $("#lawyerGotIt").click(dismiss);
+  $("#gotsignup").click(dismiss);
+
+  function dismiss(type) {
+    console.log('clear called');
+    if (type == 'recover') {
+      $("#recoverForm").fadeIn();
+      $("#forgotModal").modal('hide');
+      $("#recoverComplete").addClass('recover-success');
+    }
+
+    if (type == 'signup') {
+
+      $("#lawyerRegisterForm").fadeIn();
+      $("#lawyerSignupComplete").addClass('signup-success');
+      $("#lawyerLoginModal").modal('show');
+    }
+  }
+
   $.ajax({
     url: ABS_PATH + "admin/verifyLawyerEmail",
     data: form,
@@ -16,16 +41,20 @@ $("#laywerConfirm").submit(function (e) {
     success: function (response) {
       console.log(response);
       if (!response.err) {
-        $.notify("User created successfully", { type: "success" });
-        setTimeout(function () { window.location = ABS_PATH + 'lawyer/login' }, 2000);
+        $.notify(response.message, { type: "success" });
+        $("#laywerConfirm").hide();
+
+        $("#recoverComplete").removeClass('signup-success');
       } else {
         $.notify(response.message, { type: "warning" });
-        clearLoad('continue', 'Continue');
+        $("#confirmError").html(response.message);
+        $("#confirmError").removeClass('valid');
+        clearLoad('continue', 'CREATE MY ACCOUNT');
       }
     },
     error: e => {
       console.log(e);
-      clearLoad('continue', 'Continue');
+      clearLoad('continue', 'CREATE MY ACCOUNT');
     }
   });
 });
