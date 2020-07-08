@@ -232,6 +232,12 @@ p.error {
     display: none !important;
 }
 
+/* footer terms and conditions link */
+
+.terms-conditions a:hover {
+    color: var(--accent-colr);
+}
+
 @media screen and (max-width:600px) {
     section.four .row {
         display: block;
