@@ -1,0 +1,200 @@
+{{> header}}
+
+<header>
+  <!--Navbar -->
+  <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
+    <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+      aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto nav-flex-icons">
+        <li class="nav-item avatar">
+            <a class="nav-link p-0" href="#">
+            <img src="{{photoURL}}" class="rounded-circle z-depth-0"
+                alt="avatar image" height="40">
+            </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </li>
+      </ul>
+
+        
+    </div>
+  </nav>
+  <!--/.Navbar -->
+</header>
+
+<main class="mb-5 container">
+
+<div class="card white lighten-3 chat-room">
+  <div class="card-body">
+
+    <!-- Grid row -->
+    <div class="row px-lg-2 px-2">
+
+      <!-- Grid column -->
+      <div class="col-md-6 col-xl-4 px-0">
+
+        <div class="white z-depth-1 px-3 pt-3 pb-0">
+          <ul class="list-unstyled friend-list">
+            <li class="active grey lighten-3 p-2">
+              <a href="#" class="d-flex justify-content-between">
+                <img src="https://bit.ly/2C7aH0u" alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1" width="100" height="100">
+                <div class="text-small">
+                  <strong>John Doe</strong>
+                  <p class="last-message text-muted">Hello there!</p>
+                </div>
+                <div class="chat-footer">
+                  <p class="text-smaller text-muted mb-0">Just now</p>
+                  <span class="badge badge-danger float-right">1</span>
+                </div>
+              </a>
+            </li>
+            <li class="p-2">
+              <a href="#" class="d-flex justify-content-between">
+                <img src="https://bit.ly/2C7aH0u" alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1" width="100" height="100">
+                <div class="text-small">
+                  <strong>John Doe</strong>
+                  <p class="last-message text-muted">Hello there!</p>
+                </div>
+                <div class="chat-footer">
+                  <p class="text-smaller text-muted mb-0">5 min ago</p>
+                  <span class="text-muted float-right"><i class="fas fa-mail-reply" aria-hidden="true"></i></span>
+                </div>
+              </a>
+            </li>
+            <li class="p-2">
+              <a href="#" class="d-flex justify-content-between">
+                <img src="https://bit.ly/2C7aH0u" alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1" width="100" height="100">
+                <div class="text-small">
+                  <strong>John Doe</strong>
+                  <p class="last-message text-muted">Hello there!</p>
+                </div>
+                <div class="chat-footer">
+                  <p class="text-smaller text-muted mb-0">Yesterday</p>
+                  <span class="text-muted float-right"><i class="fas fa-mail-reply" aria-hidden="true"></i></span>
+                </div>
+              </a>
+            </li>
+            <li class="p-2">
+              <a href="#" class="d-flex justify-content-between">
+                <img src="https://bit.ly/2C7aH0u" alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1" width="100" height="100">
+                <div class="text-small">
+                  <strong>John Doe</strong>
+                  <p class="last-message text-muted">Hello there!</p>
+                </div>
+                <div class="chat-footer">
+                  <p class="text-smaller text-muted mb-0">Yesterday</p>
+                  <span class="text-muted float-right"><i class="fas fa-mail-reply" aria-hidden="true"></i></span>
+                </div>
+              </a>
+            </li>
+            <li class="p-2">
+              <a href="#" class="d-flex justify-content-between">
+                <img src="https://bit.ly/2C7aH0u" alt="avatar" class="avatar rounded-circle d-flex align-self-center mr-2 z-depth-1" width="100" height="100">
+                <div class="text-small">
+                  <strong>John Doe</strong>
+                  <p class="last-message text-muted">Hello there!</p>
+                </div>
+                <div class="chat-footer">
+                  <p class="text-smaller text-muted mb-0">Yesterday</p>
+                  <span class="text-muted float-right"><i class="fas fa-mail-reply" aria-hidden="true"></i></span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-6 col-xl-8 pl-md-3 px-lg-auto px-0" >
+        <h4 class="font-weight-bold mb-3 text-center text-lg-left">John Doe</h4>
+        <hr />
+
+        <div class="p-3 chat-message" style="background: #C8F2EF">
+
+          <ul class="list-unstyled chat">
+            <li class="d-flex justify-content-between mb-4">
+              <img src="https://bit.ly/2BMBOxU" alt="avatar" class="avatar rounded-circle mr-2 ml-lg-3 ml-0 z-depth-1" width="100">
+              <div class="chat-body white p-3 ml-2 z-depth-1">
+                <div class="header">
+                  <strong class="primary-font">LawTrella</strong>
+                  <small class="pull-right text-muted"><i class="far fa-clock"></i> 12 mins ago</small>
+                </div>
+                <hr class="w-100">
+                <p class="mb-0">
+                  Hello there! How can you helo you this fine afternoon?
+                </p>
+              </div>
+            </li>
+            <li class="d-flex justify-content-between mb-4">
+              <div class="chat-body white p-3 z-depth-1">
+                <div class="header">
+                  <strong class="primary-font">Me</strong>
+                  <small class="pull-right text-muted"><i class="far fa-clock"></i> 13 mins ago</small>
+                </div>
+                <hr class="w-100">
+                <p class="mb-0">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                  labore et dolore magna aliqua.
+                </p>
+              </div>
+              <img src="https://bit.ly/2C7aH0u" alt="avatar" class="avatar rounded-circle mr-0 ml-3 z-depth-1" width="100">
+            </li>
+            <li class="d-flex justify-content-between mb-4 pb-3">
+              <img src="https://bit.ly/2BMBOxU" alt="avatar" class="avatar rounded-circle mr-2 ml-lg-3 ml-0 z-depth-1" width="100">
+              <div class="chat-body white p-3 ml-2 z-depth-1">
+                <div class="header">
+                  <strong class="primary-font">LawTrella</strong>
+                  <small class="pull-right text-muted"><i class="far fa-clock"></i> 12 mins ago</small>
+                </div>
+                <hr class="w-100">
+                <p class="mb-0">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                  labore et dolore magna aliqua.
+                </p>
+              </div>
+            </li>
+            <li class="white">
+              <div class="form-group basic-textarea">
+                <textarea class="form-control pl-2 my-0" id="exampleFormControlTextarea2" rows="3" placeholder="Type your message here..."></textarea>
+              </div>
+            </li>
+            <button type="button" class="btn btn-warning btn-rounded btn-sm waves-effect waves-light float-right">Send</button>
+          </ul>
+
+        </div>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+</div>
+
+</main>
+
+{{> footer}}
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
+<script src="{{ABS_PATH}}js/client/findLawyer.js"></script>

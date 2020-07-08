@@ -1,9 +1,68 @@
+$("#terms").change((e) => {
+    let checked = $("#terms").is(':checked');
+    if (checked) {
+        $("#terms").removeClass('is-invalid');
+        $("#clientSignupButton").removeClass('disabled');
+    }
+    else {
+        $("#clientSignupButton").addClass("disabled");
+    }
+
+})
+$("#gotrecover").click(dismiss);
+$("#gotsignup").click(dismiss);
+$("#toggleLawyerSignup").click(e => { showLaywerModal('signup') });
+$("#toggleLawyerLogin").click(e => { showLaywerModal('login') })
+
+$("#signup").click(function (e) {
+    console.log('clicked');
+});
+
+const showLaywerModal = function (type) {
+    console.log('showing');
+    $("#loginModal").modal('hide');
+    if (type == 'signup') {
+        $("#lawyer-signup-tab").tab('show');
+        $("#lawyerLoginModal").modal('show');
+    }
+    if (type == 'login') {
+        $("#lawyerLoginModal").modal('show');
+        $("#lawyer-login-tab").tab('show');
+
+    }
+}
+
+const clientTab = type => {
+    if (type == 'signup') {
+        $("#signup-tab").tab('show');
+    }
+}
+
+function dismiss(type) {
+    console.log('clear called');
+    if (type == 'recover') {
+        $("#recoverForm").fadeIn();
+        $("#forgotModal").modal('hide');
+        $("#recoverComplete").addClass('recover-success');
+    }
+
+    if (type == 'signup') {
+        $("#myTab").fadeIn();
+        $("#myTabContent").fadeIn();
+        $("#signupComplete").addClass('signup-success');
+    }
+}
+
 $("#clientConfirm").submit(function (e) {
     e.preventDefault();
     let formdata = new FormData(document.getElementById('clientConfirm'));
     var form = form2js("clientConfirm", ".");
     if (form.password !== form.confirmPassword) {
         $.notify("Passwords must match", { type: "warning" });
+        $("#confirmError").html("Passwords must match");
+        $("#confirmError").removeClass('valid');
+        $("#password").addClass('is-invalid');
+        $("#confirmPassword").addClass('is-invalid');
         clearLoad('continue', 'Continue');
 
         return false;
@@ -21,9 +80,13 @@ $("#clientConfirm").submit(function (e) {
             console.log(response);
             if (!response.err) {
                 $.notify(response.message, { type: "success" });
-                setTimeout(function () { window.location = ABS_PATH }, 2000);
+                $("#clientConfirm").hide();
+
+                $("#recoverComplete").removeClass('signup-success');
             } else {
                 $.notify(response.message, { type: "warning" });
+                $("#confirmError").html(response.message);
+                $("#confirmError").removeClass('valid');
                 clearLoad('continue', 'Continue');
             }
         },
@@ -61,11 +124,12 @@ const clientSignIn = async (email, password) => {
             success: function (response) {
                 console.log(response);
                 if (response.status == "success") {
+                    $("#loginModal").modal('hide');
                     $.notify("Logging in", { type: "success" });
                     setTimeout(function () {
-                        window.location = ABS_PATH + 'client/dashboard';
+                        window.location.reload();
                         clearLoad('clientLoginButton', 'Login');
-                    }, 2000);
+                    }, 300);
                 }
                 clearLoad('clientLoginButton', 'Login');
             },
@@ -74,6 +138,8 @@ const clientSignIn = async (email, password) => {
     } catch (e) {
         console.log(e);
         clearLoad('clientLoginButton', 'Login');
+        $("#loginError").html(e.message);
+        $("#loginError").removeClass('valid');
         $.notify(e.message, { type: "danger" });
     }
 };
@@ -83,11 +149,13 @@ $("#clientRegisterForm").submit(e => {
     e.preventDefault();
     var form = form2js("clientRegisterForm", ".");
 
-    if (form.email !== form.emailconfirm) {
-        $.notify('Your email do not match.. Please Try again', { type: 'warning' });
-        return;
+    if (!$("#terms").is(':checked')) {
+        $.notify('Please accept the terms and conditions');
+        $("#terms").addClass('is-invalid');
+        return false
     }
-    buttonLoad('signup');
+
+    buttonLoad('clientSignupButton');
 
     $.ajax({
         url: ABS_PATH + "client/signup",
@@ -100,15 +168,49 @@ $("#clientRegisterForm").submit(e => {
             if (!response.err) {
                 $("#close").trigger("click");
                 $.notify("A confirmation email has been sent to your inbox", { type: "success" });
-                $("#registerPane").hide();
-                $("#signupComplete").fadeIn();
+                $("#myTab").hide();
+                $("#myTabContent").hide();
+                $("#signupComplete").removeClass('signup-success');
             } else {
-                $("#close").trigger("click");
+                $("#signupError").html(response.message);
+                $("#signupError").removeClass('valid');
                 $.notify(response.message, { type: "warning" });
             }
-            clearLoad('signup', 'Register');
+            clearLoad('clientSignupButton', 'Sign Up');
         },
         error: e => console.log(e)
     });
 });
+
+$("#recoverForm").submit(e => {
+    e.preventDefault();
+    var form = form2js("recoverForm", ".");
+
+
+    buttonLoad('recoverButton');
+
+    $.ajax({
+        url: ABS_PATH + "recoverPassword",
+        data: form,
+        type: "POST",
+        success: function (response) {
+            $("#recoverForm").trigger("reset");
+
+            console.log(response);
+            if (!response.err) {
+
+                $.notify("A confirmation email has been sent to your inbox", { type: "success" });
+
+                $("#recoverForm").hide();
+                $("#recoverComplete").removeClass('recover-success');
+            } else {
+                $("#recoverError").html(response.message);
+                $("#recoverError").removeClass('valid');
+                $.notify(response.message, { type: "warning" });
+            }
+            clearLoad('recoverButton', 'Sign Up');
+        },
+        error: e => console.log(e)
+    });
+})
 

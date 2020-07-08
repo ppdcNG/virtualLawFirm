@@ -563,6 +563,7 @@ $("#complaintForm").submit((e) => {
 $("#invoiceForm").submit((e) => {
     e.preventDefault();
 })
+const logout = () => localStorage.removeItem("uid");
 
 const pendingPaymentModal = taskId => {
     $("#invoiceTaskId").val(taskId);
@@ -659,5 +660,3 @@ const gotoMeeting = (taskId, meetingId) => {
     window.location = url;
 }
 
-
-const logout = () => localStorage.removeItem("uid");
