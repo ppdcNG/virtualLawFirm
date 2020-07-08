@@ -13,7 +13,7 @@ exports.findLawyer = (req, res) => {
     let uid = req.user ? req.user.uid : false;
     console.log(uid);
     let photoURL = req.user ? req.user.photoURL : false;
-    photoURL = !photoURL ? 'https://images.pexels.com/photos/399772/pexels-photo-399772.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' : photoURL;
+    photoURL = !photoURL ? 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1' : photoURL;
     let displayName = req.user ? req.user.displayName : "";
     let email = req.user ? req.user.email : "";
     let phoneNumber = req.user ? req.user.phoneNumber : "";
@@ -35,7 +35,7 @@ exports.lawyerCategories = (req, res) => {
 }
 
 exports.askALawyer = (req, res) => {
-    res.render('client/ask-lawyer', { title: 'Ask a Lawyer', ABS_PATH, AppName })
+    res.render('client/ask-a-lawyer', { title: 'Ask a Lawyer', ABS_PATH, AppName })
 }
 
 exports.registrationPage = (req, res) => {
