@@ -46,7 +46,7 @@ app.use('/admin', adminRoutes);
 app.use('/client', clientRoutes);
 app.use('/lawyer', lawyerRoutes);
 app.use('/e-learning', eLearningRoutes);
-app.use('/terms', termsRoutes);
+app.use('/', termsRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
