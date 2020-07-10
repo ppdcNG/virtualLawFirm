@@ -13,3 +13,33 @@ div.child-box {
   vertical-align: middle;
   font-size: xx-large;
 }
+
+:root {
+  --main-color: #3BD1C7;
+  --accent-colr: #F8B24F;
+  --soft-color: #C8F2EF;
+}
+
+.lt-main-bg {
+  background-color: var(--main-color);
+}
+
+.lt-accent-bg {
+  background-color: var(--accent-colr);
+}
+
+.lt-soft-bg {
+  background-color: var(--soft-color);
+}
+
+.lt-main-color {
+  color: var(--main-color)
+}
+
+.lt-accent-color {
+  color: var(--accent-colr);
+}
+
+.lt-light-text {
+  color: #5E6870
+}
