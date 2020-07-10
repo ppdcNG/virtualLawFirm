@@ -65,6 +65,7 @@
     </div>
     <div class="col-md-10">
         <div class="tab-content pt-2 pl-1 main-content" id="pills-tabContent">
+            {{! main dashboard tab }}
             <div class="tab-pane fade show active" id="dashboard-pill" role="tabpanel" aria-labelledby="dashboard-pill-tab">
                 <div class="row container">
                     <div class="col-md-4">
@@ -135,9 +136,85 @@
                     </div>
                 </section>
             </div>
+
+            {{! consultation tab  }}
             <div class="tab-pane fade" id="consultation-pill" role="tabpanel" aria-labelledby="consultation-pill-tab">Consultation<br/>Under Construction...</div>
-            <div class="tab-pane fade" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">My Tasks<br/>Under Construction...</div>
+
+            {{! my tasks tab  }}
+            <div class="tab-pane fade" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
+                <div class="row container">
+                    <div class="col-md-8 rounded mb-0 px-3 pt-3" style="background:#C8F2EF;">
+                        <h4 class="mb-2">My Tasks</h4>
+                        <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Lawyer</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                    <div class="container col-md-4 rounded mb-0">
+                        <div class="rounded mb-0 px-3 pt-3" style="background:#C8F2EF;height:70vh">
+                            <h5 class="mb-2"><strong>Notifications</strong></h5>
+                            <p><strong>Invoice Notification <span class="text-right bg-warning text-white px-1">22 june 2019</span></strong></p>
+                            <p class="text-muted">You have a pending Invoice payment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{! my docs tab  }}
             <div class="tab-pane fade" id="docs" role="tabpanel" aria-labelledby="docs-tab">My Docs<br/>Under Construction...</div>
+
+            {{! chat tab  }}
             <div class="tab-pane fade" id="chat" role="tabpanel" aria-labelledby="chat-tab">
                 <div class="row container">
                     <div class="col-md-2 text-center">
@@ -168,7 +245,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-10 rounded mb-0 px-3 pt-3" style="background:#C8F2EF;">
+                    <div class="col-md-6 rounded mb-0 px-3 pt-3" style="background:#C8F2EF;">
                         <h4>John Doe</h4>
                         <hr/>
                         <section style="height:50vh;overflow-y:scroll">
@@ -204,10 +281,26 @@
                         </section>
                         <input type="text" id="msg" class="form-control mt-3 p-3" placeholder="Type message..." />
                     </div>
+                    <div class="container col-md-4 rounded mb-0">
+                        <div class="rounded mb-0 px-3 pt-3" style="background:#C8F2EF;height:70vh">
+                            <h5 class="mb-2"><strong>Notifications</strong></h5>
+                            <p><strong>Invoice Notification <span class="text-right bg-warning text-white px-1">22 june 2019</span></strong></p>
+                            <p class="text-muted">You have a pending Invoice payment</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            {{! settings tab  }}
             <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">Settings<br/>Under Construction...</div>
         </div>
     </div>
 </main>
 
 {{> footer}}
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script type = "text/javascript">
+      if (window.location.href == 'http://localhost:3000/client/dashboard/#chat') {
+        $("#chat-tab").trigger("click");
+      }
+</script>
