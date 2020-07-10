@@ -5,6 +5,25 @@
         color: orange;
     }
 </style>
+<style>
+.banner{
+  background-image: url({{{courseImage}}});
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+
+}
+.shadow-text{
+  text-shadow: .5em .5em 10px rgba(0,0,0, .45);
+  background-color: rgba(0, 0, 0, .45);
+  padding: 10px
+}
+
+#promoForm{
+  max-width: 700px;
+  
+}
+</style>
 
 <header>
     <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
@@ -49,31 +68,26 @@
     </nav>
 </header>
 
-<section class="jumbotron default-color mt-0">
+<section class="banner jumbotron default-color mt-0">
     <div class="container p-3">
         <div class="row">
             <div class="col-md-8">
-                <p><a class="text-muted" href="/e-learning">&larr; Back to e-Learning Portal</a></p>
-                <h3 class="text-white" data-aos="fade-right" data-aos-duration="1500">Business Law Certification</h3>
+                <p><a class="white-text shadow-text" href="/e-learning">&larr; Back to e-Learning Portal</a></p>
+                <h3 class="text-white shadow-text" data-aos="fade-right" data-aos-duration="1500">{{courseTitle}}</h3>
                 <hr width="100" align="left"/>
                 <p class="text-muted">
-                    <span>Course Rating</span> : 
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="pl-2" id="numberRated"><em>(123)</em></span>
+                    <span class = "white-text shadow-text">Course Rating</span> : 
+                    
+                    <span class="pl-2 white-text shadow-text" id="numberRated"><em>{{rating}}</em></span>
                 </p>
             </div>
             <div class="col-md-4 p-1">
-                <button class="btn white text-muted" id="enroll-btn">
-                    <h6 class="text-success" id="price">free</h6>
+                <button class="btn white text-muted" >
+                    <h6 class="text-success" id="price">Price</h6>
                     <hr class="m-0" />
-                    <h5 id="enroll-status">Enroll</h5>
+                    <h5 id="enroll-status">{{{price}}}</h5>
                 </button>
-                <p class="my-2"><a class="shadow p-1 white-text"><i class="fas fa-plus"></i> Add to My List</a></p>
-                <p class="my-2"><a class="shadow p-2 white-text" href="/e-learning/mylist">Go to My List <i class="fas fa-caret-right"></i></a></span></p>
+
             </div>
         </div>
     </div>
@@ -87,9 +101,7 @@
                 <hr width="100" align="left"/>
 
                 <p class="text-justify">
-                    In this course, you will learn about Business Law.
-                    You will learn modern practices as practiced accross in the world.
-                    We will cover the basic fundamentals of business law and gain on-demand skills.
+                    {{{description}}}
                 </p>
             </section>
 
@@ -97,11 +109,7 @@
                 <h4 data-aos="zoom-out" data-aos-duration="1000">Outline</h4>
 
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Introduction</li>
-                    <li class="list-group-item">Things</li>
-                    <li class="list-group-item">More things</li>
-                    <li class="list-group-item">Questions</li>
-                    <li class="list-group-item">Later you can show me things</li>
+                    {{{contentList}}}
                 </ul>
 
                 <div class="border text-center p-3">
@@ -134,13 +142,13 @@
             <div class="border">
                 <ul class="list-group-flush">
                     <li class="list-group-item">
-                        <div class="md-v-line"></div><i class="fas fa-laptop mr-4 pr-3"></i> Intermediate Level
+                        <div class="md-v-line"></div><i class="fas fa-laptop mr-4 pr-3"></i> Self paced course
                     </li>
                     <li class="list-group-item">
-                        <div class="md-v-line"></div><i class="fas fa-video mr-5"></i> 10 Videos (300 mins.)
+                        <div class="md-v-line"></div><i class="fas fa-video mr-5"></i> {{contentCount}} modules
                     </li>
                     <li class="list-group-item">
-                        <div class="md-v-line"></div><i class="fas fa-language mr-5"></i> English
+                        <div class="md-v-line"></div><i class="fas fa-language mr-5"></i> Quizes to cement learning
                     </li>
                     <li class="list-group-item">
                         <div class="md-v-line"></div><i class="fas fa-certificate mr-5"></i> Certificate of Completion

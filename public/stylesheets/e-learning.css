@@ -1,0 +1,213 @@
+:root {
+    --main-color: #3BD1C7;
+    --accent-colr: #F8B24F;
+    --soft-color: #C8F2EF;
+}
+
+.lt-main-bg {
+    background-color: var(--main-color);
+}
+
+.lt-accent-bg {
+    background-color: var(--accent-colr);
+}
+
+.lt-soft-bg {
+    background-color: var(--soft-color);
+}
+
+.lt-main-color {
+    color: var(--main-color)
+}
+
+.lt-accent-color {
+    color: var(--accent-colr);
+}
+
+.lt-light-text {
+    color: #5E6870
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+h1, h2, h3, h5 .navbar-brand {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: cetner;
+    margin-left: 1rem;
+}
+
+.nav-item a {
+    font-size: .8em;
+}
+
+li.nav-item.avartar {
+    height: 50px;
+    width: 50px
+}
+
+.lt-contact-strip {
+    color: white;
+    background-color: var(--main-color);
+}
+
+/* custom button classes */
+
+.lt-btn-accent {
+    color: white;
+    background-color: var(--accent-colr);
+}
+
+.lt-btn-accent-outline {
+    color: var(--accent-colr);
+    border: 1px solid var(--accent-colr);
+    background: white;
+}
+
+.lt-btn-secondary {
+    color: white;
+    background: var(--main-color);
+}
+
+/* hero section */
+
+.cta {
+    max-width: 650px;
+    background-color: rgba(200, 242, 239, 0.5);
+}
+
+.cta h1 {
+    color: #5E6870;
+    width: 90%;
+    line-height: 1.4;
+}
+
+.cta p, .create-course p {
+    color: rgb(129, 141, 151);
+    line-height: 1.8;
+}
+
+section.hero {
+    height: 70vh;
+    background: transparent url(/images/e-learningbanner.png) no-repeat center;
+    background-size: cover;
+    color: white;
+}
+
+.create-course {
+    position: relative;
+}
+
+.create-course::before {
+    content: "";
+    height: 80%;
+    width: 100%;
+    top: 10%;
+    position: absolute;
+    background-color: rgba(248, 178, 79, 0.185)
+}
+
+/* Create Courses two */
+
+.e-learning.main {
+    height: 80vh;
+}
+
+.content h1 {
+    color: #5E6870;
+}
+
+.content p {
+    line-height: 1.8;
+    color: rgb(129, 141, 151);
+}
+
+.col-md-6.right {
+    background: transparent url(/images/woman-in-purple.png) no-repeat left;
+    background-size: contain;
+    color: white;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+}
+
+p.valid {
+    display: none;
+}
+
+p.error {
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+
+.course-category .category-item {
+    display: inline-block;
+    background: rgba(179, 247, 242, 0.801);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: scale 500ms ease-in, background 500ms ease-in;
+}
+
+.course-category .category-item:hover {
+    background: rgba(240, 186, 111, 0.596);
+    transform: scale(1.1);
+}
+
+.course-category .category-item.active {
+    background-color: #3BD1C7;
+    font-weight: bold;
+    transition: scale 500ms ease-in, background 300ms ease-in;
+}
+
+.course-category .category-item.active:hover {
+    background-color: #C8F2EF;
+    font-weight: bold;
+    transform: scale(1.1);
+}
+
+/* big screen */
+
+@media screen and (min-width: 900px) {
+    form {
+        width: 80%;
+        align-self: center;
+        background-color: rgba(200, 242, 239, 0.534)
+    }
+}
+
+@media screen and (max-width:600px) {
+    section.four .row {
+        display: block;
+    }
+    .cta {
+        margin: 0 !important;
+        width: 100% !important;
+        background-color: rgba(200, 242, 239, 0.5);
+    }
+    .lt-feature-description {
+        padding: 2rem;
+    }
+    .nav-item a {
+        border: 1px solid var(--accent-colr);
+        margin: .375rem;
+        text-align: center;
+    }
+    .nav-item {
+        margin: 0;
+    }
+}

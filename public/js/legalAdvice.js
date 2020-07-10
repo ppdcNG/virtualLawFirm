@@ -116,6 +116,3 @@ const renderAnswers = (question, id) => {
     `
 }
 
-const buttonLoadSpinner = id => {
-  $("#" + id).html('<i class="fas fa-spinner fa-pulse"></i>')
-}
