@@ -32,10 +32,10 @@ $("#promoForm").submit(async function (e) {
         $("#promoForm")[0].reset();
     }
     if (mode == 'add') {
-        await courseDb.collection('promoCodes').doc().set(promo);
+        await courseDb.collection('promoCodes').doc(promo.code).set(promo);
         $("#promoForm")[0].reset();
     }
-    clearLoad('submitPromoButton')
+    clearLoad('submitPromoButton', 'Save');
 
 });
 

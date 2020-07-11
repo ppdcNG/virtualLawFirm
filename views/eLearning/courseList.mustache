@@ -21,19 +21,16 @@
 <body>
 
     {{> courses-navbar}}
-    <section class="hero d-flex flex-column justify-content-center">
-            <div class="ml-5 p-5 cta">
-                <h1 class>Affordable Courses for Everyone</h1>
-                <p>Advance your carrer, acquire  skills for the modern work force with lawtrella courses from the best minds in their fields</p>
-                <select id = "searchCourse" class="browser-default custom-select" name="state">
-                    <option value = "" disabled selected>Search Courses</option>
-                </select>
-            </div>
+    {{>userdata}}
+    <section class = "container">
+            <h4  data-aos="fade-right" data-aos-duration="1500">My List</h4>
+            <hr width="100" align="left"/>
+            <a class="btn btn-sm" href="/e-learning"><i class="fas fa-arrow-left"></i>Back to Portal</a>
     </section>
 
-    <section class="p-5">
-        <h3 class = "mb-4">Top Courses</h3>
-        <div class = "row" id = "courses">
+    <section class="p-5 container">
+        <h3 class = "mb-4">Courses You enrolled For</h3>
+        <div class = "row" id = "courses" class = "mb-5">
            
             <div class="col-md-4">
                 <div class="card placeholder h-100 shadow mt-1" data-aos="zoom-out" data-aos-duration="400">
@@ -82,121 +79,10 @@
             </div>
         </div>
     </section>
-    <section class="p-5">
-        <h2 class = "mb-4">Categories</h2>
-        <div class = "row m-4" id = "categoriesTab">
-            <div class = "col-md-3 course-category d-flex flex-row justify-contentcenter"><span class = "category-item active"> Law</span></div> 
-            <div class = "col-md-3 course-category d-flex flex-row justify-contentcenter"><span class = "category-item"> Family Law</span></div> 
-            <div class = "col-md-3 course-category d-flex flex-row justify-contentcenter"><span class = "category-item"> Ip Matter</span></div> 
-            <span class = "col-md-3 course-category d-flex flex-row justify-contentcenter"></span> 
-        </div>
-        <div class = "row" id = "categories" >
-           <div class="col-md-4">
-                <div class="card placeholder h-100 shadow mt-1" data-aos="zoom-out" data-aos-duration="400">
-                    <div class="view overlay">
-                        <a href="#!">
-                            <div class="mask rgba-white-slight"></div>
-                        </a>
-                    </div>
-
-                    <div class="card-body d-flex flex-column">
-                        <h4 class="card-title placeholder"></h4>
-                        <p class = 'placeholder card-text'></p>
-                        <button class = "btn placeholder"></button>
-                    </div>
-                </div>
-            </div>
-           <div class="col-md-4">
-                <div class="card placeholder h-100 shadow mt-1" data-aos="zoom-out" data-aos-duration="400">
-                    <div class="view overlay">
-                        <a href="#!">
-                            <div class="mask rgba-white-slight"></div>
-                        </a>
-                    </div>
-
-                    <div class="card-body d-flex flex-column">
-                        <h4 class="card-title placeholder"></h4>
-                        <p class = 'placeholder card-text'></p>
-                        <button class = "btn placeholder"></button>
-                    </div>
-                </div>
-            </div>
-           <div class="col-md-4">
-                <div class="card placeholder h-100 shadow mt-1" data-aos="zoom-out" data-aos-duration="400">
-                    <div class="view overlay">
-                        <a href="#!">
-                            <div class="mask rgba-white-slight"></div>
-                        </a>
-                    </div>
-
-                    <div class="card-body d-flex flex-column">
-                        <h4 class="card-title placeholder"></h4>
-                        <p class = 'placeholder card-text'></p>
-                        <button class = "btn placeholder"></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class = "p-5">
-        <div class="row justify-content-center create-course">
-            <div class="col-md-6 align-items-center">
-                <div class="">
-                    <img data-aos-duration="1000" data-aos="zoom-in-up" class='lt-feature-image' src="{{ABS_PATH}}images/macbookcreate.png">
-                </div>
-            </div>
-            <div class="col-md-6 d-flex flex-column justify-content-center">
-                <div class="p-5">
-                    <h1 class = "mt-3 lt-light-text" style = "width: 60%">Create your own course</h1>
-                    <p>Are you an expert in an area of specialization looking to share your knowledge with a broader audience? Submit your application to start sharing with lawtrella</p>
-                    <a href = "/e-learning/create"class = "btn btn-lg lt-btn-secondary">CREATE COURSE </a>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
-    {{>userdata}}
-
-   
-<footer class="page-footer font-small teal pt-4">
-
-   
-    <div class="container-fluid text-center text-md-left">
-      <div class="row">
-        <div class="col-md-6 mt-md-0 mt-3">
-          <h5 class="">Contact</h5>
-          <span><b>Email</b>: info@lawtrella.com</span>
-          <span><b>Phone</b>: +234(0) 706 6475 316</span>
-        </div>
-        <hr class="clearfix w-100 d-md-none pb-3">
-        <div class="col-md-3 mb-md-0 mb-3">
-          <h5 class="text-uppercase">Terms and Conditions</h5>
-          <ul class="list-unstyled">
-            <li>
-              <a href="#!">Terms of Use</a>
-            </li>
-            <li>
-              <a href="#!">Disclaimer</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-md-3 mb-md-0 mb-3">
-          <h5 class="text-uppercase">Social</h5>
-          <div class="flex flex-row justify-content-between align-items-center">
-            <i class="fab fa-facebook-f ml-2"></i>
-            <i class="fab fa-twitter ml-2"></i>
-            <i class="fab fa-instagram ml-2"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright text-center py-3">© 2020 Copyright:
-      <a href="https://lawtrella.com"> Lawtrella</a>
-    </div>
     
-  
-  </footer>
+
+   
+{{> footer-new}}
   
 
 
@@ -454,9 +340,8 @@
 
   <script src="{{ABS_PATH}}js/auth.js"></script>
   <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
-  <script src="{{ABS_PATH}}js/lawyer/lawyerScript.js"></script>
-  <script src="{{ABS_PATH}}js/client/clientScript.js"></script>
-  <script src="{{ABS_PATH}}js/eLearning/courses.js"></script>
+  <script src="{{ABS_PATH}}js/elearning/mylist.js"></script>
+
  
 
 </body>

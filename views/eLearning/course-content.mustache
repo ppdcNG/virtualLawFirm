@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title> {{title}} </title>
+    {{>core-links}}
+    <link rel="stylesheet" href="{{ABS_PATH}}stylesheets/landing.css">
+    
+</head>
+<body>
+
+<style>
+    .checked {
+        color: orange;
+    }
+</style>
+<style>
+
+.shadow-text{
+  text-shadow: .5em .5em 10px rgba(0,0,0, .45);
+  background-color: rgba(0, 0, 0, .45);
+  padding: 10px
+}
+
+#promoForm{
+  max-width: 700px;
+  
+}
+</style>
+
+{{>courses-navbar}}
+
+<section class="banner jumbotron default-color mt-0">
+    <div class="container p-3">
+        <div class="row">
+            <div class="col-md-8">
+                <h3 class="text-white shadow-text" data-aos="fade-right" data-aos-duration="1500">{{title}}</h3>
+                <hr width="100" align="left"/>
+                <p class="text-muted">
+                    <span class = "white-text shadow-text">Modules</span> : 
+                    
+                    <span class="pl-2 white-text shadow-text" id="numberRated"><em>{{count}}</em></span>
+                </p>
+            </div>
+            <div class="col-md-4 p-1">
+                <button class="btn white text-muted" >
+                    <h6 class="text-success" id="price">Progress</h6>
+                    <hr class="m-0" />
+                    <h5 id="enroll-status">% <span id = "progress"></span></h5>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<main class="container pt-3">
+    <div class="row">
+        <div class="col-md-8">
+            <section class="mb-5">
+                <input type = "hidden" id = "courseId" value = "{{courseId}}"/>
+                <h4 data-aos="zoom-out" data-aos-duration="1000">About Course</h4>
+                <hr width="100" align="left"/>
+
+                <p class="text-justify">
+                    {{description}}
+                </p>
+            </section>
+
+            <section class="mb-3" id="course-outline">
+                <h4 data-aos="zoom-out" data-aos-duration="1000">Outline</h4>
+
+                <ul class="list-group list-group-flush" id = "contents">
+                    <li class="list-group-item d-flex flex-row justify-content-between">
+                        <div>
+                            <h5>Lesson One<h5>
+                            <small class = "small font-weight-light secondary-text">Module</small>
+                        </div>
+                        <div class = "d-flex flex-row justify-content-between align-items-center">
+                            <button data-toggle= "tooltip" title = "Edit Content" class = "btn btn-primary" onclick = "editContent('${i}')"><i class = "fa fa-play"></i></button>
+                            <i class = "fa fa-check green"></i>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+
+        </div>
+
+        <div class="modal fade" id="lessonModal" tabindex="-1" role="dialog" aria-labelledby="lessonModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/y881t8ilMyc" frameborder="0" allowfullscreen></iframe>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="videoPreviewModal" data-backdrop = "static" tabindex="-1" role="dialog" aria-labelledby="videoPreviewModal"
+            aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                <div class="modal-body">
+                    <video id = "videoPreview" class="video-fluid z-depth-1" autoplay  controls muted>
+                    
+                    </video>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="quizModal" data-backdrop = "static" tabindex="-1" role="dialog" aria-labelledby="videoPreviewModal"
+            aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                <div class="modal-body p-5">
+
+                    <h4 class = "m-3" id = "quizQuestion">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit nisi quo
+                        provident fugiat reprehenderit nostrum</h4>
+                    <form id = "quizForm" class = "p-5 ml-5">
+                        <input type = "hidden" name = "id" id = "quizId"/>
+                        <div = id ="quizOptions">                    
+                        <div class="custom-control custom-checkbox mb-3 p-2">
+                            <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
+                            <label class="custom-control-label is-invalid" for="defaultIndeterminate2">Default indeterminate</label>
+                            <span class = "invalid-feedback">Not Correct Answer</span>
+                        </div>
+                        <div class="custom-control custom-checkbox mb-5 p-2">
+                            <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
+                            <label class="custom-control-label" for="defaultIndeterminate2">Default indeterminate</label>
+                        </div>
+                        <div class="custom-control custom-checkbox mb-5 p-2">
+                            <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
+                            <label class="custom-control-label" for="defaultIndeterminate2">Default indeterminate</label>
+                        </div>
+                    </div>
+
+                        <button  id = "answerButton" class = "btn lt-btn-accent mt-3 float-right" type = "submit">ANSWER</button>
+                    </form>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+</main>
+
+{{>userdata}}
+{{> footer-new}}
+ <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+      </script>
+
+      {{! Core Nippet Javascript includes }}
+   {{> core}}
+      <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-storage.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+  {{! select2 }}
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+
+<div class="modal fade" id="lessonModal" tabindex="-1" role="dialog" aria-labelledby="lessonModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h4>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/elearning/course-content.js"></script>
+
+</body>
+</html>

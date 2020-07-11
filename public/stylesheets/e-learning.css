@@ -4,6 +4,19 @@
     --soft-color: #C8F2EF;
 }
 
+@keyframes bgflash {
+    from {
+        opacity: 0.3;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+body {
+    margin: 0
+}
+
 .lt-main-bg {
     background-color: var(--main-color);
 }
@@ -82,13 +95,13 @@ li.nav-item.avartar {
 
 .cta {
     max-width: 650px;
-    background-color: rgba(200, 242, 239, 0.5);
+    background-color: rgb(242, 247, 246);
 }
 
 .cta h1 {
     color: #5E6870;
     width: 90%;
-    line-height: 1.4;
+    line-height: 1.1;
 }
 
 .cta p, .create-course p {
@@ -114,6 +127,29 @@ section.hero {
     top: 10%;
     position: absolute;
     background-color: rgba(248, 178, 79, 0.185)
+}
+
+/* Placeholder styles*/
+
+p.placeholder.card-text {
+    width: 80%;
+    height: 20px;
+    background-color: rgba(188, 201, 200, 0.973);
+    animation: bgflash ease-in-out 1200ms infinite alternate-reverse;
+}
+
+.placeholder.card-title {
+    width: 100%;
+    height: 40px;
+    background-color: rgba(192, 201, 200, 0.973);
+    animation: bgflash ease-in-out 1200ms infinite alternate-reverse;
+}
+
+.btn.placeholder {
+    width: 100%;
+    height: 3rem;
+    background-color: rgb(235, 201, 155);
+    animation: bgflash ease-in-out 1200ms infinite alternate-reverse;
 }
 
 /* Create Courses two */
