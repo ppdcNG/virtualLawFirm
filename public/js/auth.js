@@ -69,3 +69,11 @@ const Spinner = () => {
   <div class="spinner-grow slow align-self-center" role="status" id="loadingTasks"><span class="sr-only">Loading...</span></div>
   `
 }
+
+const truncate = (string, length) => {
+  if (string.length < length) {
+    return string;
+  }
+  let sub = string.substr(0, length);
+  return sub + "...";
+}

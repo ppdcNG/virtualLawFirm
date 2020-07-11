@@ -64,7 +64,7 @@ $(document).ready(() => {
 
 const fetchContent = async () => {
     let coursePath = `courses/${courseId}/contents`;
-    let collectionRef = firebase.firestore().collection(coursePath);
+    let collectionRef = firebase.firestore().collection(coursePath).orderBy('dateAdded');
     contentList = [];
     collectionRef.onSnapshot((snapshot) => {
         if (snapshot.empty) {
@@ -94,6 +94,7 @@ const fetchContent = async () => {
 
 const addLesson = async _ => {
     let lesson = form2js('lessonForm', '.', false);
+    lesson.dateAdded = 0 - new Date().getTime();
     let path = `courses/${courseId}/contents`;
     buttonLoad('saveLessonButton');
     await firebase.firestore().collection(path).add(lesson).catch((e) => { console.log(e) });
@@ -321,6 +322,7 @@ const editQuestion = async (id) => {
 
 const addQuestion = async () => {
     let question = form2js('questionForm', '.', false);
+    question.dateAdded = 0 - new Date().getTime();
     let path = `courses/${courseId}/contents`;
     buttonLoad('saveQuestionButton');
     await firebase.firestore().collection(path).add(question).catch((e) => { console.log(e) });
