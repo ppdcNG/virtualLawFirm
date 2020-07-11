@@ -33,17 +33,7 @@ router.post('/verifyInvoiceFee', requireLogin, clientController.verifyInvoiceFee
 router.post('/initiateChat', requireLogin, clientController.initiateChat);
 router.post('/lawyerCategories', clientController.lawyerCategories);
 
-router.get('/cleanCategories', (req, res) => {
-    let file = require('../config/categories/others.json');
-    let arr = [];
-    file.map((value) => {
-        arr.push(value['others']);
-    })
 
-    res.send(JSON.stringify(arr));
-    return;
-
-})
 
 
 

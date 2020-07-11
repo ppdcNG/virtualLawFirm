@@ -1,6 +1,7 @@
 :root {
     --main-color: #3BD1C7;
     --accent-colr: #F8B24F;
+    --soft-color: #C8F2EF;
 }
 
 .lt-main-bg {
@@ -11,12 +12,20 @@
     background-color: var(--accent-colr);
 }
 
+.lt-soft-bg {
+    background-color: var(--soft-color);
+}
+
 .lt-main-color {
     color: var(--main-color)
 }
 
 .lt-accent-color {
     color: var(--accent-colr);
+}
+
+.lt-light-text {
+    color: #5E6870
 }
 
 body {
@@ -109,6 +118,11 @@ section.hero h1, section.hero h5 {
 .right a.btn {
     font-weight: bold;
     margin-top: 1.5rem;
+}
+
+label {
+    font-size: .8rem;
+    color: #5E6870;
 }
 
 /* secton two */

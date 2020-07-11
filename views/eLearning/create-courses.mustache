@@ -17,114 +17,90 @@
 <body>
 
     {{> navbar}}
-    <section class="hero d-flex flex-column justify-content-center">
-            <div class="ml-5 p-5 cta">
-                <h1>Affordable Courses for Everyone</h1>
-                <p>Advance your carrer, acquire  skills for the modern work force with lawtrella courses from the best minds in their fields</p>
-                <input type="text" id="exampleForm2" placeholder = "Search for a Course" class="form-control">
+    <section id = "about-section" class="mt-5 e-learning main d-flex flex-column justify-content-center container">
+           <div class  = "row ">
+            <div class= "col-md-6 p-5 d-flex flex-column">
+              <div class = "content pt-5">
+                <h1 class = "mt-5 mb-2">Create Your Own Course</h1>
+                <p>Are you an expert in an area of specialization looking to share your knowledge with a broader audience? Or are you a course provider looking for an effective way to digitize courses for your organization? Look no further. With LawTrella, you can write, digitize and market your own courses right here on our e-learning platform. 
+
+                    We have a variety of flexible options that allow you to choose the development method and revenue package that best suits your goals. So if you’re new on the learning scene and you’re looking for the right place to get started, or you’re a long time course provider looking for a way to bring your courses closer to learners, LawTrella has all you need to get started. 
+
+                    Click here and follow the instructions to send us a course proposal.
+                <p>
+                <button class = "btn btn-lg lt-btn-secondary" onclick = "showForms()"> GET STARTED</button>
+              </div>
             </div>
+            <div class= "col-md-6 right">
+            
+            </div>
+           
+           </div> 
     </section>
 
-    <section class="p-5">
-        <h3 class = "mb-4">Top Courses</h3>
-        <div class = "row" id = "courses">
-            <div class="col-md-4">
-                <div class="card h-100 shadow mt-1" data-aos="zoom-in" data-aos-duration="200">
-                    <div class="view overlay">
-                        <img class="card-img-top" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg"
-                            alt="html_css_image"  height = "250">
-                        <a href="#!">
-                            <div class="mask rgba-white-slight"></div>
-                        </a>
-                    </div>
-
-                    <div class="card-body">
-                        <h4 class="card-title">Business Law Certification</h4>
-                        <span class = "">Rating : <span class = "course-feature">4.5<span></span> <span class = "float-right">Price: <span class = "course-feature">5,000</span>
-                        <button class = "btn lt-btn-accent">Details</button>
-                    </div>
-                </div>
+    <section id = "form-section" class="p-5 container mt-5 flex-column " style = "display:none">
+        <div class = "row">
+            <div class = "col-md-4">
+              <h3 class = "m-5 align-self-left">Fill this form to continue</h3>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow mt-1" data-aos="zoom-out" data-aos-duration="400">
-                    <div class="view overlay">
-                        <img class="card-img-top" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg"
-                            alt="html_css_image">
-                        <a href="#!">
-                            <div class="mask rgba-white-slight"></div>
-                        </a>
+            <div class = "col-md-8">
+              <form id = "personalDetailsForm" class="border border-light p-5" style = "display:none" >
+                  <button onclick = "showAbout()" class = "btn lt-bg-main"><i class="fas fa-arrow-left"></i></button>
+                  <p class="h4 mb-4">Personal Details (1 of 2)</p>
+                  <div class = "mb-4">
+                      <label for="name">Name/ Name of organization</label>
+                      <input id = "name" name = "name" type="name"  class="form-control" required>
+                  </div>
+                  <div class = "mb-4">
+                      <label for="email">Email</label>
+                      <input id = "email" name = "email" type="email"  class="form-control" required>
+                  </div>
+                  <div class = "mb-4">
+                      <label for="phone">Phone Number</label>
+                      <input id = "phone" name = "phone" type="phone"  class="form-control" required>
+                  </div>
+                  <div class="mb-4">
+                    <label for="exampleFormControlTextarea1">Describe your Experience Teaching</label>
+                    <textarea name = "profile" class="form-control rounded-0" id="exampleFormControlTextarea1" rows="5" required></textarea>
+                  </div>
+                  <div class = "d-flex flex-column justify-content-center">
+                      <button id = "personalDetailsButton" class = "btn lt-btn-accent mt-3" type = "submit">NEXT</button>
+                  </div>              
+              </form>
+              <form id = "courseDetailsForm" class="border border-light p-5" style = "display:none">
+                  <p class="h4 mb-4">Course Details (2 of 2)</p>
+                  <p id = "formError" class = "valid error">Errror in the form</p>
+                  <div class ="mb-4">
+                      <label for="subject">Subject Area of Proposed Courses</label>
+                      <input id = "subject" name = "subject" type="name"  class="form-control" required>
+                  </div>
+                  <div class = "mb-4">
+                      <label for="number">Number of Courses Proposed</label>
+                      <input id = "number" name = "numberOfCourses" type="number"  class="form-control">
+                  </div>
+                  <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroupFileAddon01">Choose file</span>
                     </div>
-
-                    <div class="card-body d-flex flex-column">
-                        <h4 class="card-title">Business Law Certification</h4>
-                        <p><span class = "">Rating : <span class = "course-feature">4.5<span></span> <span class = "float-right">Price: <span class = "course-feature">5,000</span></p>
-                        <button class = "btn lt-btn-accent">Details</button>
+                    <div class="custom-file">
+                      <input  type="file" class="custom-file-input" id="synopses"
+                        aria-describedby="inputGroupFileAddon01">
+                      <label class="custom-file-label" for="inputGroupFile01">Course Synopses (pdf/msword)</label>
                     </div>
-                </div>
+                  </div>
+                  <div class = "d-flex flex-row justify-content-around">
+                      <button onclick = "prevForm()"  id = "backButton" class = "btn lt-btn-secondary mt-3" type = "button">Go Back</button>
+                      <button  id = "submitProposalButton" class = "btn lt-btn-accent mt-3" type = "submit">SUBMIT PROPOSAL</button>
+                  </div>              
+              </form>
             </div>
         </div>
     </section>
     <section class="p-5">
-        <h2 class = "mb-4">Categories</h2>
-        <div class = "row m-4" id = "categoriesTab">
-            <div class = "col-md-3 course-category d-flex flex-row justify-contentcenter"><span class = "category-item active"> Law</span></div> 
-            <div class = "col-md-3 course-category d-flex flex-row justify-contentcenter"><span class = "category-item"> Family Law</span></div> 
-            <div class = "col-md-3 course-category d-flex flex-row justify-contentcenter"><span class = "category-item"> Ip Matter</span></div> 
-            <span class = "col-md-3 course-category d-flex flex-row justify-contentcenter"></span> 
-        </div>
-        <div class = "row" id = "categories" >
-            <div class="col-md-4">
-                <div class="card h-100 shadow mt-1" data-aos="zoom-out" data-aos-duration="1500">
-                    <div class="view overlay">
-                        <img class="card-img-top" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg"
-                            alt="html_css_image">
-                        <a href="#!">
-                            <div class="mask rgba-white-slight"></div>
-                        </a>
-                    </div>
-
-                    <div class="card-body">
-                        <h4 class="card-title">Business Law Certification</h4>
-                        <span class = "">Rating : <span class = "course-feature">4.5<span></span> <span class = "float-right">Price: <span class = "course-feature">5,000</span>
-                        <button class = "btn lt-btn-accent">Details</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow mt-1" data-aos="zoom-out" data-aos-duration="1500">
-                    <div class="view overlay">
-                        <img class="card-img-top" src="https://mdbootstrap.com/img/Mockups/Lightbox/Thumbnail/img%20(67).jpg"
-                            alt="html_css_image">
-                        <a href="#!">
-                            <div class="mask rgba-white-slight"></div>
-                        </a>
-                    </div>
-
-                    <div class="card-body">
-                        <h4 class="card-title">Business Law Certification</h4>
-                        <span class = "">Rating : <span class = "course-feature">4.5<span></span> <span class = "float-right">Price: <span class = "course-feature">5,000</span>
-                        <button class = "btn lt-btn-accent">Details</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
     </section>
     <section class = "p-5">
-        <div class="row justify-content-center create-course">
-            <div class="col-md-6 align-items-center">
-                <div class="">
-                    <img data-aos-duration="1000" data-aos="zoom-in-up" class='lt-feature-image' src="{{ABS_PATH}}images/macbookcreate.png">
-                </div>
-            </div>
-            <div class="col-md-6 d-flex flex-column justify-content-center">
-                <div class="p-5">
-                    <h1 class = "mt-3 lt-light-text" style = "width: 60%">Create your own course</h1>
-                    <p>Are you an expert in an area of specialization looking to share your knowledge with a broader audience? Submit your application to start sharing with lawtrella</p>
-                    <a href = "/e-learning/create"class = "btn btn-lg lt-btn-secondary">CREATE COURSE </a>
-                </div>
-            </div>
-            
-        </div>
+        
     </section>
 
     
@@ -167,8 +143,7 @@
     </div>
     
   
-  </footer>
-  
+</footer>
 
 
   
@@ -416,18 +391,14 @@
    {{> core}}
    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-storage.js"></script>
-    
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
-    <script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
 
   <script src="{{ABS_PATH}}js/auth.js"></script>
   <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
   <script src="{{ABS_PATH}}js/lawyer/lawyerScript.js"></script>
   <script src="{{ABS_PATH}}js/client/clientScript.js"></script>
-  <script src="{{ABS_PATH}}js/eLearning/courses.js"></script>
- 
+  <script src="{{ABS_PATH}}js/elearning/createCourse.js"></script>
+
 
 </body>
 </html>

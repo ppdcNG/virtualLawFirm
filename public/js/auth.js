@@ -55,6 +55,9 @@ function loadBtn(id) {
 function buttonLoad(id) {
   $('#' + id).html('<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Loading...').addClass('disabled');
 }
+const buttonLoadSpinner = id => {
+  $("#" + id).html('<i class="fas fa-spinner fa-pulse"></i>').addClass('disabled')
+}
 
 function clearLoad(id, text) {
   $('#' + id).html('<span>' + text + '</span >').removeClass('disabled');

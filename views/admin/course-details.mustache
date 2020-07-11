@@ -1,6 +1,6 @@
 {{> header }}
+<link rel="stylesheet" href="{{ABS_PATH}}stylesheets/style.css">
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 <style>
 .banner{
   background-image: url({{{courseImage}}});
@@ -13,6 +13,11 @@
   text-shadow: .5em .5em 10px rgba(0,0,0, .45);
   background-color: rgba(0, 0, 0, .45);
   padding: 10px
+}
+
+#promoForm{
+  max-width: 700px;
+  
 }
 </style>
 
@@ -47,7 +52,7 @@
 </header>
 
 
-<main class="pt-2">
+<main class="m-5">
     <section class="container">
         <div class = "banner h-50 pl-5">
           <p class="text-right"><a href="/admin">&larr; Back to Dashboard</a></p>
@@ -65,62 +70,129 @@
               aria-selected="true">Contents</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="resources-tab-md" data-toggle="tab" href="#resources-md" role="tab" aria-controls="resources-md"
-              aria-selected="false">Course Stats</a>
+            <a class="nav-link" id="detials-tab-md" data-toggle="tab" href="#details-md" role="tab" aria-controls="details-md"
+              aria-selected="false">Course Details</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="promo-tab-md" data-toggle="tab" href="#promo-md" role="tab" aria-controls="promo-md"
+              aria-selected="false">PROMO Codes</a>
           </li>
         </ul>
-<div class="tab-contents border pt-5 container" id="myTabcontentsMD">
-  <div class="tab-pane fade show active" id="contents-md" role="tabpanel" aria-labelledby="content-tab-md">
+        <div class="tab-content border pt-5 container" id="myTabcontentsMD">
+          <div class="tab-pane fade show active" id="contents-md" role="tabpanel" aria-labelledby="content-tab-md">
 
-      <input type = "hidden" id = "courseId" value = "{{courseId}}" />
+              <input type = "hidden" id = "courseId" value = "{{courseId}}" readonly />
+              <div class="text-right">
+                <button class="btn" id="addLessonButton">Add Lesson</button>
+                <button class="btn" id = "addQuestionButton">Add Question</button>
+              </div>
 
-      {{! <form class = "" id = "form-details">
-        <div class = "row">
-        <div class = "col-md-6 md-form pl-5">
-          <input type="text" id="title" name = "title" class="form-control">
-          <label class = "ml-5" for="title">Title</label>
-        </div>
-        <div class = "col-md-6 md-form pl-5">
-          <input type="number" id="price" class="form-control">
-          <label class = "ml-5" for="price">Price</label>
-        </div>
-        <div class = "col-md-6 md-form pl-5">
-          <textarea id="desc" name="details" class="md-textarea form-control" rows="3" required></textarea>
-          <label class = "ml-5" for="desc">Description</label>
-        </div>
-        <div class = "col-md-6 md-form pl-5">
-          <input type="text" id="price" class="form-control">
-          <label class = "ml-5" for="price">Banner</label>
-        </div>
-        
-        </div>
-      </form> }}
-      
+              <h5>Content List</h5>
+              <hr/>
+              <ul class="list-group list-group-flush" id="contentList">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-grow slow" role="status" id="loadingTasks">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </div>
+              </ul>
+          </div>
+          <!----Details Tab ---->
+          <div class="tab-pane fade" id="details-md" role="tabpanel" aria-labelledby="details-tab-md">
+                <h3>Edit Course Details</h3>
+                <form id = "addCourseForm" class="border border-light p-5" >
+                    <input type = "hidden" id = "editcourse" value = "edit" />
+                    <div class =  "row">
+                      <div class = "col-md-12 mb-4">
+                          <label for="title">Title</label>
+                            <input id= "title" type="text" name="title" class="form-control" required>
+                      </div>
+                      <div class = "col-md-12 mb-4">
+                          <label for="price">Price</label>
+                          <input id = "price" name = "price" type="number"  class="form-control">
+                      </div>
+                      <div class = "col-md-12 mb-4">
+                          <label for="desc">Description</label>
+                          <textarea id="desc" name="details" class="md-textarea form-control" rows="3" required></textarea>
+                      </div>
+                      <div class = "col-md-12 mb-4">
+                          <label for="category">Category</label>
+                          <select name = "category" id = "category" class="browser-default custom-select">
+                          
+                          <option value="Publiic Law">Public Law</option>
+                          <option value="IP Matters">IP matters</option>
+                          <option value="Family Law">Family Law</option>
+                        </select>
+                      </div>
+                      <div class = "col-md-12 mb-4">
+                          <label for="tags">Tags</label>
+                          <select id = "tags" multiple name = "tags[]" class="browser-default custom-select">
+                          {{{tags}}}
+                        </select>
+                      </div>
+                    </div>
+                    
+     
+                    <div class = "d-flex flex-column justify-content-center">
+                        <button  id = "submitCourseFormButton" class = "btn lt-btn-accent mt-3" type = "submit">Save</button>
+                    </div>              
+                </form>
 
-      <div class="text-right">
-        <button class="btn" id="addLessonButton">Add Lesson</button>
-        <button class="btn" id = "addQuestionButton">Add Question</button>
-      </div>
+                <hr/>
+                <h5>Content List</h5>
+                <ul class="list-group list-group-flush" id="contentList2">
+                  <div class="d-flex justify-content-center">
+                    <div class="spinner-grow slow" role="status" id="loadingTasks">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </div>
+                </ul>
+          </div>
+          <div class="tab-pane fade" id="promo-md" role="tabpanel" aria-labelledby="promo-tab-md">
+            <h5> Course Promo Codes </h5>
 
-      <h5>Content List</h5>
-      <hr/>
-      <ul class="list-group list-group-flush" id="contentList">
-        <div class="d-flex justify-content-center">
-          <div class="spinner-grow slow" role="status" id="loadingTasks">
-            <span class="sr-only">Loading...</span>
+            <form id = "promoForm" class="border border-light p-5" >
+                    <input type = "hidden" id = "promoMode" value = "add" />
+                    <input type = "hidden" id = "promoId" value = "" />
+                    <div class= "mb-4">
+                        <label for="code">Promo Code</label>
+                          <input id= "code" type="text" name="code" class="form-control" required>
+                    </div>
+                    <div class = "mb-4">
+                        <label for="discount">Percentage Discount</label>
+                        <input id = "discount" name = "discount" type="number"  class="form-control">
+                    </div>
+                    <div class = "d-flex flex-column justify-content-center">
+                        <button  id = "submitPromoButton" class = "btn lt-btn-accent mt-3" type = "submit">Add Code</button>
+                    </div>             
+                </form>
+
+            <h5>List of Codes</h5>
+            <ul class="list-group list-group-flush" id="promoCodes">
+              <div class="d-flex justify-content-center">
+                <div class="spinner-grow slow" role="status" id="loadingTasks">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            </ul>
+            
           </div>
         </div>
-      </ul>
-  </div>
-  <div class="tab-pane fade" id="resources-md" role="tabpanel" aria-labelledby="resources-tab-md">
-    <p class="p-5">
-      Resources
-    </p>
-  </div>
-</div>
     </section>
-    <div class="h-25"></div>
 </main>
+
+
+{{>core}}
+ <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-storage.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+  {{! select2 }}
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+
+  {{! flatpickr datetime }}
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 
 {{! add lesson modal  }}
@@ -291,18 +363,17 @@
       </div>
   </div>
 
-{{> footer}}
 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
 <script src="{{ABS_PATH}}js/libraries/js2form.js"></script>
 <script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
-<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script src="{{ABS_PATH}}js/admin/admin_course_details.js"></script>  
+<script src="{{ABS_PATH}}js/admin/admin-course-promo.js"></script>  
 
 <script>
-  
-
+ AOS.init();
     $("#answers").select2();
 
 </script>

@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lawtrella: Online Legal Services</title>
+    <title>Lawtrella: Ask a Lawyer</title>
     <!--Bootstrap Core-->
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="{{ABS_PATH}}stylesheets/landing.css">
     <link rel="stylesheet" href="{{ABS_PATH}}stylesheets/find-lawyer.css">
 </head>
@@ -26,6 +26,16 @@
       margin: 0 10px;
     }
   }
+  p{
+    color: #5E6870;
+    line-height: 1.8;
+  }
+  
+
+  .ask-form{
+    max-width: 500px;
+    background-color: rgba(17, 100, 94, 0.314);
+  }
 </style>
 {{> navbar}}
 
@@ -34,139 +44,50 @@
 
   <section class="container">
     <div class="mt-5">
-        <h4 class="text-uppercase font-weight-bold">find a lawyer</h4>
+        <h4 class="mb-3 text-uppercase font-weight-bold">ASK A LAWYER</h4>
         <p class="text-justify">
-            Looking for representation in court, legal advice, e.t.c. Select top attorneys from the categories listed below
+            Do you need legal advise of any sort to know the next line of action to take? Get limited free legal advise from top attorneys at Lawtrella.Browse through our archive of already answered questions 
         </p>
+        <a href = "#" id ="askLawyerButton" class = "btn btn-md lt-btn-accent mt-2 p-3">ASK A LAWYER NOW</a>
     </div>
 
-    <section class="h-50" style="display:none" id="loading">
-      <div class="spinner-border text-warning" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </section>
+    
+    <h5 class = "mt-5 mb-3 ">ASK PUBLICLY</h5>
+    <p class="text-justify">
+            Do you need legal advise of any sort to know the next line of action to take? Get limited free legal advise from top attorneys at Lawtrella.Browse through our archive of already answered questions 
+    </p>
 
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-warning" onclick="askLawyer()">Ask a Lawyer</button>
+    <form id = "legalAdvice" class="border border-light p-5 ask-form mt-5" >
+        <p class="h6 mb-4">Ask a legal question</p>
+        <p id = "loginError" class = "error valid">Username already exists</p>
+        <div class= "mb-4">
+            <label for="name">Name (optional)</label>
+            <input id = "name" name = "name" type="text"  class="form-control" >
+        </div>
+        <div class = "mb-4">
+            <label for="subject">Subject</label>
+            <input id = "subject" name = "subject" type="text"  class="form-control" required>
+        </div>
+        <div class = "mb-4">
+            <label for="subject">Legal Questions (250 charcters)</label>
+            <textarea id = "question" row = "3" col = "5" name = "subject" type="text"  class="form-control" required>
+            
+            </textarea>
+        </div>
+        
+        <button  id = "askQuestionButton" class = "btn lt-btn-accent mt-3" type = "submit">ASK</button>
+                    
+    </form>
+  </section>
+  <section class = 'container'>
+    <h5 class = "mt-5 mb-3">PUBLICLY ASKED QUESTIONS</h5>
+    <div class="accordion md-accordion" id="questionsList" role="tablist" aria-multiselectable="true">
+      
     </div>
 
-    <div class="row row-cols-1 row-cols-md-2 mt-5 pt-3" id="findALawyer" data-aos="zoom-in" data-aos-duration="1000">
-
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg1.png);background-size: cover;background-position: 50% 50%;">
-            <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
-              <h5 class="card-title font-weight-bold py-3">Family Lawyers</h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
-              <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('familyLaw')">Select</button>
-            </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg2.png);background-size: cover;background-position: 50% 50%;">
-            <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
-              <h5 class="card-title font-weight-bold py-3">Administrative / Public Law</h5>
-              <p class="card-text white-text">Get lwayers for your administrative and public matters, food law, sports betting e.t.c</p>
-              <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('administrativePublicLaw')">Select</button>
-            </div>
-          </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg3.png);background-size: cover;background-position: 50% 50%;">
-          <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
-            <h5 class="card-title font-weight-bold py-3">Land and Property</h5>
-            <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
-            <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('landPropertyLaw')">Select</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-          <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg4.png);background-size: cover;background-position: 50% 50%;">
-            <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
-              <h5 class="card-title font-weight-bold py-3">Finance and Commercial Law</h5>
-              <p class="card-text white-text">Get legal experts in the matters of financial laws, commercial, business law e.t.c</p>
-              <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('financeCommercialLaw')">Select</button>
-            </div>
-          </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-          <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg5.png);background-size: cover;background-position: 50% 50%;">
-            <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
-              <h5 class="card-title font-weight-bold py-3">Digital, Entertainment and Sports</h5>
-              <p class="card-text white-text">Find the best lawyers to handle your cases relating to digital entertaiment, sports and others</p>
-              <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('digitalEntertainmentLaw')">Select</button>
-            </div>
-          </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-        <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg6.png);background-size: cover;background-position: 50% 50%;">
-          <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
-            <h5 class="card-title font-weight-bold py-3">Energy Projects</h5>
-            <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
-            <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('energyProjectsLaw')">Select</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4 mb-4">
-          <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg7.png);background-size: cover;background-position: 50% 50%;">
-            <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
-              <h5 class="card-title font-weight-bold py-3">Others</h5>
-              <p class="card-text white-text">Other categories including environmental, arson, medical negligence</p>
-              <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('others')">Select</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
   </section>
 
-  <section class="container" id="matchingLawyersSection" style="display:none">
-      <div class="d-flex mb-3 pt-5">
-        <h5 class="mr-auto font-weight-bold">Matching Lawyers</h5>
-        <button class="btn btn-sm btn-warning font-weight-bold" id="backToFindLawyer"><i class="fas fa-caret-left"></i> Go Back</button>
-      </div>
-      <div class="row row-cols-1 row-cols-md-2 mt-5 pt-3" id="fetchMatchingLawyers">
-        <div class="col-md-4 mb-4">
-          <div class="card h-100" style="background-color: #C8F2EF;">
-              <div class="lawyer-card card-body">
-                <div class = "row">
-                    <div class="col-md-8 d-flex flex-column justify-content-center">
-                        <h4 class="card-title font-weight-bold mr-auto mb-3">Adekunle Ajasin</h4>
-                        <div class="">
-                          <span class = "lawyer-tags">legal Law</span>
-                          <span class = "lawyer-tags">legal Law</span>
-                          <span class = "lawyer-tags">legal Law</span>
-                        </div>
-                    </div>
-                    <div class = "col-md-4 d-flex justify-content-center align-items-center">
-                      <img src="https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1" class="rounded-circle z-depth-0" style = "border: 1px solid var(--accent-colr)" alt="avatar image" height="70" width="70">
-                    </div>
-                </div>
-                <div class = "d-flex flex-row justify-content-between mt-4">
-                  <div>
-                    <span class = "lawyer-feature-header">Location</span>
-                    <span class = "lawyer-feature-value">Lagos</span>
-                  </div>
-                  <div>
-                    <span class = "lawyer-feature-header">Consultation Fee</span>
-                    <span class = "lawyer-feature-value">&#8358; 7,000</span>
-                  </div>
-                  <div>
-                    <span class = "lawyer-feature-header">Years of Experience</span>
-                    <span class = "lawyer-feature-value">5</span>
-                  </div>
-                </div>
-              </div>
-          </div>
-        </div>
-      </div>
-  </section>
+  
 
   <div class="container" id="findLawyersSection" style="display:none;overflow: scroll">
     <h2 class="text-center mt-2">What's the Issue? Let's help</h2>
@@ -192,7 +113,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>Login to Continue your consultation</h3>
+          <h3>Login to Continue...</h3>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -340,11 +261,9 @@
   </div>
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
-<script src="https://js.paystack.co/v1/inline.js"></script>
-<script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
-<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-<script src="{{ABS_PATH}}js/client/findLawyer.js"></script>
 <script src="{{ABS_PATH}}js/client/clientScript.js"></script>
+<script src="{{ABS_PATH}}js/client/lawyerScript.js"></script>
+<script src="{{ABS_PATH}}js/legalAdvice.js"></script>
 
 
 
@@ -364,11 +283,6 @@
     const goBack = () => {
         window.history.back();
     }
-</script>
-<script>
-  function askLawyer() {
-    window.location = '/client/dashboard/#chat';
-  }
 </script>
 </body>
 </html>

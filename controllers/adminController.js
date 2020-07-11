@@ -23,6 +23,7 @@ exports.newUSer = (req, res) => {
 };
 
 exports.editCourseDetails = async (req, res) => {
+  let tags = tagOptions();
   let { id } = req.query;
   if (!id) {
     res.status(403).send({ message: "bad Request missing Params" });
@@ -30,7 +31,7 @@ exports.editCourseDetails = async (req, res) => {
   }
   let courseRef = await admin.firestore().doc(`courses/${id}`).get().catch((e) => { console.log(e) });
   let { courseImage, title, dateAdded } = courseRef.data();
-  res.render("admin/course-details", { title: "Course Details", ABS_PATH, AppName, courseImage, courseTitle: title, courseId: id });
+  res.render("admin/course-details", { title: "Course Details", ABS_PATH, AppName, tags, courseImage, courseTitle: title, courseId: id });
 }
 
 exports.adminLogin = async (req, res) => {

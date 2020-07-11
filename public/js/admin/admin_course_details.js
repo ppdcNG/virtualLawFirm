@@ -1,15 +1,20 @@
 var CONTENTS = {};
+var contentList = [];
 
 var OPTIONS = [];
 
 var courseId = $("#courseId").val();
+var contentString = $("#courseContentList").val();
 var VideoPreviewModal = $("#videoPreviewModal");
 var QuestionModal = $("#addQuestionModal");
 var ConfirmDeleteModal = $("#modalConfirmDelete");
 
+var courseDb = firebase.firestore().collection('courses').doc(courseId);
+
 
 $(document).ready(() => {
     fetchContent();
+    fetchCodes();
     $("#lessonForm").submit(function (e) {
         e.preventDefault();
         let mode = $("#lessonMode").val();
@@ -57,22 +62,32 @@ $(document).ready(() => {
 })
 
 
-const fetchContent = () => {
+const fetchContent = async () => {
     let coursePath = `courses/${courseId}/contents`;
     let collectionRef = firebase.firestore().collection(coursePath);
+    contentList = [];
     collectionRef.onSnapshot((snapshot) => {
         if (snapshot.empty) {
-            $("#contentList").html("<li class = 'list-group-item'>No content Added Yet");
+            $("#contentList").html("<li class = 'list-group-item'>No content Added Yet</li>");
             return;
         }
         let contentHTML = "";
         snapshot.forEach((snap) => {
             let content = snap.data();
+            contentList.push(content.title);
             CONTENTS[snap.id] = content;
             contentHTML += content.type == "Lesson" ? renderLessonContent(content, snap.id) : renderQuestionContent(content, snap.id);
         });
         $("#contentList").html(contentHTML);
-    })
+        let contentString = contentList.join("***");
+        console.log(contentString)
+        courseDb.update({ contentString }).then(() => {
+            console.log("written content", contentString);
+        }).catch(e => {
+            console.log(e)
+        })
+    });
+
 
 }
 
@@ -313,4 +328,37 @@ const addQuestion = async () => {
     QuestionModal.modal('hide');
 
 }
+
+const editCourse = async  course => {
+    buttonLoadSpinner('submitCourseFormButton');
+    let id = $("#courseId").val();
+    let dbRef = firebase.firestore().collection('courses').doc(id);
+    let notification = $.notify('Please Wait...', { type: 'info', delay: 0 });
+
+    try {
+        await dbRef.update({ ...course });
+        notification.close();
+        $.notify('Course Edited Succesfully', { type: 'success', delay: 2500 });
+        $("#addCourseForm")[0].reset();
+        $("#tags").trigger('change');
+        clearLoad('submitCourseFormButton', 'Save');
+        $("#courseModal").modal('hide');
+
+    }
+    catch (e) {
+        console.log(e)
+        notification.close();
+        clearLoad('submitCourseFormButton')
+        $.notify('OOps an error occured', { type: 'danger', delay: 2500 });
+    }
+}
+
+$('#addCourseForm').submit(function (e) {
+    e.preventDefault();
+    let course = form2js('addCourseForm', '.', false);
+    let mode = $("#courseMode").val();
+    editCourse(course);
+});
+
+
 
