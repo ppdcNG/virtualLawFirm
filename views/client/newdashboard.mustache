@@ -138,7 +138,64 @@
             </div>
 
             {{! consultation tab  }}
-            <div class="tab-pane fade" id="consultation-pill" role="tabpanel" aria-labelledby="consultation-pill-tab">Consultation<br/>Under Construction...</div>
+            <div class="tab-pane fade" id="consultation-pill" role="tabpanel" aria-labelledby="consultation-pill-tab">
+                <div class="card col-4 bg-default text-white">
+                    <div class="card-body mt-3">
+                        <h5 class="card-title">Hello {{displayName}},</h5>
+                    </div>
+                </div>
+                <div class="row container my-3 text-center">
+                    <div class="col-sm-4 mb-3 mb-md-0">
+                        <div class="card teal lighten-5">
+                            <div class="card-body">
+                                <h5 class="card-title">Active Consultation</h5>
+                                <h1><i class="fas fa-hands-helping"></i> 2</h1>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="card teal lighten-5">
+                            <div class="card-body">
+                                <h5 class="card-title">Completed Consultation</h5>
+                                <h1><i class="far fa-handshake"></i> 2</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <h4>Consultations</h4>
+                <div class="row row-cols-1 row-cols-md-2 mt-5 pt-3" id="fetchMatchingLawyers">
+                    <div class="col-md-4 mb-4">
+                    <div class="card h-100 teal lighten-5">
+                        <div class="card-body">
+                            <div class = "row">
+                                <div class = "col-md-4 d-flex justify-content-center align-items-center">
+                                <img src="https://firebasestorage.googleapis.com/v0/b/virtuallawfirm-2478e.appspot.com/o/userfiles%2FbTCed6jbK6YhYfOvRIsp08h6RoI3?alt=media&amp;token=fb52b90c-b25c-4a21-82df-9135865928d6" class="rounded-circle z-depth-0" style = "border: 1px solid var(--accent-colr)" alt="avatar image" height="70" width="70">
+                                </div>
+                                <div class="col-md-8 d-flex flex-column justify-content-center">
+                                    <p class="text-right text-default"><i class="fas fa-circle"></i> Active</p>
+                                    <h4 class="card-title font-weight-bold mr-auto mb-3">Sadiq Abubakar<br/>
+                                        <small>Family Law Expert</small>
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class = "d-flex flex-row justify-content-between mt-4">
+                            <div>
+                                <span class="text-muted">Consultation date</span><br/>
+                                <span class="">19th July 2020</span>
+                            </div>
+                            <div>
+                                <button class="btn btn-warning">Manage</button>
+                                {{! <span class = "lawyer-feature-header">Years of Experience</span>
+                                <span class = "lawyer-feature-value">5</span> }}
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
 
             {{! my tasks tab  }}
             <div class="tab-pane fade" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
