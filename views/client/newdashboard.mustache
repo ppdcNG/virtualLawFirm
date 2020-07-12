@@ -1,0 +1,363 @@
+{{> header}}
+<style>
+    #dashboard-main .sidenav,
+    #dashboard-main .main-content {
+        margin-top: 6vh;
+    }
+    #dashboard-main .nav-item {
+        margin: 1vh 0;
+    }
+    #dashboard-main .nav-item a {
+        color: #fff;
+        opacity: 0.9;
+    }
+    #dashboard-main a.nav-link.active {
+        background: rgba(59, 209, 199, 0.5) !important;
+    }
+    
+    .chat.list-group-item {
+        margin: 10px 0;
+        width: 80%;
+        max-width: 80%;
+        border-radius: 20px;
+    }
+    .lawyer-msg {
+        background: #fff;
+    }
+    .client-msg {
+        background: #dcdcdc;
+    }
+    img.rounded-circle {
+        width: 60px;
+        height: 60px;
+    }
+</style>
+{{> navbar}}
+
+<main class="row mb-5" id="dashboard-main">
+    <div class="col-md-2" style="background:#406966;">
+        <ul class="nav nav-pills mb-3 flex-column sidenav" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="dashboard-pill-tab" data-toggle="pill" href="#dashboard-pill" role="tab"
+                aria-controls="dashboard-pill" aria-selected="true"><i class="fas fa-tachometer-alt mr-3"></i>&nbsp; Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="consultation-pill-tab" data-toggle="pill" href="#consultation-pill" role="tab"
+                aria-controls="consultation-pill" aria-selected="false"><i class="far fa-handshake mr-3"></i> Consultation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tasks-tab" data-toggle="pill" href="#tasks" role="tab"
+                aria-controls="tasks" aria-selected="false"><i class="fas fa-tasks mr-3"></i>&nbsp; My Tasks</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="docs-tab" data-toggle="pill" href="#docs" role="tab"
+                aria-controls="docs" aria-selected="false"><i class="far fa-file-alt mr-4"></i> My Docs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="chat-tab" data-toggle="pill" href="#chat" role="tab"
+                aria-controls="chat" aria-selected="false"><i class="far fa-comments mr-3" aria-hidden="true"></i> Chat</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="settings-tab" data-toggle="pill" href="#settings" role="tab"
+                aria-controls="settings" aria-selected="false"><i class="fas fa-cogs mr-3" aria-hidden="true"></i> Settings</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-10">
+        <div class="tab-content pt-2 pl-1 main-content" id="pills-tabContent">
+            {{! main dashboard tab }}
+            <div class="tab-pane fade show active" id="dashboard-pill" role="tabpanel" aria-labelledby="dashboard-pill-tab">
+                <div class="row container">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <img src="{{photoURL}}" style="width:150;height:150" class="rounded-circle mx-auto d-block" alt="profile_pic">
+                                <div class="text-center mt-2">
+                                    <hr width="50%">
+                                    <h5>{{displayName}}</h5>
+                                    <p>{{email}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section class="container text-center py-5">
+                    <h4 class="text-uppercase my-3">Services</h4>
+                    <hr width="50%" />
+                    <div class="row row-cols-1 row-cols-md-3">
+                        <div class="col mb-4">
+                                <div class="card h-100">
+                                <div class="view overlay">
+                                    <img class="card-img-top" src="{{ABS_PATH}}images/lawstatue.jpg" alt="Card image cap">
+                                    <a href="#!">
+                                    <div class="mask rgba-white-slight"></div>
+                                    </a>
+                                </div>
+
+                                <div class="card-body">
+                                    <a href="/client/findLawyer" class="btn btn-warning lt-btn-accent">Find a Lawyer</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col mb-4">
+                            <div class="card h-100">
+                                <div class="view overlay">
+                                    <img class="card-img-top" src="{{ABS_PATH}}images/signdocuments.jpg" alt="Card image cap">
+                                    <a href="#!">
+                                    <div class="mask rgba-white-slight"></div>
+                                    </a>
+                                </div>
+
+                                <div class="card-body">
+                                        <a href="/client/docs" class="btn btn-warning lt-btn-accent">Legal Documents</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col mb-4">
+                            <div class="card h-100">
+                                <div class="view overlay">
+                                    <img class="card-img-top" src="{{ABS_PATH}}images/lawbooks.jpg" alt="Card image cap">
+                                    <a href="#!">
+                                    <div class="mask rgba-white-slight"></div>
+                                    </a>
+                                </div>
+
+                                <div class="card-body">
+                                    <a href="/e-learning" class="btn btn-warning lt-btn-accent">E-Learning</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            {{! consultation tab  }}
+            <div class="tab-pane fade" id="consultation-pill" role="tabpanel" aria-labelledby="consultation-pill-tab">
+                <div class="card col-4 bg-default text-white">
+                    <div class="card-body mt-3">
+                        <h5 class="card-title">Hello {{displayName}},</h5>
+                    </div>
+                </div>
+                <div class="row container my-3 text-center">
+                    <div class="col-sm-4 mb-3 mb-md-0">
+                        <div class="card teal lighten-5">
+                            <div class="card-body">
+                                <h5 class="card-title">Active Consultation</h5>
+                                <h1><i class="fas fa-hands-helping"></i> 2</h1>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="card teal lighten-5">
+                            <div class="card-body">
+                                <h5 class="card-title">Completed Consultation</h5>
+                                <h1><i class="far fa-handshake"></i> 2</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <h4>Consultations</h4>
+                <div class="row row-cols-1 row-cols-md-2 mt-5 pt-3" id="fetchMatchingLawyers">
+                    <div class="col-md-4 mb-4">
+                    <div class="card h-100 teal lighten-5">
+                        <div class="card-body">
+                            <div class = "row">
+                                <div class = "col-md-4 d-flex justify-content-center align-items-center">
+                                <img src="https://firebasestorage.googleapis.com/v0/b/virtuallawfirm-2478e.appspot.com/o/userfiles%2FbTCed6jbK6YhYfOvRIsp08h6RoI3?alt=media&amp;token=fb52b90c-b25c-4a21-82df-9135865928d6" class="rounded-circle z-depth-0" style = "border: 1px solid var(--accent-colr)" alt="avatar image" height="70" width="70">
+                                </div>
+                                <div class="col-md-8 d-flex flex-column justify-content-center">
+                                    <p class="text-right text-default"><i class="fas fa-circle"></i> Active</p>
+                                    <h4 class="card-title font-weight-bold mr-auto mb-3">Sadiq Abubakar<br/>
+                                        <small>Family Law Expert</small>
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class = "d-flex flex-row justify-content-between mt-4">
+                            <div>
+                                <span class="text-muted">Consultation date</span><br/>
+                                <span class="">19th July 2020</span>
+                            </div>
+                            <div>
+                                <button class="btn btn-warning">Manage</button>
+                                {{! <span class = "lawyer-feature-header">Years of Experience</span>
+                                <span class = "lawyer-feature-value">5</span> }}
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            {{! my tasks tab  }}
+            <div class="tab-pane fade" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
+                <div class="row container">
+                    <div class="col-md-8 rounded mb-0 px-3 pt-3" style="background:#C8F2EF;">
+                        <h4 class="mb-2">My Tasks</h4>
+                        <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Lawyer</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                    <div class="container col-md-4 rounded mb-0">
+                        <div class="rounded mb-0 px-3 pt-3" style="background:#C8F2EF;height:70vh">
+                            <h5 class="mb-2"><strong>Notifications</strong></h5>
+                            <p><strong>Invoice Notification <span class="text-right bg-warning text-white px-1">22 june 2019</span></strong></p>
+                            <p class="text-muted">You have a pending Invoice payment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{! my docs tab  }}
+            <div class="tab-pane fade" id="docs" role="tabpanel" aria-labelledby="docs-tab">My Docs<br/>Under Construction...</div>
+
+            {{! chat tab  }}
+            <div class="tab-pane fade" id="chat" role="tabpanel" aria-labelledby="chat-tab">
+                <div class="row container">
+                    <div class="col-md-2 text-center">
+                        <ul class="nav nav-pills border mb-0 mb-3 flex-column shadow" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <div class="avatar mx-auto white "><img src="https://bit.ly/3gLJpvB"
+                                    alt="avatar mx-auto white" class="rounded-circle img-fluid">
+                                    <h4 class="card-title mt-1">John Doe</h4>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <div class="avatar mx-auto white "><img src="https://bit.ly/3gLJpvB"
+                                    alt="avatar mx-auto white" class="rounded-circle img-fluid">
+                                    <h4 class="card-title mt-1">John Doe</h4>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <div class="avatar mx-auto white "><img src="https://bit.ly/3gLJpvB"
+                                    alt="avatar mx-auto white" class="rounded-circle img-fluid">
+                                    <h4 class="card-title mt-1">John Doe</h4>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <div class="avatar mx-auto white "><img src="https://bit.ly/3gLJpvB"
+                                    alt="avatar mx-auto white" class="rounded-circle img-fluid">
+                                    <h4 class="card-title mt-1">John Doe</h4>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 rounded mb-0 px-3 pt-3" style="background:#C8F2EF;">
+                        <h4>John Doe</h4>
+                        <hr/>
+                        <section style="height:50vh;overflow-y:scroll">
+                        <div class="d-flex flex-row">
+                            <div class="chat list-group-item shadow lawyer-msg py-3">
+                                <p class="mb-0"><span class="border rounded-circle px-3 py-2 bg-default text-white mr-3">L</span> Hello</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row-reverse">
+                            <div class="chat list-group-item shadow client-msg py-3 text-right">
+                                <p class="mb-0"></i>Hi, I need help <span class="border rounded-circle px-3 py-2 bg-default text-white ml-3">C</span></p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row">
+                            <div class="chat list-group-item shadow lawyer-msg py-3">
+                                <p class="mb-0"><span class="border rounded-circle px-3 py-2 bg-default text-white mr-3">L</span> I'm here to help</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row-reverse">
+                            <div class="chat list-group-item shadow client-msg py-3 text-right">
+                                <p class="mb-0"></i>I want to embezzle funds <span class="border rounded-circle px-3 py-2 bg-default text-white ml-3">C</span></p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row">
+                            <div class="chat list-group-item shadow lawyer-msg py-3">
+                                <p class="mb-0"><span class="border rounded-circle px-3 py-2 bg-default text-white mr-3">L</span> Woa, Calm down.</p>
+                            </div>
+                        </div>
+                        </section>
+                        <input type="text" id="msg" class="form-control mt-3 p-3" placeholder="Type message..." />
+                    </div>
+                    <div class="container col-md-4 rounded mb-0">
+                        <div class="rounded mb-0 px-3 pt-3" style="background:#C8F2EF;height:70vh">
+                            <h5 class="mb-2"><strong>Notifications</strong></h5>
+                            <p><strong>Invoice Notification <span class="text-right bg-warning text-white px-1">22 june 2019</span></strong></p>
+                            <p class="text-muted">You have a pending Invoice payment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{! settings tab  }}
+            <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">Settings<br/>Under Construction...</div>
+        </div>
+    </div>
+</main>
+
+{{> footer}}
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script type = "text/javascript">
+      if (window.location.href == 'http://localhost:3000/client/dashboard/#chat') {
+        $("#chat-tab").trigger("click");
+      }
+</script>

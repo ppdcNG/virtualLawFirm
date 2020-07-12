@@ -47,7 +47,7 @@
     </section>
 
     <div class="d-flex justify-content-end">
-      <a class="btn btn-warning" href="/client/askLawyer">Ask a Lawyer</a>
+      <button class="btn btn-warning" onclick="askLawyer()">Ask a Lawyer</button>
     </div>
 
     <div class="row row-cols-1 row-cols-md-2 mt-5 pt-3" id="findALawyer" data-aos="zoom-in" data-aos-duration="1000">
@@ -364,6 +364,11 @@
     const goBack = () => {
         window.history.back();
     }
+</script>
+<script>
+  function askLawyer() {
+    window.location = '/client/dashboard/#chat';
+  }
 </script>
 </body>
 </html>

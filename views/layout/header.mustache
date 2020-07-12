@@ -5,15 +5,15 @@
 
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@400&family=Poppins&display=swap" rel="stylesheet">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   <!-- Data-aos -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <!-- Bootstrap core CSS -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-  
 
-    {{! Bootstrap multi select }}
+  {{! Bootstrap multi select }}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
   <!-- Material Design Bootstrap -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
@@ -27,7 +27,23 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
   <style type="text/css">
-    body {font-family: 'Lato', sans-serif; scroll-behavior: smooth;  margin:0;padding:0; overflow-x: hidden}
+    :root {
+      --accent-colr: #F8B24F;
+      --main-font-family: 'Alegreya Sans', sans-serif;
+      --sec-font-family: 'Poppins', sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--main-font-family);
+      font-weight: bolder;
+    }
+    .terms-conditions a:hover {
+      color: var(--accent-colr);
+    }
+    html,
+    body p {
+      font-family: var(--sec-font-family);
+    }
+    body {scroll-behavior: smooth;  margin:0;padding:0; overflow-x: hidden}
     div.parent-box { display: table; width:100%;}
     div.child-box { display: table-cell; vertical-align: middle; font-size: xx-large; }
     #client--main .nav-link.active {background-color: #49bcad;}
@@ -85,5 +101,4 @@
 
   <title> {{title}} </title>
 </head>
-
 <body>
