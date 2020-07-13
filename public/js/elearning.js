@@ -12,12 +12,13 @@ $("#enrollButton").click(function (e) {
 
 
 const enroll = (button) => {
-    buttonLoadSpinner("enrollButton")
+
     let uid = $("#uid").val();
     if (uid == false || uid == "false") {
         $("#loginModal").modal('show');
         return;
     }
+    buttonLoadSpinner("enrollButton")
     let form = form2js('promoForm', '.', false);
     console.log(form)
     form.price = parseFloat(form.price);
