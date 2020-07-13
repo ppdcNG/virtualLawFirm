@@ -31,35 +31,45 @@
         width: 60px;
         height: 60px;
     }
+
+    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+        div#sidenav.col-md-2 > ul {
+            display: flex !important;
+            flex-direction: row !important;
+        }
+        div#sidenav.col-md-2 > ul span {
+            display: none;
+        }
+    }
 </style>
 {{> navbar}}
 
 <main class="row mb-5" id="dashboard-main">
-    <div class="col-md-2" style="background:#406966;">
+    <div class="col-md-2" id="sidenav" style="background:#406966;">
         <ul class="nav nav-pills mb-3 flex-column sidenav" id="pills-tab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="dashboard-pill-tab" data-toggle="pill" href="#dashboard-pill" role="tab"
-                aria-controls="dashboard-pill" aria-selected="true"><i class="fas fa-tachometer-alt mr-3"></i>&nbsp; Dashboard</a>
+                aria-controls="dashboard-pill" aria-selected="true"><i class="fas fa-tachometer-alt mr-3"></i>&nbsp; <span>Dashboard</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="consultation-pill-tab" data-toggle="pill" href="#consultation-pill" role="tab"
-                aria-controls="consultation-pill" aria-selected="false"><i class="far fa-handshake mr-3"></i> Consultation</a>
+                aria-controls="consultation-pill" aria-selected="false"><i class="far fa-handshake mr-3"></i> <span>Consultation</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="tasks-tab" data-toggle="pill" href="#tasks" role="tab"
-                aria-controls="tasks" aria-selected="false"><i class="fas fa-tasks mr-3"></i>&nbsp; My Tasks</a>
+                aria-controls="tasks" aria-selected="false"><i class="fas fa-tasks mr-3"></i>&nbsp; <span>My Tasks</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="docs-tab" data-toggle="pill" href="#docs" role="tab"
-                aria-controls="docs" aria-selected="false"><i class="far fa-file-alt mr-4"></i> My Docs</a>
+                aria-controls="docs" aria-selected="false"><i class="far fa-file-alt mr-4"></i> <span>My Docs</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="chat-tab" data-toggle="pill" href="#chat" role="tab"
-                aria-controls="chat" aria-selected="false"><i class="far fa-comments mr-3" aria-hidden="true"></i> Chat</a>
+                aria-controls="chat" aria-selected="false"><i class="far fa-comments mr-3" aria-hidden="true"></i> <span>Chat</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="settings-tab" data-toggle="pill" href="#settings" role="tab"
-                aria-controls="settings" aria-selected="false"><i class="fas fa-cogs mr-3" aria-hidden="true"></i> Settings</a>
+                aria-controls="settings" aria-selected="false"><i class="fas fa-cogs mr-3" aria-hidden="true"></i> <span>Settings</span></a>
             </li>
         </ul>
     </div>
@@ -73,9 +83,6 @@
                             <div class="card-body">
                                 <img src="{{photoURL}}" style="width:150;height:150" class="rounded-circle mx-auto d-block" alt="profile_pic">
                                 <div class="text-center mt-2">
-                                    <hr width="50%">
-                                    <h5>{{displayName}}</h5>
-                                    <p>{{email}}</p>
                                 </div>
                             </div>
                         </div>
@@ -83,6 +90,9 @@
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-body">
+                                <h5>{{displayName}}</h5>
+                                <hr width="50%" align="left" />
+                                <p>{{email}}</p>
                             </div>
                         </div>
                     </div>
