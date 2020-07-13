@@ -14,7 +14,7 @@ $("#enrollButton").click(function (e) {
 const enroll = (button) => {
     buttonLoadSpinner("enrollButton")
     let uid = $("#uid").val();
-    if (is_empty(uid)) {
+    if (uid == false || uid == "false") {
         $("#loginModal").modal('show');
         return;
     }
