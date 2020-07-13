@@ -1,11 +1,4 @@
 
-let lawyersList = {};
-var ISSUE = '1';
-let TASKS = {};
-var CHATS = [];
-var CHAT_MESSAGES = [];
-var Chatlistener = null;
-var CHAT_ID = null;
 
 $(document).ready(function () {
     fetchCases();

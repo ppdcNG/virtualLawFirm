@@ -93,18 +93,48 @@
     <h2 class="text-center mt-2">What's the Issue? Let's help</h2>
 
     {{! hidden elements }}
-    <input value="{{email}}" id="clientEmail" type = "hidden" />
-    <input value="{{displayName}}" id="displayName" type = "hidden" />
-    <input value="{{phoneNumber}}" id="phoneNumber" type = "hidden" />
-    <input value="{{uid}}" id="uid" type = "hidden" />
+    {{>userdata}}
     {{! hidden elements }}
    
   </div>
 
   
 </main>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  
+  <!-- Data-aos -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="{{ABS_PATH}}js/libraries/bootstrap-notify.js"></script>
 
-{{> footer}}
+  <script src="https://cdn.bootcss.com/simplePagination.js/1.6/jquery.simplePagination.js"></script>
+
+    {{! Multi select }}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
+
+  {{! Firebase }}
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-storage.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+
+  {{! select2 }}
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+
+  {{! flatpickr datetime }}
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+{{> footer-new}}
 
 
  <!-- Client Modal -->

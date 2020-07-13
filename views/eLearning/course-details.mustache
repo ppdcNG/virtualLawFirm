@@ -1,4 +1,15 @@
-{{> header }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title> {{title}} </title>
+    {{>core-links}}
+    <link rel="stylesheet" href="{{ABS_PATH}}stylesheets/landing.css">
+    
+</head>
+<body>
 
 <style>
     .checked {
@@ -25,48 +36,7 @@
 }
 </style>
 
-<header>
-    <nav class="mb-1 pt-3 pb-3 navbar navbar-expand-lg navbar-dark special-color">
-        <a class="navbar-brand default-color p-3" href="#">{{AppName}}</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
-        aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav ml-auto nav-flex-icons" id="isLoggedin">
-                <li class="nav-item avatar dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <img src='https://images.pexels.com/photos/399772/pexels-photo-399772.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' class="rounded-circle z-depth-0"
-                        width="50" />
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
-                    aria-labelledby="navbarDropdownMenuLink-55">
-                        <a class="dropdown-item" href="/client/dashboard">Go to Dashboard</a>
-                        <a class="dropdown-item" href="#">My List</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">My Certificates</a>
-                    </div>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="{{ABS_PATH}}logout">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-    </nav>
-</header>
+{{>courses-navbar}}
 
 <section class="banner jumbotron default-color mt-0">
     <div class="container p-3">
@@ -117,22 +87,40 @@
                 </div>
             </section>
             
-            <section id="course-content">
-                <div class="card p-3">
-                    <h6 class="my-3 text-success">LESSON 1</h6>
-                    <h4>
-                        <span>Introduction</span>
-                        <span class="float-right"><button class="btn btn-sm" data-toggle="modal" data-target="#lessonModal">Play Lesson</button></span>
-                    </h4>
-                </div>
-                
-                <div class="card p-3">
-                    <h6 class="my-3 text-success">LESSON 2</h6>
-                    <h4>
-                        <span>Example Content</span>
-                        <span class="float-right"><button class="btn btn-sm" data-toggle="modal" data-target="#lessonModal">Play Lesson</button></span>
-                    </h4>
-                </div>
+            <section id="course-checjout">
+                <form method = "GET" action ="{{ABS_PATH}}e-learning/courseDetails" id = "promoForm" class = "mb-5">
+                    <div class="card h-100 shadow mt-1" data-aos="zoom-out" data-aos-duration="1000">
+                         <input type = "hidden" name = "courseId" value = "{{courseId}}">
+                         <input type = "hidden" name = "id" value = "{{courseId}}">
+                         <input type = "hidden"  name = "price" value = "{{newprice}}" />
+                        <div class="card-body">
+                            {{#code}}
+                            <div class="d-flex flex-column text-center justify-content-center">
+                            <button type = "button"    class = "btn btn-success py-3 disabled">PROMO CODE APPLIED</button>
+                            <input id = "promoCode" name = "promoCode" type="hidden"  value = "{{code}}">
+                            </div>
+                            {{/code}} 
+                            {{^code}}
+                                <h4 class="card-title mt-3">Do you have a Promo Code</h4>
+                                <input id = "promoCode" name = "promoCode" placeholder = "Enter Promo Code" type="text"  class="form-control mb-3 mt-5">
+                                <button id = "promoButton" type = "submit" class = "btn lt-btn-secondary mb-5">APPLY</button>
+                                <h4 class = "card-title mb-3">Order Preview</h4>
+                                <p>{{title}}</p>
+                            {{/code}}
+                            <ul class="list-group mt-3">
+                                <li class="list-group-item"><b>Course Title</b>: {{courseTitle}}</li>
+                                <li class="list-group-item"><b>Price</b>:  {{{oldprice}}}</li>
+                                <li class="list-group-item"><b>Discount</b>: % {{discount}}</li>
+                                <li class="list-group-item"><b>Final Price</b>:  {{{newpricevalue}}}</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="d-flex flex-column text-center justify-content-center">
+                            <button type = "button" id = "enrollButton" onclick = "enroll(this, '{{price}}')"   class = "btn lt-btn-accent py-3">ENROLL NOW</button>
+                        </div> 
+                    </div>
+                </form>
+               
             </section>
 
 
@@ -174,17 +162,268 @@
 
 <div class="h-25"></div>
 
-{{> footer}}
+ <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+      </script>
 
+      {{! Core Nippet Javascript includes }}
+   {{> core}}
+     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-storage.js"></script>
+
+{{> footer-new}}
+
+<!--Lawyer Login Modal -->
+  <div class="modal fade" id="lawyerLoginModal" tabindex="-1" role="dialog" aria-labelledby="Lawyer/ Signup"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <ul class="nav nav-tabs justify-content-center" id="lawyerMyTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link lt-link-bold active" id="lawyer-login-tab" data-toggle="tab" href="#lawyerLogin" role="tab" aria-controls="lawyerLogin"
+                    aria-selected="true">LOGIN</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lt-link-bold" id="lawyer-signup-tab" data-toggle="tab" href="#lawyerSignup" role="tab" aria-controls="lawyerSignup"
+                    aria-selected="false">SIGN UP</a>
+                </li>
+            </ul>
+              <div class="tab-content" id="lawyerMyTabContent">
+                <div class="tab-pane fade show active" id="lawyerLogin" role="tabpanel" aria-labelledby="lawyer-login-tab">
+                    
+                    <form id = "lawyerLoginForm" class="border border-light p-5" action="#!">
+                
+                        <p class="h4 mb-5">Log In As Lawyer</p>
+                        <p id = "lawyerloginError" class = "error valid">Username already exists</p>
+                        <div>
+                            <label for="email">Email</label>
+                            <input type="email" name = "email" id="lawyerLoginEmail" class="form-control mb-4" required>
+                            <div class = "invalid-feedback">
+                                email is invalid
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="invalid-feedback">password is invalid</div>
+                            <label for="password">Password</label>
+                            <input name = "password" type="password" id="lawyerLoginPassword" class="form-control mb-4">
+                        </div>
+                        
+
+                        <div class = "d-flex flex-column justify-content-center">
+                            <a class = "lt-link ml-2 small"  href="#">Forgot password?</a>
+                            <button class = "btn lt-btn-accent mt-3" id = "lawyerLoginButton" type = "submit">LAWYER LOGIN</button>
+                        </div>
+                                       
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="lawyerSignup" role="tabpanel" aria-labelledby="lawyer-signup-tab">
+                    <form id = "lawyerRegisterForm" class="border border-light p-5" action="#!">
+                
+                        <p class="h4 mb-5">Sign Up As a Lawyer</p>
+                        <p id = "lawyersignupError" class = "error valid">Username already exists</p>
+                        <div>
+                            <label for="email">Email</label>
+                            <input type="email" id="lawyerSignupEmail" name = "email" class="form-control mb-4" required>
+                            <div class = "invalid-feedback">
+                                email is invalid
+                            </div>
+                        </div>
+                
+                        <div>
+                            <label for="name">Full Name</label>
+                            <input  name = "name" type="name" id="lawyerSignupPassword" class="form-control mb-4">
+                        </div>
+                        
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id = "lawyerSignupTerms">
+                            <label class="custom-control-label" for="lawyerSignupTerms">I have read and agree to the <a class = "lt-link" href = "#terms">Terms and Conditions</a> of Lawtrella</label>
+                        </div>
+                        <div class = "d-flex flex-column justify-content-center">
+                            <button  id = "lawyerSignupButton" class = "btn lt-btn-accent mt-3 disabled" type = "submit">SIGN UP AS LAWYER</button>
+                        </div>
+                                    
+                    </form>
+                 </div>
+                
+              </div>
+              <div id = "lawyerSignupComplete" class = "signup-success d-flex flex-column  justify-content-center p-5">
+                <h2 class = "pl-2">Check your Mail</h2>
+                <lottie-player src="{{ABS_PATH}}/assets/lottiefile.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+                <p class = "pl-2">Thank you for signing up to Lawtrella check your inbox to verify your email</p>
+                <button id = "lawyerGotIt" type = "button" onclick = "dismiss('signup')" class = "btn lt-btn-accent btn-expand">Got It</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Client Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="Login/Signup"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            Login or Signup to continue<span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+     
+        <div class="modal-body">
+            <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link lt-link-bold active" id="login-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login"
+                    aria-selected="true">LOGIN</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link lt-link-bold" id="signup-tab" data-toggle="tab" href="#signup" role="tab" aria-controls="signup"
+                    aria-selected="false">SIGN UP</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                    <form  id = "clientLogin" class="border border-light p-5" >
+                        <p class="h4 mb-4">Log In</p>
+                        <p id = "loginError" class = "error valid">Username already exists</p>
+                       
+                        <div class= "mb-4">
+                            <label for="email">Email</label>
+                            <input id = "loginEmail" name = "email" type="email"  class="form-control" required>
+                        </div>
+                        <div class = "mb-4">
+                            <label for="password">Password</label>
+                            <input id = "loginPassword" name = "password" type="password"  class="form-control">
+                        </div>
+                        <div class = "d-flex flex-column justify-content-center">
+                            <a class = "lt-link ml-2 small" data-toggle = "modal" href="#forgotModal">Forgot password?</a>
+                            <button  id = "clientLoginButton" class = "btn lt-btn-accent mt-3" type = "submit">LOGIN</button>
+                        </div>
+                        
+                        <hr width = "100%"/>
+                        <div class="d-flex flex-column text-center justify-content-center">
+                            <p class = "lt-link">Are you a Lawyer? Login Here Instead</p>
+                            <button type = "button" id = "toggleLawyerLogin" class = "btn lt-btn-secondary">LAWYER LOGIN</button>
+                        </div>                
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+                    <form id = "clientRegisterForm" class="border border-light p-5" ">
+                
+                        <p class="h4 mb-4">Sign Up</p>
+
+                        <p id = "signupError" class = "valid error"></p>
+                
+                        <div class = "mb-4">
+                            <label for="email">Email</label>
+                            <input id = "emailError" name = "email" type="email"  class="form-control" required>
+                            <div  class = "invalid-feedback">
+                                email is invalid
+                            </div>
+                        </div>
+                
+                        <div class = "mb-4">
+                            <label for="password">Full Name</label>
+                            <input id = "passwordError" name = "name" type="text"  class="form-control">
+                            
+                        </div>
+                        
+                        <div class="custom-control custom-checkbox">
+                            <input id = "terms" name = "terms" type="checkbox" class="custom-control-input">
+                            <label class="custom-control-label" for="terms">I have read and agreed to the <a class = "lt-link" href = "#termsnan">Terms and Conditions</a> of Lawtrella</label>
+                        </div>
+                        <div class = "d-flex flex-column justify-content-center">
+                            <button id = "clientSignupButton" class = "btn lt-btn-accent mt-3 disabled" type = "submit">SIGN UP</button>
+                        </div>
+                        
+                        <hr width = "100%"/>
+                        <div class="d-flex flex-column text-center justify-content-center">
+                            <p class = "lt-link-bold">Are you a Lawyer? Sign up Here Instead</p>
+                            <button type = "button" id = "toggleLawyerSignup"   class = "btn lt-btn-secondary">LAWYER SIGNUP</button>
+                        </div>                
+                    </form>
+                </div>
+            </div>
+            <div id = "signupComplete" class = "signup-success d-flex flex-column  justify-content-between align-items-center p-5">
+                <h2 class = "pl-2">Check your Mail</h2>
+                <lottie-player src="{{ABS_PATH}}/assets/lottiefile.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+                <p class = "pl-2">Thank you for signing up to Lawtrella check your inbox to verify your email</p>
+                <button id = "gotrecover" type = "button" onclick = "dismiss('signup')" class = "btn lt-btn-accent btn-expand">Got It</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   <!-- User Details -->
+    {{>userdata}}
+
+   <!-- Recover Modal -->
+  <div class="modal " id="forgotModal" tabindex="-1" role="dialog" aria-labelledby="Recover Password"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div id = "recoverComplete" class = "recover-success d-flex flex-column  align-items-center justify-content-center p-5">
+                <h2 class = "pl-2">Check your Mail</h2>
+                <lottie-player src="{{ABS_PATH}}/assets/lottiefile.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+                <p class = "pl-2">Follow the prompt on your mail to reset your password</p>
+                <button id="gotsignup" type = "button" onclick = "dismiss('recover')" class = "btn lt-btn-accent btn-expand">Got It</button>
+            </div>
+            <form id = "recoverForm" class="border border-light p-5" >
+                <p class="h4 mb-4">Log In</p>
+                <p id = "recoverError" class = "error valid">Username already exists</p>
+                <div class= "mb-4">
+                    <label for="email">Email</label>
+                    <input id = "recoverEmail" name = "email" type="email"  class="form-control" required>
+                </div>
+            
+                <div class = "d-flex flex-column justify-content-center">
+                    
+                    <button  id = "recoverButton" class = "btn lt-btn-accent mt-3" type = "submit">RECOVER</button>
+                </div>              
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+   <!-- Verify Modal -->  
+  <div class="modal " id="verifyModal" tabindex="-1" role="dialog" aria-labelledby="Recover Password"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+            <span id = "verifyDescription"></span>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div id = "recoverComplete" class = "d-flex flex-column  align-items-center justify-content-center p-5">
+                <h3 id = "verifyStatus" class = "pl-2 mb-3">SUCCESS</h3>
+                <i id = "verifyIcon" class="fas fa-check fa-5x lt-accent-color m-5"></i>
+                <a  id="dashboardButton"  href = "{{ABS_PATH}}e-learning/myList" class = "btn lt-btn-accent btn-expand">Goto My Courses</a>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/elearning.js"></script>
 <script src="{{ABS_PATH}}js/libraries/rating.js"></script>
-
-<script>
-    // enroll button 
-    $("#enroll-btn").click(async () => {
-        await $("#course-outline").css("display", "none");
-        await $("#course-content").css("display", "block");
-        $("#enroll-status").text("Enrolled");
-    })
-</script>
+</body>
+</html>

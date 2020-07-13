@@ -158,3 +158,37 @@ exports.othersOptions = () => {
   return tagsHTML;
 }
 
+exports.getUserDetails = req => {
+  if (!req.user) {
+    return { uid: false }
+  }
+  var userObj = {};
+  var uid = req.user ? req.user.uid : false;
+
+  var photoURL = req.user ? req.user.photoURL : false;
+  photoURL = !photoURL ? 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1' : photoURL;
+  var displayName = req.user ? req.user.displayName : "";
+  var email = req.user ? req.user.email : "";
+  var phoneNumber = req.user ? req.user.phoneNumber || "" : "";
+
+  return { uid, photoURL, displayName, phoneNumber, email }
+}
+
+
+exports.courseDetails = async id => {
+  let
+}
+
+exports.verifyCourseSubscripton = (id, req) => {
+  return req.user.customClaims[id]
+}
+
+exports.courseDetails = (course) => {
+  console.log(course)
+  let progress = course.progress ? course.progress + "%" : "Not Started";
+  let title = course.title;
+  let content = course.contentString.split("***");
+  let description = course.details;
+
+  return { progress, title, content, description, count: content.length }
+}

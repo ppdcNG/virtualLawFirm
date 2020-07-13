@@ -2,7 +2,7 @@ const { ABS_PATH, AppName, PAYSTACK_PUB_KEY } = require("../config");
 
 
 const { sendmail, welcomeMail, inviteEmail } = require("../helpers/mail");
-const { token, tagOptions, percentageComplete, familyLawOptions, administrativePublicLawOptions, landPropertyLawOptions, financeCommercialLawOptions, digitalEntertainmentLawOptions, energyProjectsLawOptions, othersOptions } = require("../helpers");
+const { token, getUserDetails } = require("../helpers");
 
 
 var admin = require("firebase-admin");
@@ -10,14 +10,12 @@ var admin = require("firebase-admin");
 
 
 exports.findLawyer = (req, res) => {
-    let uid = req.user ? req.user.uid : false;
-    console.log(uid);
-    let photoURL = req.user ? req.user.photoURL : false;
-    photoURL = !photoURL ? 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1' : photoURL;
-    let displayName = req.user ? req.user.displayName : "";
-    let email = req.user ? req.user.email : "";
-    let phoneNumber = req.user ? req.user.phoneNumber : "";
-    res.render('client/find-lawyer', { uid, title: 'Client page', ABS_PATH, photoURL, displayName, email, phoneNumber });
+    let user = getUserDetails(req);
+    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, ...user });
+};
+exports.consultation = (req, res) => {
+    let user = getUserDetails(req);
+    res.render('client/consultation', { title: 'Client page', ABS_PATH, ...user });
 };
 
 exports.lawyerCategories = (req, res) => {
@@ -35,7 +33,8 @@ exports.lawyerCategories = (req, res) => {
 }
 
 exports.askALawyer = (req, res) => {
-    res.render('client/ask-a-lawyer', { title: 'Ask a Lawyer', ABS_PATH, AppName })
+    let user = getUserDetails(req);
+    res.render('client/ask-a-lawyer', { title: 'Ask a Lawyer', ABS_PATH, AppName, ...user })
 }
 
 exports.registrationPage = (req, res) => {
@@ -47,7 +46,8 @@ exports.login2 = (req, res) => {
 }
 
 exports.legalDocsPage = (req, res) => {
-    res.render('client/legal-docs', { title: 'Legal Documents', ABS_PATH, AppName })
+    let user = getUserDetails(req);
+    res.render('client/legal-docs', { title: 'Legal Documents', ABS_PATH, AppName, ...user })
 }
 exports.confirm = (req, res) => {
     let idCardURL = 'https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png';
@@ -113,33 +113,21 @@ exports.userLogin = async (req, res) => {
 }
 
 exports.dashboard = async (req, res) => {
-    let user = req.user;
-    // console.table(req.user);
-    let { uid, displayName, photoURL, phoneNumber, email } = user;
-    console.log(phoneNumber);
-    let name = displayName.split(" ");
-    let userdb = await admin.firestore().collection('clients').doc(req.user.uid).get();
-    let userdata = userdb.data();
-    console.log(userdata);
+    let user = getUserDetails(req);
 
-    // console.log(name)
-    let firstname = name[0];
-    let lastname = name[name.length - 1];
-    photoURL = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
-
-    let idCardURL = '';
-    let contactPoint = '';
-    if (userdata) {
-        idCardURL = userdata.idCardURL ? userdata.idCardURL : 'https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png';
-        contactPoint = userdata.contactPoint ? userdata.contactPoint : {};
-    }
-    let { state, address, lga } = contactPoint;
-    state = state || "";
-    address = address || "";
-    lga = lga || "";
+    // let idCardURL = '';
+    // let contactPoint = '';
+    // if (userdata) {
+    //     idCardURL = userdata.idCardURL ? userdata.idCardURL : 'https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png';
+    //     contactPoint = userdata.contactPoint ? userdata.contactPoint : {};
+    // }
+    // let { state, address, lga } = contactPoint;
+    // state = state || "";
+    // address = address || "";
+    // lga = lga || "";
 
     res.render('client/newdashboard', {
-        title: 'Client Dashboard', ABS_PATH, AppName, photoURL, idCardURL, uid, displayName, title: "Client Dashboard", email, firstname, lastname, phoneNumber, state, lga, address,
+        title: 'Client Dashboard', ABS_PATH, AppName, title: "Client Dashboard", ...user
     });
 }
 

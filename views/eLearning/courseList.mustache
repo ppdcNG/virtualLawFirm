@@ -8,187 +8,82 @@
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ABS_PATH}}stylesheets/landing.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ABS_PATH}}stylesheets/e-learning.css">
+  
 </head>
 <body>
-   
-    {{> navbar}}
-    <section class="hero">
-        <div class="lt-bg-overlay px-5 d-flex flex-column justify-content-center align-items-center">
-            <div class="row">
-                <div class="left px-5 col-md-6">
-                    <div>
-                        <h5 data-aos="fade-right" data-aos-duration="1500" data-aos-delay="300" >WELCOME TO </h5>
-                        <h1 data-aos-duration="1500" data-aos-delay="800" data-aos="fade-right">LAWTRELLA</h1>
+
+    {{> courses-navbar}}
+    {{>userdata}}
+    <section class = "container">
+            <h4  data-aos="fade-right" data-aos-duration="1500">My List</h4>
+            <hr width="100" align="left"/>
+            <a class="btn btn-sm" href="/e-learning"><i class="fas fa-arrow-left"></i>Back to Portal</a>
+    </section>
+
+    <section class="p-5 container">
+        <h3 class = "mb-4">Courses You enrolled For</h3>
+        <div class = "row" id = "courses" class = "mb-5">
+           
+            <div class="col-md-4">
+                <div class="card placeholder h-100 shadow mt-1" data-aos="zoom-out" data-aos-duration="400">
+                    <div class="view overlay">
+                        <a href="#!">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
                     </div>
-                    
-                </div>
-                <div class = "right col-md-6 px-5">
-                    <p class="hero-description" data-aos-duration="1500" data-aos-delay="1000" data-aos="zoom-in-up">
-                        A digital innovative law firm. Services from your comfort zone,
-                        customised legal service is just one click away
-                    </p>
-                    <a href="#main" data-aos-duration="1500" data-aos-delay="1500" data-aos="fade-up" class="btn lt-btn-accent">GET STARTED</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </section>
 
-    <!--<section class="two d-flex flex-column align-items-center p-5 text-center" id="main">
-        <h2>LEGAL SERVICES YOU CAN TRUST</h2>
-        <p>We are a tech-savvy legal firm operating from our headquarters in Abuja, spanning accross the country.
-            We are unimpeded by geographic boundaries, so our our team of professional lawyers work to ensure that
-            the law serves our clients from wherever they are, from the comfort of their devices.
-            We believe in a responsive, friendly, professional and affordable service.
-            Signup and get started - We look forward to serving you.</p>
-            <a href="#loginModal" onclick = "clientTab('signup')" data-toggle = "modal" class="btn lt-btn-secondary">SIGNUP NOW</a>
-    </section>-->
-    <section class = "three text-center p-5">
-        <h3>WE OFFER A RANGE OF SERVICES</h3>
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="lt-feature-card d-flex flex-column justify-content-center align-items-center">
-                    <img data-aos-duration="1000" data-aos="zoom-in-up" class='lt-feature-image' src="{{ABS_PATH}}images/lawstatue.jpg">
-                    <a href="/client/findLawyer" class="btn lt-btn-accent">Find a Lawyer</a>
-                    <p class="lt-feature-description">
-                       Get top representation and legal counsel from the best lawyers in practice, who will cater for your legal needs
-                    </p>
+                    <div class="card-body d-flex flex-column">
+                        <h4 class="card-title placeholder"></h4>
+                        <p class = 'placeholder card-text'></p>
+                        <button class = "btn placeholder"></button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="lt-feature-card d-flex flex-column justify-content-center align-items-center">
-                    <img data-aos-duration="1500" data-aos="zoom-in-up" class='lt-feature-image' src="{{ABS_PATH}}images/signdocuments.jpg">
-                    <a href="/client/docs" class="btn lt-btn-accent">Legal Documents</a>
-                    <p class="lt-feature-description">
-                        Curated legal documents ranging from tenant agreements, wills, non disclosures and many more. All customisable to
-                        meet your specific needs
-                    </p>
+            <div class="col-md-4">
+                <div class="card placeholder h-100 shadow mt-1" data-aos="zoom-out" data-aos-duration="400">
+                    <div class="view overlay">
+                        <a href="#!">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <h4 class="card-title placeholder"></h4>
+                        <p class = 'placeholder card-text'></p>
+                        <button class = "btn placeholder"></button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="lt-feature-card d-flex flex-column justify-content-center align-items-center">
-                    <img data-aos-duration="1500" data-aos="zoom-in-up" class='lt-feature-image' src="{{ABS_PATH}}images/lawbooks.jpg">
-                    <a href="/e-learning" class="btn lt-btn-accent">E-Learning</a>
-                    <p class="lt-feature-description">
-                        Get ahead in your carreer and level up your legal skills with professional courses from lawtrella from
-                        brought you
-                        from the best attorneys
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="lt-feature-card d-flex flex-column justify-content-center align-items-center">
-                    <img data-aos-duration="1500" data-aos="zoom-in-up" class='lt-feature-image' src="{{ABS_PATH}}images/questionmarg.jpg">
-                    <a href="client/askLawyer" class="btn lt-btn-accent">Ask a Lawyer</a>
-                    <p class="lt-feature-description">
-                        Need some legal advise concerning a matter, get limited free legal advice chat with one of our lawyers now
-                    </p>
+            <div class="col-md-4">
+                <div class="card placeholder h-100 shadow mt-1" data-aos="zoom-out" data-aos-duration="400">
+                    <div class="view overlay">
+                        <a href="#!">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <h4 class="card-title placeholder"></h4>
+                        <p class = 'placeholder card-text'></p>
+                        <button class = "btn placeholder"></button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-    <section class = "p-5">
-        <div class="row justify-content-center create-course">
-            <div class="col-md-6 align-items-center">
-                <div class="">
-                    <img data-aos-duration="1000" data-aos="zoom-in-up" class='lt-feature-image' src="{{ABS_PATH}}images/macbookcreate.png">
-                </div>
-            </div>
-            <div class="col-md-6 d-flex flex-column justify-content-center">
-                <div class="p-5">
-                    <h1 class = "mt-3 lt-light-text" style = "width: 60%">Create your own course</h1>
-                    <p>Are you an expert in an area of specialization looking to share your knowledge with a broader audience? Submit your application to start sharing with lawtrella</p>
-                    <a href = "/e-learning/create"class = "btn btn-lg lt-btn-secondary">CREATE COURSE </a>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
-    <section class="four d-flex flex-column justify-content-center align-items-center">
-
-       <div class="row py-5 px-sm-5">
-           <a href = "{{ABS_PATH}}client/findLawyer" class="lt-feature-icon col-md-2 text-center d-flex flex-column align-items-center p-3 justify-content-around">
-               <h4>Find a Lawyer</h4>
-               <img src="{{ABS_PATH}}images/find.svg" >
-               <p>Search for top attorneys in the country</p>
-           </a>
-           <a href = "{{ABS_PATH}}client/askLawyer" class="lt-feature-icon col-md-2 text-center d-flex flex-column align-items-center p-3 justify-content-around">
-               <h4>Ask a Lawyer</h4>
-               <img src="{{ABS_PATH}}images/ask.svg" >
-               <p>The best legal advice is a click away</p>
-           </a>
-           <a href = "/e-learning" class="lt-feature-icon col-md-2 text-center d-flex flex-column align-items-center p-3 justify-content-around">
-               <h4>Corporate Mall</h4>
-               <img src="{{ABS_PATH}}images/shoppingcart.svg" >
-               <p>Shop for your favourite Legal Items</p>
-           </a>
-           <a  href = "#" class="lt-feature-icon col-md-2 text-center d-flex flex-column align-items-center p-3 justify-content-around">
-               <h4>Notary Public</h4>
-               <img src="{{ABS_PATH}}images/notarypublic.svg" >
-               <p>A directory of Notary Publics</p>
-           </a>
-           <a  href = "#/e-learning" class="lt-feature-icon col-md-2 text-center d-flex flex-column align-items-center p-3 justify-content-around">
-               <h4>E-Learning</h4>
-               <img src="{{ABS_PATH}}images/learning.svg" >
-               <p>Advance your career with our courses</p>
-           </a>
-           <a  href = "/client/docs" class="lt-feature-icon col-md-2 text-center d-flex flex-column align-items-center p-3 justify-content-around">
-               <h4>Legal Docs</h4>
-               <img src="{{ABS_PATH}}images/docs.svg" >
-               <p>Variety of personlized legal Docs</p>
-           </a>
-       </div>
-
-    </section>
-
-   
-<footer class="page-footer font-small teal pt-4">
-
-   
-    <div class="container-fluid text-center text-md-left">
-      <div class="row">
-        <div class="col-md-6 mt-md-0 mt-3">
-          <h5 class="">Contact</h5>
-          <span><b>Email</b>: info@lawtrella.com</span>
-          <span><b>Phone</b>: +234(0) 706 6475 316</span>
-        </div>
-        <hr class="clearfix w-100 d-md-none pb-3">
-        <div class="col-md-3 mb-md-0 mb-3 terms-conditions">
-          <h5 class="text-uppercase">Terms and Conditions</h5>
-          <ul class="list-unstyled">
-            <li>
-              <a href="/privacy">Privacy Policy</a>
-            </li>
-            <li>
-              <a href="/terms">Terms of Use</a>
-            </li>
-            <li>
-              <a href="/lawyerTerms">Lawyers Terms of Use</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-md-3 mb-md-0 mb-3">
-          <h5 class="text-uppercase">Social</h5>
-          <div class="flex flex-row justify-content-between align-items-center">
-            <i class="fab fa-facebook-f ml-2"></i>
-            <i class="fab fa-twitter ml-2"></i>
-            <i class="fab fa-instagram ml-2"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-copyright text-center py-3">© 2020 Copyright:
-      <a href="https://lawtrella.com"> Lawtrella</a>
-    </div>
     
+
+   
+{{> footer-new}}
   
-  </footer>
 
 
   
@@ -426,7 +321,7 @@
 
 
 
-      <!-- JQuery -->
+    
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
@@ -434,13 +329,20 @@
 
       {{! Core Nippet Javascript includes }}
    {{> core}}
+     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-storage.js"></script>
+    
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+    <script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
 
   <script src="{{ABS_PATH}}js/auth.js"></script>
   <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
-  <script src="{{ABS_PATH}}js/lawyer/lawyerScript.js"></script>
-  <script src="{{ABS_PATH}}js/client/clientScript.js"></script>
-  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="{{ABS_PATH}}js/elearning/mylist.js"></script>
+
+ 
 
 </body>
 </html>

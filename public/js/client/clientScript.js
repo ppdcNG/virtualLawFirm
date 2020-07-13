@@ -1,3 +1,5 @@
+
+
 $("#terms").change((e) => {
     let checked = $("#terms").is(':checked');
     if (checked) {
@@ -78,16 +80,18 @@ $("#clientConfirm").submit(function (e) {
         processData: false,
         success: function (response) {
             console.log(response);
-            if (!response.err) {
-                $.notify(response.message, { type: "success" });
+            if (!response.err && response.email) {
+                $.notify(response.message, { type: "success", delay: 3000, zIndex: 1000 });
+                $.notify("Signing In", { type: "primary", zIndex: 1000 });
                 $("#clientConfirm").hide();
-
                 $("#recoverComplete").removeClass('signup-success');
+                clientSignIn(response.email, form.password, () => { window.location = ABS_PATH + 'client/dashboard' });
             } else {
                 $.notify(response.message, { type: "warning" });
                 $("#confirmError").html(response.message);
                 $("#confirmError").removeClass('valid');
                 clearLoad('continue', 'Continue');
+
             }
         },
         error: e => {
@@ -106,7 +110,7 @@ $("#clientLogin").submit(function (e) {
     clientSignIn(email, password);
 });
 var uservar;
-const clientSignIn = async (email, password) => {
+const clientSignIn = async (email, password, callback) => {
     try {
         buttonLoad('clientLoginButton')
         let res = await firebase.auth().signInWithEmailAndPassword(email, password);
@@ -127,7 +131,9 @@ const clientSignIn = async (email, password) => {
                     $("#loginModal").modal('hide');
                     $.notify("Logging in", { type: "success" });
                     setTimeout(function () {
-                        window.location.reload();
+                        if (callback) {
+                            callback()
+                        } else { window.location.reload(); }
                         clearLoad('clientLoginButton', 'Login');
                     }, 300);
                 }
