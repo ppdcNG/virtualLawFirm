@@ -63,7 +63,15 @@
 
 <br/><br/><br/>
 
-{{> footer}}
+{{> footer-new}}
+   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+      </script>
+
+      {{! Core Nippet Javascript includes }}
+   {{> core}}
+   <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
 
 <script src="{{ABS_PATH}}js/auth.js"></script>
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>

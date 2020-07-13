@@ -5,8 +5,10 @@ $(document).ready(() => {
   $("#askLawyerButton").click((e) => {
     console.log('lawyer clicked')
     let uid = $("#uid").val();
-    if (!uid) {
+    console.log(uid);
+    if (uid == "false") {
       $("#loginModal").modal('show');
+      return
     }
     else {
       let url = ABS_PATH + 'askLawyer';
@@ -31,7 +33,7 @@ $(document).ready(() => {
 const fetchAdvices = async () => {
 
   $("#loadingTasks").css('display', 'block');
-  let advises = await firebase.firestore().collection('questions').orderBy('timestamp').onSnapshot(handleFetchAdvises).catch((e) => { console.log(e) });
+  let advises = await firebase.firestore().collection('questions').orderBy('timestamp').onSnapshot(handleFetchAdvises);
 }
 
 const handleFetchAdvises = advises => {
@@ -39,6 +41,7 @@ const handleFetchAdvises = advises => {
   let count = 0;
   advises.forEach(question => {
     let data = question.data();
+    console.log(data)
     advisesHTML += renderAnswers(data, count);
     count++
   });
@@ -86,7 +89,7 @@ const renderAnswers = (question, id) => {
       <div class = "start d-flex flex-row align-items-center">
         <img  src='https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1' class="rounded-circle z-depth-1 m-2" style = "border: 1px solid var(--accent-colr)" alt="avatar image" height="50" width="50">
         <div class="">
-          <h5 class = "lt-light-text m-0">${name}<h5>
+          <h5 class = "lt-light-text m-0">${subject}<h5>
           <label>${name}</label>
         </div>
       </div>
