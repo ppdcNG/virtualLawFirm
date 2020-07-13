@@ -13,13 +13,14 @@ router.get('/confirm', clientController.confirm);
 router.post('/login', clientController.userLogin)
 router.post('/signup', clientController.signup);
 
-router.get('/askLawyer', requireLogin, clientController.askALawyer);
+router.get('/askLawyer', requireUser, clientController.askALawyer);
 
 router.get('/login2', clientController.login2);
 
 router.post('/invite', clientController.sendInvite);
 
 router.get('/dashboard', requireLogin, clientController.dashboard);
+router.get('/consultation', requireLogin, clientController.consultation);
 // router.get('/lawyerList', clientController.lawyerList);
 router.post('/updateSettings', requireLogin, clientController.updateSettings);
 router.post('/updateProfile', requireLogin, clientController.updateProfile);

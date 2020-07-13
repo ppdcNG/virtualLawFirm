@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    {{>core-links}}
+    <link rel="stylesheet" href="{{ABS_PATH}}stylesheets/landing.css">
+    <link rel="stylesheet" href="{{ABS_PATH}}stylesheets/find-lawyer.css">
+</head>
+<body>
+{{>dashboard-nav}}
+            <div class = 'container mt-5'>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-5">
+                        
+                        <h4 class="mb-2">My Matter</h4>
+                        <div class="card h-100" style="background-color: #C8F2EF;">
+                            <div class="lawyer-card card-body" onclick = "gotoLawyer('${id}')">
+                               <form class = "px-5" id = "taskIssue">
+                                    <h5>Edit the details of you issue</h5>
+                                    <div>
+                                        <label for="name">Subject of your Issue</label>
+                                        <input   name = "subject" value = "name" type="name" id="lawyerSignupPassword" class="form-control mb-4 disabled">
+                                        <div class="form-group">
+                                            <label for="adviceForm">Description of your Issue?</label>
+                                            <textarea class="form-control" name="issue" rows="2" placeholder="Write here..."></textarea>
+                                        </div>
+                                    </div>
+                                    <button class = "btn lt-btn-accent" id = "saveIssueButton" type = "submit">Save</button>
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "col-md-6 mb-5">
+                        
+                        <h4 class="mb-2">My Lawyer</h4>
+                        <div class="card h-100" style="background-color: #C8F2EF;">
+                            <div class="lawyer-card card-body" onclick = "gotoLawyer('${id}')">
+                                <div class = "mt-3 row">
+                                    <div class="col-md-6 d-flex flex-column justify-content-center">
+                                        <h5 class="card-title font-weight-bold mr-auto mb-1">jonh doe brown
+                                        </h5>
+                                        <small>Contract Law Expert</small>
+                                    </div>
+                                    <div class = "col-md-6 d-flex justify-content-center align-items-center">
+                                        <img src="{{photoURL}}" class="rounded-circle z-depth-0" style = "border: 1px solid var(--accent-colr)" alt="avatar image" height="70" width="70">
+                                    </div>
+                                </div>
+                                <div class = "d-flex flex-row justify-content-between mt-4">
+                                    <div clasS = "d-flex flex-column justify-content-center">
+                                        <span class = "lawyer-feature-header">Year of Experience</span>
+                                        <span class = "lawyer-feature-value">5 yrs</span>
+                                    </div>
+                                    <div>
+                                        <a href = "/client/consultation/${id}/" class="btn lt-btn-secondary">Manage</a>
+                                    </div>
+                                </div>
+                                <div>
+                                        <span class = "lawyer-tags">anitrust and competition</span>
+                                        <span class = "lawyer-tags">anitrust and competition</span>
+                                        <span class = "lawyer-tags">anitrust and competition</span>
+                                        <span class = "lawyer-tags">anitrust and competition</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class = "col-md-6 mb-5">
+                        <h4 class="mb-2">My Tasks</h4>
+                        <section class = "card h-100 card-section"   id = "taskSection">
+                            
+                            <div class = "card section-card">
+                                <div class = "card-body">
+                                <form class = "taskIssue">
+                                    <div>
+                                        <label for="name">Subject of your task</label>
+                                        <input   name = "subject" value = "name" type="name" id="lawyerSignupPassword" class="form-control mb-4 disabled">
+                                        <div class="form-group">
+                                            <label for="adviceForm">Description of your Issue?</label>
+                                            <textarea class="form-control" name="issue" rows="3" placeholder="Write here..."></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+{{>userdata}}
+{{>core}}
+{{>footer-new}} 
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-storage.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/client/dashboard.js"></script>  
+</body>
+</html>

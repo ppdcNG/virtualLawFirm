@@ -1,0 +1,407 @@
+{{> header}}
+<style>
+    #dashboard-main .sidenav,
+    #dashboard-main .main-content {
+        margin-top: 6vh;
+    }
+    #dashboard-main .nav-item {
+        margin: 1vh 0;
+    }
+    #dashboard-main .nav-item a {
+        color: #fff;
+        opacity: 0.9;
+    }
+    #dashboard-main a.nav-link.active {
+        background: rgba(59, 209, 199, 0.5) !important;
+    }
+    
+    .chat.list-group-item {
+        margin: 10px 0;
+        width: 80%;
+        max-width: 80%;
+        border-radius: 20px;
+    }
+    .lawyer-msg {
+        background: #fff;
+    }
+    .client-msg {
+        background: #dcdcdc;
+    }
+    img.rounded-circle {
+        width: 60px;
+        height: 60px;
+    }
+    .lawyer-tags {
+    display: inline-block;
+    box-sizing: border-box;
+    font-size: .7rem;
+    background: var(--accent-colr);
+    padding-left: 8px;
+    padding-right: 8px;
+    color: white;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+
+.lawyer-info {
+    font-size: .8rem;
+    color: rgb(102, 95, 95);
+    display: inline-block;
+}
+
+.lawyer-card {
+    cursor: pointer;
+}
+
+.lawyer-feature-header {
+    font-size: .5rem;
+    color: rgb(114, 111, 111);
+    display: block;
+}
+</style>
+{{> dashboard-nav}}
+
+<main class="row mb-5" id="dashboard-main">
+    <div class="col-md-2" style="background:#406966;">
+        <ul class="nav nav-pills mb-3 flex-column sidenav" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="dashboard-pill-tab" data-toggle="pill" href="#dashboard-pill" role="tab"
+                aria-controls="dashboard-pill" aria-selected="true"><i class="fas fa-tachometer-alt mr-3"></i>&nbsp; Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tasks-tab" data-toggle="pill" href="#tasks" role="tab"
+                aria-controls="tasks" aria-selected="false"><i class="fas fa-tasks mr-3"></i>&nbsp; My Tasks</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="docs-tab" data-toggle="pill" href="#docs" role="tab"
+                aria-controls="docs" aria-selected="false"><i class="far fa-file-alt mr-4"></i> My Docs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="chat-tab" data-toggle="pill" href="#chat" role="tab"
+                aria-controls="chat" aria-selected="false"><i class="far fa-comments mr-3" aria-hidden="true"></i> Chat</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="settings-tab" data-toggle="pill" href="#settings" role="tab"
+                aria-controls="settings" aria-selected="false"><i class="fas fa-cogs mr-3" aria-hidden="true"></i> Settings</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-10">
+        <div class="tab-content pt-2 pl-1 main-content" id="pills-tabContent">
+            {{! main dashboard tab }}
+            <div class="tab-pane fade show active" id="dashboard-pill" role="tabpanel" aria-labelledby="dashboard-pill-tab">
+                <div class="card col-4 bg-default text-white">
+                    <div class="card-body mt-3">
+                        <h5 class="card-title">Hello {{displayName}},</h5>
+                    </div>
+                </div>
+                <div class="row container my-3 text-center">
+                    <div class="col-sm-4 mb-3 mb-md-0">
+                        <div class="card teal lighten-5">
+                            <div class="card-body">
+                                <h5 class="card-title">Active Consultation</h5>
+                                <h1><i class="fas fa-hands-helping"></i> <span id = "activeConsulting">2</span></h1>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="card teal lighten-5">
+                            <div class="card-body">
+                                <h5 class="card-title">Completed Consultation</h5>
+                                <h1><i class="far fa-handshake"></i> <span id = "closedConsulting">2<span></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <h4>Consultations</h4>
+                <div id = "consultations" class="row row-cols-1 row-cols-md-2 mt-5 pt-3 ml-2" id="fetchMatchingLawyers">
+                    
+                </div>
+            </div>
+
+            {{! my tasks tab  }}
+            <div class="tab-pane fade" id="tasks" role="tabpanel" aria-labelledby="tasks-tab">
+                <div class="row container">
+                    <div class="col-md-8 rounded mb-0 px-3 pt-3" style="background:#C8F2EF;">
+                        <h4 class="mb-2">My Tasks</h4>
+                        <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Lawyer</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                            <tr>
+                            <td>Suing my husband</td>
+                            <td>Adeniyi Ola</td>
+                            <td>29 Nov 2020</td>
+                            <td>Active</td>
+                            <td><button class="btn btn-sm btn-warning">Manage</button></td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                    <div class="container col-md-4 rounded mb-0">
+                        <div class="rounded mb-0 px-3 pt-3" style="background:#C8F2EF;height:70vh">
+                            <h5 class="mb-2"><strong>Notifications</strong></h5>
+                            <p><strong>Invoice Notification <span class="text-right bg-warning text-white px-1">22 june 2019</span></strong></p>
+                            <p class="text-muted">You have a pending Invoice payment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{! my docs tab  }}
+            <div class="tab-pane fade" id="docs" role="tabpanel" aria-labelledby="docs-tab">My Docs<br/>Under Construction...</div>
+
+            {{! chat tab  }}
+            <div class="tab-pane fade" id="chat" role="tabpanel" aria-labelledby="chat-tab">
+                <div class="row container">
+                    <div class="col-md-2 text-center">
+                        <ul class="nav nav-pills border mb-0 mb-3 flex-column shadow" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <div class="avatar mx-auto white "><img src="https://bit.ly/3gLJpvB"
+                                    alt="avatar mx-auto white" class="rounded-circle img-fluid">
+                                    <h4 class="card-title mt-1">John Doe</h4>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <div class="avatar mx-auto white "><img src="https://bit.ly/3gLJpvB"
+                                    alt="avatar mx-auto white" class="rounded-circle img-fluid">
+                                    <h4 class="card-title mt-1">John Doe</h4>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <div class="avatar mx-auto white "><img src="https://bit.ly/3gLJpvB"
+                                    alt="avatar mx-auto white" class="rounded-circle img-fluid">
+                                    <h4 class="card-title mt-1">John Doe</h4>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <div class="avatar mx-auto white "><img src="https://bit.ly/3gLJpvB"
+                                    alt="avatar mx-auto white" class="rounded-circle img-fluid">
+                                    <h4 class="card-title mt-1">John Doe</h4>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 rounded mb-0 px-3 pt-3" style="background:#C8F2EF;">
+                        <h4>John Doe</h4>
+                        <hr/>
+                        <section style="height:50vh;overflow-y:scroll">
+                        <div class="d-flex flex-row">
+                            <div class="chat list-group-item shadow lawyer-msg py-3">
+                                <p class="mb-0"><span class="border rounded-circle px-3 py-2 bg-default text-white mr-3">L</span> Hello</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row-reverse">
+                            <div class="chat list-group-item shadow client-msg py-3 text-right">
+                                <p class="mb-0"></i>Hi, I need help <span class="border rounded-circle px-3 py-2 bg-default text-white ml-3">C</span></p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row">
+                            <div class="chat list-group-item shadow lawyer-msg py-3">
+                                <p class="mb-0"><span class="border rounded-circle px-3 py-2 bg-default text-white mr-3">L</span> I'm here to help</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row-reverse">
+                            <div class="chat list-group-item shadow client-msg py-3 text-right">
+                                <p class="mb-0"></i>I want to embezzle funds <span class="border rounded-circle px-3 py-2 bg-default text-white ml-3">C</span></p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-row">
+                            <div class="chat list-group-item shadow lawyer-msg py-3">
+                                <p class="mb-0"><span class="border rounded-circle px-3 py-2 bg-default text-white mr-3">L</span> Woa, Calm down.</p>
+                            </div>
+                        </div>
+                        </section>
+                        <input type="text" id="msg" class="form-control mt-3 p-3" placeholder="Type message..." />
+                    </div>
+                    <div class="container col-md-4 rounded mb-0">
+                        <div class="rounded mb-0 px-3 pt-3" style="background:#C8F2EF;height:70vh">
+                            <h5 class="mb-2"><strong>Notifications</strong></h5>
+                            <p><strong>Invoice Notification <span class="text-right bg-warning text-white px-1">22 june 2019</span></strong></p>
+                            <p class="text-muted">You have a pending Invoice payment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{! settings tab  }}
+            <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">Settings<br/>Under Construction...</div>
+        </div>
+    </div>
+</main>
+{{>userdata}}
+{{> core}}
+{{> footer-new}}
+
+
+<!-- Modal -->
+<div class="modal fade" id="updateProfileModal" tabindex="-1" role="dialog" aria-labelledby="updateProfileModalTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateProfileModalTitle">Profile</h5>
+        <button type="button" id="closeProfileModal" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+            <form id="uploadPic" class="text-center container">
+                <img id="chosenPic" src="{{photoURL}}" style="width:100;height:100" class="rounded-circle mx-auto d-block" alt="profile_pic">
+                <div class="md-form">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="profilePic" accept="image/x-png,image/jpg,image/jpeg" required>
+                      <label class="custom-file-label" for="profilePic" data-browse="Select">Select a profile picture</label>
+                    </div>
+                <button type="submit" class="btn btn-info mt-3" id="uploadPicBtn">Upload</button>
+                </div>
+            </form>
+
+            <hr class="border"/>
+            <form id = "updateProfile" class="container">
+                <div class="md-form">
+                    <input type="text" name="address" class="form-control" value = "{{address}}" required>
+                    <label for="address">Address</label>
+                </div>
+
+                <div class="md-form">
+                    <input type="text"  value = "{{lga}}" name="lga" class="form-control" required>
+                    <label for="lga">L.G.A</label>
+                </div>
+
+                 <div class="md-form">
+                    <input type="text" value = "{{state}}" name="state" class="form-control" required>
+                    <label for="state">State</label>
+                </div>
+
+                <div class="text-center">
+                  <button type="submit" class="btn btn-info mt-3" id="updateProfileBtn">Save</button>
+                </div>
+            </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- change settings modal -->
+<div class="modal fade" id="changeSettingsModal" tabindex="-1" role="dialog" aria-labelledby="changeSettingsModalTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="changeSettingsModalTitle">Settings</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+            <form id="settingsForm" class="text-center container">
+                <div class="form-row">
+                    <div class="col">
+                        <div class="md-form">
+                            <input type="text" id="fname" name="firstname" value  = "{{firstname}}" class="form-control">
+                            <label for="firstName">First name</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input type="text" id="lname" name="lastname" value = "{{lastname}}" class="form-control">
+                            <label for="lastName">Last name</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md-form mt-0">
+                    <input type="text" id="pnumber" name="phoneNumber" value = "{{phoneNumber}}" class="form-control">
+                    <label for="number">Phone number</label>
+                </div>
+                
+                <div class="md-form mt-0">
+                    <input type="email" id="email" name="email" value = {{email}} class="form-control">
+                    <label for="email">E-mail</label>
+                </div>
+
+                 <div class="md-form mt-0">
+                    <input type="text" id="pswd" name="password" class="form-control">
+                    <label for="password">Password</label>
+                </div>
+
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" id="submitprofile" class="btn btn-primary">Save changes</button>
+
+            </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script type = "text/javascript">
+      if (window.location.href == 'http://localhost:3000/client/dashboard/#chat') {
+        $("#chat-tab").trigger("click");
+      }
+</script>
+ 
+   <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-storage.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/client/dashboard.js"></script>

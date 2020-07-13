@@ -244,6 +244,7 @@ exports.verifyUserEmail = async (req, res) => {
       return;
     });
 
+
   admin.firestore().collection('usersTemp').doc(token).delete();
   let client = {
     name,
@@ -261,7 +262,8 @@ exports.verifyUserEmail = async (req, res) => {
   await admin.auth().setCustomUserClaims(user.uid, { client: true });
   let returnObj = {
     message: "You account has been verified, you may now login to your dashboard",
-    status: "success"
+    status: "success",
+    email
   };
   res.send(returnObj);
 };

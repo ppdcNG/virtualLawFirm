@@ -109,7 +109,7 @@ const renderFoundLawyer = lawyer => {
 const renderLawyerTags = tags => {
     let html = '';
     tags.forEach((value, index) => {
-        html += `<span class = "lawyer-tags">${value}</span>`;
+        html += `<span class = "lawyer-tags">${truncate(value, 15)}</span>`;
     });
     return html;
 }
@@ -148,9 +148,9 @@ const payWithPaystack = (fee, id) => {
             console.log(response);
             $("#verifyModal").modal('show');
             let lawyer = {
-                ...lawyerInfo.contact, email: lawyerInfo.email, uid: id, name: lawyerInfo.name
+                ...lawyerInfo.contact, email: lawyerInfo.email, uid: id, name: lawyerInfo.name, portfolio: lawyerInfo.portfolio
             }
-
+            console.log(lawyer);
             let dataObj = {
                 paystackRef: response.reference,
                 lawyer,
@@ -184,9 +184,10 @@ const payWithPaystack = (fee, id) => {
             });
 
         },
-        onClose: function () {
+        onClose: function (e) {
+            console.log(e)
             console.log('window closed');
-            console.log('closed', response);
+            console.log('closed', close);
         }
     });
     handler.openIframe();

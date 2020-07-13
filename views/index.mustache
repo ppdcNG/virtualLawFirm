@@ -14,10 +14,7 @@
     <link rel="stylesheet" href="{{ABS_PATH}}stylesheets/landing.css">
 </head>
 <body>
-    <div class="lt-contact-strip d-flex flex-row justify-content-around align-items-center">
-        <span><b>Call Now :</b> +234 (0) 706 6475 316</span>
-        <span><b>Email :</b> info@lawtrella.com</span>
-    </div>
+   
     {{> navbar}}
     <section class="hero">
         <div class="lt-bg-overlay px-5 d-flex flex-column justify-content-center align-items-center">
@@ -34,7 +31,7 @@
                         A digital innovative law firm. Services from your comfort zone,
                         customised legal service is just one click away
                     </p>
-                    <a href="#" data-aos-duration="1500" data-aos-delay="1500" data-aos="fade-up" class="btn lt-btn-accent">GET STARTED</a>
+                    <a href="#main" data-aos-duration="1500" data-aos-delay="1500" data-aos="fade-up" class="btn lt-btn-accent">GET STARTED</a>
                 </div>
             </div>
         </div>
@@ -42,7 +39,7 @@
         
     </section>
 
-    <section class="two d-flex flex-column align-items-center p-5 text-center">
+    <!--<section class="two d-flex flex-column align-items-center p-5 text-center" id="main">
         <h2>LEGAL SERVICES YOU CAN TRUST</h2>
         <p>We are a tech-savvy legal firm operating from our headquarters in Abuja, spanning accross the country.
             We are unimpeded by geographic boundaries, so our our team of professional lawyers work to ensure that
@@ -50,7 +47,7 @@
             We believe in a responsive, friendly, professional and affordable service.
             Signup and get started - We look forward to serving you.</p>
             <a href="#loginModal" onclick = "clientTab('signup')" data-toggle = "modal" class="btn lt-btn-secondary">SIGNUP NOW</a>
-    </section>
+    </section>-->
     <section class = "three text-center p-5">
         <h3>WE OFFER A RANGE OF SERVICES</h3>
         <div class="row justify-content-center">
@@ -95,26 +92,53 @@
             </div>
         </div>
     </section>
+    <section class = "p-5">
+        <div class="row justify-content-center create-course">
+            <div class="col-md-6 align-items-center">
+                <div class="">
+                    <img data-aos-duration="1000" data-aos="zoom-in-up" class='lt-feature-image' src="{{ABS_PATH}}images/macbookcreate.png">
+                </div>
+            </div>
+            <div class="col-md-6 d-flex flex-column justify-content-center">
+                <div class="p-5">
+                    <h1 class = "mt-3 lt-light-text" style = "width: 60%">Create your own course</h1>
+                    <p>Are you an expert in an area of specialization looking to share your knowledge with a broader audience? Submit your application to start sharing with lawtrella</p>
+                    <a href = "/e-learning/create"class = "btn btn-lg lt-btn-secondary">CREATE COURSE </a>
+                </div>
+            </div>
+            
+        </div>
+    </section>
 
     <section class="four d-flex flex-column justify-content-center align-items-center">
 
        <div class="row py-5 px-sm-5">
-           <a href = "/e-learning" class="lt-feature-icon col-md-3 d-flex flex-column align-items-center p-3 justify-content-around">
-               <h4>E-Commerce</h4>
+           <a href = "{{ABS_PATH}}client/findLawyer" class="lt-feature-icon col-md-2 text-center d-flex flex-column align-items-center p-3 justify-content-around">
+               <h4>Find a Lawyer</h4>
+               <img src="{{ABS_PATH}}images/find.svg" >
+               <p>Search for top attorneys in the country</p>
+           </a>
+           <a href = "{{ABS_PATH}}client/askLawyer" class="lt-feature-icon col-md-2 text-center d-flex flex-column align-items-center p-3 justify-content-around">
+               <h4>Ask a Lawyer</h4>
+               <img src="{{ABS_PATH}}images/ask.svg" >
+               <p>The best legal advice is a click away</p>
+           </a>
+           <a href = "/e-learning" class="lt-feature-icon col-md-2 text-center d-flex flex-column align-items-center p-3 justify-content-around">
+               <h4>Corporate Mall</h4>
                <img src="{{ABS_PATH}}images/shoppingcart.svg" >
                <p>Shop for your favourite Legal Items</p>
            </a>
-           <a  href = "#" class="lt-feature-icon col-md-3 d-flex flex-column align-items-center p-3 justify-content-around">
+           <a  href = "#" class="lt-feature-icon col-md-2 text-center d-flex flex-column align-items-center p-3 justify-content-around">
                <h4>Notary Public</h4>
                <img src="{{ABS_PATH}}images/notarypublic.svg" >
                <p>A directory of Notary Publics</p>
            </a>
-           <a  href = "#/e-learning" class="lt-feature-icon col-md-3 d-flex flex-column align-items-center p-3 justify-content-around">
+           <a  href = "#/e-learning" class="lt-feature-icon col-md-2 text-center d-flex flex-column align-items-center p-3 justify-content-around">
                <h4>E-Learning</h4>
                <img src="{{ABS_PATH}}images/learning.svg" >
                <p>Advance your career with our courses</p>
            </a>
-           <a  href = "/client/docs" class="lt-feature-icon col-md-3 d-flex flex-column align-items-center p-3 justify-content-around">
+           <a  href = "/client/docs" class="lt-feature-icon col-md-2 text-center d-flex flex-column align-items-center p-3 justify-content-around">
                <h4>Legal Docs</h4>
                <img src="{{ABS_PATH}}images/docs.svg" >
                <p>Variety of personlized legal Docs</p>
@@ -135,14 +159,17 @@
           <span><b>Phone</b>: +234(0) 706 6475 316</span>
         </div>
         <hr class="clearfix w-100 d-md-none pb-3">
-        <div class="col-md-3 mb-md-0 mb-3">
+        <div class="col-md-3 mb-md-0 mb-3 terms-conditions">
           <h5 class="text-uppercase">Terms and Conditions</h5>
           <ul class="list-unstyled">
             <li>
-              <a href="#!">Terms of Use</a>
+              <a href="/privacy">Privacy Policy</a>
             </li>
             <li>
-              <a href="#!">Disclaimer</a>
+              <a href="/terms">Terms of Use</a>
+            </li>
+            <li>
+              <a href="/lawyerTerms">Lawyers Terms of Use</a>
             </li>
           </ul>
         </div>

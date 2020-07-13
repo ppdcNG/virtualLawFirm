@@ -180,8 +180,8 @@ section.four {
 }
 
 .lt-feature-icon {
-    height: 250px;
-    width: 250px;
+    height: 180px;
+    width: 180px;
     border: 1px solid black;
     background-color: var(--main-color);
     color: black;
@@ -189,6 +189,8 @@ section.four {
     transition: background-color 500ms ease-in;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .lt-feature-icon:hover {
@@ -197,13 +199,14 @@ section.four {
 }
 
 .lt-feature-icon img {
-    width: 89px;
-    height: 95px;
+    width: 50px;
+    height: 50px;
 }
 
 .lt-feature-icon h4 {
     font-family: 'Josefin Sans', sans-serif;
-    margin-bottom: .8rem;
+    margin-bottom: .4rem;
+    font-size: 18px;
     text-transform: uppercase;
 }
 
@@ -211,7 +214,7 @@ section.four {
     text-align: center;
     margin: 0;
     margin-top: 1rem;
-    font-size: .8rem;
+    font-size: 12px;
 }
 
 /* Login and Signup Modal */
@@ -244,6 +247,27 @@ p.error {
 
 .recover-success, .signup-success {
     display: none !important;
+}
+
+/* create course */
+
+.create-course {
+    position: relative;
+}
+
+.create-course::before {
+    content: "";
+    height: 80%;
+    width: 100%;
+    top: 10%;
+    position: absolute;
+    background-color: rgba(248, 178, 79, 0.185)
+}
+
+/* footer terms and conditions link */
+
+.terms-conditions a:hover {
+    color: var(--accent-colr);
 }
 
 @media screen and (max-width:600px) {
