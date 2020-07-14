@@ -126,7 +126,7 @@ exports.dashboard = async (req, res) => {
     // address = address || "";
     // lga = lga || "";
 
-    res.render('client/client-dashboard', {
+    res.render('client/newdashboard', {
         title: 'Client Dashboard', ABS_PATH, AppName, title: "Client Dashboard", ...user
     });
 }
