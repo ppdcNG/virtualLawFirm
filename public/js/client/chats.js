@@ -75,7 +75,9 @@ const renderChats = (chats, append = false) => {
 
     append ? $("#chatsContainer").append(chathtml) : $("#chatsContainer").html(chathtml);
 
-    $("#chatsContainer").scrollTop($("#chatsContainer")[0].scrollHeight);
+    $('#chatsParent').animate({
+        scrollTop: $('#chatsContainer').height()
+    }, 1000);
 }
 
 const renderSenderChat = chat => {
