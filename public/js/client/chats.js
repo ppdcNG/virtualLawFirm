@@ -86,22 +86,6 @@ const renderSenderChat = chat => {
     let timeago = momentDate.fromNow();
 
     return `
-        <div class="d-flex flex-row">
-            <div class="chat list-group-item shadow lawyer-msg py-3">
-                <div class="d-flex text-muted m-0 p-0">
-                    <p class="mr-auto p-2"><small><em>${chat.senderName}</em></small></p>
-                    <p class="p-2"><small><em>${timeago}</em></small></p>
-                </div>
-                <p class="mb-0"><span class="border rounded-circle px-3 py-2 bg-default text-white mr-3">L</span> ${chat.message}</p>
-            </div>
-        </div>`
-}
-
-const renderReceiverChat = (chat) => {
-    let momentDate = new moment(Math.abs(chat.timestamp));
-    let timeago = momentDate.fromNow();
-
-    return `
         <div class="d-flex flex-row-reverse">
             <div class="chat list-group-item shadow client-msg py-3 text-right">
                 <div class="d-flex m-0 p-0 text-muted">
@@ -110,7 +94,25 @@ const renderReceiverChat = (chat) => {
                 </div>
                 <p class="mb-0"></i>${chat.message} <span class="border rounded-circle px-3 py-2 bg-default text-white ml-3">C</span></p>
             </div>
-        </div>`
+        </div>
+        `
+}
+
+const renderReceiverChat = (chat) => {
+    let momentDate = new moment(Math.abs(chat.timestamp));
+    let timeago = momentDate.fromNow();
+
+    return `
+        <div class="d-flex flex-row">
+            <div class="chat list-group-item shadow lawyer-msg py-3">
+                <div class="d-flex text-muted m-0 p-0">
+                    <p class="mr-auto p-2"><small><em>${chat.senderName}</em></small></p>
+                    <p class="p-2"><small><em>${timeago}</em></small></p>
+                </div>
+                <p class="mb-0"><span class="border rounded-circle px-3 py-2 bg-default text-white mr-3">L</span> ${chat.message}</p>
+            </div>
+        </div>
+        `
 }
 
 $("#chatTextForm").submit(async function (e) {
