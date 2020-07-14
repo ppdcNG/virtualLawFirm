@@ -62,7 +62,7 @@
 {{> dashboard-nav}}
 
 <main class="row mb-5" id="dashboard-main">
-    <div class="col-md-2" id="sidenav" style="background:#406966;">
+    <div class="col-md-2" id="sidenav" style="background:#406966;height:100vh">
         <ul class="nav nav-pills mb-3 flex-column sidenav" id="pills-tab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="dashboard-pill-tab" data-toggle="pill" href="#dashboard-pill" role="tab"
@@ -199,8 +199,8 @@
             <div class="tab-pane fade" id="chat" role="tabpanel" aria-labelledby="chat-tab">
                 <div class="row container">
                     <div class="col-md-2 text-center">
-                        <ul class="nav nav-pills border mb-0 mb-3 flex-column shadow" id="pills-tab" role="tablist">
-                            <li class="nav-item">
+                        <ul id="chatList" class="nav nav-pills border mb-0 mb-3 flex-column shadow pt-3" id="pills-tab" role="tablist">
+                            {{! <li class="nav-item">
                                 <div class="avatar mx-auto white "><img src="https://bit.ly/3gLJpvB"
                                     alt="avatar mx-auto white" class="rounded-circle img-fluid">
                                     <h4 class="card-title mt-1">John Doe</h4>
@@ -223,44 +223,23 @@
                                     alt="avatar mx-auto white" class="rounded-circle img-fluid">
                                     <h4 class="card-title mt-1">John Doe</h4>
                                 </div>
-                            </li>
+                            </li> }}
                         </ul>
                     </div>
                     <div class="col-md-6 rounded mb-0 px-3 pt-3" style="background:#C8F2EF;">
-                        <h4>John Doe</h4>
-                        <hr/>
                         <section style="height:50vh;overflow-y:scroll">
-                        <div class="d-flex flex-row">
-                            <div class="chat list-group-item shadow lawyer-msg py-3">
-                                <p class="mb-0"><span class="border rounded-circle px-3 py-2 bg-default text-white mr-3">L</span> Hello</p>
-                            </div>
-                        </div>
-
-                        <div class="d-flex flex-row-reverse">
-                            <div class="chat list-group-item shadow client-msg py-3 text-right">
-                                <p class="mb-0"></i>Hi, I need help <span class="border rounded-circle px-3 py-2 bg-default text-white ml-3">C</span></p>
-                            </div>
-                        </div>
-
-                        <div class="d-flex flex-row">
-                            <div class="chat list-group-item shadow lawyer-msg py-3">
-                                <p class="mb-0"><span class="border rounded-circle px-3 py-2 bg-default text-white mr-3">L</span> I'm here to help</p>
-                            </div>
-                        </div>
-
-                        <div class="d-flex flex-row-reverse">
-                            <div class="chat list-group-item shadow client-msg py-3 text-right">
-                                <p class="mb-0"></i>I want to embezzle funds <span class="border rounded-circle px-3 py-2 bg-default text-white ml-3">C</span></p>
-                            </div>
-                        </div>
-
-                        <div class="d-flex flex-row">
-                            <div class="chat list-group-item shadow lawyer-msg py-3">
-                                <p class="mb-0"><span class="border rounded-circle px-3 py-2 bg-default text-white mr-3">L</span> Woa, Calm down.</p>
-                            </div>
-                        </div>
+                            <section id="chatsContainer">
+                                <h5>Click a Chat to view messages here</h5>
+                            </section>
                         </section>
-                        <input type="text" id="msg" class="form-control mt-3 p-3" placeholder="Type message..." />
+                        <form id="chatTextForm" class="my-1" style="display:none">
+                            <div class="d-flex justify-content-between" id="chatInputField">
+                                <input id="chatInput" type="text" class="form-control form-control-md" placeholder="Enter message here..." required />
+                                <div class="input-group-append">
+                                    <button id="sendChatButton" type="submit" class="input-group-text default-color"><i class="fas fa-paper-plane text-white"></i></button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div class="container col-md-4 rounded mb-0">
                         <div class="rounded mb-0 px-3 pt-3" style="background:#C8F2EF;height:70vh">
@@ -277,6 +256,7 @@
         </div>
     </div>
 </main>
+<section class="h-10"></section>
 {{>userdata}}
 {{> core}}
 {{> footer-new}}
@@ -395,13 +375,14 @@
       }
 </script>
  
-   <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-storage.js"></script>
 
-  <!-- Add Firebase products that you want to use -->
-  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
-<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
-<script src="https://js.paystack.co/v1/inline.js"></script>
-<script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
-<script src="{{ABS_PATH}}js/auth.js"></script>
-<script src="{{ABS_PATH}}js/client/dashboard.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+    <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
+    <script src="{{ABS_PATH}}js/auth.js"></script>
+    <script src="{{ABS_PATH}}js/client/dashboard.js"></script>
+    <script src="{{ABS_PATH}}js/client/chats.js"></script>
