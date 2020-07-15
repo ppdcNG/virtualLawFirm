@@ -48,6 +48,14 @@ const handleCaseFetch = cases => {
     $("#loadingTasks").css('display', 'none');
 }
 
+const countUnread = (notifications) => {
+    let count = 0;
+    notifications.forEach((note, i) => {
+        note.read || count++;
+    });
+    return count;
+}
+
 const renderTasks = (task, id) => {
     let { timestamp } = task;
     let count = task.activities ? countUnread(task.activities) : 0;
