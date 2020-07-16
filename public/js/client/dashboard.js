@@ -8,6 +8,7 @@ var CHAT_ID = null;
 var TASK_CATEGORIES = {};
 
 var uid = $("#uid").val();
+var taskId = $("#taskId").val();
 
 
 $(document).ready(function () {
@@ -43,8 +44,8 @@ const handleCaseFetch = cases => {
     console.log(TASK_CATEGORIES);
     let active = TASK_CATEGORIES['consulting'] ? TASK_CATEGORIES['consulting'] : 0
     let closed = TASK_CATEGORIES['closed'] ? TASK_CATEGORIES['closed'] : 0;
-    $("#activeConsulting").text(closed);
-    $("#closedConsulting").text(active);
+    $("#activeConsulting").text(active);
+    $("#closedConsulting").text(closed);
     $("#loadingTasks").css('display', 'none');
 }
 
@@ -90,7 +91,7 @@ const renderTasks = (task, id) => {
                 <span class = "lawyer-feature-value">${time}</span>
             </div>
             <div>
-                <a href = "/client/consultation/${id}/" class="btn btn-warning">Manage</a>
+                <a href = "/client/consultation?id=${id}" class="btn btn-warning">Manage</a>
             </div>
             </div>
         </div>

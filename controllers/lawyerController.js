@@ -2,7 +2,7 @@ var ABS_PATH = require("../config").ABS_PATH;
 const AppName = require("../config").AppName;
 
 const { sendmail, welcomeMail } = require("../helpers/mail");
-const { token, tagOptions, percentageComplete } = require("../helpers");
+const { token, tagOptions, percentageComplete, getUserDetails } = require("../helpers");
 const moment = require('moment')
 
 
@@ -129,13 +129,18 @@ exports.lawyerLogin = async (req, res) => {
 }
 
 exports.dashboard = (req, res) => {
-    let user = req.user;
-    let photoUrl = user.photoURL ? user.photoURL : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
-    console.log(user);
-    console.table(req.user)
-    res.render("lawyer/dashboard", {
-        title: 'Lawyer dashboard', ABS_PATH, AppName, photoUrl, uid: user.uid, name: user.displayName
+    let user = getUserDetails(req);
+    res.render("lawyer/new-dashboard", {
+        title: 'Lawyer dashboard', ABS_PATH, AppName, ...user
     });
+};
+
+
+exports.consultation = (req, res) => {
+    let id = req.query.id;
+    id = id || 0
+    let user = getUserDetails(req);
+    res.render('lawyer/consultation', { title: 'Lawyer Consultation', ABS_PATH, ...user, taskId: id });
 };
 
 exports.updateContact = async (req, res) => {
@@ -279,15 +284,17 @@ exports.scheduleMeeting = async (req, res) => {
     }
 
     let meetingRef = admin.firestore().collection(meetingsPath).doc();
+    meeting.meetingId = meetingRef.id;
     let userRef = admin.firestore().doc(userNotPath);
     let lawyerRef = admin.firestore().doc(lawyerNotPath);
     let adminRef = admin.firestore().doc(adminNotPath);
     let note = admin.firestore.FieldValue.arrayUnion(notificaton);
+    let appointment = admin.firestore.FieldValue.arrayUnion(meeting);
     notificaton.meetingId = meetingRef.id;
     batch.set(meetingRef, meeting);
-    batch.update(userRef, { activities: note });
-    batch.update(lawyerRef, { activities: note });
-    batch.update(adminRef, { activities: note });
+    batch.update(userRef, { activities: note, appointments: appointment });
+    batch.update(lawyerRef, { activities: note, appointments: appointment });
+    batch.update(adminRef, { activities: note, appointments: appointment });
     try {
         await batch.commit();
         res.send({
@@ -306,38 +313,29 @@ exports.scheduleMeeting = async (req, res) => {
 
 
 exports.editMeeting = async (req, res) => {
-    let meeting = req.body;
+    let { app, taskId, clientId, lawyerId, apId } = req.body;
+    let appointments = JSON.parse(app);
+    console.log(appointments);
+
     let { meetingId } = req.query
     let batch = admin.firestore().batch();
-    let userNotPath = `clients/${meeting.clientId}/tasks/${meeting.taskId}/`;
-    let lawyerNotPath = `lawyers/${meeting.lawyerId}/tasks/${meeting.taskId}/`;
-    let adminNotPath = `cases/${meeting.taskId}/`;
-    let meetingsPath = `meetingSchedules/${meeting.taskId}/meetings/${meetingId}`;
+    let userNotPath = `clients/${clientId}/tasks/${taskId}`;
+    let lawyerNotPath = `lawyers/${lawyerId}/tasks/${taskId}`;
+    let adminNotPath = `cases/${taskId}/`;
+    let meetingsPath = `meetingSchedules/${taskId}/meetings/${meetingId}`;
 
-    let date = moment(parseInt(meeting.date)).format("ddd, MMMM Do YYYY");
-    let start = moment(parseInt(meeting.start)).format("h:mm a");
-    let end = moment(parseInt(meeting.end)).format("h:mm a");
-    let now = new Date().getTime();
 
-    let notificaton = {
-        message: `${meeting.lawyerName} re-schedule  the meeting to  ${meeting.clientName} for ${date} from ${start} to ${end}`,
-        read: false,
-        type: "meeting",
-        title: "Meeting Update",
-        date: meeting.date,
-        timestamp: now
-    }
 
     let meetingRef = admin.firestore().doc(meetingsPath);
     let userRef = admin.firestore().doc(userNotPath);
     let lawyerRef = admin.firestore().doc(lawyerNotPath);
     let adminRef = admin.firestore().doc(adminNotPath);
-    let note = admin.firestore.FieldValue.arrayUnion(notificaton);
-    notificaton.meetingId = meetingRef.id;
-    batch.set(meetingRef, meeting);
-    batch.update(userRef, { activities: note });
-    batch.update(lawyerRef, { activities: note });
-    batch.update(adminRef, { activities: note });
+    let meeting = appointments[apId];
+    if (meetingId) batch.set(meetingRef, meeting);
+
+    batch.update(userRef, { appointments });
+    batch.update(lawyerRef, { appointments });
+    batch.update(adminRef, { appointments });
     try {
         await batch.commit();
         res.send({
@@ -377,9 +375,10 @@ exports.raiseInvoice = async (req, res) => {
     let adminRef = admin.firestore().doc(adminNotPath);
     let note = admin.firestore.FieldValue.arrayUnion(notificaton);
     invoice.status = 'pending';
-    batch.update(userRef, { activities: note, pendingPayment: invoice });
-    batch.update(lawyerRef, { activities: note, pendingPayment: invoice });
-    batch.update(adminRef, { activities: note, pendingPayment: invoice });
+    let inv = admin.firestore.FieldValue.arrayUnion(invoice);
+    batch.update(userRef, { activities: note, invoices: inv });
+    batch.update(lawyerRef, { activities: note, invoices: inv });
+    batch.update(adminRef, { activities: note, invoices: inv });
     try {
         await batch.commit();
         res.send({
@@ -395,5 +394,39 @@ exports.raiseInvoice = async (req, res) => {
     }
 }
 
+
+exports.deleteInvoice = async (req, res) => {
+    let { invoice, taskId, clientId, lawyerId } = req.body;
+    console.log(invoice, taskId, clientId, lawyerId)
+    let invoices = JSON.parse(invoice);
+
+
+    let batch = admin.firestore().batch();
+    let userNotPath = `clients/${clientId}/tasks/${taskId}`;
+    let lawyerNotPath = `lawyers/${lawyerId}/tasks/${taskId}`;
+    let adminNotPath = `cases/${taskId}/`;
+
+    let userRef = admin.firestore().doc(userNotPath);
+    let lawyerRef = admin.firestore().doc(lawyerNotPath);
+    let adminRef = admin.firestore().doc(adminNotPath);
+
+
+    batch.update(userRef, { invoices });
+    batch.update(lawyerRef, { invoices });
+    batch.update(adminRef, { invoices });
+    try {
+        await batch.commit();
+        res.send({
+            message: "Invoice Deleted Scheduled",
+            status: "success"
+        })
+    }
+    catch (e) {
+        res.send({
+            message: e.message,
+            status: 'danger'
+        })
+    }
+}
 
 
