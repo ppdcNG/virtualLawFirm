@@ -12,7 +12,10 @@
 
             <form class="form row py-3" id="searchFilterForm">
                 <label for="filter" class="font-weight-bold col-md-12">Filter Category</label>
-                <input type="search" name="filter" class="form-control col-md-4 ml-3" />
+                {{! <input type="search" name="filter" class="form-control col-md-4 ml-3" /> }}
+                <select class="form-control col-md-4 ml-3 documentSearch" name="filter" id="select-filter">
+                  <option value="">Search documents</option>
+                </select>
                 <button type="button" id="resetFilterBtn" class="border-0 px-2 bg-warning white-text">Reset Filter</button>
             </form>
         </div>
