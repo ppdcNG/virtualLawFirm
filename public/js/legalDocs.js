@@ -1,14 +1,13 @@
-
+let LEGAL_DOCS = {};
 
 const renderDocs = (id, document) => {
-    console.log(document);
-    let description = document.description ? (document.description.length > 45 ? document.description.substr(0, 21) + '...' : document.description) : "No Description"
+    let description = document.description ? truncate(document.description, 25) : "No description";
     return `
         <div class="col-md-4 mb-4">
-            <div class="card" style="background-color: #C8F2EF;height:250px">
+            <div class="card h-100" style="background-color: #C8F2EF;height:250px">
                 <div class="card-body">
                     <h4 class="card-title"><a>${document.title || "N/A"}</a></h4>
-                    <p class="card-text">${document.description}</p>
+                    <p class="card-text">${description}</p>
                 </div>
                 <div class="card-footer">
                     <a class="btn btn-warning btn-sm" onclick="showModal('${id}')">Preview</a>
@@ -20,7 +19,17 @@ const renderDocs = (id, document) => {
 }
 
 const showModal = id => {
+    let title = LEGAL_DOCS[id].title;
+    let description = LEGAL_DOCS[id].description;
+    let price = accounting.formatNumber(LEGAL_DOCS[id].price);
     $('#documentPreviewModal').modal('show');
+    console.log(price);
+
+    $("#docID").val(id);
+    $("#docTitle").text(title);
+    $("#docPrice").text(price);
+    $("#docPreview").html(`<p>${description}</p>`);
+
 }
 
 $("#searchFilterForm").submit(async (e) => {
@@ -47,13 +56,29 @@ $("#searchFilterForm").submit(async (e) => {
 
 })
 
+$("#downloadDoc").click(() => {
+    let doc_id = $("#docID").val();
+    let uid = $("#uid").val();
+    if (uid == "false") {
+        $('#documentPreviewModal').modal('hide');
+        $("#loginModal").modal('show');
+        return
+    }
+    else {
+        buttonLoadSpinner("downloadDoc");
+        console.log('paying...');
+        payLegalDoc(doc_id);
+    }
+    clearLoad("downloadDoc", `<i class="fa fa-download"></i> Download`);
+})
+
+
 $("#resetFilterBtn").click(() => {
     $("#searchFilterForm")[0].reset();
     fetchDoc();
 })
 
 
-let LEGAL_DOCS = {};
 const fetchDoc = () => {
     firebase.firestore().collection('legalDocs').onSnapshot((documents) => {
         let documentsHTML = "";
@@ -121,7 +146,8 @@ const payLegalDoc = id => {
 
             },
             onClose: function () {
-                alert('window closed', response);
+                console.log('window closed');
+                clearLoad("downloadDoc", `<i class="fa fa-download"></i> Download`);
             }
         });
         handler.openIframe();
