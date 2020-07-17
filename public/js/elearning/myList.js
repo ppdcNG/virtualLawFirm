@@ -69,11 +69,22 @@ const fetchCourses = async () => {
         coursesHTML += renderCourse(course, snapshot.id);
         count++
     });
-
-
+    if (is_empty(coursesHTML)) coursesHTML = renderNocourse();
     $("#courses").html(coursesHTML);
     AOS.init();
 
+}
+const renderNocourse = () => {
+    return `<div class="col-md-4 mb-4">
+                <div class="card h-100 shadow mt-1" data-aos="zoom-out" data-aos-duration="400">
+
+                    <div class="card-body d-flex flex-column">
+                        <h4 class="card-title" data-toggle = "tooltip" title = "Not enrolled" >Your are not Enrolled in any course yet</h4>
+                        <p>Browse List of courses to enroll</p>
+                        <a href = "/e-learning/" class = "btn lt-btn-accent">Browse Courses</a>
+                    </div>
+                </div>
+            </div>`
 }
 
 const renderCategories = (categories) => {

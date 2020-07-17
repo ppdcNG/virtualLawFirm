@@ -128,19 +128,17 @@ label {
 /* secton two */
 
 section.two {
-    background: black url(/images/bgtwo.jpg) no-repeat center;
-    background-size: cover;
-    background-attachment: fixed;
+    background: #FDEBD1;
 }
 
 section.two h2 {
-    color: var(--main-color);
+    color: #5E6870;
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
 
 section.two p {
-    color: rgb(206, 199, 199);
+    color: rgb(132, 146, 146);
     font-size: 1.2rem;
     line-height: 1.8;
 }
@@ -148,6 +146,12 @@ section.two p {
 section.two a {
     font-weight: bold;
     margin-top: 2rem;
+}
+
+.picture {
+    background: transparent url(/images/busguy.png) no-repeat center;
+    background-size: cover;
+    color: white;
 }
 
 /* secton three */
@@ -271,6 +275,9 @@ p.error {
 }
 
 @media screen and (max-width:600px) {
+    body {
+        padding: 3px;
+    }
     section.four .row {
         display: block;
     }
@@ -284,5 +291,10 @@ p.error {
     }
     .nav-item {
         margin: 0;
+    }
+    .picture {
+        background: none;
+        background-size: cover;
+        color: white;
     }
 }

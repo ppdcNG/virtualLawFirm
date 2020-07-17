@@ -25,7 +25,7 @@ exports.lawyerCategories = (req, res) => {
         familyLaw: require('../config/categories/family-law.json'),
         administrativePublicLaw: require('../config/categories/administrative-public-law.json'),
         landPropertyLaw: require('../config/categories/land-property-law.json'),
-        financeCommercialLaw: require('../config/categories/family-law.json'),
+        financeCommercialLaw: require('../config/categories/finance-commercial-law.json'),
         digitalEntertainmentLaw: require('../config/categories/digital-ent-sports.json'),
         energyProjectsLaw: require('../config/categories/energy-projects.json'),
         others: require('../config/categories/others.json'),
@@ -122,8 +122,35 @@ exports.dashboard = async (req, res) => {
     });
 }
 
+exports.changePassword = async (req, res) => {
+    let { password } = req.body;
+    try {
+        let user = await admin.auth().updateUser(req.user.uid, { password });
+        let returnObj = {
+            message: "Password Change Successfully",
+            status: "success"
+        };
+        res.status(200).send(returnObj);
+    }
+    catch (e) {
+        res.status(403).send({ message: e.message, e: "error" })
+    }
+
+}
+
+exports.updateProfilePic = async (req, res) => {
+    let { url } = req.body;
+
+    let obj = { photoURL: url };
+    await admin.auth().updateUser(req.user.uid, obj);
+    let returnObj = {
+        message: "Profile picture updated successfully.",
+        status: "success"
+    };
+    res.status(200).send(returnObj);
+}
 exports.updateSettings = async (req, res) => {
-    let { firstname, lastname, password, email, phoneNumber } = req.body;
+    let { somthing, password, email, phoneNumber } = req.body;
     let displayName = firstname + " " + lastname;
     let updateObj = {
         displayName,
@@ -153,35 +180,18 @@ exports.updateSettings = async (req, res) => {
         res.status(200).send(returnObj);
     }
 }
-
-exports.updateProfilePic = async (req, res) => {
-    let { url } = req.body;
-
-    let obj = { photoURL: url };
-    await admin.auth().updateUser(req.user.uid, obj);
-    let returnObj = {
-        message: "Profile picture updated successfully.",
-        status: "success"
-    };
-    res.status(200).send(returnObj);
-}
 exports.updateProfile = async (req, res) => {
     let uid = req.user.uid;
-    let { state, lga, address } = req.body
-    let contactPoint = { state, lga, address }
-    let client = await admin.firestore().collection('clients').doc(uid).get().catch((e) => {
-        console.log(e);
-        let returnObj = {
-            err: e,
-            message: e.message,
-            status: "failed"
-        };
-        return res.status(400).send(returnObj);
-    });
-    client = client.data();
+    let { state, address, phoneNumber, displayName } = req.body
+    state = state ? state : ""
+    address = address ? address : ""
+    phoneNumber = phoneNumber ? phoneNumber : ""
+    let contactPoint = { state, phoneNumber, address }
 
-    let obj = { ...client, contactPoint };
-    await admin.firestore().collection('clients').doc(uid).set(obj).catch((e) => {
+    await admin.auth().updateUser(uid, {
+        displayName
+    });
+    let client = await admin.firestore().collection('clients').doc(uid).update({ contactPoint }).catch((e) => {
         console.log(e);
         let returnObj = {
             err: e,

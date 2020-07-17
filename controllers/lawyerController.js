@@ -2,7 +2,7 @@ var ABS_PATH = require("../config").ABS_PATH;
 const AppName = require("../config").AppName;
 
 const { sendmail, welcomeMail } = require("../helpers/mail");
-const { token, tagOptions, percentageComplete, getUserDetails } = require("../helpers");
+const { token, tagOptions, percentageComplete, getUserDetails, tags2Category } = require("../helpers");
 const moment = require('moment')
 
 
@@ -222,8 +222,10 @@ exports.updateUploads = async (req, res) => {
         return res.status(400).send(returnObj);
     });
     if (user.exists) {
+        let categories = tags2Category(tags);
         user = user.data();
         user.portfolio = { specialization, tags, workExperience, consultationFee };
+        user.categories = categories;
         let docref = admin.firestore().collection('lawyersList').doc(req.user.uid);
         let docref2 = admin.firestore().collection('lawyers').doc(req.user.uid);
         batch.set(docref, user);
