@@ -122,27 +122,26 @@ const payLegalDoc = id => {
                 console.log(path);
                 window.location = path
                 processingPayment.close();
-                // $.ajax({
-                //     url: ABS_PATH + "admin/downloadLegalDoc",
-                //     type: "POST",
-                //     data: data,
-                //     success: function (response) {
-                //         const url = window.URL.createObjectURL(response);
-                //         const a = document.createElement('a');
-                //         a.style.display = 'none';
-                //         a.href = url;
-                //         // the filename you want
-                //         a.download = doc.filename;
-                //         document.body.appendChild(a);
-                //         a.click();
-                //         window.URL.revokeObjectURL(url);
-                //     },
-                //     error: err => {
-                //         console.error("error", err)
-                //         $.notify(err.message, { type: "warning" });
-                //     }
-                // });
-
+                $.ajax({
+                    url: ABS_PATH + "admin/downloadLegalDoc",
+                    type: "POST",
+                    data: data,
+                    success: function (response) {
+                        const url = window.URL.createObjectURL(response);
+                        const a = document.createElement('a');
+                        a.style.display = 'none';
+                        a.href = url;
+                        // the filename you want
+                        a.download = doc.filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                    },
+                    error: err => {
+                        console.error("error", err)
+                        $.notify(err.message, { type: "warning" });
+                    }
+                });
             },
             onClose: function () {
                 console.log('window closed');
