@@ -23,7 +23,7 @@ exports.welcomeMail = (options, res) => {
   let messageOptions = {
     to,
     subject: "Welcome To LawTrella",
-    from: "selcome@lawtrella.com",
+    from: "welcome@lawtrella.com",
     text: "Welcome to Lawtrella",
     html
   };

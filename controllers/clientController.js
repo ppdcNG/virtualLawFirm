@@ -14,8 +14,10 @@ exports.findLawyer = (req, res) => {
     res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, ...user });
 };
 exports.consultation = (req, res) => {
+    let id = req.query.id;
+    id = id || 0
     let user = getUserDetails(req);
-    res.render('client/consultation', { title: 'Client page', ABS_PATH, ...user });
+    res.render('client/consultation', { title: 'Client page', ABS_PATH, ...user, taskId: id });
 };
 
 exports.lawyerCategories = (req, res) => {
@@ -23,7 +25,7 @@ exports.lawyerCategories = (req, res) => {
         familyLaw: require('../config/categories/family-law.json'),
         administrativePublicLaw: require('../config/categories/administrative-public-law.json'),
         landPropertyLaw: require('../config/categories/land-property-law.json'),
-        financeCommercialLaw: require('../config/categories/family-law.json'),
+        financeCommercialLaw: require('../config/categories/finance-commercial-law.json'),
         digitalEntertainmentLaw: require('../config/categories/digital-ent-sports.json'),
         energyProjectsLaw: require('../config/categories/energy-projects.json'),
         others: require('../config/categories/others.json'),
@@ -115,24 +117,40 @@ exports.userLogin = async (req, res) => {
 exports.dashboard = async (req, res) => {
     let user = getUserDetails(req);
 
-    // let idCardURL = '';
-    // let contactPoint = '';
-    // if (userdata) {
-    //     idCardURL = userdata.idCardURL ? userdata.idCardURL : 'https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png';
-    //     contactPoint = userdata.contactPoint ? userdata.contactPoint : {};
-    // }
-    // let { state, address, lga } = contactPoint;
-    // state = state || "";
-    // address = address || "";
-    // lga = lga || "";
-
     res.render('client/newdashboard', {
         title: 'Client Dashboard', ABS_PATH, AppName, title: "Client Dashboard", ...user
     });
 }
 
+exports.changePassword = async (req, res) => {
+    let { password } = req.body;
+    try {
+        let user = await admin.auth().updateUser(req.user.uid, { password });
+        let returnObj = {
+            message: "Password Change Successfully",
+            status: "success"
+        };
+        res.status(200).send(returnObj);
+    }
+    catch (e) {
+        res.status(403).send({ message: e.message, e: "error" })
+    }
+
+}
+
+exports.updateProfilePic = async (req, res) => {
+    let { url } = req.body;
+
+    let obj = { photoURL: url };
+    await admin.auth().updateUser(req.user.uid, obj);
+    let returnObj = {
+        message: "Profile picture updated successfully.",
+        status: "success"
+    };
+    res.status(200).send(returnObj);
+}
 exports.updateSettings = async (req, res) => {
-    let { firstname, lastname, password, email, phoneNumber } = req.body;
+    let { somthing, password, email, phoneNumber } = req.body;
     let displayName = firstname + " " + lastname;
     let updateObj = {
         displayName,
@@ -162,35 +180,18 @@ exports.updateSettings = async (req, res) => {
         res.status(200).send(returnObj);
     }
 }
-
-exports.updateProfilePic = async (req, res) => {
-    let { url } = req.body;
-
-    let obj = { photoURL: url };
-    await admin.auth().updateUser(req.user.uid, obj);
-    let returnObj = {
-        message: "Profile picture updated successfully.",
-        status: "success"
-    };
-    res.status(200).send(returnObj);
-}
 exports.updateProfile = async (req, res) => {
     let uid = req.user.uid;
-    let { state, lga, address } = req.body
-    let contactPoint = { state, lga, address }
-    let client = await admin.firestore().collection('clients').doc(uid).get().catch((e) => {
-        console.log(e);
-        let returnObj = {
-            err: e,
-            message: e.message,
-            status: "failed"
-        };
-        return res.status(400).send(returnObj);
-    });
-    client = client.data();
+    let { state, address, phoneNumber, displayName } = req.body
+    state = state ? state : ""
+    address = address ? address : ""
+    phoneNumber = phoneNumber ? phoneNumber : ""
+    let contactPoint = { state, phoneNumber, address }
 
-    let obj = { ...client, contactPoint };
-    await admin.firestore().collection('clients').doc(uid).set(obj).catch((e) => {
+    await admin.auth().updateUser(uid, {
+        displayName
+    });
+    let client = await admin.firestore().collection('clients').doc(uid).update({ contactPoint }).catch((e) => {
         console.log(e);
         let returnObj = {
             err: e,
@@ -348,8 +349,8 @@ exports.verifyConsultationFee = async (req, res) => {
 exports.verifyInvoiceFee = async (req, res) => {
     let payload = req.body
     console.log(payload);
-    let { paystackRef, taskId, lawyerId, clientId } = payload
-
+    let { paystackRef, taskId, lawyerId, clientId, invoices, invoiceId } = payload;
+    invoices = JSON.parse(invoices);
     let time = new Date().getTime();
     let user = {
         uid: req.user.uid,
@@ -388,15 +389,15 @@ exports.verifyInvoiceFee = async (req, res) => {
         }
         let note = admin.firestore.FieldValue.arrayUnion(activity);
         delValue = admin.firestore.FieldValue.delete();
-
+        invoices[invoiceId].status = "paid";
         let batch = admin.firestore().batch();
         let taskRef = admin.firestore().collection('cases').doc(taskId);
         let clientsRef = admin.firestore().collection('clients').doc(clientId).collection('tasks').doc(taskId);
         let lawyersRef = admin.firestore().collection('lawyers').doc(lawyerId).collection('tasks').doc(taskId);
         let transactionsRef = admin.firestore().collection('transactions').doc();
-        batch.update(clientsRef, { activities: note, pendingPayment: delValue });
-        batch.update(lawyersRef, { activities: note, pendingPayment: delValue });
-        batch.update(taskRef, { activities: note, pendingPayment: delValue });
+        batch.update(clientsRef, { activities: note, invoices });
+        batch.update(lawyersRef, { activities: note, invoices });
+        batch.update(taskRef, { activities: note, invoices });
         batch.set(transactionsRef, payrecord);
         try {
             await batch.commit();

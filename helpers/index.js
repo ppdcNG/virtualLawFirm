@@ -170,8 +170,10 @@ exports.getUserDetails = req => {
   var displayName = req.user ? req.user.displayName : "";
   var email = req.user ? req.user.email : "";
   var phoneNumber = req.user ? req.user.phoneNumber || "" : "";
+  var usertype = req.user.customClaims.lawyer ? "lawyer" : 'client'
+  console.log(usertype);
 
-  return { uid, photoURL, displayName, phoneNumber, email }
+  return { uid, photoURL, displayName, phoneNumber, email, usertype }
 }
 
 
@@ -191,4 +193,18 @@ exports.courseDetails = (course) => {
   let description = course.details;
 
   return { progress, title, content, description, count: content.length }
+}
+
+exports.tags2Category = (tags) => {
+  let categories = require('../config/categories');
+
+  let mycategories = [];
+  tags.forEach((tag) => {
+    Object.keys(categories).forEach((key) => {
+      let category = categories[key];
+      let index = category.indexOf(tag);
+      if (index > -1) mycategories.push(key);
+    })
+  })
+  return mycategories
 }

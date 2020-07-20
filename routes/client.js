@@ -22,8 +22,8 @@ router.post('/invite', clientController.sendInvite);
 router.get('/dashboard', requireLogin, clientController.dashboard);
 router.get('/consultation', requireLogin, clientController.consultation);
 // router.get('/lawyerList', clientController.lawyerList);
-router.post('/updateSettings', requireLogin, clientController.updateSettings);
 router.post('/updateProfile', requireLogin, clientController.updateProfile);
+router.post('/changePassword', requireLogin, clientController.changePassword);
 router.post('/fetchLawyers', requireLogin, clientController.fetchLawyers);
 router.get('/copyLawyers', (req, res) => {
     copyLawyers();

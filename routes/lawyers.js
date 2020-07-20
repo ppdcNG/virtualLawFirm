@@ -18,8 +18,10 @@ router.post('/lawyerDetails', requireLawyer, lawyerController.lawyerProfile);
 router.post('/scheduleMeeting', requireLogin, lawyerController.scheduleMeeting);
 router.post('/editSchedule', requireLogin, lawyerController.editMeeting);
 router.post('/raiseInvoice', requireLogin, lawyerController.raiseInvoice);
+router.post('/deleteInvoice', requireLogin, lawyerController.deleteInvoice);
 
 router.get('/dashboard', requireLawyer, lawyerController.dashboard);
+router.get('/consultation', requireLogin, lawyerController.consultation);
 router.get('/videoCall', requireLogin, lawyerController.callPage);
 
 module.exports = router;

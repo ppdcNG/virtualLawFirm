@@ -1,3 +1,7 @@
+var Chatlistener = null;
+var CHATS = [];
+var CHAT_MESSAGES = [];
+
 $(function () {
     console.log('ready!')
     fetchChats();
@@ -16,10 +20,12 @@ const fetchChats = async () => {
 }
 
 const renderChatList = chat => {
+    let photourl = chat.lawyerPhoto ? chat.lawyerPhoto : 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1';
+
     return `
             <li class="nav-item">
                 <a href = "#" onclick = "viewChat('${chat.chatId}')">
-                    <div class="avatar mx-auto white "><img src="${chat.lawyerPhoto}"
+                    <div class="avatar mx-auto white "><img src="${photourl}"
                         alt="avatar mx-auto white" class="rounded-circle img-fluid">
                         <h6 class="card-title mt-1 text-dark">${chat.lawyerName}</h6>
                     </div>
@@ -43,6 +49,7 @@ const listenForChatMessages = async (chatId) => {
         if (is_empty(CHAT_MESSAGES)) {
             console.log('empty Chats')
             CHAT_MESSAGES = chatData.messages;
+            console.log(CHAT_MESSAGES);
             renderChats(CHAT_MESSAGES);
             return;
         }
@@ -70,8 +77,9 @@ const renderChats = (chats, append = false) => {
     let uid = $("#uid").val();
     let chathtml = "";
     chats.map((chat) => {
-        chathtml += chat.senderId == uid ? renderSenderChat(chat) + renderReceiverChat(chat) : '';
+        chathtml += chat.senderId == uid ? renderSenderChat(chat) : renderReceiverChat(chat);
     })
+    console.log(chathtml);
 
     append ? $("#chatsContainer").append(chathtml) : $("#chatsContainer").html(chathtml);
 
@@ -84,6 +92,7 @@ const renderSenderChat = chat => {
 
     let momentDate = new moment(Math.abs(chat.timestamp));
     let timeago = momentDate.fromNow();
+    let l = chat.senderName[0]
 
     return `
         <div class="d-flex flex-row-reverse">
@@ -92,7 +101,7 @@ const renderSenderChat = chat => {
                     <p class="mr-auto p-2"><small><em>${chat.senderName}</em></small></p>
                     <p class="p-2"><small><em>${timeago}</em></small></p>
                 </div>
-                <p class="mb-0"></i>${chat.message} <span class="border rounded-circle px-3 py-2 bg-default text-white ml-3">C</span></p>
+                <p class="mb-0"></i>${chat.message} <span class="border rounded-circle px-3 py-2 bg-default text-white ml-3">${l}</span></p>
             </div>
         </div>
         `
@@ -101,7 +110,7 @@ const renderSenderChat = chat => {
 const renderReceiverChat = (chat) => {
     let momentDate = new moment(Math.abs(chat.timestamp));
     let timeago = momentDate.fromNow();
-
+    let l = chat.senderName[0]
     return `
         <div class="d-flex flex-row">
             <div class="chat list-group-item shadow lawyer-msg py-3">
@@ -109,7 +118,7 @@ const renderReceiverChat = (chat) => {
                     <p class="mr-auto p-2"><small><em>${chat.senderName}</em></small></p>
                     <p class="p-2"><small><em>${timeago}</em></small></p>
                 </div>
-                <p class="mb-0"><span class="border rounded-circle px-3 py-2 bg-default text-white mr-3">L</span> ${chat.message}</p>
+                <p class="mb-0"><span class="border rounded-circle px-3 py-2 bg-default text-white mr-3">${l}</span> ${chat.message}</p>
             </div>
         </div>
         `

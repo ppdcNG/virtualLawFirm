@@ -68,6 +68,7 @@
                 <a class="nav-link active" id="dashboard-pill-tab" data-toggle="pill" href="#dashboard-pill" role="tab"
                 aria-controls="dashboard-pill" aria-selected="true"><i class="fas fa-tachometer-alt mr-3"></i>&nbsp; <span>Dashboard</span></a>
             </li>
+           
             <li class="nav-item">
                 <a class="nav-link" id="chat-tab" data-toggle="pill" href="#chat" role="tab"
                 aria-controls="chat" aria-selected="false"><i class="far fa-comments mr-3" aria-hidden="true"></i> <span>Chat</span></a>
@@ -113,6 +114,10 @@
                 </div>
             </div>
 
+           
+
+            {{! my docs tab  }}
+            <div class="tab-pane fade" id="docs" role="tabpanel" aria-labelledby="docs-tab">My Docs<br/>Under Construction...</div>
 
             {{! chat tab  }}
             <div class="tab-pane fade" id="chat" role="tabpanel" aria-labelledby="chat-tab">
@@ -141,77 +146,63 @@
 
             {{! settings tab  }}
             <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-            <div class = "row">
-                <div class = "col-md-6">
-                    <div class = "card h-100">
-                        <div class = "card-body">
-                            <form id="uploadPic" class="p-5" style = "max-width: 600px">
-                            <h5 class = "mx-auto mb-3 text-center">Change your profile picture</h5>
-                            <img id="chosenPic" src="{{photoURL}}" style="width:80;height:80" class="rounded-circle mx-auto d-block mb-3" alt="profile_pic">
-                            <div class = "">
-                                <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="profilePic" accept="image/x-png,image/jpg,image/jpeg" required>
-                                <label class="custom-file-label" for="profilePic" data-browse="Select">Select a profile picture</label>
-                                </div>
-                                <button type="submit" class="btn btn-info mt-3" id="uploadPicBtn">Upload</button>
-                            </div>
-                            </form>
+              <div class = "row">
+                  <div class = "col-md-6">
+                      <div class = "card h-100">
+                          <div class = "card-body">
+                              <form id="uploadPic" class="p-5" style = "max-width: 600px">
+                              <h5 class = "mx-auto mb-3 text-center">Change your profile picture</h5>
+                              <img id="chosenPic" src="{{photoURL}}" style="width:80;height:80" class="rounded-circle mx-auto d-block mb-3" alt="profile_pic">
+                              <div class = "">
+                                  <div class="custom-file">
+                                  <input type="file" class="custom-file-input" id="profilePic" accept="image/x-png,image/jpg,image/jpeg" required>
+                                  <label class="custom-file-label" for="profilePic" data-browse="Select">Select a profile picture</label>
+                                  </div>
+                                  <button type="submit" class="btn btn-info mt-3" id="uploadPicBtn">Upload</button>
+                              </div>
+                              </form>
+                          </div>
+                      </div> 
+                  </div>
+                  <div class = "col-md-6">
+                      <div class = "card h-100">
+                          <div class = "card-body d-flex flex-column justify-content-center">
+                              <form class ="" id ="changePasswordForm">
+                                  <h5>Change password</h5>
+                                  <div class = "mb-3">
+                                      <label for = "password">New password</label>
+                                      <input class = "form-control" type = "password" name = "password" id ="password" required/>
+                                  </div>
+                                  <div class = "mb-3">
+                                      <label for = "confirm">Confirm password</label>
+                                      <input class = "form-control" id = "contirm" type = "password" name = "confirm" required />
+                                  </div>
+                                  <button class = "btn lt-btn-accent" type ="submit" id = "changePasswordButton">Change</button>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class = "col-md-12">
+                    <div class = "card h-100 my-5">
+                      <div class = "card-body">
+                        <div class = "d-flex flex-column justify-content-center align-items-center">
+                              <a href = "{{ABS_PATH}}lawyer/profile" class = "btn btn-lg lt-btn-accent">Portfolio</a>
                         </div>
-                    </div> 
-                </div>
-                <div class = "col-md-6">
-                    <div class = "card h-100">
-                        <div class = "card-body d-flex flex-column justify-content-center">
-                            <form class ="" id ="changePasswordForm">
-                                <h5>Change password</h5>
-                                <div class = "mb-3">
-                                    <label for = "password">New password</label>
-                                    <input class = "form-control" type = "password" name = "password" id ="password" required/>
-                                </div>
-                                <div class = "mb-3">
-                                    <label for = "confirm">Confirm password</label>
-                                    <input class = "form-control" id = "contirm" type = "password" name = "confirm" required />
-                                </div>
-                                <button class = "btn lt-btn-accent" type ="submit" id = "changePasswordButton">Change</button>
-                            </form>
-                        </div>
+                      </div>
                     </div>
-                </div>
-            </div>
-
+                  </div>
+              </div>
             
-            
-
-            <hr class="border"/>
-            <form id = "updateProfile" class="container">
-                <h5>Personal Info</h5>
-                <div class="md-form">
-                    <input type="text"  value = "{{displayName}}" name="displayName" id = "name" class="form-control" required>
-                    <label for="name">Full name</label>
-                </div>
-                <div class="md-form">
-                    <input type="text" name="address" class="form-control" value = "{{address}}" >
-                    <label for="address">Address</label>
-                </div>
-                <div class="md-form">
-                    <input id = "phone" type="text" name="phoneNumber" class="form-control" value = "{{phoneNumber}}" >
-                    <label for="phone">Phone Number</label>
-                </div>
-
-                 <div class="md-form">
-                    <input type="text" value = "{{state}}" name="state" class="form-control" >
-                    <label for="state">State</label>
-                </div>
-
-                <div class="text-center">
-                  <button type="submit" class="btn btn-info mt-3" id="updateProfileBtn">Save</button>
-                </div>
-            </form>
             </div>
         </div>
     </div>
 </main>
+
 <section class="h-10"></section>
+
+
+
 {{>userdata}}
 {{> core}}
 {{> footer-new}}
@@ -228,14 +219,13 @@
       }
 </script>
  
-    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-storage.js"></script>
 
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
-    <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
-    <script src="https://js.paystack.co/v1/inline.js"></script>
-    <script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
-    <script src="{{ABS_PATH}}js/auth.js"></script>
-    <script src="{{ABS_PATH}}js/client/dashboard.js"></script>
-    <script src="{{ABS_PATH}}js/client/chats.js"></script>
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-firestore.js"></script>
+<script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="{{ABS_PATH}}js/libraries/accounting.js"></script>
+<script src="{{ABS_PATH}}js/auth.js"></script>
+<script src="{{ABS_PATH}}js/lawyer/new-dashboard.js"></script>

@@ -186,6 +186,7 @@ const updateRecordForm = (record, accountDetails) => {
     if (!record || !accountDetails) {
         return;
     }
+    console.log(record, accountDetails);
     record.accountDetails = accountDetails;
     js2form('updateRecord', record, '.');
     $('#updateRecord input').trigger('change');

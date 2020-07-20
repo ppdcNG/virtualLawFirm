@@ -8,6 +8,7 @@ var CHAT_ID = null;
 var TASK_CATEGORIES = {};
 
 var uid = $("#uid").val();
+var taskId = $("#taskId").val();
 
 
 $(document).ready(function () {
@@ -43,8 +44,8 @@ const handleCaseFetch = cases => {
     console.log(TASK_CATEGORIES);
     let active = TASK_CATEGORIES['consulting'] ? TASK_CATEGORIES['consulting'] : 0
     let closed = TASK_CATEGORIES['closed'] ? TASK_CATEGORIES['closed'] : 0;
-    $("#activeConsulting").text(closed);
-    $("#closedConsulting").text(active);
+    $("#activeConsulting").text(active);
+    $("#closedConsulting").text(closed);
     $("#loadingTasks").css('display', 'none');
 }
 
@@ -90,7 +91,7 @@ const renderTasks = (task, id) => {
                 <span class = "lawyer-feature-value">${time}</span>
             </div>
             <div>
-                <a href = "/client/consultation/${id}/" class="btn btn-warning">Manage</a>
+                <a href = "/client/consultation?id=${id}" class="btn btn-warning">Manage</a>
             </div>
             </div>
         </div>
@@ -100,3 +101,118 @@ const renderTasks = (task, id) => {
 }
 
 
+function readURL(input, id) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            // $('#chosenPic').attr('src', e.target.result);
+            $('#' + id).attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#profilePic").change(function () {
+    readURL(this, 'chosenPic');
+});
+
+$("#uploadPic").submit(async function (e) {
+    e.preventDefault();
+    let uid = $("#uid").val();
+    let file = $("#profilePic")[0].files[0];
+    buttonLoadSpinner('uploadPicBtn');
+    let validImages = ['image/png', 'image/jpg', 'image/jpeg'];
+    if (validImages.indexOf(file.type) < 0) {
+        $.notify('Invalid File type provided. Valid Files' + validImages.join(' '), { type: "warning" });
+        clearLoad('uploadPicBtn', 'Upload');
+        return false;
+    }
+    console.log('uploading');
+    let task = await firebase.storage().ref('userfiles/' + uid).put(file);
+    let url = await task.ref.getDownloadURL();
+    let req = { url };
+
+    console.log('done uploading');
+
+
+    $.ajax({
+        url: ABS_PATH + "client/updateProfilePic",
+        data: req,
+        type: "POST",
+        success: function (response) {
+            $("#closeProfileModal").trigger("click");
+            console.log(response);
+            if (!response.err) {
+                $.notify("Saved!", { type: "success" });
+            } else {
+                $.notify(response.message, { type: "warning" });
+            }
+
+            clearLoad('uploadPicBtn', 'Upload');
+            $("#chosenPic").attr('src', url);
+            $("#navPhoto").attr('src', url);
+        },
+        error: err => {
+            console.error('error', err);
+            clearLoad('uploadPicBtn', 'Upload');
+        }
+    })
+
+});
+
+$("#changePasswordForm").submit(function (e) {
+    e.preventDefault();
+    let form = form2js('changePasswordForm', ".", false);
+    if (form.password !== form.confirm) {
+        $.notify("Passwords do not match !", { type: 'danger', delay: 2500 });
+        return;
+    }
+    buttonLoadSpinner('changePasswordButton')
+    let url = ABS_PATH + "client/changePassword";
+    $.ajax({
+        type: "POST",
+        url,
+        data: form,
+        success: function (response) {
+            console.log(response);
+            $.notify("Password Change Succesful", { type: "succes", delay: 2500 });
+            clearLoad('changePasswordButton', "Change")
+            this.reset();
+        },
+        error: err => {
+            console.log('error', err);
+            $.notify(err.responseJSON.message, { type: "danger", delay: 2000 });
+            clearLoad('changePasswordButton', 'Upload');
+        }
+    });
+});
+
+
+$("#updateProfile").submit(function (e) {
+    e.preventDefault();
+    let form = form2js("updateProfile", ".");
+    console.log(uid);
+    buttonLoadSpinner('updateProfileBtn')
+    $.ajax({
+        url: ABS_PATH + "client/updateProfile",
+        data: form,
+        type: "POST",
+        success: function (response) {
+
+            if (!response.err) {
+                $.notify("Profile Updated!", { type: "success" });
+            } else {
+                $.notify(response.message, { type: "warning" });
+            }
+
+            clearLoad('updateProfileBtn', 'Save');
+        },
+        error: err => {
+            console.error('error', err);
+            clearLoad('updateProfileBtn', 'Save');
+        }
+    })
+
+});
