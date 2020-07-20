@@ -431,8 +431,8 @@ exports.downloadDoc = async (req, res) => {
   console.log(data);
 
   // 
-  let mode = await req.user.lawyer ? 'lawyer' : 'client';
-  let urlpath = `${mode}/uid/docs`;
+  // let mode = await req.user.lawyer ? 'lawyer' : 'client';
+  // let urlpath = `${mode}/uid/docs`;
   // 
 
   var paystack = require('paystack')(PAYSTACK_PUB_KEY);
@@ -453,7 +453,7 @@ exports.downloadDoc = async (req, res) => {
     let doc = docDetails.data();
 
     // 
-    await admin.firestore(`${urlpath}/${req.user.uid}/docs`).set(doc);
+    // await admin.firestore(`${urlpath}/${req.user.uid}/docs`).set(doc);
     // 
 
     let bucket = admin.storage().bucket(bucketName);
