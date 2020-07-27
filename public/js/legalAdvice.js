@@ -10,18 +10,22 @@ $(document).ready(() => {
       $("#loginModal").modal('show');
       return
     }
+
     else {
-      let url = ABS_PATH + 'askLawyer';
+      let clientName = $("#displayName").val();
+      let clientId = $("#uid").val();
+      let clientPhoto = $("#photoURL").val();
+      let data = { clientName, clientId, clientPhoto };
+      let url = ABS_PATH + 'client/initiateAdminChat';
       buttonLoadSpinner("askLawyerButton");
       $.ajax({
         type: "POST",
         url: url,
-        data: { uid },
-        dataType: "dataType",
+        data,
         success: function (response) {
-          console.log(response);
-          $.notify('Preparing Chat')
-          window.location = ABS_PATH + 'client/dashboard';
+          console.log("success")
+          clearLoad('askLawyerButton', 'Ask Lawyer');
+          window.location = ABS_PATH + "client/dashboard/#chat";
         }
       });
     }

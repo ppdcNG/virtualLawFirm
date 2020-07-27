@@ -232,7 +232,7 @@ exports.notify = option => {
             <td style="overflow-wrap:break-word;word-break:break-word;padding:30px 30px 15px;font-family:'Montserrat',sans-serif;" align="left">
                 
         <div style="color: #000; line-height: 150%; text-align: left; word-wrap: break-word;">
-            <p style="line-height: 150%; font-size: 14px;"><span style="font-size: 16px; line-height: 24px; color: #282828;"><span style="font-size: 22px; line-height: 33px;"><strong>Hello ${option.name}</strong></span><br /></span></p>
+            <p style="line-height: 150%; font-size: 14px;"><span style="font-size: 16px; line-height: 24px; color: #282828;"><span style="font-size: 22px; line-height: 33px;"><strong> ${option.title}</strong></span><br /></span></p>
         </div>
 
             </td>
@@ -267,7 +267,7 @@ exports.notify = option => {
             <td style="overflow-wrap:break-word;word-break:break-word;padding:10px 30px 20px;font-family:'Montserrat',sans-serif;" align="left">
                 
         <div style="color: #292929; line-height: 160%; text-align: left; word-wrap: break-word;">
-            <p style="font-size: 14px; line-height: 160%;">Your meeting is set to Thursday 1st Dec, 2019. 12:00PM</p>
+            <p style="font-size: 14px; line-height: 160%;">${option.message}</p>
         </div>
 
             </td>
