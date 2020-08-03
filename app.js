@@ -66,14 +66,14 @@ app.use(function (err, req, res, next) {
 app.get('/', function (req, res) {
   res.send('Hello World!')
 })
-app.get('*', function (req, res) {
-  if (process.env.NODE_ENV === "production") {
-    res.redirect('https://' + req.headers.host + req.url);
-  }
-
-
-  // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
-  // res.redirect('https://example.com' + req.url);
-})
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === 'production') {
+    if (req.headers['x-forwarded-proto'] !== 'https')
+      return res.redirect('https://' + req.headers.host + req.url);
+    else
+      return next();
+  } else
+    return next();
+});
 
 module.exports = app;
