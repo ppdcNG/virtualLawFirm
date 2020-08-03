@@ -67,7 +67,7 @@ app.get('/', function (req, res) {
   res.send('Hello World!')
 })
 app.get('*', function (req, res) {
-  if (process.env.NODE_ENV == production) {
+  if (process.env.NODE_ENV === "production") {
     res.redirect('https://' + req.headers.host + req.url);
   }
 
