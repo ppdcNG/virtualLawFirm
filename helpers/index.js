@@ -177,9 +177,7 @@ exports.getUserDetails = req => {
 }
 
 
-exports.courseDetails = async id => {
-  let
-}
+
 
 exports.verifyCourseSubscripton = (id, req) => {
   return req.user.customClaims[id]
