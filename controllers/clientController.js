@@ -1,7 +1,7 @@
 const { ABS_PATH, AppName, PAYSTACK_PUB_KEY } = require("../config");
 
 
-const { sendmail, welcomeMail, inviteEmail } = require("../helpers/mail");
+const { sendmail, welcomeMail, inviteEmail, askLawyerMail } = require("../helpers/mail");
 const { token, getUserDetails } = require("../helpers");
 
 
@@ -441,6 +441,62 @@ exports.initiateChat = async (req, res) => {
     let batch = admin.firestore().batch();
     let userChatRef = admin.firestore().collection('clients').doc(clientId).collection('chats').doc();
     let laywerRef = admin.firestore().collection('lawyers').doc(lawyerId).collection('chats').doc();
+    let chatsRef = admin.firestore().collection('chats').doc(chatId);
+    batch.set(userChatRef, chat);
+    batch.set(laywerRef, chat);
+    batch.set(chatsRef, chat);
+    let result = await batch.commit();
+    console.log(result);
+    let msg = {
+        status: 'success',
+        message: 'Chat Initiated'
+    }
+    res.send(msg);
+
+
+}
+exports.initiateAdminChat = async (req, res) => {
+
+    let { clientId, clientName, clientPhoto, } = req.body;
+    let user = getUserDetails(req);
+    if (user.usertype != "client") {
+        let msg = {
+            status: 'warning',
+            message: 'Only client accounts can ask a lawyer'
+        }
+        res.send(msg);
+        return;
+    }
+    let chatId = `${clientId}_ admin`;
+    let timestamp = 0 - new Date().getTime();
+    console.log("blah blah blah")
+    let lawyer = await admin.firestore().collection('systemOpps').doc('askLawyer').get();
+    lawyer = lawyer.data();
+    console.log("ahah", lawyer);
+    await askLawyerMail(lawyer.lawyerOnDuty, clientName);
+    let chatSnapshot = await admin.firestore().collection('chats').doc(chatId).get();
+    if (chatSnapshot.exists) {
+        console.log('chat exists')
+        let msg = {
+            status: 'success',
+            message: 'Chat Already Initiated'
+        }
+        res.send(msg);
+        return;
+    }
+
+
+    let chat = {
+        clientId, lawyerId: "admin", chatId, clientName, clientPhoto, lawyerName: "Lawtrella Admin", lawyerPhoto: 'https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1', timestamp, messages: []
+    }
+
+    // await admin.firestore().collection('clients').doc(clientId).collection('chats').add(chat);
+    // await admin.firestore().collecttion('lawyers').doc(lawyerId).collection('chats').add(chat);
+    // await admin.firestore().collection('chats').doc(chatId).set(chat);
+
+    let batch = admin.firestore().batch();
+    let userChatRef = admin.firestore().collection('clients').doc(clientId).collection('chats').doc();
+    let laywerRef = admin.firestore().collection('adminChats').doc();
     let chatsRef = admin.firestore().collection('chats').doc(chatId);
     batch.set(userChatRef, chat);
     batch.set(laywerRef, chat);

@@ -5,6 +5,7 @@ const { welcomeEmail } = require("../views/templates/welcome");
 const { clientInvite } = require("../views/templates/clientInvite");
 const { adminCase } = require('../views/templates/adminCase');
 const { resetPassword } = require('../views/templates/resetpass');
+const { notify } = require('../views/templates/notify');
 
 sendgrid.setApiKey(SENDGRID_API_KEY);
 
@@ -60,6 +61,26 @@ exports.sendAdminNewCase = async (email, lawyerName, clientName) => {
   });
 
   console.log(response);
+
+}
+exports.askLawyerMail = async (email, clientName) => {
+  let options = {
+    title: `${clientName} wants to Ask a Lawyer`,
+    message: "A client needs to ask you a question; login as admin to chat with client"
+  }
+  let html = notify(options);
+  let messageOptions = {
+    to: email,
+    subject: "Lawtrella Ask a Lawyer",
+    from: 'info@lawtrella.com',
+    text: `A client needs to ask you a question; Login as admin to chat with client`,
+    html
+  }
+
+  let response = await sendgrid.send(messageOptions).catch(e => {
+    console.log(e);
+  });
+
 
 }
 
