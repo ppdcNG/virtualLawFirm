@@ -19,8 +19,7 @@ $(document).ready((e) => {
             console.log(e);
         }
     });
-})
-
+});
 
 const fetchLawyers = async type => {
     let categories = CATEGORIES[type];
@@ -46,7 +45,6 @@ const fetchLawyers = async type => {
     $("#loading").css('display', 'none');
     $("#fetchMatchingLawyers").html(lawyersHTML);
     $("#matchingLawyersSection").css('display', 'block');
-
 
 }
 
