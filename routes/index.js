@@ -150,6 +150,24 @@ router.post('/recoverPassword', async (req, res) => {
 
 });
 
+router.get("/updateCourses", async (req, res) => {
+  let coursesSnapshot = await admin.firestore().collection("courses").get();
+
+  coursesSnapshot.forEach(async (course) => {
+    let contentSnapshot = await admin.firestore().collection('courses').doc(course.id).collection('contents').get();
+    let batch = admin.firestore().batch();
+    let count = 0;
+    contentSnapshot.forEach(async (snapshot) => {
+      let contentDb = admin.firestore().doc(`courses/${course.id}/contents/${snapshot.id}`);
+      batch.update(contentDb, { position: count, author: "A & E Law Partnership" });
+      count++;
+    });
+    await batch.commit();
+  });
+
+  res.send({ message: "done Updating" });
+})
+
 
 
 

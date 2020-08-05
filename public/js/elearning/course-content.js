@@ -103,6 +103,7 @@ const viewVideo = id => {
     console.log(content);
     if (content.videoUrl) {
         video.setAttribute('src', content.videoUrl);
+        video.setAttribute('muted', false);
         video.load();
         $("#videoPreviewModal").modal('show');
     }

@@ -2,6 +2,7 @@ var CONTENTS = {};
 var contentList = [];
 
 var OPTIONS = [];
+var ContentSortable = null;
 
 var courseId = $("#courseId").val();
 var contentString = $("#courseContentList").val();
@@ -64,7 +65,7 @@ $(document).ready(() => {
 
 const fetchContent = async () => {
     let coursePath = `courses/${courseId}/contents`;
-    let collectionRef = firebase.firestore().collection(coursePath).orderBy('dateAdded');
+    let collectionRef = firebase.firestore().collection(coursePath).orderBy('position');
     contentList = [];
     collectionRef.onSnapshot((snapshot) => {
         if (snapshot.empty) {
@@ -81,6 +82,13 @@ const fetchContent = async () => {
         $("#contentList").html(contentHTML);
         let contentString = contentList.join("***");
         console.log(contentString)
+        // Sortable
+        let container = document.getElementById('contentList');
+        ContentSortable = Sortable.create(container, {
+            handle: ".dragable",
+            animation: 250,
+            onUpdate: calculatePositions
+        });
         courseDb.update({ contentString }).then(() => {
             console.log("written content", contentString);
         }).catch(e => {
@@ -126,18 +134,20 @@ const renderLessonContent = (content, i) => {
     let viewVideo = content.videoUrl ? `<button data-toggle= "tooltip" title = "View Video" class = "btn" onclick = "viewVideo('${i}')" ><i class = "fa fa-eye"></i></button>` : "";
 
     return `
-    <li class="list-group-item d-flex flex-row justify-content-between">
-          <div>
-            <h5>${content.title}<h5>
-            <small class = "small font-weight-light primary-text">${content.type}</small>
+    <li class="list-group-item d-flex flex-row justify-content-between" data-id = "${i}">
+          <div class = "d-flex flex-row">
+           <i class="fas fa-arrows-alt align-self-center dragable mr-2"></i>
+            <div>
+                <h5>${content.title}<h5>
+                <small class = "small font-weight-light primary-text">${content.type}</small>
+            </div>
           </div>
           <div class = "d-flex flex-row justify-content-between">
             <button data-toggle= "tooltip" title = "Edit Content" class = "btn" onclick = "editContent('${i}')"><i class = "fa fa-pen"></i></button>
             <button data-toggle= "tooltip" title = "Add/Replace Video" class = "btn btn-primary" onclick = "addVideo('${i}')"><i class = "fa fa-video"></i></button>
             ${viewVideo}
             <button data-toggle= "tooltip" title = "Delete Content" class = "btn btn-danger" onclick = "deleteConfirm('${i}')"><i class = "fa fa-trash"></i></button>
-          </div>
-        
+          </div> 
     </li>
     `
 }
@@ -145,10 +155,13 @@ const renderLessonContent = (content, i) => {
 const renderQuestionContent = (content, i) => {
 
     return `
-    <li class="list-group-item d-flex flex-row justify-content-between">
-          <div>
-            <h5>${content.title}<h5>
-            <small class = "small font-weight-light secondary-text">${content.type}</small>
+    <li class="list-group-item d-flex flex-row justify-content-between" data-id = "${i}">
+          <div class = "d-flex flex-row">
+            <i class="fas fa-arrows-alt align-self-center dragable mr-2"></i>
+            <div>
+                <h5>${content.title}<h5>
+                <small class = "small font-weight-light secondary-text">${content.type}</small>
+            </div>
           </div>
           <div class = "d-flex flex-row justify-content-between">
             <button data-toggle= "tooltip" title = "Edit Content" class = "btn" onclick = "editContent('${i}')"><i class = "fa fa-pen"></i></button>
@@ -361,6 +374,22 @@ $('#addCourseForm').submit(function (e) {
     let mode = $("#courseMode").val();
     editCourse(course);
 });
+
+const calculatePositions = async (evt) => {
+    console.log(evt);
+    const batch = firebase.firestore().batch();
+    const collection = courseDb.collection('contents');
+    $("#contentList li").each((id, ele) => {
+
+        let contentId = ele.getAttribute("data-id");
+        let db = collection.doc(contentId);
+        batch.update(db, { position: parseInt(id) })
+        console.log(ele)
+        console.log(id);
+    });
+    await batch.commit();
+}
+
 
 
 

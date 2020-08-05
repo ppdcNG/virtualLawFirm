@@ -29,6 +29,7 @@ $("#promoForm").submit(async function (e) {
     let promoId = $("#promoId").val();
     if (mode == 'edit') {
         await courseDb.collection('promoCodes').doc(promoId).update({ ...promo });
+        $("#promoMode").val("add");
         $("#promoForm")[0].reset();
     }
     if (mode == 'add') {

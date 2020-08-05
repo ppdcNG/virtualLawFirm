@@ -64,10 +64,13 @@ exports.courseDetails = async (req, res) => {
     rating = rating ? rating : "no rating yet";
     contentList = "";
     contentCount = 0
-    contentString.split('***').forEach((content) => {
-        contentList += "<li class = 'list-group-item'>" + content + "</li>";
-        contentCount++;
+    let contentSnapshot = await admin.firestore().collection(`courses/${id}/contents`).orderBy('position').get();
+    contentSnapshot.forEach((contentSnap) => {
+        let content = contentSnap.data();
+        contentList += "<li class = 'list-group-item'>" + content.title + "</li>";
+        if (content.type == "Lesson") contentCount++;
     })
+
 
     res.render('eLearning/course-details',
         {
@@ -211,7 +214,7 @@ exports.fetchCourseContent = async (req, res) => {
         return;
     }
 
-    let collectionSnapshot = await admin.firestore().collection(`courses/${id}/contents`).get().catch((e) => { console.log(e) });
+    let collectionSnapshot = await admin.firestore().collection(`courses/${id}/contents`).orderBy("position").get().catch((e) => { console.log(e) });
     let contentList = {}
     let contentOrder = [];
     collectionSnapshot.forEach((content) => {
