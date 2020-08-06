@@ -1,4 +1,5 @@
 let LEGAL_DOCS = {};
+let LEGAL_DOCS_ARRAY = [];
 
 const renderDocs = (id, document) => {
     let description = document.description ? truncate(document.description, 25) : "No description";
@@ -32,28 +33,21 @@ const showModal = id => {
 
 }
 
-$("#searchFilterForm").submit(async (e) => {
+$("#searchFilterForm").change(async (e) => {
     e.preventDefault();
     let form = form2js("searchFilterForm", ".");
     let documentsHTML = "";
 
-    if (Object.entries(form).length === 0) {
-        fetchDoc();
+    if (form.filter) {
+        LEGAL_DOCS_ARRAY.forEach(doc => {
+            if (doc.title === form.filter) {
+                documentsHTML += renderDocs(doc.id, doc);
+                $("#documents").html(documentsHTML);
+            }
+        })
     } else {
-        const snapshot = await firebase.firestore().collection('legalDocs').where('title', '==', form.filter).get();
-
-        if (snapshot.empty) {
-            console.log('No matching documents.');
-            $("#documents").html('No Matching Documents')
-            return;
-        }
-        snapshot.forEach(doc => {
-            console.log(doc.id, '=>', doc.data());
-            documentsHTML += renderDocs(doc.id, doc.data());
-            $("#documents").html(documentsHTML);
-        });
+        $("#documents").html('No Matching Documents');
     }
-
 })
 
 $("#downloadDoc").click(() => {
@@ -85,10 +79,15 @@ const fetchDoc = () => {
 
         documents.forEach((doc) => {
             LEGAL_DOCS[doc.id] = doc.data();
+            LEGAL_DOCS_ARRAY.push(doc.data());
             documentsHTML += renderDocs(doc.id, doc.data());
         })
         $("#loading").css('display', 'none');
         documentsHTML == '' ? $("#documents").html('No Documents Available') : $("#documents").html(documentsHTML);
+
+        LEGAL_DOCS_ARRAY.forEach(doc => {
+            $("#select-filter").append(`<option value="${doc.title}">${doc.title}</option>`)
+        })
     });
 }
 fetchDoc();
@@ -123,27 +122,26 @@ const payLegalDoc = id => {
                 console.log(path);
                 window.location = path
                 processingPayment.close();
-                // $.ajax({
-                //     url: ABS_PATH + "admin/downloadLegalDoc",
-                //     type: "POST",
-                //     data: data,
-                //     success: function (response) {
-                //         const url = window.URL.createObjectURL(response);
-                //         const a = document.createElement('a');
-                //         a.style.display = 'none';
-                //         a.href = url;
-                //         // the filename you want
-                //         a.download = doc.filename;
-                //         document.body.appendChild(a);
-                //         a.click();
-                //         window.URL.revokeObjectURL(url);
-                //     },
-                //     error: err => {
-                //         console.error("error", err)
-                //         $.notify(err.message, { type: "warning" });
-                //     }
-                // });
-
+                $.ajax({
+                    url: ABS_PATH + "admin/downloadLegalDoc",
+                    type: "POST",
+                    data: data,
+                    success: function (response) {
+                        const url = window.URL.createObjectURL(response);
+                        const a = document.createElement('a');
+                        a.style.display = 'none';
+                        a.href = url;
+                        // the filename you want
+                        a.download = doc.filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                    },
+                    error: err => {
+                        console.error("error", err)
+                        $.notify(err.message, { type: "warning" });
+                    }
+                });
             },
             onClose: function () {
                 console.log('window closed');

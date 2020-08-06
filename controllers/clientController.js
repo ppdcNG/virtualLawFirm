@@ -22,13 +22,22 @@ exports.consultation = (req, res) => {
 
 exports.lawyerCategories = (req, res) => {
     let categories = {
-        familyLaw: require('../config/categories/family-law.json'),
-        administrativePublicLaw: require('../config/categories/administrative-public-law.json'),
-        landPropertyLaw: require('../config/categories/land-property-law.json'),
-        financeCommercialLaw: require('../config/categories/finance-commercial-law.json'),
-        digitalEntertainmentLaw: require('../config/categories/digital-ent-sports.json'),
-        energyProjectsLaw: require('../config/categories/energy-projects.json'),
-        others: require('../config/categories/others.json'),
+        agriculturalLaw: require('../config/categories/agricultural-law.json'),
+        antitrustSection: require('../config/categories/antitrust-section.json'),
+        corporateLawSection: require('../config/categories/corporate-law-section.json'),
+        disputeResolutionSection: require('../config/categories/dispute-resolution.json'),
+        EENRILawSection: require('../config/categories/eenri-law-section.json'), //Energy, Environment, Natural Resources andInfrastructure Law Section
+        financialServicesSection: require('../config/categories/financial-services.json'),
+        humanResourcesSection: require('../config/categories/human-resources.json'),
+        insolvency: require('../config/categories/insolvency.json'),
+        IPCTSection: require('../config/categories/ipct-section.json'), //Intellectual Property, Communications and Technology Section
+        ICTFPLawSection: require('../config/categories/ictfp-law-section.json'), //Intellectual Commercial, Trade, Franchising and Product Law Section
+        lawAndIndiviualRights: require('../config/categories/law-indiviual-rights.json'),
+        leisureIndustriesSection: require('../config/categories/leisure-industries.json'),
+        maritimeAndAviationLaw: require('../config/categories/maritime-aviation-law.json'),
+        realEstateSection: require('../config/categories/real-estate.json'),
+        publicLawSection: require('../config/categories/public-law-section.json'),
+        taxationSection: require('../config/categories/taxation-section.json'),
     }
     res.send(categories);
 

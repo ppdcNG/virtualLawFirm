@@ -1,5 +1,5 @@
-{{> header}}
-{{> navbar}}
+{{> header-new }}
+{{> navbar }}
 
 <div class="row">
     <section class="container">
@@ -12,7 +12,10 @@
 
             <form class="form row py-3" id="searchFilterForm">
                 <label for="filter" class="font-weight-bold col-md-12">Filter Category</label>
-                <input type="search" name="filter" class="form-control col-md-4 ml-3" />
+                {{! <input type="search" name="filter" class="form-control col-md-4 ml-3" /> }}
+                <select class="form-control col-md-4 ml-3 documentSearch" name="filter" id="select-filter">
+                  <option value="">Search documents</option>
+                </select>
                 <button type="button" id="resetFilterBtn" class="border-0 px-2 bg-warning white-text">Reset Filter</button>
             </form>
         </div>
@@ -211,7 +214,7 @@ Modals
                     </form>
                 </div>
                 <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
-                    <form id = "clientRegisterForm" class="border border-light p-5" ">
+                    <form id = "clientRegisterForm" class="border border-light p-5">
                 
                         <p class="h4 mb-4">Sign Up</p>
 
@@ -231,6 +234,745 @@ Modals
                             
                         </div>
                         
+                        <p class="text-muted">Terms and Conditions</p>
+                        <div class="terms-conditions bg-white text-muted container-fluid" style="height:50vh;overflow:scroll">
+                            <section>
+                                <ol>
+                                    <li>
+                                        <h4>Contractual Relationship</h4>
+                                        <p>Welcome to LawTrella!</p>
+                                        <p class="text-justify">
+                                            LawTrella builds technologies and services that enable people to connect with each other, build communities
+                                            around shared interests and provide professional services. This page informs you of the Terms of Service
+                                            that cover your use and access from within Nigeria and its territories to the websites, applications,
+                                            content, products, and services (the "Services”) developed and offered by Lawtrella, Ltd. and any of its
+                                            subsidiaries, affiliates (collectively, "LawTrella").
+                                        </p>
+                                        <p class="text-justify">
+                                            “LawTrella” “we”, “us”, “our”, and similar means Lawtrella, Ltd. and its affiliates.
+                                        </p>
+                                        <p class="text-justify">
+                                            <span class="text-uppercase">
+                                                BY CLICKING “I ACCEPT,” OR BY DOWNLOADING, INSTALLING, OR OTHERWISE ACCESSING OR USING THE SERVICES, YOU
+                                                AGREE THAT YOU HAVE READ AND UNDERSTOOD, AND, AS A CONDITION TO YOUR USE OF THE SERVICE, YOU AGREE TO BE
+                                                BOUND BY, THE FOLLOWING TERMS AND CONDITIONS, INCLUDING LAWTRELLA’S PRIVACY POLICY, (TOGETHER, THESE
+                                                “TERMS”).
+                                            </span>
+                                            <span>
+                                                If you are not eligible or do not agree to the Terms, then you do not have our permission to use the
+                                                Service.
+                                            </span>
+                                            <span class="text-uppercase">
+                                                YOUR USE OF THE SERVICE, AND LAWTRELLA’S PROVISION OF THE SERVICE TO YOU, CONSTITUTES AN AGREEMENT BY
+                                                LAWTRELLA AND BY YOU TO BE BOUND BY THESE TERMS.
+                                            </span>
+                                        </p>
+                                        <p><strong>Please read these Terms carefully. </strong></p>
+                                        <p class="text-justify">
+                                            LawTrella may publish Supplemental terms to govern the use of certain Services such as policies for a
+                                            particular event, program, activity or promotion, and such supplemental terms will be made available to you
+                                            in connection with the applicable Service(s). Supplemental terms are in addition to, and shall be deemed a
+                                            part of, the Terms for the purposes of the applicable Service(s). Supplemental terms shall prevail over
+                                            these Terms in the event of a conflict with respect to the applicable Services.
+                                        </p>
+                                        <p class="text-justify">
+                                            LawTrella may amend these terms and such Amendments will be effective upon publication at this location.
+                                        </p>
+                                        <p class="text-justify">
+                                            Your continued access or use of the Services after such posting confirms your consent to be bound by the
+                                            Terms, as amended. If LawTrella changes these Terms after the date you first agreed to the Terms (or to any
+                                            subsequent changes to these Terms), you may reject any such change by terminating your access or use of the
+                                            Services by all necessary means including deleting your LawTrella account.
+                                        </p>
+                                        <p class="text-justify">
+                                            LawTrella’s collection and use of personal information in connection with the Services is described in
+                                            LawTrella's Privacy Statements located at <a
+                                                href="https://www.LawTrella.com/privacy">https://www.LawTrella.com/privacy</a>
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <h4>The LawTrella Platform</h4>
+                                        <p class="text-justify">
+                                            The LawTrella Platform comprises web applications, mobile applications and related services either developed
+                                            by LawTrella or acquired by it (each, an "Application"), which enable users to access eLearning, legal
+                                            resources, engage legal services, purchase legal document templates, participate in discussion forums,
+                                            chatrooms, find lawyers and Notaries through directories, connect with other providers of Legal Services,
+                                            purchase products and services from listed vendors etc.
+                                        </p>
+                                        <p class="text-justfy text-uppercase">
+                                            YOU ACKNOWLEDGE THAT YOUR ABILITY TO OBTAIN LEGAL SERVICES, THROUGH THE USE OF THE SERVICES DOES NOT
+                                            ESTABLISH LAWTRELLA AS A LAW FIRM.
+                                        </p>
+
+                                        <h5>License.</h5>
+                                        <p class="text-justify">
+                                            Subject to your compliance with these Terms, LawTrella grants you a limited, non-exclusive,
+                                            non-sublicensable, revocable, non-transferable license to (i) access and use the Applications on your
+                                            personal device solely in connection with your use of the Services; and (ii) access and use any content,
+                                            information and related materials that may be made available through the Services, in each case solely for
+                                            your personal, noncommercial use. Any rights not expressly granted herein are reserved by LawTrella and
+                                            LawTrella's licensors.
+                                        </p>
+
+                                        <h5>Restrictions.</h5>
+                                        <p class="text-justify">
+                                            You may not: (i) remove any copyright, trademark or other proprietary notices from any portion of the
+                                            Services; (ii) reproduce, modify, prepare derivative works based upon, distribute, license, lease, sell,
+                                            resell, transfer, publicly display, publicly perform, transmit, stream, broadcast or otherwise exploit the
+                                            Services except as expressly permitted by LawTrella; (iii) decompile, reverse engineer or disassemble the
+                                            Services except as may be permitted by applicable law; (iv) link to, mirror or frame any portion of the
+                                            Services; (v) cause or launch any programs or scripts for the purpose of scraping, indexing, surveying, or
+                                            otherwise data mining any portion of the Services or unduly burdening or hindering the operation and/or
+                                            functionality of any aspect of the Services; or (vi) attempt to gain unauthorized access to or impair any
+                                            aspect of the Services or its related systems or networks.
+                                        </p>
+
+                                        <h5>Provision of the Services.</h5>
+                                        <p class="text-justify">
+                                            You acknowledge that portions of the Services may be made available under LawTrella's various brands or add
+                                            ons associated with online communities currently referred to as “LawTrella eLearning”, “Find a lawyer”
+                                            “Notary Public’s Directory” “LawTrella Virtual Consulting”, “LawTrella Legal Documents” “LawTrella
+                                            eCommerce”.
+                                        </p>
+                                        <p class="text-justify">
+                                            You also acknowledge that the Services may be made available under such brands by or in connection with
+                                            independent Third Party Providers including Lawyers, Educators, Vendors and other users.
+                                        </p>
+
+                                        <h5>Third-Party Services and Content.</h5>
+                                        <p class="text-justify">
+                                            The Services may be made available or accessed in connection with third-party services and content
+                                            (including advertising) that LawTrella does not control. You acknowledge that different terms of use and
+                                            privacy policies may apply to your use of such third party services and content. LawTrella does not endorse
+                                            such third party services and content and in no event shall LawTrella be responsible or liable for any
+                                            products or services of such third party providers. If you access the Services using Applications and
+                                            devices, your access to the Services will also be subject to terms set forth in the applicable third party’s
+                                            terms of service.
+                                        </p>
+
+                                        <h5>Ownership.</h5>
+                                        <p class="text-justify">
+                                            The Services and all rights therein are and shall remain LawTrella's property or the property of LawTrella's
+                                            licensors. Neither these Terms nor your use of the Services convey or grant to you any rights: (i) in or
+                                            related to the Services except for the limited license granted above; or (ii) to use or reference in any
+                                            manner LawTrella's company names, logos, product and service names, trademarks or services marks or those of
+                                            LawTrella's licensors.
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <h4>Access and Use of the Services</h4>
+                                        <h5>User Accounts and Registration Information.</h5>
+                                        <p class="text-justify">
+                                            You may be required to provide information about Yourself in order to register for and/or use certain
+                                            Services. You agree that any such information shall be accurate. You may also be asked to choose a username
+                                            and password. You are entirely responsible for maintaining the security of Your user name and password and
+                                            agree not to disclose such to any third party. You must be at least 18 years of age to obtain an Account,
+                                            unless a specific Service permits otherwise. You agree to maintain accurate, complete, and up-to-date
+                                            information in your Account. You are responsible for all activity that occurs under your Account, and you
+                                            agree to maintain the security and secrecy of your Account username and password at all times. Unless
+                                            otherwise permitted by LawTrella in writing, you may only possess one Account.
+                                        </p>
+
+                                        <h5>Lawyer Accounts.</h5>
+                                        <p class="text-justify">
+                                            Only a Lawyer is permitted to use a Lawyer account. Such use is governed by these Terms and the Terms of Use
+                                            for LawTrella Lawyer accounts. LawTrella does not investigate, verify or warrant the accuracy of the
+                                            information contained in any Lawyer profile on our website. Lawyers on our Platform are neither employees
+                                            nor agents of LawTrella. Lawyers on LawTrella are third-party independent contractors solely responsible for
+                                            the services they provide, the advice they give, and the representations about themselves they make. You are
+                                            solely responsible for assessing the quality, integrity, suitability and trustworthiness of all persons with
+                                            whom you communicate regarding your legal needs.
+                                        </p>
+
+                                        <h5>User-Provided Content.</h5>
+                                        <p class="text-justify">
+                                            LawTrella may, in LawTrella's sole discretion, permit you from time to time to submit, upload, publish or
+                                            otherwise make available to LawTrella through the Services textual, audio, and/or visual content and
+                                            information, including eLearning material, eCommerce information relating to products and services,
+                                            descriptions of legal issues, questions asked, commentary and feedback related to the Services, Legal
+                                            Document suggestions, Posts in our Community Forums ("User Content"). Any User Content provided by you
+                                            remains your property. However, by providing User Content to LawTrella, you grant LawTrella a worldwide,
+                                            perpetual, irrevocable, transferable, royalty-free license, with the right to sublicense, to use, copy,
+                                            modify, create derivative works of, distribute, publicly display, publicly perform, and otherwise exploit in
+                                            any manner such User Content in all formats and distribution channels now known or hereafter devised
+                                            (including in connection with the Services and LawTrella's business and on third-party sites and services),
+                                            without further notice to or consent from you, and without the requirement of payment to you or any other
+                                            person or entity.
+                                        </p>
+                                        <p class="text-justify">
+                                            You represent and warrant that: (i) you either are the sole and exclusive owner of all User Content or you
+                                            have all rights, licenses, consents and releases necessary to grant LawTrella the license to the User
+                                            Content as set forth above; and (ii) neither the User Content, nor your submission, uploading, publishing or
+                                            otherwise making available of such User Content, nor LawTrella's use of the User Content as permitted herein
+                                            will infringe, misappropriate or violate a third party's intellectual property or proprietary rights, or
+                                            rights of publicity or privacy, or result in the violation of any applicable law or regulation.
+                                        </p>
+                                        <p class="text-justify">
+                                            You agree to not provide User Content that is defamatory, libellous, hateful, violent, obscene,
+                                            pornographic, unlawful, or otherwise offensive, as determined by LawTrella in its sole discretion, whether
+                                            or not such material may be protected by law. LawTrella may, but shall not be obligated to, review, monitor,
+                                            or remove User Content, at LawTrella's sole discretion and at any time and for any reason, without notice to
+                                            you.
+                                        </p>
+
+                                        <h5>Network Access and Devices.</h5>
+                                        <p class="text-justify">
+                                            You are responsible for obtaining the data network access necessary to use the Services. Your mobile
+                                            network's data and messaging rates and fees may apply if you access or use the Services from your device.
+                                            You are responsible for acquiring and updating compatible hardware or devices necessary to access and use
+                                            the Services and Applications and any updates thereto. LawTrella does not guarantee that the Services, or
+                                            any portion thereof, will function on any particular hardware or devices. In addition, the Services may be
+                                            subject to malfunctions and delays inherent in the use of the Internet and electronic communications.
+                                        </p>
+
+                                        <h5>Consent to Receive Emails.</h5>
+                                        <p class="text-justify">
+                                            By creating an account, you agree that you may receive communications from LawTrella, such as newsletters,
+                                            special offers, and account reminders and updates. You also understand that you can remove yourself from
+                                            these communications by clicking the "Unsubscribe" link in the footer of the actual email.
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <h4>LawTrella is Not a Law Firm and Does Not Provide Legal Advice or Representation</h4>
+                                        <p class="text-justify">
+                                            Part of the Services may permit you to contact a Lawyer, manage a brief with a lawyer from creation to
+                                            conclusion, purchase legal document templates and/or other legal relations.
+                                        </p>
+                                        <p class="text-justify text-uppercase">
+                                            YOU ACKNOWLEDGE THAT YOUR ABILITY TO OBTAIN LEGAL SERVICES, THROUGH THE USE OF THE SERVICES DOES NOT
+                                            ESTABLISH LAWTRELLA AS A LAW FIRM.
+                                        </p>
+                                        <p class="text-justify">
+                                            <span>
+                                                LawTrella is a multi-business platform connecting professionals including lawyers with potential clients
+                                                and business partners through directory services currently referred to as Find a Lawyer, Notary Public’s
+                                                Directory and communications support through emails and Virtual Consulting. The information provided by
+                                                LawTrella along with the content on our website related to legal matters ("Legal Information") is
+                                                provided to the General public for information purposes and does not constitute legal advice.
+                                            </span>
+                                            <span class="text-uppercase">
+                                                LAWTRELLA IS NOT A LAW FIRM AND DOES NOT PROVIDE LEGAL ADVICE OR REPRESENTATION. LAWTRELLA DOES NOT
+                                                OFFER ANY LEGAL OPINIONS, RECOMMENDATIONS, REFERRALS, AND/OR COUNSELING. LAWTRELLA IS NOT INVOLVED IN
+                                                AGREEMENTS BETWEEN YOU AND OTHER USERS.
+                                            </span>
+                                        </p>
+                                        <p class="text-justify">
+                                            LawTrella offers Virtual Consulting facilities which allow Users to contact and engage Lawyers on the
+                                            Network. The facilities include Real-time messaging, Voice call, Video call, Live Interactive Audio and
+                                            Video Streaming, Recording, File Sharing, Billing and Payment. These applications are intended to help Users
+                                            obtain and manage legal services virtually. LawTrella does not intervene in the selection or engagement
+                                            process, you are solely responsible for assessing the information provided on our Find a Lawyer Page and for
+                                            making a choice of Lawyer to contact. LawTrella does not endorse or recommend any of the Lawyers on our
+                                            Platform. LawTrella makes no representation or warranty as to the qualifications or competency of any Lawyer
+                                            or as to the accuracy or completeness of any Lawyer's work. LawTrella’s Terms of Use for Lawyer accounts
+                                            require anyone who uses a Lawyer account on LawTrella to agree to be bound by and to comply with the Rules
+                                            of Professional Conduct, the Legal Practitioners Act 2007, and any other legal directive regulating law
+                                            practice in Nigeria. LawTrella maintains a reasonable level of digital security to prevent unauthorized
+                                            access of your communications but will not be held liable for your actions or omissions or the actions or
+                                            omissions of any Lawyer.
+                                        </p>
+                                        <p class="text-justify">
+                                            Neither LawTrella nor any Legal Information provided by LawTrella is a substitute for legal advice from a
+                                            qualified attorney. As LawTrella is not a law firm, please note that communications between you and
+                                            LawTrella may not be protected as privileged communications under the attorney-client privilege or work
+                                            product doctrine. Also, if you use the LawTrella Q&A service, the communications between you and the Lawyer
+                                            who answers your question may not be protected as privileged communications under the attorney-client
+                                            privilege or work product doctrine. Without prejudice to the above, LawTrella requires anyone who uses a
+                                            Lawyer account to warrant that any and all information received by them from a LawTrella user will be
+                                            handled securely and kept in confidence.
+                                        </p>
+                                        <p class="text-justify text-uppercase">
+                                            LAWTRELLA SHALL HAVE NO RESPONSIBILITY OR LIABILITY OF ANY KIND FOR ANY SERVICES RENDERED BY ANY LAWYER YOU
+                                            ENCOUNTER ON OR THROUGH OUR WEBSITE, AND ANY USE OR RELIANCE ON SUCH SERVICES IS SOLELY AT YOUR OWN RISK.
+                                        </p>
+
+                                        <h5>Find a Lawyer</h5>
+                                        <p class="text-justify">
+                                            If you wish to use LawTrella to obtain legal advice for a specific problem, you may contact a Lawyer through
+                                            our Find a Lawyer Service. The Find a Lawyer directory is a free public service provided by LawTrella.
+                                            LawTrella does not endorse any Lawyer on its platform. It is a search service that allows you to view Lawyer
+                                            profiles and the endorsements they make about themselves. You are solely responsible for assessing the
+                                            quality, integrity, suitability and trustworthiness of all persons with whom you communicate regarding your
+                                            legal needs.
+                                        </p>
+                                        <p class="text-justify">
+                                            LawTrella does not intervene in the selection or engagement process nor does it review or approve the
+                                            subject matter of Briefs created on its platform.
+                                        </p>
+                                        <p class="text-justify">
+                                            When you contact a Lawyer through LawTrella, he or she may provide you with an initial consultation, legal
+                                            review of your forms or documents, or answers to your legal questions. Please note that any such interaction
+                                            is intended to be a starting point for dealing with a legal matter or addressing basic legal questions and
+                                            any attorney-client relationship formed during the course of that interaction is strictly between you and
+                                            the Lawyer and expressly excludes LawTrella.
+                                        </p>
+                                        <p class="text-justify">
+                                            When you contact a Lawyer through LawTrella, he or she may ask you for some information regarding you and
+                                            your legal affairs in order to properly address your questions. By using our Services, you consent to share
+                                            such personally identifying information for the purpose of securing legal advice with both the requesting
+                                            Lawyer and with LawTrella. LawTrella will keep all data shared on our platform secured in accordance with
+                                            our Privacy Policy.
+                                        </p>
+                                        <p class="text-justify">
+                                            You may request an initial consultation with a Lawyer on LawTrella at any of their available meeting hours.
+                                            The Lawyer may (a) accept your consultation request at the stated time and day, (b) accept the consultation
+                                            request and suggest another available time to you; (c) pass the request to another lawyer; (d) decline the
+                                            request.
+                                        </p>
+                                        <p class="text-justify">
+                                            At the end of an initial consultation, you may choose to assign a Brief to the Lawyer. If the lawyer
+                                            accepts, a Brief will be created on your account in the name of the Lawyer. You will be required to input at
+                                            least one Deliverable in your Brief. Deliverables define the scope of work to be done.
+                                        </p>
+                                        <p class="text-justify">
+                                            You may also be required to fill a payment schedule attached to the Brief. You may instruct the Lawyer to
+                                            fill the payment schedule to reflect your agreement. Payments will be listed with their due dates. Failure
+                                            to make a payment as at when due may result in a breach of these Terms. Payments may or may not be tied to
+                                            certain deliverables which the Lawyer is expected to meet. When you tie a deliverable to a payment, you are
+                                            responsible for marking that deliverable as received. Notwithstanding a given due date, a payment will not
+                                            become due until the deliverable to which it has been tied has been marked as received.
+                                        </p>
+                                        <p class="text-justify">
+                                            A Brief opened on your account may create an Attorney-Client relationship between you and the Lawyer.
+                                            LawTrella is not a party to that relationship. LawTrella will maintain adequate security and reasonable
+                                            measures to prevent unauthorized access to communications between you and the lawyer but you understand that
+                                            LawTrella may access certain aspects of your communication for its purposes including for quality assurance
+                                            purposes. LawTrella does not review the legal work provided by Lawyers through our platform. Each lawyer is
+                                            solely responsible for her or his own work product and general business activities to the exclusion of any
+                                            other lawyer and LawTrella.
+                                        </p>
+
+                                        <h5>Virtual Consulting</h5>
+                                        <p class="text-justify">
+                                            LawTrella’s Virtual Consulting service allows you to consult with a lawyer of your choice and engage their
+                                            legal services with respect to a particular issue or a series of services. Subject to these terms, you may
+                                            use our platform to communicate with a lawyer for the purpose of engaging his or her services. You may also
+                                            use our platform to maintain and monitor the activities of a lawyer you have engaged, share files and make
+                                            payments for costs and fees charged to you.
+                                        </p>
+                                        <p class="text-justify">
+                                            Our facilities enable users to schedule and start Meetings and to allow other users to join Meetings for the
+                                            purpose of collaborating using voice and video conferencing functionality. It includes the various video
+                                            conferencing, web conferencing, webinar, meeting room, the various voice connectivity services, including,
+                                            but not limited to, interconnected VoIP services.
+                                        </p>
+                                        <p class="text-justify">
+                                            LawTrella does not supply any devices or other equipment used in connection with our Virtual Consulting
+                                            service, and accordingly, we do not provide any guarantees as to the quality or operability of your personal
+                                            Devices and equipment when used to access our Virtual Consulting services.
+                                        </p>
+                                        <p class="text-justify">
+                                            LawTrella does not intercept, modify or change the communications made through our Virtual Consulting
+                                            facilities. LawTrella will maintain reasonable physical and technical safeguards to prevent unauthorized
+                                            disclosure of or access to Content, in accordance with industry standards. LawTrella will notify you if it
+                                            becomes aware of unauthorized access to Content. LawTrella will not access, view or process Content except
+                                            (a) as provided for in this Agreement and in LawTrella ’s Privacy Policy; (b) as authorized or instructed by
+                                            you, (c) as required to perform its obligations under these Terms; or (d) as required by Law. LawTrella has
+                                            no other obligations with respect to Content.
+                                        </p>
+
+                                        <h5>Notary Public Directory</h5>
+                                        <p class="text-justify">
+                                            If you wish to use LawTrella to obtain document notarization services, you may find a Notary Public through
+                                            our Notary Public’s Directory. LawTrella does not endorse or recommend any Notary Public on its platform.
+                                            You are solely responsible for assessing the quality, integrity, suitability and trustworthiness of all
+                                            persons with whom you communicate regarding your legal needs.
+                                        </p>
+
+                                        <h5>Ask a Lawyer</h5>
+                                        <p class="text-justify">
+                                            The ‘Ask a lawyer’ section of our Platform does not give legal advice. The Legal information provided here
+                                            is for educational purposes only and does not replace the advice of a licensed Attorney. Lawtrella, its
+                                            employees, partners or affiliates will not be liable for any loss and/or damages that might arise from the
+                                            use of any information obtained from this section. We advise you to consult with a lawyer before taking
+                                            action(s) based on these answers. Making decisions based on this information is solely at your own risk.
+                                        </p>
+                                        <p class="text-justify">
+                                            You acknowledge that when you use our Ask a Lawyer Forum, you are accessing a public forum. Questions posed
+                                            by you and information provided thereof, as well as responses and answers to such questions shall be made
+                                            public and be available to anyone visiting the site. Although LawTrella will ensure that all questions
+                                            posted on our Ask a Lawyer Public forum are anonymised, we strongly advise that confidential information
+                                            should not be provided through this section.
+                                        </p>
+
+                                        <h5>Legal Documents</h5>
+                                        <p class="text-justify">
+                                            Part of the services may allow you purchase and download legal document templates provided by LawTrella,
+                                            other Third Party Providers including other Users and although we attempt to make sure the documents are
+                                            accurate and useful, we make no warranty of any kind whether express, statutory and/or implied, including
+                                            but not limited to any implied warranties of title, non-infringement, merchantability, and/or fitness for a
+                                            particular purpose, accuracy, and from the course of dealing, usage and/or trade practice, all of which
+                                            LawTrella expressly disclaims.
+                                        </p>
+                                        <p class="text-justify">
+                                            You acknowledge that the legal document templates you download from our Platform are made publicly available
+                                            and are not provided as a lawyer made documents. You agree to use them ONLY as a guide in preparing your own
+                                            legal document. While LawTrella retains the Copyright in and to the legal document templates on our
+                                            Platform, we will acknowledge any legal ownership of the Copyright in the content you include when preparing
+                                            the document.
+                                        </p>
+
+                                        <h5>Disputes</h5>
+                                        <p class="text-justify">
+                                            You acknowledge that in the event of a dispute between you and a Lawyer on LawTrella, whether with regards
+                                            to work quality, timeliness, charges or other reason that may arise in the course of your interaction, you
+                                            may make a Complaint to LawTrella. LawTrella will endeavour to resolve the dispute but does not in any way
+                                            warrant to ensure a favourable outcome for any party. You agree to comply with the Complaints resolution
+                                            process and to provide any such information that will be requested by LawTrella.
+                                        </p>
+
+                                        <h5 class="text-uppercase"><strong>PLEASE READ THIS PART CAREFULLY AS IT CONCERNS YOUR RIGHTS</strong></h5>
+                                        <p class="text-justify">
+                                            You agree that you waive your rights to pursue a claim against LawTrella for the actions or omissions of a
+                                            Lawyer on its Platform. You acknowledge that LawTrella is not a party to any legal relationship formed
+                                            between you and a Lawyer on its platform.
+                                        </p>
+                                        <p class="text-justify">
+                                            You acknowledge that you waive your rights to pursue a claim against LawTrella for its own actions subject
+                                            to the Arbitration Agreement contained in these Terms.
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <h4>eLearning Content Offerings:</h4>
+                                        <h5>Changes to Content Offerings</h5>
+                                        <p class="text-justify">
+                                            LawTrella offers courses and content ("Content Offerings") from Lawyers, Law firms, Institutions, Private
+                                            organizations and other providers ("Content Providers"). While we seek to provide world-class Content
+                                            Offerings from our Content Providers, unexpected events do occur. LawTrella reserves the right to cancel,
+                                            interrupt, reschedule, or modify any Content Offerings, or change the point value or weight of any
+                                            assignment, quiz, or other assessment. Content Offerings are subject to the Disclaimers and Limitation of
+                                            Liability sections below.
+                                        </p>
+
+                                        <h5>No Academic Credit</h5>
+                                        <p class="text-justify">
+                                            Unless otherwise explicitly indicated by a credit-granting institution, participation in or completion of
+                                            Content Offering does not confer any academic credit. Even if credit is awarded by one institution, there is
+                                            no presumption that other institutions will accept that credit. You agree not to accept credit for
+                                            completing a Content Offerings unless you have earned a Course Certificate or other equivalent documentation
+                                            of your completion of the Content Offerings. LawTrella, instructors, and the associated Content Providers
+                                            have no obligation to have Content Offerings recognized by any educational institution or accreditation
+                                            organization.
+                                        </p>
+
+                                        <h5>Disclaimer of Student-Partner Relationship</h5>
+                                        <p class="text-justify">
+                                            Except as described in a Supplementary Term and/or to the extent established by LawTrella’s status as a
+                                            Provider of Mandatory Continuing Legal Education, nothing in these Terms or otherwise with respect to your
+                                            participation in any Content Offerings by university or company partners ("Partners") : (a) establishes any
+                                            relationship between you and any Partner; (b) enrols or registers you in any Partner institution, or in any
+                                            Content Offering offered by any Partner institution; or (c) entitles you to use the resources of any Partner
+                                            institution beyond participation in the Content Offering.
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <h4>Payment</h4>
+                                        <p class="text-justify">
+                                            You understand that use of the Services may result in charges to you for the services or goods you receive
+                                            ("Charges"). LawTrella will receive and/or enable your payment of the applicable Charges for services or
+                                            goods obtained through your use of the Services. Charges will be inclusive of applicable taxes where
+                                            required by law.
+                                        </p>
+                                        <p class="text-justify">
+                                            When you engage the services of a Lawyer through LawTrella, you understand that he or she may charge fees
+                                            for services rendered. Such fees may or may not be inclusive or the costs incurred in rendering the services
+                                            such as incorporation fees paid on your behalf. LawTrella does not intervene in the charges fixed by lawyers
+                                            or verify actual costs of any products and services offered by vendors on our site.
+                                        </p>
+                                        <p class="text-justify">
+                                            You are responsible for paying all fees charged by or for LawTrella and applicable taxes in a timely manner
+                                            with a payment mechanism associated with the applicable paid Services. You agree to pay all charges
+                                            associated with your use of the Services. You acknowledge that failure to make a payment as at when due may
+                                            amount to a breach of these Terms.
+                                        </p>
+                                        <p class="text-justify">
+                                            All Charges and payments will be enabled by LawTrella through Third-Party Payment systems. LawTrella does
+                                            not store any payment information.
+                                        </p>
+                                        <p class="text-justify">
+                                            LawTrella may from time to time provide certain users with promotional offers and discounts that may result
+                                            in different amounts charged for the same or similar services or goods obtained through the use of the
+                                            Services, and you agree that such promotional offers and discounts unless also made available to you, shall
+                                            have no bearing on your use of the Services or the Charges applied to you. You may elect to cancel your
+                                            request for Services at any time prior to the commencement of such Services, in which case you may be
+                                            charged a cancellation fee on a Third Party Provider’s behalf. After you have received services or goods
+                                            obtained through the Service, you will have the opportunity to rate your experience and leave additional
+                                            feedback. LawTrella may use the proceeds of any Charges for any purpose, subject to any payment obligations
+                                            it has agreed to with any Third Party Providers or other third parties.
+                                        </p>
+                                        <p class="text-justify">
+                                            In certain cases, with respect to Third-Party Providers, Charges you incur will be owed directly to Third
+                                            Party Providers, and LawTrella will collect payment of those charges from you, on the Third Party Provider’s
+                                            behalf as their limited payment collection agent, and payment of the Charges shall be considered the same as
+                                            a payment made directly by you to the Third Party Provider. LawTrella will respond accordingly to any
+                                            request from a Third Party Provider to modify the Charges for a particular service or good. This payment
+                                            structure is intended to fully compensate a Third Party Provider, if applicable, for the services or goods
+                                            obtained in connection with your use of the Services. In all other cases, Charges you incur will be owed and
+                                            paid directly to LawTrella or its affiliates, where LawTrella is solely liable for any obligations to Third
+                                            Party Providers.
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <h4>Refund Policy</h4>
+                                        <p class="text-justify">
+                                            For our websites non-tangible, irrevocable services we do not provide refunds after the services have been
+                                            engaged. You acknowledge that when you pay for a non-tangible, irrevocable service on our Platform, you
+                                            cannot claim a refund.
+                                        </p>
+                                        <p class="text-justify">
+                                            However, within 7days after delivery or access to a product or service through our platform, a refund can
+                                            only be requested if the product is; bad, unusable or doesn't fit the product description on the website.
+                                        </p>
+                                        <p class="text-justify">
+                                            After the 7-day period, you will no longer be eligible and won't be able to receive a refund. We encourage
+                                            our customers to try the product in the first week after their purchase to ensure it suits their needs.
+                                        </p>
+                                        <p class="text-justify">
+                                            If you have any additional questions concerning our refund policy or you would like to request a refund, you
+                                            may contact us through any of our customer support services.
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <h4>Disclaimers; Limitation of Liability; Indemnity.</h4>
+                                        <h4>DISCLAIMER.</h4>
+
+                                        <p class="text-justify text-uppercase">
+                                            THE SERVICES ARE PROVIDED "AS IS" AND "AS AVAILABLE." LAWTRELLA DISCLAIMS ALL REPRESENTATIONS AND
+                                            WARRANTIES, EXPRESS, IMPLIED, OR STATUTORY, NOT EXPRESSLY SET OUT IN THESE TERMS, INCLUDING THE IMPLIED
+                                            WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. LAWTRELLA IS NOT A LAW
+                                            FIRM AND DOES NOT PROVIDE LEGAL ADVICE OR REPRESENTATION. YOU ACKNOWLEDGE THAT YOUR ABILITY TO OBTAIN LEGAL
+                                            SERVICES THROUGH THE USE OF THE SERVICES DOES NOT ESTABLISH LAWTRELLA AS A LAW FIRM. LAWTRELLA MAKES NO
+                                            RECOMMENDATIONS, WARRANTIES OR ENDORSEMENTS FOR ANY LAWYER ON OUR PLATFORM. IN ADDITION, LAWTRELLA MAKES NO
+                                            REPRESENTATION, WARRANTY, OR GUARANTEE REGARDING THE RELIABILITY, TIMELINESS, QUALITY, SUITABILITY, OR
+                                            AVAILABILITY OF ITS OWN SERVICES OR THIRD-PARTY SERVICES REQUESTED THROUGH THE USE OF THE SERVICES, OR THAT
+                                            THE SERVICES WILL BE UNINTERRUPTED OR ERROR-FREE. LAWTRELLA DOES NOT GUARANTEE THE QUALITY, SUITABILITY,
+                                            SAFETY OR ABILITY OF THIRD PARTY PROVIDERS. YOU AGREE THAT THE ENTIRE RISK ARISING OUT OF YOUR USE OF THE
+                                            SERVICES, AND ANY SERVICE OR GOOD REQUESTED IN CONNECTION THEREWITH, REMAINS SOLELY WITH YOU.
+                                        </p>
+
+                                        <h5>LIMITATION OF LIABILITY.</h5>
+                                        <p class="text-justify text-uppercase">
+                                            LAWTRELLA SHALL NOT BE LIABLE FOR INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, PUNITIVE, OR CONSEQUENTIAL
+                                            DAMAGES, INCLUDING LOST PROFITS, LOST DATA, PERSONAL INJURY, OR PROPERTY DAMAGE RELATED TO, IN CONNECTION
+                                            WITH, OR OTHERWISE RESULTING FROM ANY USE OF THE SERVICES, REGARDLESS OF THE NEGLIGENCE (EITHER ACTIVE,
+                                            AFFIRMATIVE, SOLE, OR CONCURRENT) OF LAWTRELLA, EVEN IF LAWTRELLA HAS BEEN ADVISED OF THE POSSIBILITY OF
+                                            SUCH DAMAGES.
+                                        </p>
+                                        <p class="text-justify text-uppercase">
+                                            LAWTRELLA SHALL NOT BE LIABLE FOR ANY DAMAGES, LIABILITY OR LOSSES ARISING OUT OF: (i) YOUR USE OF OR
+                                            RELIANCE ON THE SERVICES OR YOUR INABILITY TO ACCESS OR USE THE SERVICES; OR (ii) ANY TRANSACTION OR
+                                            RELATIONSHIP BETWEEN YOU AND ANY THIRD PARTY PROVIDER, EVEN IF LAWTRELLA HAS BEEN ADVISED OF THE POSSIBILITY
+                                            OF SUCH DAMAGES. LAWTRELLA SHALL NOT BE LIABLE FOR DELAY OR FAILURE IN PERFORMANCE RESULTING FROM CAUSES
+                                            BEYOND LAWTRELLA'S REASONABLE CONTROL. YOU ACKNOWLEDGE THAT THIRD PARTY PROVIDERS OF LEGAL SERVICES ARE NOT
+                                            STAFF OR CONTRACTORS OF LAWTRELLA, LTD OR ANY OF ITS AFFILIATES.
+                                        </p>
+                                        <p class="text-justify">
+                                            Our platform may be used by you to access legal services, eLearning courses, document notarization services,
+                                            products and services from independent vendors including but not limited to providers of software. YOU AGREE
+                                            THAT LAWTRELLA HAS NO RESPONSIBILITY OR LIABILITY TO YOU RELATED TO ANY SERVICES OR PRODUCTS MADE AVAILABLE
+                                            TO YOU BY THIRD-PARTY PROVIDERS OTHER THAN AS EXPRESSLY SET FORTH IN THESE TERMS.
+                                        </p>
+
+                                        <h5>Indemnity.</h5>
+                                        <p class="text-justify">
+                                            You agree to indemnify and hold LawTrella and its affiliates and their officers, directors, employees, and
+                                            agents harmless from any and all claims, demands, losses, liabilities, and expenses (including attorneys'
+                                            fees), arising out of or in connection with: (i) your use of the Services or services or goods obtained
+                                            through your use of the Services; (ii) your breach or violation of any of these Terms; (iii) LawTrella's use
+                                            of your User Content; or (iv) your violation of the rights of any third party, including Third-Party
+                                            Providers.
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <h4>Complaints:</h4>
+                                        <p class="text-justify">
+                                            LawTrella maintains a Complaints system for resolving disputes between Lawyers and Clients or between
+                                            LawTrella and individual users. In the event of a dispute between you and LawTrella, whether regarding a
+                                            transaction or a payment or access to a Service or any other issue that may arise from your use of the
+                                            Service, you acknowledge that details of the matter may be manually or automatically sent for review by
+                                            LawTrella’s complaints process. If you are not satisfied with the resolution of the Complaints, you may
+                                            contact LawTrella directly by email sent to <strong>support@lawtrella.com</strong>.
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <h4>Arbitration Agreement</h4>
+                                        <p class="text-justify">
+                                            IMPORTANT: PLEASE REVIEW THE ARBITRATION AGREEMENT SET FORTH BELOW CAREFULLY, AS IT WILL REQUIRE YOU TO
+                                            RESOLVE DISPUTES WITH LAWTRELLA ON AN INDIVIDUAL BASIS THROUGH FINAL AND BINDING ARBITRATION. BY ENTERING
+                                            THIS AGREEMENT, YOU EXPRESSLY ACKNOWLEDGE THAT YOU HAVE READ AND UNDERSTAND ALL OF THE TERMS OF THIS
+                                            AGREEMENT AND HAVE TAKEN TIME TO CONSIDER THE CONSEQUENCES OF THIS IMPORTANT DECISION.
+                                        </p>
+                                        <p class="text-justify">By agreeing to the Terms, you agree that you are required to resolve any claim that you
+                                            may have against LawTrella on an individual basis in arbitration, as set forth in this Arbitration
+                                            Agreement. This will preclude you from bringing any class, collective, or representative action against
+                                            LawTrella, and also preclude you from participating in or recovering relief under any current or future
+                                            class, collective, consolidated, or representative action brought against LawTrella by someone else.</p>
+
+                                        <h5>Agreement to Binding Arbitration Between You and LawTrella.</h5>
+                                        <p class="text-justify">
+                                            You and LawTrella agree that any dispute, claim or controversy arising out of or relating to (a) these Terms
+                                            or the existence, breach, termination, enforcement, interpretation or validity thereof, or (b) your access
+                                            to or use of the Services at any time, whether before or after the date you agreed to the Terms, will be
+                                            settled by binding arbitration between you and LawTrella, and not in a court of law.
+                                        </p>
+                                        <p class="text-justify">
+                                            You acknowledge and agree that you and LawTrella are each waiving the right to a trial or to participate as
+                                            a plaintiff or class member in any purported class action or representative proceeding. Unless both you and
+                                            LawTrella otherwise agree in writing, any arbitration will be conducted only on an individual basis and not
+                                            in a class, collective, consolidated, or representative proceeding. However, you and LawTrella each retain
+                                            the right to bring an individual action in small claims court and the right to seek injunctive or other
+                                            equitable relief in a court of competent jurisdiction to prevent the actual or threatened infringement,
+                                            misappropriation or violation of a party's copyrights, trademarks, trade secrets, patents or other
+                                            intellectual property rights.
+                                        </p>
+
+                                        <h5>Rules and Governing Law.</h5>
+                                        <p class="text-justify">
+                                            The arbitration will be administered in accordance with the Arbitration and Conciliation Act Cap. A18, Laws
+                                            of the Federation of Nigeria, 2004 (“The Arbitration Act”) except as modified by this Arbitration Agreement.
+                                        </p>
+                                        <p class="text-justify">
+                                            The parties agree that the arbitrator ("Arbitrator"), and not any federal, state, or local court or agency,
+                                            shall have exclusive authority to resolve any disputes relating to the interpretation, applicability,
+                                            enforceability or formation of this Arbitration Agreement, including any claim that all or any part of this
+                                            Arbitration Agreement is void or voidable. The Arbitrator shall also be responsible for determining all
+                                            threshold arbitrability issues, including issues relating to whether the Terms are unconscionable or
+                                            illusory and any defence to arbitration, including waiver, delay, laches, or estoppel.
+                                        </p>
+
+                                        <h5>Process.</h5>
+                                        <p class="text-justify">
+                                            A party who desires to initiate arbitration must provide the other party with a written Demand for
+                                            Arbitration.
+                                        </p>
+                                        <p class="text-justify">
+                                            A written Demand for Arbitration is a Prerequisite for initiation of any Arbitration proceedings against
+                                            LawTrella.
+                                        </p>
+                                        <p class="text-justify">
+                                            The Arbitrator will be either (1) a retired judge or (2) a member of the Nigerian Institute of Chartered
+                                            Arbitrators (NICArb), Chartered Institute of Arbitrators UK (Nigeria Branch) or the International Centre for
+                                            Arbitration and Mediation Abuja (ICAMA) not below the rank of Fellow.
+                                        </p>
+
+                                        <h5>Arbitrator's Decision.</h5>
+                                        <p class="text-justify">
+                                            The Arbitrator will render a decision within the time frame specified in the Arbitration Act. Judgment on
+                                            the arbitration award may be entered in any court having competent jurisdiction to do so. The Arbitrator may
+                                            award declaratory or injunctive relief only in favor of the claimant and only to the extent necessary to
+                                            provide relief warranted by the claimant's individual claim. An Arbitrator’s decision shall be final and
+                                            binding on all parties. An Arbitrator’s decision and judgment thereon shall have no precedential or
+                                            collateral estoppel effect. If you prevail in arbitration you will be entitled to an award of attorneys'
+                                            fees and expenses, to the extent provided under applicable law. LawTrella will not seek, and hereby waives
+                                            all rights LawTrella may have under applicable law to recover attorneys' fees and expenses if LawTrella
+                                            prevails in arbitration.
+                                        </p>
+
+                                        <h5>Fees.</h5>
+                                        <p class="text-justify">
+                                            You and LawTrella agree that you will each be responsible for paying any filing, administrative and
+                                            arbitrator fees on your part.
+                                        </p>
+
+                                        <h5>Changes.</h5>
+                                        <p class="text-justify">
+                                            Notwithstanding the provisions in Section 1 above, regarding consent to be bound by amendments to these
+                                            Terms, if LawTrella changes this Arbitration Agreement after the date you first agreed to the Terms (or to
+                                            any subsequent changes to the Terms), you may reject any such change by providing LawTrella written notice
+                                            of such rejection within 30 days of the date such change became effective, as indicated in the "Effective"
+                                            date above. This written notice must be provided either (a) by mail or hand delivery to our registered
+                                            address for service of process, or (b) by email from the email address associated with your Account to:
+                                            notices@lawtrella.com. In order to be effective, the notice must include your full name and clearly indicate
+                                            your intent to reject changes to this Arbitration Agreement. By rejecting changes, you are agreeing that you
+                                            will arbitrate any dispute between you and LawTrella in accordance with the provisions of this Arbitration
+                                            Agreement as of the date you first agreed to the Terms (or to any subsequent changes to the Terms).
+                                        </p>
+
+                                        <h5>Severability and Survival.</h5>
+                                        <p class="text-justify">
+                                            If any portion of this Arbitration Agreement is found to be unenforceable or unlawful for any reason, (1)
+                                            the unenforceable or unlawful provision shall be severed from these Terms; (2) severance of the
+                                            unenforceable or unlawful provision shall have no impact whatsoever on the remainder of the Arbitration
+                                            Agreement or the parties’ ability to compel arbitration of any remaining claims on an individual basis
+                                            pursuant to the Arbitration Agreement; and (3) to the extent that any claims must, therefore, proceed on a
+                                            class, collective, consolidated, or representative basis, such claims must be litigated in a civil court of
+                                            competent jurisdiction and not in arbitration, and the parties agree that litigation of those claims shall
+                                            stay pending the outcome of any individual claims in arbitration.
+                                        </p>
+                                    </li>
+
+                                    <li>
+                                        <h4>General</h4>
+                                        <h5>Prevailing Agreement</h5>
+                                        <p class="text-justify">
+                                            These Terms shall govern, supersede and replace any and all communications from LawTrella whether on its
+                                            Platform or third party services relating to the matters addressed herein and the contractual relationship
+                                            of the parties.
+                                        </p>
+
+                                        <h5>Choice of Law.</h5>
+                                        <p class="text-justify">
+                                            These Terms are governed by and construed in accordance with the laws of the Federal Republic of Nigeria,
+                                            without giving effect to any conflict of law principles, except as may be otherwise provided in the
+                                            Arbitration Agreement above or in supplemental terms.
+                                        </p>
+
+                                        <h5>Notice.</h5>
+                                        <p class="text-justify">
+                                            LawTrella may give notice by means of a general notice on the Services, electronic mail to your email
+                                            address in your Account, telephone or text message to any phone number provided in connection with your
+                                            account, or by written communication sent by first-class mail or pre-paid post to any address connected with
+                                            your Account. Such notice shall be deemed to have been given upon the expiration of 48 hours after mailing
+                                            or posting (if sent by first class mail or pre-paid post) or 12 hours after sending (if sent by email or
+                                            telephone). You may give notice to LawTrella, with such notice deemed given when received by LawTrella, at
+                                            any time by first class mail or pre-paid post to our registered agent for service of process, c/o LawTrella
+                                            Ltd. The name and current contact information for the registered agent in each state are available online
+                                            here.
+                                        </p>
+
+                                        <h5>eLearning Honor Code.</h5>
+                                        <p class="text-justify">
+                                            All who take courses on the LawTrella eLearning Platform must agree to abide by the following code:
+                                        </p>
+
+                                        <ol>
+                                            <li>My answers to homework, quizzes, exams, projects, and other assignments will be my own work (except for
+                                                assignments that explicitly permit collaboration).</li>
+                                            <li>I will not make solutions to homework, quizzes, exams, projects, and other assignments available to
+                                                anyone else (except to the extent an assignment explicitly permits sharing solutions). This includes
+                                                both solutions written by me, as well as any solutions provided by the course staff or others.</li>
+                                            <li>I will not engage in any other activities that will dishonestly improve my results or dishonestly
+                                                improve or hurt the results of others.</li>
+                                        </ol>
+                                        <br />
+                                        <h5>Waiver.</h5>
+                                        <p class="text-justify">
+                                            Any failure on Lawtrellas part to exercise or enforce any right or provision of these Terms does not
+                                            constitute a waiver of any such right or provision.
+                                        </p>
+                                        <p class="text-justify">
+                                            You acknowledge and understand that using a LawTrella Lawyer account or checking the box on Lawtrella Site
+                                            referencing the terms and conditions of this Agreement; both constitute a legal signature confirming that
+                                            you have reviewed and agreed to all Terms contained in this Agreement.
+                                        </p>
+
+                                        <p class="text-justify text-uppercase"><strong>I ACKNOWLEDGE THAT I HAVE READ THE ABOVE, UNDERSTAND SAME AND
+                                                AGREE TO BE LEGALLY BOUND BY ALL TERMS OF THIS AGREEMENT.</strong></p>
+                                    </li>
+                                </ol>
+                            </section>
+                        </div>
+                        <br />
+
                         <div class="custom-control custom-checkbox">
                             <input id = "terms" name = "terms" type="checkbox" class="custom-control-input">
                             <label class="custom-control-label" for="terms">I have read and agreed to the <a class = "lt-link" href = "#termsnan">Terms and Conditions</a> of Lawtrella</label>

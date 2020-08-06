@@ -429,6 +429,12 @@ exports.downloadDoc = async (req, res) => {
     ref: req.query.ref
   }
   console.log(data);
+
+  // 
+  // let mode = await req.user.lawyer ? 'lawyer' : 'client';
+  // let urlpath = `${mode}/uid/docs`;
+  // 
+
   var paystack = require('paystack')(PAYSTACK_PUB_KEY);
   var bucketName = require('../config').FIREBASE_STORAGE_BUCKET;
   paystack.transaction.verify(data.ref, async (err, body) => {
@@ -437,15 +443,19 @@ exports.downloadDoc = async (req, res) => {
       res.send({ message: err.message, err, status: 'danger' });
       return;
     }
-
     let docDetails = await admin.firestore().collection('legalDocs').doc(data.docId).get().catch((e) => { console.log(e) });
     let increment = admin.firestore.FieldValue.increment(1);
     await admin.firestore().collection('legalDocs').doc(data.docId).update({ download: increment });
     if (body.amount !== docDetails.price) {
-      res.send({ message: "Invalfid Fee paid for this resource", status: 'danger' });
+      res.send({ message: "Invalid Fee paid for this resource", status: 'danger' });
       return;
     }
     let doc = docDetails.data();
+
+    // 
+    // await admin.firestore(`${urlpath}/${req.user.uid}/docs`).set(doc);
+    // 
+
     let bucket = admin.storage().bucket(bucketName);
     let path = 'legaldocs/' + doc.filename
     let file = bucket.file(path)
