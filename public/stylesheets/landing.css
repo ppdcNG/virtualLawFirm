@@ -98,6 +98,12 @@ section.hero h1 {
     font-weight: bold;
 }
 
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    section.hero h1 {
+        font-size: 2rem;
+    }
+}
+
 section.hero h1, section.hero h5 {
     background-color: rgba(0, 0, 0, .3);
     padding: 1rem;
@@ -156,6 +162,10 @@ section.two a {
 }
 
 /* secton three */
+
+.three a.btn {
+    margin-top: -1.5rem;
+}
 
 .lt-feature-card {
     margin-top: 3rem;
@@ -297,5 +307,8 @@ p.error {
         background: none;
         background-size: cover;
         color: white;
+    }
+    .three .col-md-6 {
+        margin-top: 3rem;
     }
 }

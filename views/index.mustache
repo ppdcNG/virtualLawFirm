@@ -16,28 +16,42 @@
 <body>
    
     {{> navbar}}
-    <section class="hero">
-        <div class="lt-bg-overlay px-5 d-flex flex-column justify-content-center align-items-center">
+    <section class="hero full-width">
+        <div class="lt-bg-overlay px-5 d-flex flex-column justify-content-center">
             <div class="row">
-                <div class="left px-5 col-md-6">
+                {{! <div class="left px-5 col-md-6">
                     <div>
                         <h5 data-aos="fade-right" data-aos-duration="1500" data-aos-delay="300" >WELCOME TO </h5>
                         <h1 data-aos-duration="1500" data-aos-delay="800" data-aos="fade-right">LAWTRELLA</h1>
                     </div>
-                    
                 </div>
                 <div class = "right col-md-6 px-5">
+                    <section class="container">
+                        <p class="hero-description" data-aos-duration="1500" data-aos-delay="1000" data-aos="zoom-in-up">
+                            Welcome to Lawtrella- A platform that uses technology to enable continuous professional development, networking, co-working and client interaction.
+                        </p>
+                        <a href="#loginModal" data-toggle = "modal" data-aos-duration="1500" data-aos-delay="1500" data-aos="fade-up" class="btn lt-btn-accent">GET STARTED</a>
+                    </section>
+                </div> }}
+
+                <div class="col-md-6">
+                    <div>
+                        <h5 data-aos="fade-right" data-aos-duration="1500" data-aos-delay="300" >WELCOME TO </h5>
+                        <h1 data-aos-duration="1500" data-aos-delay="800" data-aos="fade-right">LAWTRELLA</h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <p class="hero-description" data-aos-duration="1500" data-aos-delay="1000" data-aos="zoom-in-up">
-                    Welcome to Lawtrella- A platform that uses technology to enable continuous professional development, networking, co-working and client interaction.
+                        Welcome to Lawtrella- A platform that uses technology to enable continuous professional development, networking, co-working and client interaction.
                     </p>
                     <a href="#loginModal" data-toggle = "modal" data-aos-duration="1500" data-aos-delay="1500" data-aos="fade-up" class="btn lt-btn-accent">GET STARTED</a>
                 </div>
+
             </div>
         </div>
     </section>
 
     <section class="two d-flex flex-column align-items-center" id="main">
-
         <div class = "row">
             <div class = "col-md-6 col-sm-12 p-5">
                 <h2>LEVEL UP YOUR PROFESSIONAL SKILLS</h2>
@@ -51,40 +65,40 @@
     </section>
     <section class = "three text-center p-5">
         <h3>WE OFFER A RANGE OF SERVICES</h3>
-        <div class="row justify-content-center">
+            <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="lt-feature-card d-flex flex-column justify-content-center align-items-center">
-                    <img data-aos-duration="1000" data-aos="zoom-in-up" class='lt-feature-image' src="{{ABS_PATH}}images/lawstatue.jpg">
+                <div class=" d-flex flex-column justify-content-center align-items-center">
+                    <img data-aos-duration="1000" data-aos="zoom-in-up" class='lt-feature-image img-fluid' src="{{ABS_PATH}}images/lawstatue.jpg">
                     <a href="/client/findLawyer" class="btn lt-btn-accent">Find a Lawyer</a>
-                    <p class="lt-feature-description">
+                    <p class="">
                        Get top representation from lawyers in practice who will cater to your legal needs
                     </p>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="lt-feature-card d-flex flex-column justify-content-center align-items-center">
-                    <img data-aos-duration="1500" data-aos="zoom-in-up" class='lt-feature-image' src="{{ABS_PATH}}images/signdocuments.jpg">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <img data-aos-duration="1500" data-aos="zoom-in-up" class='lt-feature-image img-fluid' src="{{ABS_PATH}}images/signdocuments.jpg">
                     <a href="/client/docs" class="btn lt-btn-accent">Legal Documents</a>
-                    <p class="lt-feature-description">
+                    <p class="card-text">
                         Curated legal documents ranging from tenant agreements, wills, non disclosures and many more. All customisable to
                         meet your specific needs
                     </p>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="lt-feature-card d-flex flex-column justify-content-center align-items-center">
-                    <img data-aos-duration="1500" data-aos="zoom-in-up" class='lt-feature-image' src="{{ABS_PATH}}images/lawbooks.jpg">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <img data-aos-duration="1500" data-aos="zoom-in-up" class='lt-feature-image img-fluid' src="{{ABS_PATH}}images/lawbooks.jpg">
                     <a href="/e-learning" class="btn lt-btn-accent">E-Learning</a>
-                    <p class="lt-feature-description">
+                    <p class="card-text">
                         Get ahead in your career and level up your skills with professional courses from Lawtrella
                     </p>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="lt-feature-card d-flex flex-column justify-content-center align-items-center">
-                    <img data-aos-duration="1500" data-aos="zoom-in-up" class='lt-feature-image' src="{{ABS_PATH}}images/questionmarg.jpg">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <img data-aos-duration="1500" data-aos="zoom-in-up" class='lt-feature-image img-fluid' src="{{ABS_PATH}}images/questionmarg.jpg">
                     <a href="client/askLawyer" class="btn lt-btn-accent">Ask a Lawyer</a>
-                    <p class="lt-feature-description">
+                    <p class="card-text">
                         Need some help with legal matters? Ask a Lawyer Now
                     </p>
                 </div>
@@ -95,7 +109,7 @@
         <div class="row justify-content-center create-course">
             <div class="col-md-6 align-items-center">
                 <div class="">
-                    <img data-aos-duration="1000" data-aos="zoom-in-up" class='lt-feature-image' src="{{ABS_PATH}}images/macbookcreate.png">
+                    <img data-aos-duration="1000" data-aos="zoom-in-up" class='lt-feature-image img-fluid' src="{{ABS_PATH}}images/macbookcreate.png">
                 </div>
             </div>
             <div class="col-md-6 d-flex flex-column justify-content-center">
