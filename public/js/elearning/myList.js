@@ -79,7 +79,7 @@ const renderNocourse = () => {
                 <div class="card h-100 shadow mt-1" data-aos="zoom-out" data-aos-duration="400">
 
                     <div class="card-body d-flex flex-column">
-                        <h4 class="card-title" data-toggle = "tooltip" title = "Not enrolled" >Your are not Enrolled in any course yet</h4>
+                        <h4 class="card-title" data-toggle = "tooltip" title = "Not enrolled" >You are not Enrolled in any course yet</h4>
                         <p>Browse List of courses to enroll</p>
                         <a href = "/e-learning/" class = "btn lt-btn-accent">Browse Courses</a>
                     </div>
