@@ -108,9 +108,18 @@
                             <input id= "title" type="text" name="title" class="form-control" required>
                       </div>
                       <div class = "col-md-12 mb-4">
+                          <label for="title">Title</label>
+                            <input id= "title" type="text" name="title" class="form-control" required>
+                      </div>
+                      <div class = "col-md-12 mb-4">
                           <label for="price">Price</label>
                           <input id = "price" name = "price" type="number"  class="form-control">
                       </div>
+                      <div class = "col-md-12 mb-4">
+                          <label for="price">Slashed Price</label>
+                          <input id = "oldprice" name = "oldprice" type="text"  class="form-control">
+                      </div>
+                      
                       <div class = "col-md-12 mb-4">
                           <label for="desc">Description</label>
                           <textarea id="desc" name="details" class="md-textarea form-control" rows="3" required></textarea>
@@ -118,10 +127,7 @@
                       <div class = "col-md-12 mb-4">
                           <label for="category">Category</label>
                           <select name = "category" id = "category" class="browser-default custom-select">
-                          
-                          <option value="Publiic Law">Public Law</option>
-                          <option value="IP Matters">IP matters</option>
-                          <option value="Family Law">Family Law</option>
+                          {{{categories}}}
                         </select>
                       </div>
                       <div class = "col-md-12 mb-4">
@@ -139,14 +145,7 @@
                 </form>
 
                 <hr/>
-                <h5>Content List</h5>
-                <ul class="list-group list-group-flush" id="contentList2">
-                  <div class="d-flex justify-content-center">
-                    <div class="spinner-grow slow" role="status" id="loadingTasks">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                  </div>
-                </ul>
+                
           </div>
           <div class="tab-pane fade" id="promo-md" role="tabpanel" aria-labelledby="promo-tab-md">
             <h5> Course Promo Codes </h5>

@@ -166,7 +166,24 @@ router.get("/updateCourses", async (req, res) => {
   });
 
   res.send({ message: "done Updating" });
-})
+});
+router.get("/updateAuthors", async (req, res) => {
+  let coursesSnapshot = await admin.firestore().collection("courses").get();
+
+  coursesSnapshot.forEach(async (course) => {
+
+    let batch = admin.firestore().batch();
+    let count = 0;
+    let contentDb = admin.firestore().doc(`courses/${course.id}`);
+    batch.update(contentDb, { author: "A & E Law Partnership" });
+    count++;
+    await batch.commit();
+  });
+
+  res.send({ message: "done Updating" });
+});
+
+
 
 
 

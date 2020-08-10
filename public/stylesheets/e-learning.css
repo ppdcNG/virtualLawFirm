@@ -116,6 +116,13 @@ section.e-hero {
     color: white;
 }
 
+section.e-hero-two {
+    height: 70vh;
+    background: transparent url(/images/createcourse.jpg) no-repeat center;
+    background-size: cover;
+    color: white;
+}
+
 .create-course {
     position: relative;
 }
@@ -130,6 +137,15 @@ section.e-hero {
 }
 
 /* Placeholder styles*/
+
+.card-body {
+    background-color: #c8f2ef61;
+}
+
+p.author {
+    font-size: .8rem;
+    color: #5E6870
+}
 
 p.placeholder.card-text {
     width: 80%;

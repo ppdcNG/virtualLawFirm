@@ -312,3 +312,21 @@ p.error {
         margin-top: 3rem;
     }
 }
+
+.terms-conditions {
+    height: 50vh;
+    overflow: scroll
+}
+
+.terms-conditions section h4 {
+    margin-top: 1 rem;
+    font-size: 14px;
+}
+
+.terms-conditions section p {
+    font-size: 10px;
+}
+
+.terms-conditions section ol li {
+    font-size: 10px;
+}

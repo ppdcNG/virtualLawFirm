@@ -2,7 +2,7 @@ var ABS_PATH = require("../config").ABS_PATH;
 const { AppName, PAYSTACK_PUB_KEY } = require("../config");
 
 const { sendmail, welcomeMail } = require("../helpers/mail");
-const { token, tagOptions, lawyerOptions, is_empty, renderDocuments } = require("../helpers");
+const { token, tagOptions, lawyerOptions, is_empty, renderDocuments, categoriesOptions } = require("../helpers");
 const admin = require('firebase-admin');
 
 exports.adminPage = async (req, res) => {
@@ -24,6 +24,7 @@ exports.newUSer = (req, res) => {
 
 exports.editCourseDetails = async (req, res) => {
   let tags = tagOptions();
+  let categories = categoriesOptions
   let { id } = req.query;
   if (!id) {
     res.status(403).send({ message: "bad Request missing Params" });
@@ -31,7 +32,7 @@ exports.editCourseDetails = async (req, res) => {
   }
   let courseRef = await admin.firestore().doc(`courses/${id}`).get().catch((e) => { console.log(e) });
   let { courseImage, title, dateAdded } = courseRef.data();
-  res.render("admin/course-details", { title: "Course Details", ABS_PATH, AppName, tags, courseImage, courseTitle: title, courseId: id });
+  res.render("admin/course-details", { title: "Course Details", ABS_PATH, AppName, tags, categories, courseImage, courseTitle: title, courseId: id });
 }
 
 exports.adminLogin = async (req, res) => {

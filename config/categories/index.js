@@ -15,6 +15,8 @@ const maritimeAndAviationLaw = require('./maritime-aviation-law.json');
 const realEstateSection = require('./real-estate.json');
 const publicLawSection = require('./public-law-section.json');
 const taxationSection = require('./taxation-section.json');
+const categoryList = require('./categorylist.json');
+
 
 module.exports = {
     administrativePublicLaw,
@@ -33,5 +35,6 @@ module.exports = {
     maritimeAndAviationLaw,
     realEstateSection,
     publicLawSection,
-    taxationSection
+    taxationSection,
+    categoryList
 }

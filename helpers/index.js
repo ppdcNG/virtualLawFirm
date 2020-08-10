@@ -24,6 +24,20 @@ exports.tagOptions = () => {
   return tagsHTML;
 }
 
+exports.selectOption = (value, text) => {
+  return `<option value ="${value}">${text}</option>`;
+}
+
+exports.categoriesOptions = () => {
+  let categoriesList = require('../config/categories/categorylist.json');
+  let categoriesOptions = "";
+  categoriesList.forEach((value, index) => {
+    categoriesOptions += `<option value ="${value}">${value}</option>`;
+  })
+
+  return categoriesOptions;
+}
+
 exports.lawyerOptions = async () => {
   lawyersHTML = "";
   let lawyers = await admin.firestore().collection('lawyerNames').get().catch((e) => { console.log(e) });

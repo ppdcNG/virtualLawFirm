@@ -5,7 +5,7 @@ let COURSES = {};
 let searchdata = [{ id: 0, text: "All courses" }];
 
 $(document).ready(function () {
-    fetchCourses();
+    fetchCourses()
 });
 
 $("#searchCourse").change(function (e) {
@@ -34,24 +34,28 @@ const renderCourse = (course, id) => {
     let description = course.title ? (course.title.length > 45 ? course.title.substr(0, 21) + '...' : course.title) : "No Title";
     let price = course.price > 0 ? "&#8358; " + accounting.format(parseInt(course.price)) : 'FREE';
     let rating = course.rating ? course.rating : 'No rating yet'
+    let oldprice = course.oldprice ? `<span class = "oldprice text-danger"><del>&#8358;${accounting.format(parseInt(course.oldprice))}</del></span>` : "";
 
-    return `<div class="col-md-4 mb-4">
+    return `
+            <div class="col-md-3 mb-4">
                 <div class="card h-100 shadow mt-1" data-aos="zoom-out" data-aos-duration="400">
                     <div class="view overlay">
                         <img class="card-img-top" src="${course.courseImage}"
-                            alt="html_css_image"  height = "250">
+                            alt="html_css_image"  height = "160">
                         <a onclick="viewCourse('${id}')" href = "/e-learning/courseDetails?id=${id}">
                             <div class="mask rgba-white-slight"></div>
                         </a>
                     </div>
 
                     <div class="card-body d-flex flex-column">
-                        <h4 class="card-title" data-toggle = "tooltip" title = "${course.title}" >${description}</h4>
-                        <p><span class = "">Rating : <span class = "course-rating">${rating}<span></span> <span class = "float-right">Price: <span class = "course-feature">${price}</span></p>
-                        <a href = "/e-learning/courseDetails?id=${id}" class = "btn lt-btn-accent">Details</a>
+                        <h4 class="card-title" data-toggle = "tooltip" title = "${course.description || course.title}" >${course.title}</h4>
+                        <p class = "author">${course.author}</p>
+                        <p><strong>Price:</strong><span class = "price text-muted mx-2">${price}<span> ${oldprice}</p>
+                        <a href = "/e-learning/courseDetails?id=${id}"  class = "btn lt-btn-accent">View Course</a>
                     </div>
                 </div>
-            </div>`
+            </div>
+            `
 
 }
 
