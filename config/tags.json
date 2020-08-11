@@ -1,380 +1,149 @@
 [
     {
-        "tagName": "antitrust and competition"
+        "tagName": "agricultural law"
     },
     {
-        "tagName": "asset management and finance management"
+        "tagName": "antitrust"
     },
     {
-        "tagName": "aviation law"
+        "tagName": "business human rights"
     },
     {
-        "tagName": "banking and finance litigation"
+        "tagName": "corporate and m & a law"
     },
     {
-        "tagName": "blockchain"
-    },
-    {
-        "tagName": "capital market"
-    },
-    {
-        "tagName": "commercial"
-    },
-    {
-        "tagName": "contract"
-    },
-    {
-        "tagName": "communications"
-    },
-    {
-        "tagName": "consumer protection"
-    },
-    {
-        "tagName": "copyright"
-    },
-    {
-        "tagName": "corporate (Company secretarial)"
-    },
-    {
-        "tagName": "cyber security"
-    },
-    {
-        "tagName": "cyber threats"
-    },
-    {
-        "tagName": "designs"
-    },
-    {
-        "tagName": "industrial designs"
-    },
-    {
-        "tagName": "education"
-    },
-    {
-        "tagName": "employment dispute"
-    },
-    {
-        "tagName": "labour dispute"
-    },
-    {
-        "tagName": "energy"
-    },
-    {
-        "tagName": "electricity tariff dispute"
-    },
-    {
-        "tagName": "environment"
-    },
-    {
-        "tagName": "natural resources"
-    },
-    {
-        "tagName": "employee benefits"
-    },
-    {
-        "tagName": "food law"
-    },
-    {
-        "tagName": "sports betting"
-    },
-    {
-        "tagName": "sports contracts"
-    },
-    {
-        "tagName": "government contracts"
-    },
-    {
-        "tagName": "government relations"
-    },
-    {
-        "tagName": "public administration"
-    },
-    {
-        "tagName": "health Policy"
-    },
-    {
-        "tagName": "medical negligence"
-    },
-    {
-        "tagName": "immigration"
-    },
-    {
-        "tagName": "infrastructure"
-    },
-    {
-        "tagName": "energy resources"
-    },
-    {
-        "tagName": "big projects"
-    },
-    {
-        "tagName": "insurance"
-    },
-    {
-        "tagName": "intellectual property"
-    },
-    {
-        "tagName": "international arbitration"
-    },
-    {
-        "tagName": "international trade"
-    },
-    {
-        "tagName": "international investment"
-    },
-    {
-        "tagName": "ip and technology transactions"
-    },
-    {
-        "tagName": "joint venture agreement"
-    },
-    {
-        "tagName": "litigation"
-    },
-    {
-        "tagName": "marketing and advertising"
-    },
-    {
-        "tagName": "medical device and technology regulation"
-    },
-    {
-        "tagName": "mergers-and-acquisitions"
-    },
-    {
-        "tagName": "patent"
-    },
-    {
-        "tagName": "pension"
-    },
-    {
-        "tagName": "pharmaceuticals"
-    },
-    {
-        "tagName": "biotech regulation"
-    },
-    {
-        "tagName": "privacy"
-    },
-    {
-        "tagName": "data protection"
-    },
-    {
-        "tagName": "private equity"
-    },
-    {
-        "tagName": "public procurement"
-    },
-    {
-        "tagName": "public private partnership"
-    },
-    {
-        "tagName": "real estate"
-    },
-    {
-        "tagName": "securities"
-    },
-    {
-        "tagName": "trade secrets"
-    },
-    {
-        "tagName": "non-disclosure"
-    },
-    {
-        "tagName": "trademark"
-    },
-    {
-        "tagName": "branding"
-    },
-    {
-        "tagName": "startup law"
-    },
-    {
-        "tagName": "property sale"
-    },
-    {
-        "tagName": "property purchase"
-    },
-    {
-        "tagName": "tax"
-    },
-    {
-        "tagName": "tax dispute"
-    },
-    {
-        "tagName": "hire purchase agreement"
-    },
-    {
-        "tagName": "wills"
-    },
-    {
-        "tagName": "inheritance dispute"
-    },
-    {
-        "tagName": "property disp"
-    },
-    {
-        "tagName": "ute"
-    },
-    {
-        "tagName": "arson"
-    },
-    {
-        "tagName": "assault"
-    },
-    {
-        "tagName": "battery"
-    },
-    {
-        "tagName": "bribery"
-    },
-    {
-        "tagName": "burglary"
-    },
-    {
-        "tagName": "child abuse"
-    },
-    {
-        "tagName": "child welfare"
-    },
-    {
-        "tagName": "child custody and visitation"
-    },
-    {
-        "tagName": "credit card fraud"
-    },
-    {
-        "tagName": "computer fraud"
-    },
-    {
-        "tagName": "homicide"
-    },
-    {
-        "tagName": "alimony"
-    },
-    {
-        "tagName": "discrimination"
-    },
-    {
-        "tagName": "human rights"
-    },
-    {
-        "tagName": "employee rights"
-    },
-    {
-        "tagName": "criminal"
-    },
-    {
-        "tagName": "enforcement of contract"
-    },
-    {
-        "tagName": "adoption"
-    },
-    {
-        "tagName": "domestic violence"
-    },
-    {
-        "tagName": "election-law"
-    },
-    {
-        "tagName": "maritime"
-    },
-    {
-        "tagName": "shipping"
-    },
-    {
-        "tagName": "entertainment law"
-    },
-    {
-        "tagName": "Influencer contracts"
-    },
-    {
-        "tagName": "class actions"
+        "tagName": "secretarial services"
     },
     {
         "tagName": "arbitration"
     },
     {
+        "tagName": "consumer litigation"
+    },
+    {
+        "tagName": "litigation"
+    },
+    {
         "tagName": "mediation"
     },
     {
-        "tagName": "islamic law"
+        "tagName": "negligence and damages"
     },
     {
-        "tagName": "islamic finance"
+        "tagName": "ethics"
     },
     {
-        "tagName": "islamic banking"
+        "tagName": "environment, health and safety law"
     },
     {
-        "tagName": "community property"
+        "tagName": "international construction projects"
     },
     {
-        "tagName": "health law (food poisoning)"
+        "tagName": "mining law"
     },
     {
-        "tagName": "workplace injuries"
+        "tagName": "oil and gas law"
     },
     {
-        "tagName": "wrongful-death"
+        "tagName": "power law"
     },
     {
-        "tagName": "landlord and tenants"
+        "tagName": "water law"
     },
     {
-        "tagName": "taxation"
+        "tagName": "banking law"
     },
     {
-        "tagName": "property law"
+        "tagName": "capital markets forum"
     },
     {
-        "tagName": "software licensing"
+        "tagName": "insurance"
     },
     {
-        "tagName": "patent-licensing"
+        "tagName": "asset management and investment funds"
     },
     {
-        "tagName": "copyright licensing"
+        "tagName": "securities law"
     },
     {
-        "tagName": "trademark licensing"
+        "tagName": "employment and industrial relations law"
     },
     {
-        "tagName": "fintech"
+        "tagName": "diversity and equality law"
     },
     {
-        "tagName": "enforcement of Judgement"
+        "tagName": "immigration and nationality law"
     },
     {
-        "tagName": "garnishee proceedings"
+        "tagName": "IBA globalEmployment institute"
     },
     {
-        "tagName": "oil and gas"
+        "tagName": "international commerce and distribution"
     },
     {
-        "tagName": "power"
+        "tagName": "international franchising"
     },
     {
-        "tagName": "mining"
+        "tagName": "international trade and customs law"
     },
     {
-        "tagName": "forestry"
+        "tagName": "product law and advertising"
     },
     {
-        "tagName": "divorce"
+        "tagName": "insolvency"
     },
     {
-        "tagName": "prenuptial agreement"
+        "tagName": "art, cultural institutions and heritage law"
     },
     {
-        "tagName": "separation"
+        "tagName": "communications law"
     },
     {
-        "tagName": "annulment"
+        "tagName": "intellectual property and entertainment law"
     },
     {
-        "tagName": "domicile"
+        "tagName": "media law"
     },
     {
-        "tagName": "child support"
+        "tagName": "space law technology law"
+    },
+    {
+        "tagName": "regulation for digital economy"
+    },
+    {
+        "tagName": "startup"
+    },
+    {
+        "tagName": "family law"
+    },
+    {
+        "tagName": "healthcare and life sciences law"
+    },
+    {
+        "tagName": "indigeneous peoples"
+    },
+    {
+        "tagName": "leisure industries"
+    },
+    {
+        "tagName": "maritime and transport law section"
+    },
+    {
+        "tagName": "aviation"
+    },
+    {
+        "tagName": "public law"
+    },
+    {
+        "tagName": "administrative tribunals"
+    },
+    {
+        "tagName": "PFM"
+    },
+    {
+        "tagName": "procurement"
+    },
+    {
+        "tagName": "review panels"
     }
 ]

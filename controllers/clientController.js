@@ -10,8 +10,17 @@ var admin = require("firebase-admin");
 
 
 exports.findLawyer = (req, res) => {
+    let agricTags = ['stuff', 'another stuff'];
+    let agric = require('../config/categories/agricultural-law.json');
+    let corporateLaw = require('../config/categories/corporate-law-section.json');
+    let corporateLawArr = corporateLaw.split(",");
+
+    // agric.forEach(function (jsonObj) {
+    //     agricTags.push(jsonObj.tagName);
+    // })
+
     let user = getUserDetails(req);
-    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, ...user });
+    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, ...user, agricTags, agric });
 };
 exports.consultation = (req, res) => {
     let id = req.query.id;

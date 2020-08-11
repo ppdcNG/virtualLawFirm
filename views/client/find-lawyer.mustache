@@ -56,7 +56,14 @@
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg-agric.jpeg);background-size: cover;background-position: 50% 50%;">
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Agricultural Law</h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <p class="card-text white-text">Tags under this category:</p>
+              <p class="text-warning">{{{agricTags}}}</p>
+              <p class="text-danger">{{{agric}}}</p>
+              <div>
+                {{#agricTags}}
+                <span class="badge badge-warning">{{.}}</span>
+                {{/agricTags}}
+              </div>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('agriculturalLaw')">Select</button>
             </div>
         </div>
@@ -75,6 +82,7 @@
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Corporate Law Section</h5>
               <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <p class="text-warning">{{{corporateLaw}}}</p>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('corporateLawSection')">Select</button>
             </div>
         </div>
