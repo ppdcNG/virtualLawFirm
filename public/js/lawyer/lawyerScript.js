@@ -3,7 +3,7 @@ $("#laywerConfirm").submit(function (e) {
 
   var form = form2js("laywerConfirm", ".");
   if (form.password !== form.confirmPassword) {
-    $.notify("Passwords must match", { type: "warning" });
+    $.notify("Passwords must match", { type: "warning", z_index: 5000 });
     $("#confirmError").html("Passwords must match");
     $("#confirmError").removeClass('valid');
     $("#password").addClass('is-invalid');
@@ -18,21 +18,21 @@ $("#laywerConfirm").submit(function (e) {
   $("#lawyerGotIt").click(dismiss);
   $("#gotsignup").click(dismiss);
 
-  function dismiss(type) {
-    console.log('clear called');
-    if (type == 'recover') {
-      $("#recoverForm").fadeIn();
-      $("#forgotModal").modal('hide');
-      $("#recoverComplete").addClass('recover-success');
-    }
+  // function dismiss(type) {
+  //   console.log('clear called');
+  //   if (type == 'recover') {
+  //     $("#recoverForm").fadeIn();
+  //     $("#forgotModal").modal('hide');
+  //     $("#recoverComplete").addClass('recover-success');
+  //   }
 
-    if (type == 'signup') {
+  //   if (type == 'signup') {
 
-      $("#lawyerRegisterForm").fadeIn();
-      $("#lawyerSignupComplete").addClass('signup-success');
-      $("#lawyerLoginModal").modal('show');
-    }
-  }
+  //     $("#lawyerRegisterForm").fadeIn();
+  //     $("#lawyerSignupComplete").addClass('signup-success');
+  //     $("#lawyerLoginModal").modal('show');
+  //   }
+  // }
 
   $.ajax({
     url: ABS_PATH + "admin/verifyLawyerEmail",
@@ -41,12 +41,12 @@ $("#laywerConfirm").submit(function (e) {
     success: function (response) {
       console.log(response);
       if (!response.err) {
-        $.notify(response.message, { type: "success" });
+        $.notify(response.message, { type: "success", z_index: 5000 });
         $("#laywerConfirm").hide();
 
         $("#recoverComplete").removeClass('signup-success');
       } else {
-        $.notify(response.message, { type: "warning" });
+        $.notify(response.message, { type: "warning", z_index: 5000 });
         $("#confirmError").html(response.message);
         $("#confirmError").removeClass('valid');
         clearLoad('continue', 'CREATE MY ACCOUNT');
@@ -96,9 +96,9 @@ const signIn = async (email, password) => {
         console.log(response);
         if (response.status == "success") {
           $("#lawyerLogin").modal('hide');
-          $.notify("Logging in", { type: "success" });
+          $.notify("Logging in", { type: "success", z_index: 5000 });
           clearLoad('lawyerLoginButton')
-          $.notify("Logging in", { type: "success" });
+          $.notify("Logging in", { type: "success", z_index: 5000 });
           window.location.reload();
           // setTimeout(function () { window.location = ABS_PATH + 'lawyer/dashboard' }, 2000);
         }
@@ -108,10 +108,10 @@ const signIn = async (email, password) => {
   } catch (e) {
     console.log(e);
     clearLoad('lawyerLoginButton', "LOGIN");
-    $.notify(e.message, { type: "danger" });
+    $.notify(e.message, { type: "danger", z_index: 5000 });
     $("#lawyerloginError").html(e.message);
     $("#lawyerloginError").removeClass('valid');
-    $.notify(e.message, { type: "warning" });
+    $.notify(e.message, { type: "warning", z_index: 5000 });
   }
 };
 
@@ -120,7 +120,7 @@ $("#lawyerRegisterForm").submit(e => {
   e.preventDefault();
   var form = form2js("lawyerRegisterForm", ".");
   if (!$("#lawyerSignupTerms").is(':checked')) {
-    $.notify('Please accept the terms and conditions');
+    $.notify('Please accept the terms and conditions', { type: "warning", z_index: 5000 });
     $("#lawyerSignupTerms").addClass('is-invalid');
     return false
   }
@@ -136,7 +136,7 @@ $("#lawyerRegisterForm").submit(e => {
       if (!response.err) {
 
         clearLoad('lawyerSignupButton', "Signup As Lawyer");
-        $.notify("A confirmation email has been sent to your inbox", { type: "success" });
+        $.notify("A confirmation email has been sent to your inbox", { type: "success", z_index: 5000 });
         $("#lawyerMyTab").hide();
         $("#lawyerMyTabContent").hide();
         $("#lawyerSignupComplete").removeClass('signup-success');
@@ -144,7 +144,7 @@ $("#lawyerRegisterForm").submit(e => {
         clearLoad('lawyerSignupButton', "Signup As Lawyer")
         $("#lawyersignupError").html(response.message);
         $("#lawyersignupError").removeClass('valid');
-        $.notify(response.message, { type: "warning" });
+        $.notify(response.message, { type: "warning", z_index: 5000 });
       }
     },
     error: e => console.log(e)

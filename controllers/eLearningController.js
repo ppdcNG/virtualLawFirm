@@ -217,9 +217,11 @@ exports.fetchCourseContent = async (req, res) => {
     let collectionSnapshot = await admin.firestore().collection(`courses/${id}/contents`).orderBy("position").get().catch((e) => { console.log(e) });
     let contentList = {}
     let contentOrder = [];
+    let count = 0;
     collectionSnapshot.forEach((content) => {
         contentList[content.id] = content.data();
-        contentOrder.push(content.id)
+        contentOrder.push(content.id);
+        count++;
     });
 
     let userCourseData = await admin.firestore().doc(`clients/${user.uid}/courseList/${id}`).get().catch((e) => { console.log(e) });
@@ -227,7 +229,8 @@ exports.fetchCourseContent = async (req, res) => {
     let dataObj = {
         contentList,
         userCourseData,
-        contentOrder
+        contentOrder,
+        count
     }
     res.status(200).send(dataObj);
 

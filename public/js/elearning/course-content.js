@@ -6,11 +6,16 @@ var currentVideo = null;
 var uid = $("#uid").val();
 var courseId = $("#courseId").val();
 
+$('#videoPreviewModal').on('hidden.bs.modal', function (e) {
+    let videoPlayer = document.getElementById('videoPreview');
+    videoPlayer.pause();
+})
+
 let courseDb = firebase.firestore().doc(`clients/${uid}/courseList/${courseId}`)
 $(document).ready(function () {
     fetchCourseContent();
     let videoPlayer = document.getElementById('videoPreview');
-    videoPlayer.addEventListener('ended', markComplete, false);
+    videoPlayer.addEventListener('ended', (e) => { $("#nxtBtn").show(); markComplete(e) }, false);
 });
 
 const fetchCourseContent = () => {
@@ -24,6 +29,7 @@ const fetchCourseContent = () => {
             CONTENTLIST = response.contentList;
             PROGRESSLIST = response.userCourseData.progressList ? response.userCourseData.progressList : {};
             CONTENTORDER = response.contentOrder
+            $("#numberRated").text(response.count);
             renderContent();
             calculateProgress();
 
@@ -102,9 +108,12 @@ const viewVideo = id => {
     let content = CONTENTLIST[id];
     console.log(content);
     if (content.videoUrl) {
+
         video.setAttribute('src', content.videoUrl);
         video.setAttribute('muted', false);
         video.load();
+        console.log("bitch")
+        $("#nxtBtn").hide();
         $("#videoPreviewModal").modal('show');
     }
 
@@ -148,6 +157,7 @@ const calculateProgress = () => {
     let courseNumber = Object.keys(CONTENTLIST).length;
     console.log(progressNumber, courseNumber)
     let percentage = (progressNumber / courseNumber) * 100;
+    percentage = parseInt(percentage);
     $("#progress").text(percentage);
     return percentage;
 }

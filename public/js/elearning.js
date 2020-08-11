@@ -74,7 +74,7 @@ const payWithPaystack = (fee, course) => {
                 success: function (response) {
                     console.log("success", response);
                     $('#verifyStatus').text('Course Added Your List');
-                    $("#verifyDescription").text('Your Purchase was successfull goto your course list to access course content')
+                    $("#verifyDescription").text('Your Purchase was successful. Go to your course list to begin learning')
                     $("#verifyModal").modal('show');
                     processingNotification.close();
                     clearLoad('enrollButton', 'ENROLL NOW');
@@ -113,7 +113,7 @@ const freecourse = (form) => {
                 return
             }
             $('#verifyStatus').text('Course Added Your List');
-            $("#verifyDescription").text('Your Purchase was successfull goto your course list to access course content');
+            $("#verifyDescription").text('Your Purchase was successful. Go to your course list to begin learning');
             $("#verifyModal").modal('show')
             clearLoad('enrollButton', 'ENROLL NOW');
         },
