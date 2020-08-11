@@ -72,12 +72,12 @@ router.get('/meetings', requireLogin, async (req, res) => {
 });
 
 router.get('/forgot', (req, res) => {
-  res.render('forgot-password', { title: 'Forgot Password?', AppName })
+  res.render('forgot-password', { title: 'Forgot Password?', ABS_PATH, AppName })
 })
 
 router.get('/resetPassword', (req, res) => {
   let { token } = req.query;
-  res.render('resetpassword', { AppName, title: 'Reset Password', token });
+  res.render('resetpassword', { AppName, ABS_PATH, title: 'Reset Password', token });
 })
 
 router.post('/resetPassword', async (req, res) => {
@@ -118,10 +118,24 @@ router.post('/resetPassword', async (req, res) => {
 
 router.post('/recoverPassword', async (req, res) => {
   let { email } = req.body;
-  let user = await admin.auth().getUserByEmail(email);
-  if (!user) {
-    res.status(304).send({
-      message: 'Password Reset Sent',
+  let err = "";
+  let nouser = null;
+  try {
+    let user = await admin.auth().getUserByEmail(email).catch((e) => {
+
+    });
+  }
+  catch (e) {
+    console.log(e);
+    err = e;
+    nosuser = true;
+
+  }
+  if (nouser) {
+    console.log("no user");
+    res.status(200).send({
+      message: "No user with this email found",
+      err: true,
       status: 'danger'
     });
     return;

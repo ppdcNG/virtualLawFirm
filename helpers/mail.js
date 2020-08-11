@@ -97,6 +97,7 @@ exports.forgotPasswordMail = async (email, token) => {
     text: `follow this link "${option.link} to reset your password`,
     html
   }
+  console.log(messageOptions)
   try {
     let response = await sendgrid.send(messageOptions);
     return true;

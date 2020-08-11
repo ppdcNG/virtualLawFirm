@@ -33,6 +33,11 @@ const showLaywerModal = function (type) {
 
     }
 }
+const showRecovery = () => {
+    $("#loginModal").modal('hide');
+    $("#lawyerLoginModal").modal('hide');
+    $("#forgotModal").modal('show');
+}
 
 const clientTab = type => {
     if (type == 'signup') {
@@ -53,6 +58,12 @@ function dismiss(type) {
         $("#myTabContent").fadeIn();
         $("#signupComplete").addClass('signup-success');
     }
+    if (type == "lawyersignup") {
+        $("#lawyerMyTab").show()
+        $("#lawyerMyTabContent").show();
+        $("#lawyerSignupComplete").addClass('signup-success');
+        $("#lawyerLoginModal").modal('hide');
+    }
 }
 
 $("#clientConfirm").submit(function (e) {
@@ -60,7 +71,7 @@ $("#clientConfirm").submit(function (e) {
     let formdata = new FormData(document.getElementById('clientConfirm'));
     var form = form2js("clientConfirm", ".");
     if (form.password !== form.confirmPassword) {
-        $.notify("Passwords must match", { type: "warning" });
+        $.notify("Passwords must match", { type: "warning", z_index: 5000 });
         $("#confirmError").html("Passwords must match");
         $("#confirmError").removeClass('valid');
         $("#password").addClass('is-invalid');
@@ -81,13 +92,13 @@ $("#clientConfirm").submit(function (e) {
         success: function (response) {
             console.log(response);
             if (!response.err && response.email) {
-                $.notify(response.message, { type: "success", delay: 3000, zIndex: 1000 });
-                $.notify("Signing In", { type: "primary", zIndex: 1000 });
+                $.notify(response.message, { type: "success", delay: 3000, z_index: 5000 });
+                $.notify("Signing In", { type: "primary", z_index: 5000 });
                 $("#clientConfirm").hide();
                 $("#recoverComplete").removeClass('signup-success');
                 clientSignIn(response.email, form.password, () => { window.location = ABS_PATH + 'client/dashboard' });
             } else {
-                $.notify(response.message, { type: "warning" });
+                $.notify(response.message, { type: "warning", z_index: 5000 });
                 $("#confirmError").html(response.message);
                 $("#confirmError").removeClass('valid');
                 clearLoad('continue', 'Continue');
@@ -129,7 +140,7 @@ const clientSignIn = async (email, password, callback) => {
                 console.log(response);
                 if (response.status == "success") {
                     $("#loginModal").modal('hide');
-                    $.notify("Logging in", { type: "success" });
+                    $.notify("Logging in", { type: "success", z_index: 5000 });
                     setTimeout(function () {
                         if (callback) {
                             callback()
@@ -146,7 +157,7 @@ const clientSignIn = async (email, password, callback) => {
         clearLoad('clientLoginButton', 'Login');
         $("#loginError").html(e.message);
         $("#loginError").removeClass('valid');
-        $.notify(e.message, { type: "danger" });
+        $.notify(e.message, { type: "danger", z_index: 5000 });
     }
 };
 
@@ -156,7 +167,7 @@ $("#clientRegisterForm").submit(e => {
     var form = form2js("clientRegisterForm", ".");
 
     if (!$("#terms").is(':checked')) {
-        $.notify('Please accept the terms and conditions');
+        $.notify('Please accept the terms and conditions', { type: "warning", z_index: 5000 });
         $("#terms").addClass('is-invalid');
         return false
     }
@@ -173,7 +184,7 @@ $("#clientRegisterForm").submit(e => {
             console.log(response);
             if (!response.err) {
                 $("#close").trigger("click");
-                $.notify("A confirmation email has been sent to your inbox", { type: "success" });
+                $.notify("A confirmation email has been sent to your inbox", { type: "success", z_index: 5000 });
                 $("#myTab").hide();
                 $("#myTabContent").hide();
                 $("#signupComplete").removeClass('signup-success');
@@ -205,14 +216,14 @@ $("#recoverForm").submit(e => {
             console.log(response);
             if (!response.err) {
 
-                $.notify("A confirmation email has been sent to your inbox", { type: "success" });
+                $.notify("An email has been sent to your inbox follow the prompt to reset your password", { type: "success", z_index: 5000 });
 
                 $("#recoverForm").hide();
                 $("#recoverComplete").removeClass('recover-success');
             } else {
                 $("#recoverError").html(response.message);
                 $("#recoverError").removeClass('valid');
-                $.notify(response.message, { type: "warning" });
+                $.notify(response.message, { type: "warning", z_index: 5000 });
             }
             clearLoad('recoverButton', 'Sign Up');
         },
