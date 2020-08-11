@@ -22,6 +22,7 @@ const clientRoutes = require('./routes/client');
 const lawyerRoutes = require('./routes/lawyers');
 const eLearningRoutes = require('./routes/eLearning');
 const termsRoutes = require('./routes/terms');
+const notaryPublicRoutes = require('./routes/notaryPublic');
 
 var app = express();
 
@@ -56,6 +57,7 @@ app.use('/client', clientRoutes);
 app.use('/lawyer', lawyerRoutes);
 app.use('/e-learning', eLearningRoutes);
 app.use('/', termsRoutes);
+app.use('/', notaryPublicRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
