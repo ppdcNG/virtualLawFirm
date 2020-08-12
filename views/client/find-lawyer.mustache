@@ -54,16 +54,14 @@
 
       <div class="col-md-4 mb-4">
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg-agric.jpeg);background-size: cover;background-position: 50% 50%;">
-            <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
+            <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3" style="padding: 0px !important">
               <h5 class="card-title font-weight-bold py-3">Agricultural Law</h5>
-              <p class="card-text white-text">Tags under this category:</p>
-              <p class="text-warning">{{{agricTags}}}</p>
-              <p class="text-danger">{{{agric}}}</p>
-              <div>
-                {{#agricTags}}
-                <span class="badge badge-warning">{{.}}</span>
-                {{/agricTags}}
-              </div>
+              <p class="card-text white-text">Tags under this section:</p>
+              <h5>
+              {{#agricTags }}
+                <span class="badge badge-light">{{.}}</span>
+              {{/agricTags}}
+              </h5>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('agriculturalLaw')">Select</button>
             </div>
         </div>
@@ -72,7 +70,12 @@
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg-chess.jpeg);background-size: cover;background-position: 50% 50%;">
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Antitrust Section</h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <p class="card-text white-text">Tags under this section:</p>
+              <h5>
+              {{#antitrustTags }}
+                <span class="badge badge-light">{{.}}</span>&nbsp;
+              {{/antitrustTags}}
+              </h5>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('antitrustSection')">Select</button>
             </div>
         </div>
@@ -81,8 +84,12 @@
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg-corporate.jpeg);background-size: cover;background-position: 50% 50%;">
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Corporate Law Section</h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
-              <p class="text-warning">{{{corporateLaw}}}</p>
+              <p class="card-text white-text">Tags under this section:</p>
+              <h5>
+              {{#corporateLawTags }}
+                <span class="badge badge-light">{{.}}</span>&nbsp;
+              {{/corporateLawTags}}
+              </h5>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('corporateLawSection')">Select</button>
             </div>
         </div>
@@ -91,7 +98,12 @@
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg2.png);background-size: cover;background-position: 50% 50%;">
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Dispute Resolution Section</h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <p class="card-text white-text">Tags under this section</p>
+              <h5>
+              {{#disputeResolutionTags }}
+                <span class="badge badge-light">{{.}}</span>&nbsp;
+              {{/disputeResolutionTags}}
+              </h5>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('disputeResolutionSection')">Select</button>
             </div>
         </div>
@@ -100,7 +112,12 @@
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg6.png);background-size: cover;background-position: 50% 50%;">
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Energy, Environment, Natural Resources andInfrastructure Law Section</h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <p class="card-text white-text">Tags under this section</p>
+              <h5>
+              {{#EENRILawTags }}
+                <span class="badge badge-light">{{.}}</span>&nbsp;
+              {{/EENRILawTags}}
+              </h5>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('EENRILawSection')">Select</button>
             </div>
         </div>
@@ -109,7 +126,12 @@
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg4.png);background-size: cover;background-position: 50% 50%;">
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Financial Services Section</h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <p class="card-text white-text">Tags under this section</p>
+              <h5>
+              {{#financialServicesTags }}
+                <span class="badge badge-light">{{.}}</span>&nbsp;
+              {{/financialServicesTags}}
+              </h5>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('financialServicesSection')">Select</button>
             </div>
         </div>
@@ -118,7 +140,12 @@
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg-hr.jpeg);background-size: cover;background-position: 50% 50%;">
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Human Resources Section</h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <p class="card-text white-text">Tags under this section</p>
+              <h5>
+              {{#humanResourcesTags }}
+                <span class="badge badge-light">{{.}}</span>&nbsp;
+              {{/humanResourcesTags}}
+              </h5>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('humanResourcesSection')">Select</button>
             </div>
         </div>
@@ -127,7 +154,12 @@
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg-coins.jpg);background-size: cover;background-position: 50% 50%;">
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Insolvency </h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <p class="card-text white-text">Tags under this section</p>
+              <h5>
+              {{#insolvencyTags }}
+                <span class="badge badge-light">{{.}}</span>&nbsp;
+              {{/insolvencyTags}}
+              </h5>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('insolvency')">Select</button>
             </div>
         </div>
@@ -136,7 +168,12 @@
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg5.png);background-size: cover;background-position: 50% 50%;">
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Intellectual Property, Communications and Technology Section</h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <p class="card-text white-text">Tags under this section</p>
+              <h5>
+              {{#IPCTSectionTags }}
+                <span class="badge badge-light">{{.}}</span>&nbsp;
+              {{/IPCTSectionTags}}
+              </h5>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('IPCTSection')">Select</button>
             </div>
         </div>
@@ -145,7 +182,12 @@
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg-trade.jpeg);background-size: cover;background-position: 50% 50%;">
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Intellectual Commercial, Trade, Franchising and Product Law Section</h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <p class="card-text white-text">Tags under this section</p>
+              <h5>
+              {{#ICTFPLawTags }}
+                <span class="badge badge-light">{{.}}</span>&nbsp;
+              {{/ICTFPLawTags}}
+              </h5>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('ICTFPLawSection')">Select</button>
             </div>
         </div>
@@ -154,7 +196,12 @@
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg-individual.jpeg);background-size: cover;background-position: 50% 50%;">
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Law and Individual Rights Section</h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <p class="card-text white-text">Tags under this section</p>
+              <h5>
+              {{#lawAndIndiviualRightsTags }}
+                <span class="badge badge-light">{{.}}</span>&nbsp;
+              {{/lawAndIndiviualRightsTags}}
+              </h5>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('lawAndIndiviualRights')">Select</button>
             </div>
         </div>
@@ -163,7 +210,12 @@
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg3.png);background-size: cover;background-position: 50% 50%;">
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Leisure Industries Scection</h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <p class="card-text white-text">Tags under this section</p>
+              <h5>
+              {{#leisureIndustriesTags }}
+                <span class="badge badge-light">{{.}}</span>&nbsp;
+              {{/leisureIndustriesTags}}
+              </h5>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('leisureIndustriesSection')">Select</button>
             </div>
         </div>
@@ -172,7 +224,12 @@
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg-maritime.jpeg);background-size: cover;background-position: 50% 50%;">
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Maritime and Avaiation Law Section</h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <p class="card-text white-text">Tags under this section</p>
+              <h5>
+              {{#maritimeAndAviationLawTags }}
+                <span class="badge badge-light">{{.}}</span>&nbsp;
+              {{/maritimeAndAviationLawTags}}
+              </h5>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('maritimeAndAviationLaw')">Select</button>
             </div>
         </div>
@@ -181,7 +238,12 @@
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg-houses.jpeg);background-size: cover;background-position: 50% 50%;">
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Real Estate Section</h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <p class="card-text white-text">Tags under this section</p>
+              <h5>
+              {{#realEstateTags }}
+                <span class="badge badge-light">{{.}}</span>&nbsp;
+              {{/realEstateTags}}
+              </h5>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('realEstateSection')">Select</button>
             </div>
         </div>
@@ -190,7 +252,12 @@
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg1.png);background-size: cover;background-position: 50% 50%;">
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Public Law section</h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <p class="card-text white-text">Tags under this section</p>
+              <h5>
+              {{#publicLawTags }}
+                <span class="badge badge-light">{{.}}</span>&nbsp;
+              {{/publicLawTags}}
+              </h5>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('publicLawSection')">Select</button>
             </div>
         </div>
@@ -199,7 +266,12 @@
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg-tax.jpeg);background-size: cover;background-position: 50% 50%;">
             <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Taxation Section </h5>
-              <p class="card-text white-text">Some of the finest family lawyers at your disposal</p>
+              <p class="card-text white-text">Tags under this section</p>
+              <h5>
+              {{#taxationTags }}
+                <span class="badge badge-light">{{.}}</span>&nbsp;
+              {{/taxationTags}}
+              </h5>
               <button type="button" class="btn lt-btn-accent align-self-start btn-md disabled" onclick = "fetchLawyers('taxationSection')">Select</button>
             </div>
         </div>
