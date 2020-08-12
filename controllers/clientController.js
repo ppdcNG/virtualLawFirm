@@ -11,7 +11,8 @@ var admin = require("firebase-admin");
 
 exports.findLawyer = (req, res) => {
     let user = getUserDetails(req);
-    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, ...user });
+
+    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, ...user, });
 };
 exports.consultation = (req, res) => {
     let id = req.query.id;
