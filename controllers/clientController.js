@@ -10,9 +10,29 @@ var admin = require("firebase-admin");
 
 
 exports.findLawyer = (req, res) => {
-    let user = getUserDetails(req);
+    let agricTags = require('../config/categories/agricultural-law.json');
+    let corporateLawTags = require('../config/categories/corporate-law-section.json');
+    let antitrustTags = require('../config/categories/antitrust-section.json');
+    let disputeResolutionTags = require('../config/categories/dispute-resolution.json');
+    let EENRILawTags = require('../config/categories/eenri-law-section.json');
+    let financialServicesTags = require('../config/categories/financial-services.json');
+    let humanResourcesTags = require('../config/categories/human-resources.json');
+    let insolvencyTags = require('../config/categories/insolvency.json');
+    let IPCTSectionTags = require('../config/categories/ipct-section.json');
+    let ICTFPLawTags = require('../config/categories/ictfp-law-section.json');
+    let lawAndIndiviualRightsTags = require('../config/categories/law-indiviual-rights.json');
+    let leisureIndustriesTags = require('../config/categories/leisure-industries.json');
+    let maritimeAndAviationLawTags = require('../config/categories/maritime-aviation-law.json');
+    let realEstateTags = require('../config/categories/real-estate.json');
+    let publicLawTags = require('../config/categories/public-law-section.json');
+    let taxationTags = require('../config/categories/taxation-section.json');
 
-    res.render('client/find-lawyer', { title: 'Client page', ABS_PATH, ...user, });
+    let user = getUserDetails(req);
+    res.render('client/find-lawyer', {
+        title: 'Client page', ABS_PATH, ...user, agricTags, corporateLawTags, antitrustTags, disputeResolutionTags, EENRILawTags,
+        financialServicesTags, humanResourcesTags, insolvencyTags, IPCTSectionTags, ICTFPLawTags, lawAndIndiviualRightsTags, leisureIndustriesTags,
+        maritimeAndAviationLawTags, realEstateTags, publicLawTags, taxationTags
+    });
 };
 exports.consultation = (req, res) => {
     let id = req.query.id;

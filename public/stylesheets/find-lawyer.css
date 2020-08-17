@@ -5,12 +5,13 @@
 
 .soft-teal-bg {
     background-color: rgba(17, 100, 94, 0.314);
+    width: 100%;
 }
 
 .lawyer-tags {
     display: inline-block;
     box-sizing: border-box;
-    font-size: .7rem;
+    font-size: .5rem;
     background: var(--accent-colr);
     padding-left: 8px;
     padding-right: 8px;
