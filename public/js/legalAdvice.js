@@ -3,6 +3,8 @@
 $(document).ready(() => {
   fetchAdvices();
   $("#askLawyerButton").click((e) => {
+
+
     console.log('lawyer clicked')
     let uid = $("#uid").val();
     console.log(uid);
@@ -12,21 +14,31 @@ $(document).ready(() => {
     }
 
     else {
-      let clientName = $("#displayName").val();
-      let clientId = $("#uid").val();
-      let clientPhoto = $("#photoURL").val();
-      let data = { clientName, clientId, clientPhoto };
-      let url = ABS_PATH + 'client/initiateAdminChat';
-      buttonLoadSpinner("askLawyerButton");
-      $.ajax({
-        type: "POST",
-        url: url,
-        data,
-        success: function (response) {
-          console.log("success")
-          clearLoad('askLawyerButton', 'Ask Lawyer');
-          window.location = ABS_PATH + "client/dashboard/#chat";
-        }
+      // disclaimer modal pops 
+      $("#disclaimerModal").modal('show');
+
+      // upon agreeing to disclaimer 
+      $("#disclaimer-agree-btn").click((e) => {
+
+        // close disclaimer modal
+        $("#disclaimerModal").modal('hide');
+
+        let clientName = $("#displayName").val();
+        let clientId = $("#uid").val();
+        let clientPhoto = $("#photoURL").val();
+        let data = { clientName, clientId, clientPhoto };
+        let url = ABS_PATH + 'client/initiateAdminChat';
+        buttonLoadSpinner("askLawyerButton");
+        $.ajax({
+          type: "POST",
+          url: url,
+          data,
+          success: function (response) {
+            console.log("success")
+            clearLoad('askLawyerButton', 'here');
+            window.location = ABS_PATH + "client/dashboard/#chat";
+          }
+        });
       });
     }
   })
@@ -53,10 +65,15 @@ const handleFetchAdvises = advises => {
   $("#questionsList").append(advisesHTML);
 }
 
-$("#legalAdvice").submit((e) => {
+$("#legalAdvice").submit(async (e) => {
   e.preventDefault();
-  submitAdvice();
+  $("#publicQuestion").modal('show');
 });
+
+$("#public-question-agree").click((e) => {
+  $("#publicQuestion").modal('hide');
+  submitAdvice();
+})
 
 
 const submitAdvice = async () => {

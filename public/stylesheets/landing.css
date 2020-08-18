@@ -62,6 +62,10 @@ li.nav-item.avartar {
 
 /* custom button classes */
 
+.lt-text-accent {
+    color: #F8B24F;
+}
+
 .lt-btn-accent {
     color: white;
     background-color: var(--accent-colr);

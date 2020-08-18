@@ -48,11 +48,69 @@
         <p class="text-justify">
             Do you need legal advise of any sort to know the next line of action to take? Get limited free legal advise from top attorneys at Lawtrella.Browse through our archive of already answered questions 
         </p>
-        <a href = "#" id ="askLawyerButton" class = "btn btn-md lt-btn-accent mt-2 p-3">ASK A LAWYER NOW</a>
+        <br/>
+        <h5 class="mt-2"><strong>
+          Need help with Legal Issues? Click <a href = "#" id ="askLawyerButton" class = "lt-text-accent">here</a>
+          to chat privately with a Lawyer.</strong>
+        </h5>
     </div>
 
+    {{! disclaimer modal }}
+    <div class="modal fade white" id="disclaimerModal" tabindex="-1" role="dialog" aria-labelledby="disclaimerModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="disclaimerModalLabel">Disclaimer</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="text-justify">
+              ‘Ask a lawyer’ does not give professional legal advice. 
+              The Legal information provided here is for educational purposes only and does not replace professional advice. 
+              Lawtrella, its employees, partners or affiliates will not be liable for any loss and/or damages that might arise from use of any information obtained from this service. 
+              We advise you to consult with a lawyer before taking action(s) based on these answers. Making decisions based on this information is solely at your own risk.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Reject</button>
+            <button type="button" class="btn lt-btn-accent" id="disclaimer-agree-btn">Agree</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{! disclaimer modal end }}
 
-    <h5 class = "mt-5 mb-3 ">ASK PUBLICLY</h5>
+    {{! public question modal }}
+    <div class="modal fade white" id="publicQuestion" tabindex="-1" role="dialog" aria-labelledby="publicQuestionLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="publicQuestionLabel"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="text-justify">
+                You are about to access a public forum. Questions posed by you and information provided thereof, 
+                as well as responses and answers to such questions shall be made public and be available to anyone visiting the site. 
+                We therefore strongly advise that any confidential information should not be provided through this section.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Reject</button>
+            <button type="button" class="btn lt-btn-accent" id="public-question-agree">Agree</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{! public question modal end }}
+
+    <h5 class = "mt-5 mb-3 text-uppercase">Ask a Question on our public forum <span class="text-lowercase">or</span> Browse answers to previously asked questions</h5>
     <p class="text-justify">
             Do you need legal advise of any sort to know the next line of action to take? Get limited free legal advise from top attorneys at Lawtrella.Browse through our archive of already answered questions 
     </p>
