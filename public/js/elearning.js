@@ -88,9 +88,10 @@ const payWithPaystack = (fee, course) => {
             });
 
         },
-        onClose: function () {
+        onClose: function (response) {
             console.log('window closed');
             console.log('closed', response);
+            $.notify(response.message, { type: "warning" });
         }
     });
     handler.openIframe();

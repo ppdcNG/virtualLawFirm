@@ -94,6 +94,7 @@ exports.signup = async (req, res) => {
     let user = await admin.auth().getUserByEmail(email).catch((e) => {
         let error = { err: e, message: e.message, status: 'failed' }
     });
+    console.log(user);
     if (user) {
 
         res.send({
@@ -116,15 +117,8 @@ exports.signup = async (req, res) => {
         to: email
     };
 
-    let sendgridOption = {
-        to: email,
-        from: "welcome@lawtrella.com",
-        subject: "Welcome to LawTrella",
-        text: `Thank you for signing up this is your token ${tok}`
-    };
     try {
         welcomeMail(mailOptions, res);
-        res.send({ status: "success" });
     }
     catch (e) {
         res.send({ err: true, message: e.message });

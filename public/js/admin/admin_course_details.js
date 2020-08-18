@@ -105,6 +105,8 @@ const addLesson = async _ => {
     lesson.dateAdded = 0 - new Date().getTime();
     let path = `courses/${courseId}/contents`;
     buttonLoad('saveLessonButton');
+    let position = Object.keys(CONTENTS).length + 1;
+    lesson.position = position;
     await firebase.firestore().collection(path).add(lesson).catch((e) => { console.log(e) });
     clearLoad('saveLessonButton', 'Save');
     $("#addLessonModal").modal('hide');
@@ -337,6 +339,9 @@ const addQuestion = async () => {
     let question = form2js('questionForm', '.', false);
     question.dateAdded = 0 - new Date().getTime();
     let path = `courses/${courseId}/contents`;
+    console.log(path)
+    let position = Object.keys(CONTENTS).length;
+    question.position = position;
     buttonLoad('saveQuestionButton');
     await firebase.firestore().collection(path).add(question).catch((e) => { console.log(e) });
     clearLoad('saveQuestionButton', 'Save');

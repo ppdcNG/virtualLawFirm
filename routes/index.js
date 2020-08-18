@@ -147,20 +147,8 @@ router.post('/recoverPassword', async (req, res) => {
   let passwordTokenRef = admin.firestore().collection('passwordTokens').doc();
   await passwordTokenRef.set(passwordToken);
 
-  let messageSent = await forgotPasswordMail(email, passwordTokenRef.id);
-  if (messageSent) {
-    res.status(200).send({
-      message: 'Password Reset has been sent to your mail, check your mail to continue',
-      status: 'success'
-    });
-    return
-  }
+  forgotPasswordMail(email, passwordTokenRef.id, res);
 
-  res.status(501).send({
-    message: "We had a problem sending mail to " + email,
-    status: 'danger',
-    err: true
-  })
 
 });
 

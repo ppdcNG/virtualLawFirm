@@ -18,21 +18,21 @@ $("#laywerConfirm").submit(function (e) {
   $("#lawyerGotIt").click(dismiss);
   $("#gotsignup").click(dismiss);
 
-  // function dismiss(type) {
-  //   console.log('clear called');
-  //   if (type == 'recover') {
-  //     $("#recoverForm").fadeIn();
-  //     $("#forgotModal").modal('hide');
-  //     $("#recoverComplete").addClass('recover-success');
-  //   }
+  function dismiss(type) {
+    console.log('clear called');
+    if (type == 'recover') {
+      $("#recoverForm").fadeIn();
+      $("#forgotModal").modal('hide');
+      $("#recoverComplete").addClass('recover-success');
+    }
 
-  //   if (type == 'signup') {
+    if (type == 'signup') {
 
-  //     $("#lawyerRegisterForm").fadeIn();
-  //     $("#lawyerSignupComplete").addClass('signup-success');
-  //     $("#lawyerLoginModal").modal('show');
-  //   }
-  // }
+      $("#lawyerRegisterForm").fadeIn();
+      $("#lawyerSignupComplete").addClass('signup-success');
+      $("#lawyerLoginModal").modal('show');
+    }
+  }
 
   $.ajax({
     url: ABS_PATH + "admin/verifyLawyerEmail",

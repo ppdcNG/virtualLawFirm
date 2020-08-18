@@ -109,11 +109,10 @@ exports.signup = async (req, res) => {
     let sendgridOption = {
         to: email,
         from: "welcome@lawtrella.com",
-        subject: "Welcome to A & E Law firm",
+        subject: "Welcome to Lawtrella",
         text: `Thank you for signing up this is your token ${tok}`
     };
     welcomeMail(mailOptions, res);
-    res.send({ status: "success" });
 }
 exports.lawyerLogin = async (req, res) => {
     let { idToken, uid } = req.body;

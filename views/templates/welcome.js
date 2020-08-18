@@ -205,7 +205,15 @@ exports.welcomeEmail = option => {
             <td style="overflow-wrap:break-word;word-break:break-word;padding:10px 30px 20px;font-family:'Montserrat',sans-serif;" align="left">
                 
         <div style="color: #292929; line-height: 160%; text-align: left; word-wrap: break-word;">
-            <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 16px; line-height: 25.6px;">Welcome to the Lawtrella Virtual law firm. You are a few steps away from your virtual law office.</span></p>
+            <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 16px; line-height: 25.6px;">
+            Thank you for creating an account with LawTrella. You are one click away from your customized LawTrella experience.
+
+Please click this link to complete account verification. 
+
+<br/>Welcome onboard!
+
+<br/>The Lawtrella Team
+</span></p>
         <p style="font-size: 14px; line-height: 160%;">&nbsp;</p>
         <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 16px; line-height: 25.6px;">Click the button below to complete your profile and get started.<br /></span></p>
         </div>

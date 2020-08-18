@@ -1,5 +1,9 @@
 const sendgrid = require("@sendgrid/mail");
 const SENDGRID_API_KEY = process.env.NODE_ENV == 'production' ? process.env.SEND_GRID_API_KEY : require("../config/dev").SEND_GRID_API_KEY
+const MAILGUN_API_KEY = process.env.NODE_ENV == 'production' ? process.env.MAILGUN_API_KEY : require('../config/dev').MAILGUN_API_KEY;
+const MAILGUN_DOMAIN = process.env.NODE_ENV == 'production' ? process.env.MAILGUN_DOMAIN : require('../config/dev').MAILGUN_DOMAIN;
+var Mailgun = require('mailgun-js');
+
 var ABS_PATH = require("../config").ABS_PATH;
 const { welcomeEmail } = require("../views/templates/welcome");
 const { clientInvite } = require("../views/templates/clientInvite");
@@ -29,7 +33,17 @@ exports.welcomeMail = (options, res) => {
     html
   };
 
-  return sendgrid.send(messageOptions);
+  let mailgun = new Mailgun({ apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN })
+
+  mailgun.messages().send(messageOptions, function (err, body) {
+    console.log(body);
+    if (err) {
+      console.log(err);
+      res.status(304).send({ status: 'failed', err: err, message: err.message });
+      return;
+    }
+    res.send({ status: "success" });
+  })
 };
 
 exports.inviteEmail = async (email) => {
@@ -84,7 +98,7 @@ exports.askLawyerMail = async (email, clientName) => {
 
 }
 
-exports.forgotPasswordMail = async (email, token) => {
+exports.forgotPasswordMail = async (email, token, res) => {
   let option = {
     ABS: ABS_PATH,
     link: ABS_PATH + `resetPassword?token=${token}`
@@ -97,16 +111,18 @@ exports.forgotPasswordMail = async (email, token) => {
     text: `follow this link "${option.link} to reset your password`,
     html
   }
-  console.log(messageOptions)
-  try {
-    let response = await sendgrid.send(messageOptions);
-    return true;
-  }
-  catch (e) {
-    console.log(e);
-    return false;
 
-  }
+  let mailgun = new Mailgun({ apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN })
+
+  mailgun.messages().send(messageOptions, function (err, body) {
+    console.log(body);
+    if (err) {
+      console.log(err);
+      res.status(304).send({ status: 'failed', err: err, message: err.message });
+      return;
+    }
+    res.send({ status: "success" });
+  })
 
 
 }
