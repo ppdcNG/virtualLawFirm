@@ -3,38 +3,53 @@
 $(document).ready(() => {
   fetchAdvices();
   $("#askLawyerButton").click((e) => {
-    let usertype = $("#userType").val();
-    console.log(usertype);
-    if (usertype == 'lawyer') {
-      $.notify("Client account required, Sinup or Signin as a client", { type: "warning", delay: 2500 });
-      return;
-    }
+
+
+
+    console.log('lawyer clicked')
     let uid = $("#uid").val();
     console.log(uid);
     if (uid == "false") {
       $("#loginModal").modal('show');
       return
     }
+    let usertype = $("#userType").val();
+    console.log(usertype);
+    if (usertype == 'lawyer') {
+      $.notify("Client account required, Sinup or Signin as a client", { type: "warning", delay: 2500 });
+      return;
+    }
 
     else {
-      let clientName = $("#displayName").val();
-      let clientId = $("#uid").val();
-      let clientPhoto = $("#photoURL").val();
-      let data = { clientName, clientId, clientPhoto };
-      let url = ABS_PATH + 'client/initiateAdminChat';
-      buttonLoadSpinner("askLawyerButton");
-      $.ajax({
-        type: "POST",
-        url: url,
-        data,
-        success: function (response) {
-          console.log("success")
-          clearLoad('askLawyerButton', 'Ask Lawyer');
-          window.location = ABS_PATH + "client/dashboard/#chat";
-        }
-      });
+      // disclaimer modal pops 
+      $("#disclaimerModal").modal('show');
+
+      // upon agreeing to disclaimer 
     }
   })
+});
+
+$("#disclaimer-agree-btn").click((e) => {
+
+  // close disclaimer modal
+  $("#disclaimerModal").modal('hide');
+
+  let clientName = $("#displayName").val();
+  let clientId = $("#uid").val();
+  let clientPhoto = $("#photoURL").val();
+  let data = { clientName, clientId, clientPhoto };
+  let url = ABS_PATH + 'client/initiateAdminChat';
+  buttonLoadSpinner("askLawyerButton");
+  $.ajax({
+    type: "POST",
+    url: url,
+    data,
+    success: function (response) {
+      console.log("success")
+      clearLoad('askLawyerButton', 'here');
+      window.location = ABS_PATH + "client/dashboard/#chat";
+    }
+  });
 });
 
 
@@ -58,10 +73,15 @@ const handleFetchAdvises = advises => {
   $("#questionsList").append(advisesHTML);
 }
 
-$("#legalAdvice").submit((e) => {
+$("#legalAdvice").submit(async (e) => {
   e.preventDefault();
-  submitAdvice();
+  $("#publicQuestion").modal('show');
 });
+
+$("#public-question-agree").click((e) => {
+  $("#publicQuestion").modal('hide');
+  submitAdvice();
+})
 
 
 const submitAdvice = async () => {
