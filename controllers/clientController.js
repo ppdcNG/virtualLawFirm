@@ -483,7 +483,8 @@ exports.initiateAdminChat = async (req, res) => {
 
     let { clientId, clientName, clientPhoto, } = req.body;
     let user = getUserDetails(req);
-    if (user.usertype != "client") {
+    if (user.usertype == "lawyer") {
+        console.log('user is a lawyer')
         let msg = {
             status: 'warning',
             message: 'Only client accounts can ask a lawyer'
@@ -497,7 +498,6 @@ exports.initiateAdminChat = async (req, res) => {
     let lawyer = await admin.firestore().collection('systemOpps').doc('askLawyer').get();
     lawyer = lawyer.data();
     console.log("ahah", lawyer);
-    await askLawyerMail(lawyer.lawyerOnDuty, clientName);
     let chatSnapshot = await admin.firestore().collection('chats').doc(chatId).get();
     if (chatSnapshot.exists) {
         console.log('chat exists')
@@ -527,11 +527,7 @@ exports.initiateAdminChat = async (req, res) => {
     batch.set(chatsRef, chat);
     let result = await batch.commit();
     console.log(result);
-    let msg = {
-        status: 'success',
-        message: 'Chat Initiated'
-    }
-    res.send(msg);
+    await askLawyerMail(lawyer.lawyerOnDuty, clientName);
 
 
 }

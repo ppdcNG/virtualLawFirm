@@ -77,7 +77,7 @@ exports.sendAdminNewCase = async (email, lawyerName, clientName) => {
   console.log(response);
 
 }
-exports.askLawyerMail = async (email, clientName) => {
+exports.askLawyerMail = async (email, clientName, res) => {
   let options = {
     title: `${clientName} wants to Ask a Lawyer`,
     message: "A client needs to ask you a question; login as admin to chat with client"
@@ -91,9 +91,15 @@ exports.askLawyerMail = async (email, clientName) => {
     html
   }
 
-  let response = await sendgrid.send(messageOptions).catch(e => {
-    console.log(e);
-  });
+  mailgun.messages().send(messageOptions, function (err, body) {
+    console.log(body);
+    if (err) {
+      console.log(err);
+      res.status(304).send({ status: 'failed', err: err, message: err.message });
+      return;
+    }
+    res.send({ status: "success", message: "mail sent and chat initiated" });
+  })
 
 
 }

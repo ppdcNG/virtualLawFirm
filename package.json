@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www -e mustache,js"
+    "dev": "nodemon -e js,mustache ./bin/www"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.4.0",
@@ -25,6 +25,6 @@
     "pusher": "^3.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.4"
+    "nodemon": "^2.0.4"
   }
 }

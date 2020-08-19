@@ -3,7 +3,12 @@
 $(document).ready(() => {
   fetchAdvices();
   $("#askLawyerButton").click((e) => {
-    console.log('lawyer clicked')
+    let usertype = $("#userType").val();
+    console.log(usertype);
+    if (usertype == 'lawyer') {
+      $.notify("Client account required, Sinup or Signin as a client", { type: "warning", delay: 2500 });
+      return;
+    }
     let uid = $("#uid").val();
     console.log(uid);
     if (uid == "false") {
