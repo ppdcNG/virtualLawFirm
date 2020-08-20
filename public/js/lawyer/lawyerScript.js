@@ -107,11 +107,11 @@ const signIn = async (email, password) => {
     });
   } catch (e) {
     console.log(e);
+    let message = e.code == "auth/wrong-password" ? "Wrong password. Try again or click Forgot password to reset it." : e.message;
     clearLoad('lawyerLoginButton', "LOGIN");
-    $.notify(e.message, { type: "danger", z_index: 5000 });
-    $("#lawyerloginError").html(e.message);
+    $.notify(message, { type: "danger", z_index: 5000 });
+    $("#lawyerloginError").html(message);
     $("#lawyerloginError").removeClass('valid');
-    $.notify(e.message, { type: "warning", z_index: 5000 });
   }
 };
 

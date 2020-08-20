@@ -127,33 +127,38 @@
                 </div>
             </div>
         </div>
+
         <div class="modal fade" id="quizModal" data-backdrop = "static" tabindex="-1" role="dialog" aria-labelledby="videoPreviewModal"
             aria-hidden="true">
             <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
+            
                 <div class="modal-body p-5">
 
-                    <h4 class = "m-3" id = "quizQuestion">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit nisi quo
-                        provident fugiat reprehenderit nostrum</h4>
+                    <h4 class = "m-3" id = "quizQuestion"></h4>
                     <form id = "quizForm" class = "p-5 ml-5">
                         <input type = "hidden" name = "id" id = "quizId"/>
                         <div = id ="quizOptions">                    
-                        <div class="custom-control custom-checkbox mb-3 p-2">
-                            <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
-                            <label class="custom-control-label is-invalid" for="defaultIndeterminate2">Default indeterminate</label>
-                            <span class = "invalid-feedback">Not Correct Answer</span>
+                            <div class="custom-control custom-checkbox mb-3 p-2">
+                                <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
+                                <label class="custom-control-label is-invalid" for="defaultIndeterminate2">Default indeterminate</label>
+                                <span class = "invalid-feedback">Incorrect Answer</span>
+                            </div>
+                            <div class="custom-control custom-checkbox mb-5 p-2">
+                                <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
+                                <label class="custom-control-label" for="defaultIndeterminate2">Default indeterminate</label>
+                            </div>
+                            <div class="custom-control custom-checkbox mb-5 p-2">
+                                <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
+                                <label class="custom-control-label" for="defaultIndeterminate2">Default indeterminate</label>
+                            </div>
                         </div>
-                        <div class="custom-control custom-checkbox mb-5 p-2">
-                            <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
-                            <label class="custom-control-label" for="defaultIndeterminate2">Default indeterminate</label>
+                        <div class = "d-flex flex-row justify-content-between">
+                        <button class = "btn btn-default" id = "attemptContainer">Attempts : <span id = "attempts">3</span> of 3</button>
+                        <button  id = "answerButton" class = "btn lt-btn-accent mt-3" type = "submit">ANSWER</button>
                         </div>
-                        <div class="custom-control custom-checkbox mb-5 p-2">
-                            <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
-                            <label class="custom-control-label" for="defaultIndeterminate2">Default indeterminate</label>
-                        </div>
-                    </div>
 
-                        <button  id = "answerButton" class = "btn lt-btn-accent mt-3 float-right" type = "submit">ANSWER</button>
+                        
                     </form>
                     
                 </div>
@@ -163,6 +168,50 @@
                 </div>
             </div>
         </div>
+
+        {{! Further REading modal }}
+    <div class="modal fade" id="furtherReadingsModal" tabindex="-1" role="dialog" aria-labelledby="futherReadingModal"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="furtherReadingsModal">Further Readings</h5>
+          </div>
+          <div class="modal-body">
+            <p id =  "furtherReadingtitle" class="text-justify"></p>
+            <button id = "urlButton">
+                <i class = "fa fa-link m-2"></i>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn lt-btn-secondary" onclick = "nextContent()">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{! Furhter Reading Modal modal end }}
+    {{! Wait REading modal }}
+    <div class="modal fade white" id="waitModal" tabindex="-1" role="dialog" aria-labelledby="waitModal"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="waitModal">Wait</h5>
+          </div>
+          <div class="modal-body">
+           <i class = "fa fa-clock fa-3X"></i>
+            <p id =  "waitModl title" class="text-justify">You have exceeded your attempts for this quiz you have to wait eight (8) hours to try again</p>
+            <p><strong>Hours Remaining</strong> <span id = "hoursRemaining" >8</span></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss = "modal" class="btn btn-danger">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{! Wait modal end }}
+
+
 
 </main>
 

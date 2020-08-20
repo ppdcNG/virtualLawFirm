@@ -1,11 +1,15 @@
 
 
+
 var PROGRESSLIST = {};
 var CONTENTLIST = {};
 var CONTENTORDER = [];
 var currentVideo = null;
 var uid = $("#uid").val();
 var courseId = $("#courseId").val();
+var quizAttempts = {
+
+};
 
 $('#videoPreviewModal').on('hidden.bs.modal', function (e) {
     let videoPlayer = document.getElementById('videoPreview');
@@ -19,29 +23,6 @@ $(document).ready(function () {
     videoPlayer.addEventListener('ended', (e) => { $("#nxtBtn").show(); markComplete(e) }, false);
 });
 
-const fetchCourseContent = () => {
-    let courseId = $("#courseId").val();
-    let url = ABS_PATH + `e-learning/courseContent?id=${courseId}`;
-    $.ajax({
-        url,
-        type: "POST",
-        success: function (response) {
-            console.log("success", response);
-            CONTENTLIST = response.contentList;
-            PROGRESSLIST = response.userCourseData.progressList ? response.userCourseData.progressList : {};
-            CONTENTORDER = response.contentOrder
-            $("#numberRated").text(response.count);
-            renderContent();
-            calculateProgress();
-
-
-        },
-        error: err => {
-            console.error("error", err)
-            $.notify(response.message, { type: "warning" });
-        }
-    });
-}
 
 
 
@@ -53,7 +34,7 @@ const renderContent = () => {
     Object.keys(CONTENTLIST).forEach((key) => {
         let content = CONTENTLIST[key];
         console.log(content)
-        contentHTML += content.type == 'Lesson' ? renderLessonContent(content, key) : renderQuestionContent(content, key);
+        contentHTML += renderType[content.type](content, key);
     });
 
     $("#contents").html(contentHTML);
@@ -78,6 +59,23 @@ const renderLessonContent = (content, i) => {
 }
 
 
+const renderLinkContent = (content, i) => {
+
+
+    let title = truncate(content.title, 50)
+
+    return `
+    <li class="list-group-item d-flex flex-row justify-content-between">
+          <div>
+            <h5>Further Readings<h5>
+            <small class = "small font-weight-light primary-text">Further Readings</small>
+          </div>
+          <div class = "d-flex flex-row justify-content-between align-items-center">
+            <button data-toggle= "tooltip" title = "Further Readings" class = "btn " onclick = "viewFurtherReadings('${i}')" ><i class="fas fa-eye"></i></button>
+          </div>
+    </li>
+    `
+}
 const renderQuestionContent = (content, i) => {
 
     let viewQuiz = content.options ? `<button data-toggle= "tooltip" title = "View Quiz" class = "btn " onclick = "showQuiz('${i}')" ><i class="fas fa-vial"></i></button>` : "";
@@ -87,8 +85,8 @@ const renderQuestionContent = (content, i) => {
     return `
     <li class="list-group-item d-flex flex-row justify-content-between">
           <div>
-            <h5>${title}<h5>
-            <small class = "small font-weight-light primary-text">Quiz</small>
+            <h5>Course Quiz<h5>
+            <small class = "small font-weight-light primary-text">Multiple choice</small>
           </div>
           <div class = "d-flex flex-row justify-content-between align-items-center">
             ${viewQuiz}
@@ -97,6 +95,53 @@ const renderQuestionContent = (content, i) => {
     </li>
     `
 }
+const renderType = {
+    Lesson: renderLessonContent,
+    Question: renderQuestionContent,
+    Link: renderLinkContent
+
+}
+
+
+const fetchCourseContent = () => {
+    let courseId = $("#courseId").val();
+    let url = ABS_PATH + `e-learning/courseContent?id=${courseId}`;
+    $.ajax({
+        url,
+        type: "POST",
+        success: function (response) {
+            console.log("success", response);
+            CONTENTLIST = response.contentList;
+            PROGRESSLIST = response.userCourseData.progressList ? response.userCourseData.progressList : {};
+            quizAttempts = response.userCourseData.quizAttempts ? response.userCourseData.quizAttempts : {};
+            CONTENTORDER = response.contentOrder
+            $("#numberRated").text(response.count);
+            renderContent();
+            calculateProgress();
+
+
+        },
+        error: err => {
+            console.error("error", err)
+            $.notify(response.message, { type: "warning" });
+        }
+    });
+}
+
+const viewFurtherReadings = id => {
+    let play = checkComplete(id);
+    if (!play) {
+        $.notify('You need to take the previous module/quiz before this', { type: 'warning', delay: 3000 });
+        return;
+    }
+    currentVideo = id;
+    let content = CONTENTLIST[id];
+    $("#furtherReadingtitle").text(content.title)
+    $("#urlButton").html(`<a  target="_blank"  href = "${content.url}"><i class = "fa fa-link"></i></a>`);
+    $("#furtherReadingsModal").modal('show');
+    markComplete();
+}
+
 
 const viewVideo = id => {
     let play = checkComplete(id);
@@ -147,10 +192,17 @@ const checkComplete = id => {
 }
 
 const nextContent = () => {
+    let contentType = {
+        Question: showQuiz,
+        Lesson: viewVideo,
+        Link: viewFurtherReadings
+    }
     let next = CONTENTORDER.indexOf(currentVideo) + 1;
     let nextId = CONTENTORDER[next];
     let nextCourse = CONTENTLIST[nextId];
-    nextCourse.type == "Lesson" ? viewVideo(nextId) : viewQuiz(nextId);
+
+    if (nextCourse) contentType[nextCourse.type](nextId);
+    else $('.modal').modal('hide');
 }
 
 const calculateProgress = () => {
@@ -170,18 +222,41 @@ const renderOption = (option, i) => {
     return `<div class="custom-control custom-checkbox mb-3 p-2">
                 <input type="checkbox" name = "answers[]" value = "${option}" class="custom-control-input" id="input-${i}" >
                 <label class="custom-control-label" for="input-${i}">${option}</label>
-                <span class = "invalid-feedback">Not Correct Answer</span>
-                <span class = "valid-feedback">Nice Job Correct Answer</span>
+                <span class = "invalid-feedback">Incorrect Answer</span>
+                <span class = "valid-feedback">Correct Answer</span>
             </div>`
 }
 
-const showQuiz = (i) => {
+const showQuiz = async (i) => {
     let question = CONTENTLIST[i];
     let optionsHTML = "";
     currentVideo = i;
+    if (quizAttempts.quizId && quizAttempts.quizId == i && quizAttempts.blocked) {
+        console.log("trials exceed wait 8 hours");
+        console.log(quizAttempts);
+        let now = new Date().getTime();
+        let eighhours = 60 * 60 * 2 * 1000;
+
+        if (now - parseInt(quizAttempts.timeBlocked) < eighhours) {
+            let timepassed = (quizAttempts.timeBlocked + eighhours) - now;
+            let hours = Math.floor(timepassed / (60 * 60 * 1000))
+            let minutes = Math.floor((timepassed % (60 * 60 * 1000)) / (60 * 1000));
+            $("#hoursRemaining").text(`${hours}hr : ${minutes}min`);
+            $("#waitModal").modal('show');
+            console.log(hours, minutes)
+            return
+
+        }
+        quizAttempts.blocked = false;
+        quizAttempts.timeBlocked = "";
+        quizAttempts.numberOfAttempts = 0;
+        await courseDb.update({ quizAttempts });
+    }
     question.options.forEach((value, i) => {
         optionsHTML += renderOption(value, i)
     });
+    $("#attempts").text(quizAttempts.numberOfAttempts || 0);
+    if (PROGRESSLIST[i]) $("#attemptContainer").html(`<i class = "fa fa-check"></i> Quiz Completed`);
     $("#quizQuestion").text(question.title)
     $("#quizOptions").html(optionsHTML);
     $("#quizId").val(i);
@@ -189,7 +264,7 @@ const showQuiz = (i) => {
     $("#quizModal").modal('show');
 }
 
-$("#quizForm").submit(function (e) {
+$("#quizForm").submit(async function (e) {
     e.preventDefault();
     let form = form2js('quizForm', '.', false);
     console.log(form)
@@ -203,8 +278,9 @@ $("#quizForm").submit(function (e) {
                 $("#input-" + i).removeClass('is-valid').removeClass('is-invalid');
             }
         });
-
+        await courseDb.update({ quizAttempts: null })
         markComplete();
+
     }
     else {
         question.options.map((value, i) => {
@@ -215,9 +291,24 @@ $("#quizForm").submit(function (e) {
                 $("#input-" + i).removeClass('is-valid').removeClass('is-invalid');
             }
         });
+
+
+        quizAttempts.quizId = form.id;
+        quizAttempts.numberOfAttempts = quizAttempts.numberOfAttempts ? quizAttempts.numberOfAttempts + 1 : 1;
+        quizAttempts.blocked = quizAttempts.numberOfAttempts >= 3 ? true : false;
+        quizAttempts.timeBlocked = quizAttempts.blocked ? new Date().getTime() : "";
+        $("#attempts").text(quizAttempts.numberOfAttempts);
+        await courseDb.update({ quizAttempts });
+        if (quizAttempts.numberOfAttempts >= 3) {
+            $("#quizModal").modal('hide');
+            $("#waitModal").modal('show');
+        }
+
     }
 
 });
+
+
 
 const downloadCert = () => {
     let progressNumber = Object.keys(PROGRESSLIST).length;

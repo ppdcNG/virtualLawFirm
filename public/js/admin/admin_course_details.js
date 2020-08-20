@@ -10,6 +10,8 @@ var VideoPreviewModal = $("#videoPreviewModal");
 var QuestionModal = $("#addQuestionModal");
 var ConfirmDeleteModal = $("#modalConfirmDelete");
 
+
+
 var courseDb = firebase.firestore().collection('courses').doc(courseId);
 
 
@@ -22,9 +24,17 @@ $(document).ready(() => {
         let lessonId = $("#lessonId").val();
         mode == "add" ? addLesson() : editLesson(lessonId);
     });
+    $("#linkForm").submit(function (e) {
+        e.preventDefault();
+        let mode = $("#linkMode").val();
+        let linkId = $("#linkId").val();
+        mode == "add" ? addLink() : editLink(linkId);
+    });
 
     //Add Lesson Modal Button
     $("#addLessonButton").click(addLessonButton);
+    // Add Link Modal Button
+    $("#addLinkButton").click(addLinkButton);
 
     //Video Upload
     $("#uploadForm").submit(uploadVideo);
@@ -77,7 +87,7 @@ const fetchContent = async () => {
             let content = snap.data();
             contentList.push(content.title);
             CONTENTS[snap.id] = content;
-            contentHTML += content.type == "Lesson" ? renderLessonContent(content, snap.id) : renderQuestionContent(content, snap.id);
+            contentHTML += renderType[content.type](content, snap.id);
         });
         $("#contentList").html(contentHTML);
         let contentString = contentList.join("***");
@@ -99,6 +109,15 @@ const fetchContent = async () => {
 
 }
 
+const addLinkButton = async () => {
+    $("#linkForm")[0].reset();
+    $("#linkMode").val('add');
+    $("#linkType").val('Link');
+    $("#linkForm input").trigger('change');
+
+    $("#addLinkModal").modal('show');
+}
+
 
 const addLesson = async _ => {
     let lesson = form2js('lessonForm', '.', false);
@@ -111,6 +130,16 @@ const addLesson = async _ => {
     clearLoad('saveLessonButton', 'Save');
     $("#addLessonModal").modal('hide');
 
+}
+const addLink = async _ => {
+    let link = form2js('linkForm', '.', false);
+    let path = `courses/${courseId}/contents`;
+    buttonLoad('saveLinkButton');
+    let position = Object.keys(CONTENTS).length + 1;
+    link.position = position;
+    await firebase.firestore().collection(path).add(link).catch((e) => { console.log(e) });
+    clearLoad('saveLinkButton', 'Save');
+    $("#addLinkModal").modal('hide');
 }
 const addLessonButton = () => {
     $("#lessonForm")[0].reset();
@@ -130,6 +159,17 @@ const editLesson = async id => {
     await docRef.update(lesson);
     clearLoad('saveLessonButton', 'Save');
     $('#addLessonModal').modal('hide');
+}
+
+const editLink = async id => {
+    let link = form2js("linkForm", '.', false);
+    link.type = "Link";
+    let path = `courses/${courseId}/contents/${id}`;
+    let docRef = firebase.firestore().doc(path);
+    buttonLoad('saveLinkButton');
+    await docRef.update(link);
+    clearLoad('saveLinkButton', 'Save');
+    $("#addLinkModal").modal('hide');
 }
 
 const renderLessonContent = (content, i) => {
@@ -173,6 +213,25 @@ const renderQuestionContent = (content, i) => {
     </li>
     `
 }
+const renderLinkContent = (content, i) => {
+
+    return `
+    <li class="list-group-item d-flex flex-row justify-content-between" data-id = "${i}">
+          <div class = "d-flex flex-row">
+            <i class="fas fa-arrows-alt align-self-center dragable mr-2"></i>
+            <div>
+                <h5><a href = "${content.url}" >${content.title}</a><h5>
+                <small class = "small font-weight-light secondary-text">Further Reading</small>
+            </div>
+          </div>
+          <div class = "d-flex flex-row justify-content-between">
+            <button data-toggle= "tooltip" title = "Edit Content" class = "btn" onclick = "editContent('${i}')"><i class = "fa fa-pen"></i></button>
+            <button data-toggle= "tooltip" title = "Delete Content" class = "btn btn-danger" onclick = "deleteConfirm('${i}')"><i class = "fa fa-trash"></i></button>
+          </div>
+        
+    </li>
+    `
+}
 const editContent = id => {
     console.log(id);
     let content = CONTENTS[id];
@@ -185,7 +244,7 @@ const editContent = id => {
         $("#lessonForm textarea").trigger('change');
         $("#addLessonModal").modal('show');
     }
-    if (content.type = "Question") {
+    if (content.type == "Question") {
         $("#questionMode").val('edit');
         $("#questionId").val(id);
         OPTIONS = [...content.options];
@@ -197,6 +256,13 @@ const editContent = id => {
         $("#answers").trigger('change');
         QuestionModal.modal('show');
 
+    }
+    if (content.type == "Link") {
+        $("#linkMode").val('edit');
+        $("#linkId").val(id);
+        js2form('linkForm', content);
+        $("#linkForm input").trigger('change');
+        $("#addLinkModal").modal('show');
     }
 }
 
@@ -393,6 +459,13 @@ const calculatePositions = async (evt) => {
         console.log(id);
     });
     await batch.commit();
+}
+
+
+var renderType = {
+    Question: renderQuestionContent,
+    Lesson: renderLessonContent,
+    Link: renderLinkContent
 }
 
 

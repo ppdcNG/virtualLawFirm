@@ -208,14 +208,14 @@ exports.welcomeEmail = option => {
             <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 16px; line-height: 25.6px;">
             Thank you for creating an account with LawTrella. You are one click away from your customized LawTrella experience.
 
-Please click this link to complete account verification. 
+        Please click this link to complete your account setup. 
 
-<br/>Welcome onboard!
+        <br/>Welcome onboard!
 
 <br/>The Lawtrella Team
 </span></p>
         <p style="font-size: 14px; line-height: 160%;">&nbsp;</p>
-        <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 16px; line-height: 25.6px;">Click the button below to complete your profile and get started.<br /></span></p>
+        <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 16px; line-height: 25.6px;">Click the button below to complete your account setup and get started.<br /></span></p>
         </div>
 
             </td>

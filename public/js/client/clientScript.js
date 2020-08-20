@@ -154,10 +154,11 @@ const clientSignIn = async (email, password, callback) => {
         });
     } catch (e) {
         console.log(e);
+        let message = e.code == "auth/wrong-password" ? "Wrong password. Try again or click Forgot password to reset it." : e.message;
         clearLoad('clientLoginButton', 'Login');
-        $("#loginError").html(e.message);
+        $("#loginError").html(message);
         $("#loginError").removeClass('valid');
-        $.notify(e.message, { type: "danger", z_index: 5000 });
+        $.notify(message, { type: "danger", z_index: 5000 });
     }
 };
 
@@ -173,7 +174,6 @@ $("#clientRegisterForm").submit(e => {
     }
 
     buttonLoad('clientSignupButton');
-
     $.ajax({
         url: ABS_PATH + "client/signup",
         data: form,
@@ -187,6 +187,7 @@ $("#clientRegisterForm").submit(e => {
                 $.notify("A confirmation email has been sent to your inbox", { type: "success", z_index: 5000 });
                 $("#myTab").hide();
                 $("#myTabContent").hide();
+                $("#clientRegisterForm").trigger('reset');
                 $("#signupComplete").removeClass('signup-success');
             } else {
                 $("#signupError").html(response.message);
