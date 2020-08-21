@@ -90,10 +90,15 @@
                          <input type = "hidden" name = "id" value = "{{courseId}}">
                          <input type = "hidden"  name = "price" value = "{{newprice}}" />
                         <div class="card-body">
+                            {{#wrongcode}}
+                            <div class="d-flex flex-column text-center justify-content-center">
+                                <button type = "button"    class = "btn btn-danger py-3 disabled" style = "font-size: 16px">WRONG PROMO CODE APPLIED</button>
+                            </div>
+                            {{/wrongcode}}
                             {{#code}}
                             <div class="d-flex flex-column text-center justify-content-center">
-                            <button type = "button"    class = "btn btn-success py-3 disabled">PROMO CODE APPLIED</button>
-                            <input id = "promoCode" name = "promoCode" type="hidden"  value = "{{code}}">
+                                <button type = "button"    class = "btn btn-success py-3 disabled" style = "font-size: 16px"><i class = "fa fa-check pr-2"></i> PROMO CODE APPLIED</button>
+                                <input id = "promoCode" name = "promoCode" type="hidden"  value = "{{code}}">
                             </div>
                             {{/code}} 
                             {{^code}}
@@ -106,7 +111,7 @@
                             <ul class="list-group mt-3">
                                 <li class="list-group-item"><b>Course Title</b>: {{courseTitle}}</li>
                                 <li class="list-group-item"><b>Price</b>:  {{{oldprice}}}</li>
-                                <li class="list-group-item"><b>Discount</b>: % {{discount}}</li>
+                                <li class="list-group-item"><b>Discount</b>: {{discount}}</li>
                                 <li class="list-group-item"><b>Final Price</b>:  {{{newpricevalue}}}</li>
                             </ul>
                         </div>
@@ -129,16 +134,21 @@
                         <div class="md-v-line"></div><i class="fas fa-laptop mr-4 pr-3"></i> Self paced course
                     </li>
                     <li class="list-group-item">
-                        <div class="md-v-line"></div><i class="fas fa-video mr-5"></i> {{contentCount}} modules
+                        <div class="md-v-line"></div><i class="fas fa-video mr-5"></i> {{contentCount}} Modules
                     </li>
                     <li class="list-group-item">
-                        <div class="md-v-line"></div><i class="fas fa-language mr-5"></i> Quizes to cement learning
+                        <div class="md-v-line"></div><i class="fas fa-language mr-5"></i> {{quizCount}} Quiz(es)
                     </li>
                     <li class="list-group-item">
                         <div class="md-v-line"></div><i class="fas fa-certificate mr-5"></i> Certificate of Completion
                     </li>
                 </ul>
             </div>
+            <div class = "border p-4">
+                <h3>Course By: {{author}}</h3>
+                <p>{{authorDetails}}</p>
+            </div>
+
         </div>
 
         {{! MODALS SECTION }}

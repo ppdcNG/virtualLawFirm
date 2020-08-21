@@ -113,12 +113,17 @@
                             <input id= "author" type="text" name="author" class="form-control" required>
                       </div>
                       <div class = "col-md-12 mb-4">
+                          <label for="title">Author Details</label>
+                            <input id= "authorDetails" type="text" name="authorDetails" class="form-control" required>
+                      </div>
+
+                      <div class = "col-md-12 mb-4">
                           <label for="price">Price</label>
                           <input id = "price" name = "price" type="number"  class="form-control">
                       </div>
                       <div class = "col-md-12 mb-4">
                           <label for="price">Slashed Price</label>
-                          <input id = "oldprice" name = "oldprice" type="text"  class="form-control">
+                          <input id = "oldprice" name = "oldprice" type="number"  class="form-control">
                       </div>
                       
                       <div class = "col-md-12 mb-4">
@@ -167,14 +172,14 @@
                     </div>             
                 </form>
 
-            <h5>List of Codes</h5>
-            <ul class="list-group list-group-flush" id="promoCodes">
-              <div class="d-flex justify-content-center">
-                <div class="spinner-grow slow" role="status" id="loadingTasks">
-                  <span class="sr-only">Loading...</span>
+              <h5>List of Codes</h5>
+              <ul class="list-group list-group-flush" id="promoCodes">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-grow slow" role="status" id="loadingTasks">
+                    <span class="sr-only">Loading...</span>
+                  </div>
                 </div>
-              </div>
-            </ul>
+              </ul>
             
           </div>
         </div>

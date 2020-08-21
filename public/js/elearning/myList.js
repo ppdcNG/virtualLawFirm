@@ -36,23 +36,23 @@ const renderCourse = (course, id) => {
     let progress = course.progress ? course.progress : "No started";
 
 
-    return `<div class="col-md-4 mb-4">
+    return `
+            <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow mt-1" data-aos="zoom-out" data-aos-duration="400">
                     <div class="view overlay">
                         <img class="card-img-top" src="${course.courseImage}"
                             alt="html_css_image"  height = "160">
-                        <a onclick="viewCourse('${id}')" href = "/e-learning/courseContent?id=${id}">
-                            <div class="mask rgba-white-slight"></div>
-                        </a>
                     </div>
 
                     <div class="card-body d-flex flex-column">
-                        <h4 class="card-title" data-toggle = "tooltip" title = "${course.title}" >${description}</h4>
-                        <p>${progress}</p>
-                        <a href = "/e-learning/courseContent?id=${id}" class = "btn lt-btn-accent">Goto Course</a>
+                        <h4 class="card-title ml-2" data-toggle = "tooltip" title = "${course.description || course.title}" >${course.title}</h4>
+                        <p class = "author ml-2">By : ${course.author}</p>
+                        <p class = "author ml-2">Progress : ${progress}</p>
+                        <a href = "/e-learning/courseDetails?id=${id}"  class = "btn lt-btn-accent">Goto Course</a>
                     </div>
                 </div>
-            </div>`
+            </div>
+            `
 
 }
 

@@ -25,7 +25,7 @@ firebase.initializeApp(config);
 firebase.analytics();
 
 var ABS_PATH = window.location.host == 'localhost:3000' ? "http://localhost:3000/" : "https://www.lawtrella.com/";
-const PAYSTACK_KEY = window.location.host == 'localhost:3000' ? "pk_test_148a05ebc3601fc1c915708c3b2cb4c46400140d" : 'pk_live_f79f20c649e6cc5cfcd5abc2ad4cf250f66682ce';
+const PAYSTACK_KEY = window.location.host == 'localhost:3000' ? "pk_test_90906c497a5030ec77dddecb2abb511ff903977b" : 'pk_live_f79f20c649e6cc5cfcd5abc2ad4cf250f66682ce';
 const AGORA_APP_ID = '15d92311708b4cfcafe40828bcb9fe3a';
 function ajaxrequest(modal, json_data, to_url, call_back) {
   var dataObject = { data: json_data }

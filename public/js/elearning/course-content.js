@@ -109,7 +109,7 @@ const fetchCourseContent = () => {
     $.ajax({
         url,
         type: "POST",
-        success: function (response) {
+        success: async function (response) {
             console.log("success", response);
             CONTENTLIST = response.contentList;
             PROGRESSLIST = response.userCourseData.progressList ? response.userCourseData.progressList : {};
@@ -117,7 +117,12 @@ const fetchCourseContent = () => {
             CONTENTORDER = response.contentOrder
             $("#numberRated").text(response.count);
             renderContent();
-            calculateProgress();
+            let realprogress = calculateProgress();
+
+            if (realprogress !== response.userCourseData.progress) {
+                console.log('upating real progress')
+                await courseDb.update({ progress: realprogress });
+            }
 
 
         },
@@ -160,6 +165,7 @@ const viewVideo = id => {
         video.load();
         console.log("bitch")
         $("#nxtBtn").hide();
+        $("#videoCourseTitle").text(content.title);
         $("#videoPreviewModal").modal('show');
     }
 
@@ -192,6 +198,7 @@ const checkComplete = id => {
 }
 
 const nextContent = () => {
+    $('.modal').modal('hide');
     let contentType = {
         Question: showQuiz,
         Lesson: viewVideo,
@@ -200,9 +207,9 @@ const nextContent = () => {
     let next = CONTENTORDER.indexOf(currentVideo) + 1;
     let nextId = CONTENTORDER[next];
     let nextCourse = CONTENTLIST[nextId];
+    console.log(nextCourse);
 
-    if (nextCourse) contentType[nextCourse.type](nextId);
-    else $('.modal').modal('hide');
+    if (nextCourse) setTimeout(() => { contentType[nextCourse.type](nextId); }, 800)
 }
 
 const calculateProgress = () => {
@@ -228,6 +235,11 @@ const renderOption = (option, i) => {
 }
 
 const showQuiz = async (i) => {
+    let play = checkComplete(i);
+    if (!play) {
+        $.notify('You need to take the previous module/quiz before this', { type: 'warning', delay: 3000 });
+        return;
+    }
     let question = CONTENTLIST[i];
     let optionsHTML = "";
     currentVideo = i;
@@ -235,7 +247,7 @@ const showQuiz = async (i) => {
         console.log("trials exceed wait 8 hours");
         console.log(quizAttempts);
         let now = new Date().getTime();
-        let eighhours = 60 * 60 * 2 * 1000;
+        let eighhours = 60 * 60 * 1 * 1000;
 
         if (now - parseInt(quizAttempts.timeBlocked) < eighhours) {
             let timepassed = (quizAttempts.timeBlocked + eighhours) - now;
@@ -255,12 +267,14 @@ const showQuiz = async (i) => {
     question.options.forEach((value, i) => {
         optionsHTML += renderOption(value, i)
     });
-    $("#attempts").text(quizAttempts.numberOfAttempts || 0);
+    let att = quizAttempts.numberOfAttempts || 0;
+    let text = `${att} of 3 attempts`;
+    $("#attemptContainer").html(text);
     if (PROGRESSLIST[i]) $("#attemptContainer").html(`<i class = "fa fa-check"></i> Quiz Completed`);
     $("#quizQuestion").text(question.title)
     $("#quizOptions").html(optionsHTML);
     $("#quizId").val(i);
-
+    $("#quizNxtBtn").hide();
     $("#quizModal").modal('show');
 }
 
@@ -280,6 +294,8 @@ $("#quizForm").submit(async function (e) {
         });
         await courseDb.update({ quizAttempts: null })
         markComplete();
+        $("#quizNxtBtn").show();
+
 
     }
     else {
@@ -292,17 +308,20 @@ $("#quizForm").submit(async function (e) {
             }
         });
 
-
-        quizAttempts.quizId = form.id;
-        quizAttempts.numberOfAttempts = quizAttempts.numberOfAttempts ? quizAttempts.numberOfAttempts + 1 : 1;
-        quizAttempts.blocked = quizAttempts.numberOfAttempts >= 3 ? true : false;
-        quizAttempts.timeBlocked = quizAttempts.blocked ? new Date().getTime() : "";
-        $("#attempts").text(quizAttempts.numberOfAttempts);
-        await courseDb.update({ quizAttempts });
-        if (quizAttempts.numberOfAttempts >= 3) {
-            $("#quizModal").modal('hide');
-            $("#waitModal").modal('show');
+        if (!PROGRESSLIST[form.id]) {
+            quizAttempts.quizId = form.id;
+            quizAttempts.numberOfAttempts = quizAttempts.numberOfAttempts ? quizAttempts.numberOfAttempts + 1 : 1;
+            quizAttempts.blocked = quizAttempts.numberOfAttempts >= 3 ? true : false;
+            quizAttempts.timeBlocked = quizAttempts.blocked ? new Date().getTime() : "";
+            $("#attempts").text(quizAttempts.numberOfAttempts);
+            await courseDb.update({ quizAttempts });
+            if (quizAttempts.numberOfAttempts >= 3) {
+                $("#quizModal").modal('hide');
+                $("#waitModal").modal('show');
+            }
         }
+
+
 
     }
 

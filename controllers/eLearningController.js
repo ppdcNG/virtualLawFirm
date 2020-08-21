@@ -33,23 +33,34 @@ exports.courseDetails = async (req, res) => {
     let user = getUserDetails(req);
 
 
+
     //course detials parsing
     let { id, promoCode } = req.query;
 
     if (!id) {
-        res.status(403).send({ message: "bad Request missing Params" });
+        res.status(403).send({ err: "Invalid Page parameters", message: "bad Request missing Params" });
+        return;
+    }
+    let valid = verifyCourseSubscripton(id, req);
+    if (valid) {
+        res.redirect(`/e-learning/courseContent?id=${id}`);
         return;
     }
     let courseRef = await admin.firestore().doc(`courses/${id}`).get().catch((e) => { console.log(e) });
-    let { courseImage, category, title, details, dateAdded, contentString, rating, price } = courseRef.data();
+    let courseData = courseRef.data();
+    let { courseImage, category, title, details, dateAdded, contentString, rating, price, author } = courseData;
+    let authorDetails = courseData.authorDetails ? courseData.authorDetails : "";
+
     price = parseFloat(price);
     let code = null
+    let wrongcode = null
     let oldprice = price;
     let newprice = price;
-    let discount = "None"
+    let discount = ""
     if (promoCode) {
         let codeRef = await admin.firestore().doc(`courses/${id}/promoCodes/${promoCode}`).get().catch((e) => { console.log(e) });
         if (codeRef.exists) {
+            console.log('hi')
             let codedata = codeRef.data();
             newprice = price - (parseFloat(codedata.discount) / 100) * price;
             newprice = newprice.toFixed(2)
@@ -57,31 +68,45 @@ exports.courseDetails = async (req, res) => {
             code = codedata.code;
             discount = codedata.discount
         }
+        else {
+            wrongcode = promoCode;
+            console.log('wrongcode', wrongcode);
+        }
     }
     price = price <= 0 ? "FREE" : accounting.format(price);
     oldprice = oldprice <= 0 ? "FREE" : "&#8358; " + accounting.format(oldprice, 2);
     newpricevalue = newprice <= 0 ? "FREE" : "	&#8358; " + accounting.format(newprice, 2);
+    discount = is_empty(discount) ? "None" : discount + " %";
     rating = rating ? rating : "no rating yet";
     contentList = "";
     contentCount = 0
     let contentSnapshot = await admin.firestore().collection(`courses/${id}/contents`).orderBy('position').get();
+    let lessonCount = 0;
+    let quizCount = 0;
     contentSnapshot.forEach((contentSnap) => {
         let content = contentSnap.data();
-        contentList += "<li class = 'list-group-item'>" + content.title + "</li>";
-        if (content.type == "Lesson") contentCount++;
+        if (content.type == "Lesson") {
+            contentList += "<li class = 'list-group-item'>" + content.title + "</li>";
+            contentCount++;
+        }
+        if (content.type == "Question") quizCount++;
     })
 
 
     res.render('eLearning/course-details',
         {
             ABS_PATH, title: "Course Details", category, contentCount, description: details, price, rating, contentList,
-            AppName, courseImage, courseTitle: title, dateAdded, contentString,
+            AppName, courseImage, courseTitle: title, dateAdded, contentString, wrongcode,
             code,
             oldprice,
+            quizCount,
             newprice,
             newpricevalue,
             discount,
             courseId: id,
+            authorDetails,
+            author,
+            authorDetails,
             ...user
         })
 };
@@ -108,7 +133,7 @@ exports.verifyPurchase = async (req, res) => {
     var body = paystack.transaction.verify(paystackRef, async (err, body) => {
         console.log(err);
         if (err) {
-            res.send({ status: "failed", message: "Transaction Failed" });
+            res.send({ status: "failed", err, message: "Transaction Failed" });
             return;
         }
 
@@ -144,20 +169,36 @@ exports.freeCourse = async (req, res) => {
     let claims = req.user.customClaims;
     let usercourseRef = await admin.firestore().doc(`clients/${uid}/courseList/${courseId}`).get();
     if (usercourseRef.exists) {
-        res.status(200).send({ message: "You are already enrolled in this course", err: "Already enrolled" });
+        res.status(200).send({ message: "You are already enrolled in this course. Redirecting to courseList", err: "Already enrolled" });
         return;
     }
     let courseRef = await admin.firestore().doc(`courses/${courseId}`).get().catch((e) => {
         console.log(e);
     });
 
+
     let courseData = courseRef.data();
     let price = parseInt(courseData.price);
     let discount = courseData.discount ? parseInt(courseData.discount) : 0;
     let newprice = (discount / 100) * price;
+    if (promoCode) {
+        let codeRef = await admin.firestore().doc(`courses/${courseId}/promoCodes/${promoCode}`).get().catch((e) => { console.log(e) });
+        if (codeRef.exists) {
+            let codedata = codeRef.data();
+            newprice = price - (parseFloat(codedata.discount) / 100) * price;
+            newprice = newprice.toFixed(2)
+            price = newprice
+            code = codedata.code;
+            discount = codedata.discount
+        }
+        else {
+            wrongcode = promoCode;
+            console.log('wrongcode', wrongcode);
+        }
+    }
     console.log(discount, newprice);
     if (price != 0 || newprice != 0) {
-        res.status(503).send({ message: "this course is not free", err: "not free course" });
+        res.status(403).send({ message: "this course is not free", err: "not free course" });
         return;
     }
     claims[courseId] = true;

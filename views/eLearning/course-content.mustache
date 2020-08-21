@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title> {{title}} </title>
+    <title> {{title}} : Lawtrella Course </title>
     {{>core-links}}
     <link rel="stylesheet" href="{{ABS_PATH}}stylesheets/landing.css">
     
@@ -112,9 +112,10 @@
             <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                    <h4 class = "text-center ml-3" id = "videoCourseTitle"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <video id = "videoPreview" class="video-fluid z-depth-1" autoplay  controls controlsList="nodownload">
@@ -132,39 +133,44 @@
             aria-hidden="true">
             <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
-            
-                <div class="modal-body p-5">
+                    <div class="modal-header">
+                        <h4 title = "quizModalTitle ml-3">Lawtrella Course Quiz</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body p-5">
 
-                    <h4 class = "m-3" id = "quizQuestion"></h4>
-                    <form id = "quizForm" class = "p-5 ml-5">
-                        <input type = "hidden" name = "id" id = "quizId"/>
-                        <div = id ="quizOptions">                    
-                            <div class="custom-control custom-checkbox mb-3 p-2">
-                                <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
-                                <label class="custom-control-label is-invalid" for="defaultIndeterminate2">Default indeterminate</label>
-                                <span class = "invalid-feedback">Incorrect Answer</span>
+                        <h4 class = "m-3" id = "quizQuestion"></h4>
+                        <form id = "quizForm" class = "p-5 ml-5">
+                            <input type = "hidden" name = "id" id = "quizId"/>
+                            <div = id ="quizOptions">                    
+                                <div class="custom-control custom-checkbox mb-3 p-2">
+                                    <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
+                                    <label class="custom-control-label is-invalid" for="defaultIndeterminate2">Default indeterminate</label>
+                                    <span class = "invalid-feedback">Incorrect Answer</span>
+                                </div>
+                                <div class="custom-control custom-checkbox mb-5 p-2">
+                                    <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
+                                    <label class="custom-control-label" for="defaultIndeterminate2">Default indeterminate</label>
+                                </div>
+                                <div class="custom-control custom-checkbox mb-5 p-2">
+                                    <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
+                                    <label class="custom-control-label" for="defaultIndeterminate2">Default indeterminate</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-checkbox mb-5 p-2">
-                                <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
-                                <label class="custom-control-label" for="defaultIndeterminate2">Default indeterminate</label>
+                            <div class = "d-flex flex-row justify-content-between">
+                            <button class = "btn btn-default" id = "attemptContainer">Attempts : <span id = "attempts">3</span> of 3</button>
+                            <button  id = "answerButton" class = "btn lt-btn-accent mt-3" type = "submit">ANSWER</button>
                             </div>
-                            <div class="custom-control custom-checkbox mb-5 p-2">
-                                <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
-                                <label class="custom-control-label" for="defaultIndeterminate2">Default indeterminate</label>
-                            </div>
-                        </div>
-                        <div class = "d-flex flex-row justify-content-between">
-                        <button class = "btn btn-default" id = "attemptContainer">Attempts : <span id = "attempts">3</span> of 3</button>
-                        <button  id = "answerButton" class = "btn lt-btn-accent mt-3" type = "submit">ANSWER</button>
-                        </div>
 
+                            
+                        </form>
                         
-                    </form>
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                         <button id = "quizNxtBtn" type="button" class="btn btn-danger hidden" onclick = "nextContent()">Next</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -200,7 +206,7 @@
           </div>
           <div class="modal-body">
            <i class = "fa fa-clock fa-3X"></i>
-            <p id =  "waitModl title" class="text-justify">You have exceeded your attempts for this quiz you have to wait eight (8) hours to try again</p>
+            <p id =  "waitModalTitle" class="text-justify">You have exceeded your attempts for this quiz you have to wait eight (8) hours to try again</p>
             <p><strong>Hours Remaining</strong> <span id = "hoursRemaining" >8</span></p>
           </div>
           <div class="modal-footer">

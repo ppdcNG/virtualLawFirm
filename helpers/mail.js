@@ -51,7 +51,7 @@ exports.inviteEmail = async (email) => {
   let messageOptions = {
     to: email,
     subject: "Welcome to Lawtrella",
-    from: "info@lawtrella.com",
+    from: "Lawtrella <info@lawtrella.com>",
     text: "Welcome to Lawtrella",
     html
   }
@@ -65,7 +65,7 @@ exports.sendAdminNewCase = async (email, lawyerName, clientName) => {
   let messageOptions = {
     to: email,
     subject: "New Case Alert",
-    from: 'info@lawtrella.com',
+    from: 'Lawtrella <info@lawtrella.com>',
     text: `A new Case from ${clientName} has been assigned to ${lawyerName}`,
     html
   }
@@ -86,7 +86,7 @@ exports.askLawyerMail = async (email, clientName, res) => {
   let messageOptions = {
     to: email,
     subject: "Lawtrella Ask a Lawyer",
-    from: 'info@lawtrella.com',
+    from: 'Lawtrella <admin@lawtrella.com>',
     text: `A client needs to ask you a question; Login as admin to chat with client`,
     html
   }
