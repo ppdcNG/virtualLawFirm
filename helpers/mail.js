@@ -27,8 +27,8 @@ exports.welcomeMail = (options, res) => {
   let html = welcomeEmail(templateOptions).toString();
   let messageOptions = {
     to,
-    subject: "Welcome To LawTrella",
-    from: "welcome@lawtrella.com",
+    subject: "Welcome To Lawtrella",
+    from: "Lawtrella <welcome@lawtrella.com>",
     text: "Welcome to Lawtrella",
     html
   };
@@ -50,9 +50,9 @@ exports.inviteEmail = async (email) => {
   let html = clientInvite(ABS_PATH).toString()
   let messageOptions = {
     to: email,
-    subject: "Welcome to LawTrella",
+    subject: "Welcome to Lawtrella",
     from: "info@lawtrella.com",
-    text: "Welcome to LawTrella",
+    text: "Welcome to Lawtrella",
     html
   }
   await sendgrid.send(messageOptions).catch(e => {

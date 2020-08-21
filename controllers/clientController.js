@@ -81,9 +81,8 @@ exports.legalDocsPage = (req, res) => {
     let user = getUserDetails(req);
     res.render('client/legal-docs', { title: 'Legal Documents', ABS_PATH, AppName, ...user })
 }
-exports.confirm = (req, res) => {
-    let idCardURL = 'https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png';
-    res.render("client/client-confirm", { token: req.query.token, ABS_PATH, idCardURL });
+exports.confirm = async (req, res) => {
+    res.render("client/client-confirm", { token: req.query.token, ABS_PATH });
 };
 
 exports.signup = async (req, res) => {
@@ -112,7 +111,7 @@ exports.signup = async (req, res) => {
 
     let clickLink = ABS_PATH + "client/confirm/?token=" + tok;
     let mailOptions = {
-        name: `Sir/Ma`,
+        name: name,
         link: clickLink,
         to: email
     };

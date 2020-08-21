@@ -206,16 +206,13 @@ exports.welcomeEmail = option => {
                 
         <div style="color: #292929; line-height: 160%; text-align: left; word-wrap: break-word;">
             <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 16px; line-height: 25.6px;">
-            Thank you for creating an account with LawTrella. You are one click away from your customized LawTrella experience.
+            Thank you for creating an account with LawTrella. You are one click away from your customized Lawtrella experience. Welcome onboard! The Lawtrella Team. Click the button below to complete your account setup  and get started.
 
-        Please click this link to complete your account setup. 
+        
 
-        <br/>Welcome onboard!
-
-<br/>The Lawtrella Team
 </span></p>
         <p style="font-size: 14px; line-height: 160%;">&nbsp;</p>
-        <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 16px; line-height: 25.6px;">Click the button below to complete your account setup and get started.<br /></span></p>
+        <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 16px; line-height: 25.6px;">Complete Your Account Setup</p>
         </div>
 
             </td>
@@ -310,7 +307,7 @@ exports.welcomeEmail = option => {
             <td style="overflow-wrap:break-word;word-break:break-word;padding:20px;font-family:'Montserrat',sans-serif;" align="left">
                 
         <div style="color: #000; line-height: 120%; text-align: left; word-wrap: break-word;">
-            <div style="font-family: arial, helvetica, sans-serif;"><span style="font-size: 12px; color: #999999; line-height: 14.4px;">You received this email because you signed up for LawTrella.</span></div>
+            <div style="font-family: arial, helvetica, sans-serif;"><span style="font-size: 12px; color: #999999; line-height: 14.4px;">You received this email because you created an account with LawTrella.</span></div>
         <div style="font-family: arial, helvetica, sans-serif;">&nbsp;</div>
         </div>
 

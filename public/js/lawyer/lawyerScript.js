@@ -45,6 +45,9 @@ $("#laywerConfirm").submit(function (e) {
         $("#laywerConfirm").hide();
 
         $("#recoverComplete").removeClass('signup-success');
+        $.notify("Please Wait...");
+
+        signIn(response.email, password, () => { window.location = ABS_PATH });
       } else {
         $.notify(response.message, { type: "warning", z_index: 5000 });
         $("#confirmError").html(response.message);
@@ -73,14 +76,17 @@ $("#lawyerSignupTerms").change((e) => {
   let checked = $("#lawyerSignupTerms").is(':checked');
   if (checked) {
     $("#lawyerSignupTerms").removeClass('is-invalid');
+    $("#lawyerCont").attr('title', 'Sign up');
     $("#lawyerSignupButton").removeClass('disabled');
   }
   else {
     $("#lawyerSignupButton").addClass("disabled");
+    $("#lawyerCont").attr('title', 'Accept Terms, Conditions and Privacy Policy to continue');
+
   }
 
 })
-const signIn = async (email, password) => {
+const signIn = async (email, password, callback) => {
   buttonLoad('lawyerLoginButton')
   try {
     let res = await firebase.auth().signInWithEmailAndPassword(email, password);
@@ -97,13 +103,22 @@ const signIn = async (email, password) => {
         if (response.status == "success") {
           $("#lawyerLogin").modal('hide');
           $.notify("Logging in", { type: "success", z_index: 5000 });
-          clearLoad('lawyerLoginButton')
-          $.notify("Logging in", { type: "success", z_index: 5000 });
-          window.location.reload();
-          // setTimeout(function () { window.location = ABS_PATH + 'lawyer/dashboard' }, 2000);
+          if (callback) {
+            callback();
+          }
+          else {
+            clearLoad('lawyerLoginButton', 'Lawyer Login')
+            $.notify("Logging in", { type: "success", z_index: 5000 });
+            window.location.reload();
+          }
+
         }
       },
-      error: e => console.log(e)
+      error: e => {
+        console.log(e);
+        clearLoad('lawyerLoginButton', 'Lawyer Login');
+        $.notify('Network Error', { type: "success", z_index: 5000 })
+      }
     });
   } catch (e) {
     console.log(e);
@@ -124,12 +139,17 @@ $("#lawyerRegisterForm").submit(e => {
     $("#lawyerSignupTerms").addClass('is-invalid');
     return false
   }
+  uservar = form;
   buttonLoad('lawyerSignupButton')
   $.ajax({
     url: ABS_PATH + "lawyer/lawyerRegister",
     data: form,
     type: "POST",
     success: function (response) {
+      if (!response) {
+        $.notify("Network Error", { type: "danger", z_index: 5000 });
+        return;
+      }
       $("#lawyerRegisterForm").trigger("reset");
 
       console.log(response);
@@ -147,6 +167,44 @@ $("#lawyerRegisterForm").submit(e => {
         $.notify(response.message, { type: "warning", z_index: 5000 });
       }
     },
-    error: e => console.log(e)
+    error: e => {
+      console.log(e);
+      clearLoad('lawyerSignupButton', 'Sign Up');
+      $.notify('Network Error', { type: "success", z_index: 5000 })
+    }
   });
 });
+
+
+$("#lawyerResend").click((e) => {
+  buttonLoad('lawyerResend');
+
+  $.ajax({
+    url: ABS_PATH + "lawyer/lawyerRegister",
+    data: uservar,
+    type: "POST",
+    success: function (response) {
+
+
+      console.log(response);
+      if (!response.err) {
+
+        clearLoad('lawyerResend', "Resend");
+        $.notify("A confirmation email has been resent check your promotions, social or spam folder", { type: "success", z_index: 5000 });
+
+      } else {
+        clearLoad('lawyerResend', "Resend")
+
+        $.notify(response.message, { type: "warning", z_index: 5000 });
+      }
+    },
+    error: e => {
+      console.log(e);
+      clearLoad('lawyerResend', 'Resend');
+      $.notify('Network Error', { type: "success", z_index: 5000 })
+    }
+  });
+});
+
+
+

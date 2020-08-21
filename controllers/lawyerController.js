@@ -73,6 +73,7 @@ exports.login = (req, res) => {
 };
 
 exports.confirm = (req, res) => {
+
     res.render("lawyer/lawyer-confirm", { token: req.query.token, ABS_PATH });
     console.log(req);
 };
