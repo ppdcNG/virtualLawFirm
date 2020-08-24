@@ -81,9 +81,8 @@ exports.legalDocsPage = (req, res) => {
     let user = getUserDetails(req);
     res.render('client/legal-docs', { title: 'Legal Documents', ABS_PATH, AppName, ...user })
 }
-exports.confirm = (req, res) => {
-    let idCardURL = 'https://www.shareicon.net/data/512x512/2015/10/13/655343_identity_512x512.png';
-    res.render("client/client-confirm", { token: req.query.token, ABS_PATH, idCardURL });
+exports.confirm = async (req, res) => {
+    res.render("client/client-confirm", { token: req.query.token, ABS_PATH });
 };
 
 exports.signup = async (req, res) => {
@@ -94,6 +93,7 @@ exports.signup = async (req, res) => {
     let user = await admin.auth().getUserByEmail(email).catch((e) => {
         let error = { err: e, message: e.message, status: 'failed' }
     });
+    console.log(user);
     if (user) {
 
         res.send({
@@ -111,20 +111,13 @@ exports.signup = async (req, res) => {
 
     let clickLink = ABS_PATH + "client/confirm/?token=" + tok;
     let mailOptions = {
-        name: `Sir/Ma`,
+        name: name,
         link: clickLink,
         to: email
     };
 
-    let sendgridOption = {
-        to: email,
-        from: "welcome@lawtrella.com",
-        subject: "Welcome to LawTrella",
-        text: `Thank you for signing up this is your token ${tok}`
-    };
     try {
         welcomeMail(mailOptions, res);
-        res.send({ status: "success" });
     }
     catch (e) {
         res.send({ err: true, message: e.message });
@@ -134,7 +127,7 @@ exports.signup = async (req, res) => {
 exports.userLogin = async (req, res) => {
     let { idToken, uid } = req.body;
     console.log(uid);
-    let expiresIn = 60 * 60 * 24 * 5 * 1000;
+    let expiresIn = 60 * 60 * 5 * 1000;
     let sessionCookie = await admin
         .auth()
         .createSessionCookie(idToken, { expiresIn });
@@ -146,9 +139,24 @@ exports.userLogin = async (req, res) => {
 
 exports.dashboard = async (req, res) => {
     let user = getUserDetails(req);
+    console.log(user.uid);
+    let userDetails = await admin.firestore().doc(`clients/${user.uid}`).get();
+    userDetails = userDetails.data();
+    console.log(userDetails);
+    let state = "";
+    let phoneNumber = "";
+    let address = "";
+    if (userDetails.contactPoint) {
+        let contactPoint = userDetails.contactPoint;
+        state = contactPoint.state;
+        phoneNumber = contactPoint.phoneNumber;
+        address = contactPoint.address
+    }
+
+
 
     res.render('client/newdashboard', {
-        title: 'Client Dashboard', ABS_PATH, AppName, title: "Client Dashboard", ...user
+        title: 'Client Dashboard', ABS_PATH, AppName, title: "Client Dashboard", ...user, state, phoneNumber, address
     });
 }
 
@@ -221,7 +229,7 @@ exports.updateProfile = async (req, res) => {
     await admin.auth().updateUser(uid, {
         displayName
     });
-    let client = await admin.firestore().collection('clients').doc(uid).update({ contactPoint }).catch((e) => {
+    let client = await admin.firestore().collection('clients').doc(uid).update({ name: displayName, contactPoint }).catch((e) => {
         console.log(e);
         let returnObj = {
             err: e,
@@ -489,7 +497,8 @@ exports.initiateAdminChat = async (req, res) => {
 
     let { clientId, clientName, clientPhoto, } = req.body;
     let user = getUserDetails(req);
-    if (user.usertype != "client") {
+    if (user.usertype == "lawyer") {
+        console.log('user is a lawyer')
         let msg = {
             status: 'warning',
             message: 'Only client accounts can ask a lawyer'
@@ -503,7 +512,6 @@ exports.initiateAdminChat = async (req, res) => {
     let lawyer = await admin.firestore().collection('systemOpps').doc('askLawyer').get();
     lawyer = lawyer.data();
     console.log("ahah", lawyer);
-    await askLawyerMail(lawyer.lawyerOnDuty, clientName);
     let chatSnapshot = await admin.firestore().collection('chats').doc(chatId).get();
     if (chatSnapshot.exists) {
         console.log('chat exists')
@@ -533,11 +541,7 @@ exports.initiateAdminChat = async (req, res) => {
     batch.set(chatsRef, chat);
     let result = await batch.commit();
     console.log(result);
-    let msg = {
-        status: 'success',
-        message: 'Chat Initiated'
-    }
-    res.send(msg);
+    await askLawyerMail(lawyer.lawyerOnDuty, clientName);
 
 
 }

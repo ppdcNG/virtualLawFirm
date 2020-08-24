@@ -93,7 +93,7 @@
 
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/">Home
+          <a class="nav-link" href="/lawyer/dashboard">Dashboard
             <span class="sr-only">(current)</span>
           </a>
         </li>
@@ -166,44 +166,44 @@
                     <h3> Profile </h3>
                     <hr/>
 
-                    <form id="lawyerContact" role="form" class="needs-validation px-5" novalidate>
+                    <form id="lawyerContact" role="form" class="needs-validation px-5" >
                         <input type = "hidden" name = "photoUrl"  value = "{{photoUrl}}" />
                         <img id="uploadedPic" src="https://i1.wp.com/www.essexyachtclub.co.uk/wp-content/uploads/2019/03/person-placeholder-portrait.png?fit=500%2C500&ssl=1" alt="profile pic" class="rounded-circle mx-auto d-block" width="100" />
-                        <div class="md-form">
+                        <div class="md-form mb-5">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="profilePic" accept="image/x-png,image/jpg,image/jpeg" required>
+                                <input type="file" class="custom-file-input" id="profilePic" accept="image/x-png,image/jpg,image/jpeg">
                                 <label class="custom-file-label" for="profilePic" data-browse="Select">Select a profile picture</label>
                             </div>
                         </div>
 
-                        <div class="md-form">
-                            <input type="text" class="form-control" name="name" required/>
+                        <div class="md-form mb-4">
+                            <input type="text" class="form-control" name="name" value = "{{name}}" required/>
                             <label for="name" class="label">Name:</label>
                         </div>
 
-                        <div class="md-form">
+                        <div class="md-form mb-4">
                             <input type="text" class="form-control" name="address" required/>
                             <label for="address" class="label">Address:</label>
                         </div>
 
-                        <div class="md-form">
+                        <div class="md-form mb-4">
                             <input type="text" class="form-control" name="country" required/>
                             <label for="country" class="label">Country:</label>
                         </div>
 
-                        <div class="md-form">
+                        <div class="md-form mb-4">
                             <span class="text-muted">State:</span>
-                            <select class="browser-default custom-select" mt-2" id="state" name="state">
+                            <select class="browser-default custom-select" mt-2" id="state" name="state" required>
                                 {{{options}}}
                             </select>
                         </div>
 
-                        <div class="md-form">
+                        <div class="md-form mb-4">
                             <input type="text" class="form-control" name="lga" required/>
                             <label for="lga" class="label">LGA:</label>
                         </div>
 
-                        <div class="md-form">
+                        <div class="md-form mb-4">
                             <textarea name="briefProfile" class="md-textarea form-control" rows="3" required></textarea>
                             <label for="briefProfile">Brief profile (200 words)</label>
                         </div>
@@ -221,18 +221,18 @@
                     <hr/>
 
                     <form id="updateRecord">
-                        <div class="md-form">
+                        <div class="md-form mb-4">
                             <input type="number" class="form-control" name="courtEnrollmentNumber" required/>
                             <label class="label">Supreme Court Enrollment Number:</label>
                         </div>
 
-                        <div class="md-form mt-2">
-                            <input type="number" name="yearOfEnrollment" id="year" class="form-control">
+                        <div class="md-form mb-4 mt-2">
+                            <input type="text" name="yearOfEnrollment" id="year" class="form-control" required>
                             <label for="yearOfEnrollment">Year of Call</label>
                         </div>
 
-                        <div class="md-form mt-2">
-                            <input type="text" name="nbaBranch" class="form-control">
+                        <div class="md-form mb-4 mt-2">
+                            <input type="text" name="nbaBranch" class="form-control" required>
                             <label for="nbaBranch">NBA Branch:</label>
                         </div>
 
@@ -243,7 +243,7 @@
 
                             <span>Do you have a criminal record?</span>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" value="yes" id="criminalRecord1" name="criminalRecord">
+                                <input type="radio" class="custom-control-input" value="yes" id="criminalRecord1" name="criminalRecord" required>
                                 <label class="custom-control-label" for="criminalRecord1">Yes</label>
                             </div>
 
@@ -254,34 +254,34 @@
 
                             <span>Are you the subject of any ongoing criminal investigation?</span>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" value="yes" id="criminalInvestigation" name="criminalInvestigation">
+                                <input type="radio" class="custom-control-input" value="yes" id="criminalInvestigation" name="criminalInvestigation" required>
                                 <label class="custom-control-label" for="criminalInvestigation">Yes</label>
                             </div>
 
                             <div class="custom-control custom-radio mb-2">
-                                <input type="radio" class="custom-control-input" value="no" id="criminalInvestigation2" name="criminalInvestigation" checked>
+                                <input type="radio" class="custom-control-input" value="no" id="criminalInvestigation2" name="criminalInvestigation">
                                 <label class="custom-control-label" for="criminalInvestigation2">No</label>
                             </div>
 
                             <span>Have you ever been indicted for professional misconduct?</span>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" value="yes" id="misconductIndictment" name="misconductIndictment">
+                                <input type="radio" class="custom-control-input" value="yes" id="misconductIndictment" name="misconductIndictment" required>
                                 <label class="custom-control-label" for="misconductIndictment">Yes</label>
                             </div>
 
                             <div class="custom-control custom-radio mb-2">
-                                <input type="radio" class="custom-control-input" value="no" id="misconductIndictment2" name="misconductIndictment" checked>
+                                <input type="radio" class="custom-control-input" value="no" id="misconductIndictment2" name="misconductIndictment">
                                 <label class="custom-control-label" for="misconductIndictment2">No</label>
                             </div>
 
                             <span>Do you have against you an ongoing investigation for misconduct?</span>
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" value="yes" id="misconductInvestigation" name="misconductInvestigation">
+                                <input type="radio" class="custom-control-input" value="yes" id="misconductInvestigation" name="misconductInvestigation" required>
                                 <label class="custom-control-label" for="misconductInvestigation">Yes</label>
                             </div>
 
                             <div class="custom-control custom-radio mb-2">
-                                <input type="radio" class="custom-control-input" value="no" id="misconductInvestigation2" name="misconductInvestigation" checked>
+                                <input type="radio" class="custom-control-input" value="no" id="misconductInvestigation2" name="misconductInvestigation">
                                 <label class="custom-control-label" for="misconductInvestigation2">No</label>
                             </div>
 
@@ -407,10 +407,7 @@ aria-hidden="true">
 <script src="{{ABS_PATH}}js/lawyer/profileFormScript.js"></script>
 
 <script>
-    loadBtn('saveContact');
-    loadBtn('saveRecord');
-    loadBtn('saveDoc');
-    loadBtn('saveUpload');
+  
 
     $('.tags').select2({
         maximumSelectionLength: 5,

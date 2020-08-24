@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title> {{title}} </title>
+    <title> {{title}} : Lawtrella Course </title>
     {{>core-links}}
     <link rel="stylesheet" href="{{ABS_PATH}}stylesheets/landing.css">
     
@@ -31,11 +31,15 @@
 </style>
 
 {{>courses-navbar}}
-
+<section class = "container">
+            
+            <hr width="100" align="left"/>
+            <a class="btn btn-sm my-4" href="/e-learning/courseList"><i class="fas fa-arrow-left"></i>Back to Course List</a>
+</section>
 <section class="banner jumbotron default-color mt-0">
     <div class="container p-3">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <h3 class="text-white shadow-text" data-aos="fade-right" data-aos-duration="1500">{{title}}</h3>
                 <hr width="100" align="left"/>
                 <p class="text-muted">
@@ -58,8 +62,26 @@
                     <hr class="m-0" />
                     <h6 id="enroll-status">Download Certificate</h6>
                 </button>
-
             </div>
+            <div class="col-md-2 p-1">
+                
+                {{#mcleVerified}}
+                    <button  class="btn btn-success">
+                        <h3><i class="far fa-check-circle"></i></h3>
+                        <hr class="m-0" />
+                        <h6 > MCLE Certified</h6>
+                    </button>
+                {{/mcleVerified}}
+                {{^mcleVerified}}
+                    <button id = "paymcleButton" onclick = "payMCLE()" class="btn lt-btn-secondary d-none " >
+                        <h3><i class="fas fa-award"></i></h3>
+                        <hr class="m-0" />
+                        <h6 id="enroll-status">MCLE Certificate</h6>
+                    </button>
+                {{/mcleVerified}}
+            </div>
+            
+
         </div>
     </div>
 </section>
@@ -112,9 +134,10 @@
             <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                    <h4 class = "text-center ml-3" id = "videoCourseTitle"></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <video id = "videoPreview" class="video-fluid z-depth-1" autoplay  controls controlsList="nodownload">
@@ -127,42 +150,114 @@
                 </div>
             </div>
         </div>
+
         <div class="modal fade" id="quizModal" data-backdrop = "static" tabindex="-1" role="dialog" aria-labelledby="videoPreviewModal"
             aria-hidden="true">
             <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
-                <div class="modal-body p-5">
-
-                    <h4 class = "m-3" id = "quizQuestion">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit nisi quo
-                        provident fugiat reprehenderit nostrum</h4>
-                    <form id = "quizForm" class = "p-5 ml-5">
-                        <input type = "hidden" name = "id" id = "quizId"/>
-                        <div = id ="quizOptions">                    
-                        <div class="custom-control custom-checkbox mb-3 p-2">
-                            <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
-                            <label class="custom-control-label is-invalid" for="defaultIndeterminate2">Default indeterminate</label>
-                            <span class = "invalid-feedback">Not Correct Answer</span>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-5 p-2">
-                            <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
-                            <label class="custom-control-label" for="defaultIndeterminate2">Default indeterminate</label>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-5 p-2">
-                            <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
-                            <label class="custom-control-label" for="defaultIndeterminate2">Default indeterminate</label>
-                        </div>
+                    <div class="modal-header">
+                        <h4 title = "quizModalTitle ml-3">Lawtrella Course Quiz</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
+                    <div class="modal-body p-5">
 
-                        <button  id = "answerButton" class = "btn lt-btn-accent mt-3 float-right" type = "submit">ANSWER</button>
-                    </form>
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
+                        <h4 class = "m-3" id = "quizQuestion"></h4>
+                        <form id = "quizForm" class = "p-5 ml-5">
+                            <input type = "hidden" name = "id" id = "quizId"/>
+                            <div = id ="quizOptions">                    
+                                <div class="custom-control custom-checkbox mb-3 p-2">
+                                    <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
+                                    <label class="custom-control-label is-invalid" for="defaultIndeterminate2">Default indeterminate</label>
+                                    <span class = "invalid-feedback">Incorrect Answer</span>
+                                </div>
+                                <div class="custom-control custom-checkbox mb-5 p-2">
+                                    <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
+                                    <label class="custom-control-label" for="defaultIndeterminate2">Default indeterminate</label>
+                                </div>
+                                <div class="custom-control custom-checkbox mb-5 p-2">
+                                    <input type="checkbox" class="custom-control-input" id="defaultIndeterminate2" checked>
+                                    <label class="custom-control-label" for="defaultIndeterminate2">Default indeterminate</label>
+                                </div>
+                            </div>
+                            <div class = "d-flex flex-row justify-content-between">
+                            <button class = "btn btn-default" id = "attemptContainer">Attempts : <span id = "attempts">3</span> of 3</button>
+                            <button  id = "answerButton" class = "btn lt-btn-accent mt-3" type = "submit">ANSWER</button>
+                            </div>
+
+                            
+                        </form>
+                        
+                    </div>
+                    <div class="modal-footer">
+                         <button id = "quizNxtBtn" type="button" class="btn btn-danger hidden" onclick = "nextContent()">Next</button>
+                    </div>
                 </div>
             </div>
         </div>
+
+        {{! Further REading modal }}
+    <div class="modal fade" id="furtherReadingsModal" tabindex="-1" role="dialog" aria-labelledby="futherReadingModal"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="furtherReadingsModal">Further Readings</h5>
+          </div>
+          <div class="modal-body">
+            <p id =  "furtherReadingtitle" class="text-justify"></p>
+            <button id = "urlButton">
+                <i class = "fa fa-link m-2"></i>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn lt-btn-secondary" onclick = "nextContent()">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{! Furhter Reading Modal modal end }}
+    {{! Wait REading modal }}
+    <div class="modal fade white" id="waitModal" tabindex="-1" role="dialog" aria-labelledby="waitModal"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="waitModal">Wait</h5>
+          </div>
+          <div class="modal-body">
+           <i class = "fa fa-clock fa-3X"></i>
+            <p id =  "waitModalTitle" class="text-justify">You have exceeded your attempts for this quiz you have to wait one (1) hour to try again</p>
+            <p><strong>Hours Remaining</strong> <span id = "hoursRemaining" >8</span></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss = "modal" class="btn btn-danger">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{! Wait modal end }}
+    {{! MCLE modal }}
+    <div class="modal fade" id="mcleModal" tabindex="-1" role="dialog" aria-labelledby="mcleModal"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ml">Pay for MCLCE Certificate</h5>
+          </div>
+          <div class="modal-body text-center">
+           <i class="fas fa-award fa-4x"></i>
+            <p id =  "mcleTitle" class = "mt-2 mb-5">Pay for an MCLE Certificate at 1500</p>
+            <button id = "mcleButton" type = "button" onclick = "mcle_payment()" class = "btn btn-lg lt-btn-secondary">Pay 1,100</button>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+    {{! Wait modal end }}
+
+
 
 </main>
 

@@ -185,7 +185,8 @@ exports.verifyLawyerEmail = async (req, res) => {
   await admin.auth().setCustomUserClaims(user.uid, { lawyer: true });
   let returnObj = {
     message: "You account has been verified, you may now login to your dashboard",
-    status: "success"
+    status: "success",
+    email
   };
   res.send(returnObj);
 };

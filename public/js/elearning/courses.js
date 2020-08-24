@@ -48,8 +48,8 @@ const renderCourse = (course, id) => {
                     </div>
 
                     <div class="card-body d-flex flex-column">
-                        <h4 class="card-title" data-toggle = "tooltip" title = "${course.description || course.title}" >${course.title}</h4>
-                        <p class = "author">By:${course.author}</p>
+                        <h4 class="card-title ml-2" data-toggle = "tooltip" title = "${course.description || course.title}" >${course.title}</h4>
+                        <p class = "author ml-2">By : ${course.author}</p>
                         <p><strong>Price:</strong><span class = "price text-muted mx-2">${price}<span> ${oldprice}</p>
                         <a href = "/e-learning/courseDetails?id=${id}"  class = "btn lt-btn-accent">View Course</a>
                     </div>

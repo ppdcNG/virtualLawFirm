@@ -25,7 +25,7 @@
                     <form id = "lawyerLoginForm" class="border border-light p-5 w-100" action="#!">
                 
                         <p class="h4 mb-5">Log In As Lawyer</p>
-                        <p id = "lawyerloginError" class = "error valid">Username already exists</p>
+                        <p id = "lawyerloginError" class = "error valid"></p>
                         <div>
                             <label for="email">Email</label>
                             <input type="email" name = "email" id="lawyerLoginEmail" class="form-control mb-4" required>
@@ -52,7 +52,7 @@
                     <form id = "lawyerRegisterForm" class="border border-light p-5 w-100" action="#!">
                 
                         <p class="h4 mb-5">Sign Up As a Lawyer</p>
-                        <p id = "lawyersignupError" class = "error valid">Username already exists</p>
+                        <p id = "lawyersignupError" class = "error valid"></p>
                         <div>
                             <label for="email">Email</label>
                             <input type="email" id="lawyerSignupEmail" name = "email" class="form-control mb-4" required>
@@ -791,7 +791,7 @@
                             </section>
                         </div>
                         <br />
-                        <div class = "d-flex flex-column justify-content-center">
+                        <div id = "lawyerCont" data-toggle = "tooltip" title = "Accept terms and condition to continue" class = "d-flex flex-column justify-content-center">
                             <button  id = "lawyerSignupButton" class = "btn lt-btn-accent mt-3 disabled" type = "submit">SIGN UP AS LAWYER</button>
                         </div>
                                     
@@ -799,10 +799,11 @@
                  </div>
               </div>
               <div id = "lawyerSignupComplete" class = "signup-success d-flex flex-column  justify-content-center p-5">
-                <h2 class = "pl-2 align-self-center">Check your Mail</h2>
+                <h2 class = "pl-2 align-self-center">Check your Email</h2>
                 <lottie-player src="{{ABS_PATH}}/assets/lottiefile.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" loop autoplay></lottie-player>
-                <p class = "pl-2">Thank you for signing up on Lawtrella. Check your E-mail inbox to verify your Account.</p>
+                <p class = "pl-2">Thank you for signing up on Lawtrella. Check Your Email for a confirmation link. Can’t find the link, check your promotions, social or spam folder</p>
                 <button id = "lawyerGotIt" type = "button" onclick = "dismiss('lawyersignup')" class = "btn lt-btn-accent btn-expand">Got It</button>
+                <button id = "lawyerResend" type = "button" class = "btn lt-btn-secondary">Resend</button>
               </div>
         </div>
       </div>
@@ -834,6 +835,13 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
                     <form id = "clientLogin" class="border border-light p-5 w-100" >
+                        <div class="d-flex flex-column text-center justify-content-center">
+                            <p class = "lt-link">Are you a Lawyer? Login Here Instead</p>
+                            <button type = "button" id = "toggleLawyerLogin" class = "btn lt-btn-secondary">LAWYER LOGIN</button>
+                        </div>
+
+                        <hr width = "100%"/>
+
                         <p class="h4 mb-4">Log In</p>
                         <p id = "loginError" class = "error valid">Username already exists</p>
                         <div class= "mb-4">
@@ -848,16 +856,16 @@
                             <a class = "lt-link ml-2 small" href = "#" onclick = "showRecovery()">Forgot password?</a>
                             <button  id = "clientLoginButton" class = "btn lt-btn-accent mt-3" type = "submit">LOGIN</button>
                         </div>
-                        
-                        <hr width = "100%"/>
-                        <div class="d-flex flex-column text-center justify-content-center">
-                            <p class = "lt-link">Are you a Lawyer? Login Here Instead</p>
-                            <button type = "button" id = "toggleLawyerLogin" class = "btn lt-btn-secondary">LAWYER LOGIN</button>
-                        </div>                
+                                        
                     </form>
                 </div>
                 <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
                     <form id = "clientRegisterForm" class="border border-light p-5 w-100">
+                        <div class="d-flex flex-column text-center justify-content-center">
+                            <p class = "lt-link-bold">Are you a Lawyer? Sign up Here Instead</p>
+                            <button type = "button" id = "toggleLawyerSignup"   class = "btn lt-btn-secondary">LAWYER SIGNUP</button>
+                        </div>                
+                        <hr width = "100%"/>
                 
                         <p class="h4 mb-4">Sign Up</p>
 
@@ -1605,23 +1613,20 @@
                         <br />
 
                         
-                        <div class = "d-flex flex-column justify-content-center">
-                            <button id = "clientSignupButton" class = "btn lt-btn-accent mt-3 disabled" type = "submit">SIGN UP</button>
+                        <div id = "clientCont" data-toggle = "tooltip" title = "Accept Terms and Condition to continue" class = "d-flex flex-column justify-content-center">
+                            <button  id = "clientSignupButton" class = "btn lt-btn-accent mt-3 disabled" type = "submit">SIGN UP</button>
                         </div>
                         
-                        <hr width = "100%"/>
-                        <div class="d-flex flex-column text-center justify-content-center">
-                            <p class = "lt-link-bold">Are you a Lawyer? Sign up Here Instead</p>
-                            <button type = "button" id = "toggleLawyerSignup"   class = "btn lt-btn-secondary">LAWYER SIGNUP</button>
-                        </div>                
+                        
                     </form>
                 </div>
             </div>
             <div id = "signupComplete" class = "signup-success d-flex flex-column  justify-content-between align-items-center p-5">
-                <h2 class = "pl-2">Check your Mail</h2>
+                <h2 class = "pl-2">Check your Email</h2>
                 <lottie-player src="{{ABS_PATH}}/assets/lottiefile.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" loop autoplay></lottie-player>
-                <p class = "pl-2">Thank you for signing up on Lawtrella. Check your E-mail inbox to verify your Account.</p>
+                <p class = "pl-2">Thank you for signing up on Lawtrella. Check Your Email for a confirmation link. Can’t find the link, check your promotions, social or spam folder</p>
                 <button id = "gotrecover" type = "button" onclick = "dismiss('signup')" class = "btn lt-btn-accent btn-expand">Got It</button>
+                <button id = "clientResend" type = "button"  class = "btn lt-btn-secondary">Resend</button>
             </div>
         </div>
       </div>
@@ -1640,9 +1645,9 @@
         </div>
         <div class="modal-body">
             <div id = "recoverComplete" class = "recover-success d-flex flex-column  align-items-center justify-content-center p-5">
-                <h2 class = "pl-2">Check your Mail</h2>
+                <h2 class = "pl-2">Check your Email</h2>
                 <lottie-player src="{{ABS_PATH}}/assets/lottiefile.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" loop autoplay></lottie-player>
-                <p class = "pl-2">Follow the prompt on your mail to reset your password</p>
+                <p class = "pl-2">We sent you an email with instructions on how to reset your password.If you haven’t received an email within a few minutes, check your social, promotions or spam folder. You can also resend the email once every five minutes. Only the most recent reset email will work</p>
                 <button id="gotsignup" type = "button" onclick = "dismiss('recover')" class = "btn lt-btn-accent btn-expand">Got It</button>
             </div>
             <form id = "recoverForm" class="border border-light p-5" >
@@ -1655,7 +1660,7 @@
             
                 <div class = "d-flex flex-column justify-content-center">
                     
-                    <button  id = "recoverButton" class = "btn lt-btn-accent mt-3" type = "submit">RECOVER</button>
+                    <button  id = "recoverButton" class = "btn lt-btn-accent mt-3" type = "submit">RESET</button>
                 </div>              
             </form>
         </div>
@@ -1678,7 +1683,7 @@
             <div id = "recoverComplete" class = "d-flex flex-column  align-items-center justify-content-center p-5">
                 <h3 id = "verifyStatus" class = "pl-2 mb-3">SUCCESS</h3>
                 <i id = "verifyIcon" class="fas fa-check fa-5x lt-accent-color m-5"></i>
-                <a  id="dashboardButton"  href = "{{ABS_PATH}}e-learning/courseList" class = "btn lt-btn-accent btn-expand">Goto My Courses</a>
+                <a  id="dashboardButton"  href = "{{ABS_PATH}}e-learning/courseList" class = "btn lt-btn-accent btn-expand">Go to My Courses</a>
             </div>
         </div>
       </div>

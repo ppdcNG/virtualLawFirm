@@ -62,7 +62,8 @@ exports.profile = async (req, res) => {
         progress,
         progressColor,
         status: lawyerdetails.status,
-        statusIcon
+        statusIcon,
+        name: lawyerdetails.name
     });
 };
 
@@ -73,6 +74,7 @@ exports.login = (req, res) => {
 };
 
 exports.confirm = (req, res) => {
+
     res.render("lawyer/lawyer-confirm", { token: req.query.token, ABS_PATH });
     console.log(req);
 };
@@ -106,19 +108,13 @@ exports.signup = async (req, res) => {
         to: email
     };
 
-    let sendgridOption = {
-        to: email,
-        from: "welcome@lawtrella.com",
-        subject: "Welcome to A & E Law firm",
-        text: `Thank you for signing up this is your token ${tok}`
-    };
+
     welcomeMail(mailOptions, res);
-    res.send({ status: "success" });
 }
 exports.lawyerLogin = async (req, res) => {
     let { idToken, uid } = req.body;
     console.log(uid);
-    let expiresIn = 60 * 60 * 24 * 5 * 1000;
+    let expiresIn = 60 * 60 * 5 * 1000;
     let sessionCookie = await admin
         .auth()
         .createSessionCookie(idToken, { expiresIn });
@@ -128,10 +124,15 @@ exports.lawyerLogin = async (req, res) => {
     res.send(response);
 }
 
-exports.dashboard = (req, res) => {
+exports.dashboard = async (req, res) => {
     let user = getUserDetails(req);
+    let lawyer = await admin.firestore().doc(`lawyers/${user.uid}`).get();
+    let lawyerdetails = lawyer.data();
+    let progress = percentageComplete(lawyerdetails);
+    let profileComplete = progress >= 100 ? true : null;
+    console.log(profileComplete);
     res.render("lawyer/new-dashboard", {
-        title: 'Lawyer dashboard', ABS_PATH, AppName, ...user
+        title: 'Lawyer dashboard', ABS_PATH, AppName, profileComplete, ...user
     });
 };
 
@@ -142,7 +143,18 @@ exports.consultation = (req, res) => {
     let user = getUserDetails(req);
     res.render('lawyer/consultation', { title: 'Lawyer Consultation', ABS_PATH, ...user, taskId: id });
 };
+exports.updateProfilePic = async (req, res) => {
+    let { url } = req.body;
 
+    let obj = { photoUrl: url };
+    await admin.auth().updateUser(req.user.uid, obj);
+    await admin.firestore().doc(`lawyers/${req.user.uid}`).update({ "contact.photoUrl": url });
+    let returnObj = {
+        message: "Profile picture updated successfully.",
+        status: "success"
+    };
+    res.status(200).send(returnObj);
+}
 exports.updateContact = async (req, res) => {
     let { photoUrl, name, address, country, state, lga, briefProfile } = req.body;
     if (!photoUrl) {
@@ -223,6 +235,7 @@ exports.updateUploads = async (req, res) => {
     });
     if (user.exists) {
         let categories = tags2Category(tags);
+        console.log(categories);
         user = user.data();
         user.portfolio = { specialization, tags, workExperience, consultationFee };
         user.categories = categories;

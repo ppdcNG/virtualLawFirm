@@ -157,9 +157,8 @@ exports.resetPassword = option => {
         <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
             <td style="padding-right: 0px;padding-left: 0px;" align="center">
-            
-            <img align="center" border="0" src="${option.ABS}images/lock.jpeg" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;width: 100%;max-width: 338px;" width="338"/>
-            
+            <p style="font-size: 14px; line-height: 130%;"><strong><span style="font-size: 48px; line-height: 62.4px; font-family: helvetica, sans-serif; color: #ffffff;"><span style="font-size: 38px; line-height: 49.4px;">Password Reset</span><br /></span></strong></p>
+                    
             </td>
         </tr>
         </table>
@@ -197,9 +196,10 @@ exports.resetPassword = option => {
                 
         <div style="color: #292929; line-height: 160%; text-align: left; word-wrap: break-word;">
             <p style="font-size: 14px; line-height: 160%; text-align: center;">&nbsp;</p>
-        <p style="font-size: 14px; line-height: 160%; text-align: center;"><span style="font-size: 22px; line-height: 35.2px;">You are requesting to recover your password. Follow the link below to recover.</span></p>
+        <p style="font-size: 14px; line-height: 160%; text-align: center;"><span style="font-size: 22px; line-height: 35.2px;">Hello ${option.name}</span></p>
         <p style="font-size: 14px; line-height: 160%; text-align: center;">&nbsp;</p>
-        <p style="font-size: 14px; line-height: 160%; text-align: center;"><span style="font-size: 22px; line-height: 35.2px;">Ignore this mail if the request wasn't from you.</span></p>
+        <p style="font-size: 14px; line-height: 160%; text-align: center;"><span style="font-size: 22px; line-height: 35.2px;">You are receiving this email because someone requested a password reset for the Lawtrella account registered to  ${option.email}</span></p>
+        <p style="font-size: 14px; line-height: 160%; text-align: center;"><span style="font-size: 22px; line-height: 35.2px;">To reset your password, click <a href = "${option.link}" target = "_blank">here</a></span></p>
         </div>
 
             </td>
@@ -252,9 +252,8 @@ exports.resetPassword = option => {
             <td style="overflow-wrap:break-word;word-break:break-word;padding:20px;font-family:'Montserrat',sans-serif;" align="left">
                 
         <div style="color: #000; line-height: 120%; text-align: left; word-wrap: break-word;">
-            <div style="font-family: arial, helvetica, sans-serif;"><span style="font-size: 12px; color: #999999; line-height: 14.4px;">You received this email because you signed up for&nbsp;</span><span style="font-size: 12px; color: #999999; line-height: 14.4px;"> Lawtrella.</span></div>
+            <div style="font-family: arial, helvetica, sans-serif;"><span style="font-size: 12px; color: #999999; line-height: 14.4px;">If you did not make this request, please contact us at support@lawtrella.com</span><span style="font-size: 12px; color: #999999; line-height: 14.4px;"> Lawtrella.</span></div>
         <div style="font-family: arial, helvetica, sans-serif;">&nbsp;</div>
-        <div style="font-family: arial, helvetica, sans-serif;"><span style="font-size: 12px; color: #999999; line-height: 14.4px;">Unsubscribe</span></div>
         </div>
 
             </td>

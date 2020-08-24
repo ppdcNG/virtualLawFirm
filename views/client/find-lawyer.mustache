@@ -45,15 +45,12 @@
       </div>
     </section>
 
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-warning" onclick="askLawyer()">Ask a Lawyer</button>
-    </div>
 
     <div class="row row-cols-1 row-cols-md-2 mt-5 pt-3" id="findALawyer" data-aos="zoom-in" data-aos-duration="1000">
 
       <div class="col-md-4 mb-4">
         <div class="card h-100 d-flex flex-column justify-content-center align-items-center" style="background-image: url({{ABS_PATH}}images/bg-agric.jpeg);background-size: cover;background-position: 50% 50%;">
-            <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3" style="padding: 0px !important">
+            <div class="card-body d-flex flex-column justify-content-center soft-teal-bg white-text p-3">
               <h5 class="card-title font-weight-bold py-3">Agricultural Law</h5>
               <p class="card-text white-text">Tags under this section:</p>
               <h5>
@@ -324,10 +321,7 @@
     <h2 class="text-center mt-2">What's the Issue? Let's help</h2>
 
     {{! hidden elements }}
-    <input value="{{email}}" id="clientEmail" type = "hidden" />
-    <input value="{{displayName}}" id="displayName" type = "hidden" />
-    <input value="{{phoneNumber}}" id="phoneNumber" type = "hidden" />
-    <input value="{{uid}}" id="uid" type = "hidden" />
+    {{>userdata}}
     {{! hidden elements }}
    
   </div>

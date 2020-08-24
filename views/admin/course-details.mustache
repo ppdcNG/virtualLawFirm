@@ -85,6 +85,7 @@
               <div class="text-right">
                 <button class="btn" id="addLessonButton">Add Lesson</button>
                 <button class="btn" id = "addQuestionButton">Add Question</button>
+                <button class="btn" id = "addLinkButton">Add Reading Link</button>
               </div>
 
               <h5>Content List</h5>
@@ -112,12 +113,17 @@
                             <input id= "author" type="text" name="author" class="form-control" required>
                       </div>
                       <div class = "col-md-12 mb-4">
+                          <label for="title">Author Details</label>
+                            <input id= "authorDetails" type="text" name="authorDetails" class="form-control" required>
+                      </div>
+
+                      <div class = "col-md-12 mb-4">
                           <label for="price">Price</label>
                           <input id = "price" name = "price" type="number"  class="form-control">
                       </div>
                       <div class = "col-md-12 mb-4">
                           <label for="price">Slashed Price</label>
-                          <input id = "oldprice" name = "oldprice" type="text"  class="form-control">
+                          <input id = "oldprice" name = "oldprice" type="number"  class="form-control">
                       </div>
                       
                       <div class = "col-md-12 mb-4">
@@ -166,14 +172,14 @@
                     </div>             
                 </form>
 
-            <h5>List of Codes</h5>
-            <ul class="list-group list-group-flush" id="promoCodes">
-              <div class="d-flex justify-content-center">
-                <div class="spinner-grow slow" role="status" id="loadingTasks">
-                  <span class="sr-only">Loading...</span>
+              <h5>List of Codes</h5>
+              <ul class="list-group list-group-flush" id="promoCodes">
+                <div class="d-flex justify-content-center">
+                  <div class="spinner-grow slow" role="status" id="loadingTasks">
+                    <span class="sr-only">Loading...</span>
+                  </div>
                 </div>
-              </div>
-            </ul>
+              </ul>
             
           </div>
         </div>
@@ -194,6 +200,42 @@
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 
+{{! add Link Modal  }}
+<div class="modal fade" id="addLinkModal" tabindex="-1" role="dialog" aria-labelledby="addLinkModal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Link</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body container">
+
+          <form id="linkForm">
+              <input type = "hidden" id = "linkMode" value = "add"/>
+              <input type = "hidden" id = "linkId" />
+              <input type = "hidden" id = "linkType" name = "type"  value ="Link" />
+
+              <div class="mb-3 md-form">
+                  <label for="title">Link Title</label>
+                  <input id = "title" type="text" name="title" class="form-control" required>
+              </div>
+              <div class="mb-3 md-form">
+                  <label for="url">Link</label>
+                  <input id = "url" type="url" name="url" class="form-control" required>
+              </div>
+              <button type="submit" id="saveLinkButton" class="btn btn-primary">Save</button>
+          </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 {{! add lesson modal  }}
 <div class="modal fade" id="addLessonModal" tabindex="-1" role="dialog" aria-labelledby="addLessonModal"
   aria-hidden="true">

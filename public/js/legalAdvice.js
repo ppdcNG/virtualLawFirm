@@ -5,43 +5,57 @@ $(document).ready(() => {
   $("#askLawyerButton").click((e) => {
 
 
-    console.log('lawyer clicked')
-    let uid = $("#uid").val();
-    console.log(uid);
-    if (uid == "false") {
-      $("#loginModal").modal('show');
-      return
-    }
 
-    else {
-      // disclaimer modal pops 
-      $("#disclaimerModal").modal('show');
-
-      // upon agreeing to disclaimer 
-      $("#disclaimer-agree-btn").click((e) => {
-
-        // close disclaimer modal
-        $("#disclaimerModal").modal('hide');
-
-        let clientName = $("#displayName").val();
-        let clientId = $("#uid").val();
-        let clientPhoto = $("#photoURL").val();
-        let data = { clientName, clientId, clientPhoto };
-        let url = ABS_PATH + 'client/initiateAdminChat';
-        buttonLoadSpinner("askLawyerButton");
-        $.ajax({
-          type: "POST",
-          url: url,
-          data,
-          success: function (response) {
-            console.log("success")
-            clearLoad('askLawyerButton', 'here');
-            window.location = ABS_PATH + "client/dashboard/#chat";
-          }
-        });
-      });
-    }
+    askLawyer();
   })
+});
+
+const askLawyer = () => {
+  console.log('lawyer clicked')
+
+  let uid = $("#uid").val();
+  console.log(uid);
+  if (uid == "false") {
+    $("#loginModal").modal('show');
+    return
+  }
+  let usertype = $("#userType").val();
+  console.log(usertype);
+  if (usertype == 'lawyer') {
+    $.notify("Client account required, login or sign up as a client", { type: "warning", delay: 2500 });
+    return;
+  }
+
+  else {
+    // disclaimer modal pops 
+    $("#disclaimerModal").modal('show');
+
+    // upon agreeing to disclaimer 
+  }
+}
+
+$("#disclaimer-agree-btn").click((e) => {
+
+  // close disclaimer modal
+  $("#disclaimerModal").modal('hide');
+  let notification = $.notify('Please Wait...', { type: 'warning', delay: 1200 })
+  let clientName = $("#displayName").val();
+  let clientId = $("#uid").val();
+  let clientPhoto = $("#photoURL").val();
+  let data = { clientName, clientId, clientPhoto };
+  let url = ABS_PATH + 'client/initiateAdminChat';
+  buttonLoadSpinner("askLawyerButton");
+  $.ajax({
+    type: "POST",
+    url: url,
+    data,
+    success: function (response) {
+      console.log("success");
+      notification.close();
+      clearLoad('askLawyerButton', 'here');
+      window.location = ABS_PATH + "client/dashboard/#chat";
+    }
+  });
 });
 
 
@@ -62,7 +76,7 @@ const handleFetchAdvises = advises => {
     count++
   });
   $("#loadingTasks").css('display', 'none');
-  $("#questionsList").append(advisesHTML);
+  $("#questionsList").html(advisesHTML);
 }
 
 $("#legalAdvice").submit(async (e) => {

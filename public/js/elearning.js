@@ -65,7 +65,7 @@ const payWithPaystack = (fee, course) => {
             console.log(dataObj)
             let req = { 'data': JSON.stringify(dataObj) };
 
-            var processingNotification = $.notify('Please Wait.. while we verify your payment and set you up payment, please wait', { type: "info", delay: 0 });
+            var processingNotification = $.notify('Congratulations! You have enrolled successfully enrolled for this course, please wait while we verify your payment', { type: "info", delay: 0 });
 
             $.ajax({
                 url: ABS_PATH + "e-learning/verifyPurchase",
@@ -73,24 +73,38 @@ const payWithPaystack = (fee, course) => {
                 data: req,
                 success: function (response) {
                     console.log("success", response);
-                    $('#verifyStatus').text('Course Added Your List');
-                    $("#verifyDescription").text('Your Purchase was successful. Go to your course list to begin learning')
-                    $("#verifyModal").modal('show');
+                    if (response.err) {
+                        $.notify(response.message, { type: "warning" });
+                        clearLoad('enrollButton', 'ENROLL NOW');
+                        processingNotification.close();
+                        return;
+                    }
+                    // $('#verifyStatus').text('Course Added Your List');
+                    // $("#verifyDescription").text('Your Purchase was successful. Go to your course list to begin learning')
+                    // $("#verifyModal").modal('show');
                     processingNotification.close();
                     clearLoad('enrollButton', 'ENROLL NOW');
                     $.notify(response.message, { type: response.status });
+                    setTimeout(() => {
+                        window.location = ABS_PATH + 'e-learning/courseList'
+                    }, 400)
 
                 },
                 error: err => {
                     console.error("error", err)
                     $.notify(response.message, { type: "warning" });
+                    processingNotification.close();
+                    clearLoad('enrollButton', 'ENROLL NOW');
                 }
             });
 
         },
-        onClose: function () {
+        onClose: function (response) {
             console.log('window closed');
             console.log('closed', response);
+            clearLoad('enrollButton', 'ENROLL NOW');
+            processingNotification.close();
+            $.notify(response.message, { type: "warning" });
         }
     });
     handler.openIframe();
@@ -113,9 +127,12 @@ const freecourse = (form) => {
                 return
             }
             $('#verifyStatus').text('Course Added Your List');
-            $("#verifyDescription").text('Your Purchase was successful. Go to your course list to begin learning');
-            $("#verifyModal").modal('show')
+            $("#verifyDescription").text('Course added to your list. Redirecting to course list...');
+            // $("#verifyModal").modal('show')
             clearLoad('enrollButton', 'ENROLL NOW');
+            setTimeout(() => {
+                window.location = ABS_PATH + 'e-learning/courseList'
+            }, 400)
         },
         error: err => {
             console.error('error', err);

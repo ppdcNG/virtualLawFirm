@@ -203,8 +203,8 @@ exports.courseDetails = (course) => {
   let title = course.title;
   let content = course.contentString.split("***");
   let description = course.details;
-
-  return { progress, title, content, description, count: content.length }
+  let mcleVerified = course.mcleVerified || null;
+  return { progress, title, content, description, count: content.length, mcleVerified }
 }
 
 exports.tags2Category = (tags) => {
@@ -215,7 +215,10 @@ exports.tags2Category = (tags) => {
     Object.keys(categories).forEach((key) => {
       let category = categories[key];
       let index = category.indexOf(tag);
-      if (index > -1) mycategories.push(key);
+      if (index > -1) {
+
+        if (mycategories.indexOf(key) < 0) mycategories.push(key);
+      }
     })
   })
   return mycategories

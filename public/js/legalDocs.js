@@ -135,11 +135,12 @@ const getFreeDoc = id => {
 const payLegalDoc = id => {
     let doc = LEGAL_DOCS[id];
     let { price } = doc;
+    let clientEmail = $('#clientEmail').val();
 
     function payWithPaystack() {
         var handler = PaystackPop.setup({
             key: PAYSTACK_KEY,
-            email: 'customer@email.com',
+            email: clientEmail,
             amount: price * 100,
             currency: "NGN",
             ref: '' + Math.floor((Math.random() * 1000000000) + 1),

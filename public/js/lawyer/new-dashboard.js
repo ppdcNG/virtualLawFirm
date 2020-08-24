@@ -34,8 +34,9 @@ const handleCaseFetch = cases => {
 
     if (is_empty(tasksHTML)) {
         $("#consultations").html(`<div class = "card teal lighten-5">
-        <div class = "card-body"><p class="m-1 p-2">You have no consultation yet</p>
-        <a href = "/client/findLawyer" class = "btn btn-accent">Find a Lawyer Now</a>
+        <div class = "card-body">
+        <h4>You have no consultation Yet<h4/>
+        <p class="m-1 p-2">Make sure your profile is complete and your account is verified to receive clients</p>
         </div>
         </div>`);
     } else {
@@ -293,7 +294,7 @@ $("#uploadPic").submit(async function (e) {
 
 
     $.ajax({
-        url: ABS_PATH + "client/updateProfilePic",
+        url: ABS_PATH + "lawyer/updateProfilePic",
         data: req,
         type: "POST",
         success: function (response) {

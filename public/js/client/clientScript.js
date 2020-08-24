@@ -4,10 +4,13 @@ $("#terms").change((e) => {
     let checked = $("#terms").is(':checked');
     if (checked) {
         $("#terms").removeClass('is-invalid');
+        $("#clientCont").attr('title', 'Sign up');
         $("#clientSignupButton").removeClass('disabled');
     }
     else {
         $("#clientSignupButton").addClass("disabled");
+        $("#clientCont").attr('title', 'Accept Terms, Conditions and Privacy Policy to continue');
+
     }
 
 })
@@ -71,8 +74,8 @@ $("#clientConfirm").submit(function (e) {
     let formdata = new FormData(document.getElementById('clientConfirm'));
     var form = form2js("clientConfirm", ".");
     if (form.password !== form.confirmPassword) {
-        $.notify("Passwords must match", { type: "warning", z_index: 5000 });
-        $("#confirmError").html("Passwords must match");
+        $.notify("Passwords do not match", { type: "warning", z_index: 5000 });
+        $("#confirmError").html("Passwords do not match");
         $("#confirmError").removeClass('valid');
         $("#password").addClass('is-invalid');
         $("#confirmPassword").addClass('is-invalid');
@@ -154,10 +157,11 @@ const clientSignIn = async (email, password, callback) => {
         });
     } catch (e) {
         console.log(e);
+        let message = e.code == "auth/wrong-password" ? "Wrong password. Try again or click Forgot password to reset it." : e.message;
         clearLoad('clientLoginButton', 'Login');
-        $("#loginError").html(e.message);
+        $("#loginError").html(message);
         $("#loginError").removeClass('valid');
-        $.notify(e.message, { type: "danger", z_index: 5000 });
+        $.notify(message, { type: "danger", z_index: 5000 });
     }
 };
 
@@ -165,7 +169,7 @@ const clientSignIn = async (email, password, callback) => {
 $("#clientRegisterForm").submit(e => {
     e.preventDefault();
     var form = form2js("clientRegisterForm", ".");
-
+    uservar = form;
     if (!$("#terms").is(':checked')) {
         $.notify('Please accept the terms and conditions', { type: "warning", z_index: 5000 });
         $("#terms").addClass('is-invalid');
@@ -173,7 +177,6 @@ $("#clientRegisterForm").submit(e => {
     }
 
     buttonLoad('clientSignupButton');
-
     $.ajax({
         url: ABS_PATH + "client/signup",
         data: form,
@@ -187,15 +190,20 @@ $("#clientRegisterForm").submit(e => {
                 $.notify("A confirmation email has been sent to your inbox", { type: "success", z_index: 5000 });
                 $("#myTab").hide();
                 $("#myTabContent").hide();
+                $("#clientRegisterForm").trigger('reset');
                 $("#signupComplete").removeClass('signup-success');
             } else {
                 $("#signupError").html(response.message);
                 $("#signupError").removeClass('valid');
-                $.notify(response.message, { type: "warning" });
+                $.notify(response.message, { type: "warning", z_index: 5000 });
             }
             clearLoad('clientSignupButton', 'Sign Up');
         },
-        error: e => console.log(e)
+        error: e => {
+            console.log(e);
+            clearLoad('clientSignupButton', 'Sign Up');
+            $.notify('Network Error', { type: "success", z_index: 5000 })
+        }
     });
 });
 
@@ -225,9 +233,39 @@ $("#recoverForm").submit(e => {
                 $("#recoverError").removeClass('valid');
                 $.notify(response.message, { type: "warning", z_index: 5000 });
             }
-            clearLoad('recoverButton', 'Sign Up');
+            clearLoad('recoverButton', 'RESET');
         },
         error: e => console.log(e)
     });
 })
+
+$("#clientResend").click((e) => {
+    buttonLoad('clientResend');
+    console.log('mad oh')
+    $.ajax({
+        url: ABS_PATH + "client/signup",
+        data: uservar,
+        type: "POST",
+        success: function (response) {
+
+
+            console.log(response);
+            if (!response.err) {
+
+                clearLoad('clientResend', "Resend");
+                $.notify("A confirmation email has been resent check your promotions, social or spam folder", { type: "success", z_index: 5000 });
+
+            } else {
+                clearLoad('clientResend', "Resend")
+
+                $.notify(response.message, { type: "warning", z_index: 5000 });
+            }
+        },
+        error: e => {
+            clearLoad('clientResend', "Resend")
+
+            $.notify("network Error", { type: "warning", z_index: 5000 });
+        }
+    });
+});
 
