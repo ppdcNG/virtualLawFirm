@@ -41,7 +41,7 @@ exports.courseDetails = async (req, res) => {
         res.status(403).send({ err: "Invalid Page parameters", message: "bad Request missing Params" });
         return;
     }
-    let valid = verifyCourseSubscripton(id, req);
+    let valid = user.uid ? verifyCourseSubscripton(id, req) : false;
     console.log('valid', valid);
     if (valid) {
         res.redirect(`/e-learning/courseContent?id=${id}`);
