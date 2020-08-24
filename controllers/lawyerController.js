@@ -114,7 +114,7 @@ exports.signup = async (req, res) => {
 exports.lawyerLogin = async (req, res) => {
     let { idToken, uid } = req.body;
     console.log(uid);
-    let expiresIn = 60 * 60 * 24 * 5 * 1000;
+    let expiresIn = 60 * 60 * 5 * 1000;
     let sessionCookie = await admin
         .auth()
         .createSessionCookie(idToken, { expiresIn });

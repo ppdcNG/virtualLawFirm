@@ -127,7 +127,7 @@ exports.signup = async (req, res) => {
 exports.userLogin = async (req, res) => {
     let { idToken, uid } = req.body;
     console.log(uid);
-    let expiresIn = 60 * 60 * 24 * 5 * 1000;
+    let expiresIn = 60 * 60 * 5 * 1000;
     let sessionCookie = await admin
         .auth()
         .createSessionCookie(idToken, { expiresIn });
@@ -143,7 +143,17 @@ exports.dashboard = async (req, res) => {
     let userDetails = await admin.firestore().doc(`clients/${user.uid}`).get();
     userDetails = userDetails.data();
     console.log(userDetails);
-    let { state, phoneNumber, address } = userDetails.contactPoint;
+    let state = "";
+    let phoneNumber = "";
+    let address = "";
+    if (userDetails.contactPoint) {
+        let contactPoint = userDetails.contactPoint;
+        state = contactPoint.state;
+        phoneNumber = contactPoint.phoneNumber;
+        address = contactPoint.address
+    }
+
+
 
     res.render('client/newdashboard', {
         title: 'Client Dashboard', ABS_PATH, AppName, title: "Client Dashboard", ...user, state, phoneNumber, address

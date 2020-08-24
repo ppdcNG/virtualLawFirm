@@ -74,8 +74,8 @@ $("#clientConfirm").submit(function (e) {
     let formdata = new FormData(document.getElementById('clientConfirm'));
     var form = form2js("clientConfirm", ".");
     if (form.password !== form.confirmPassword) {
-        $.notify("Passwords must match", { type: "warning", z_index: 5000 });
-        $("#confirmError").html("Passwords must match");
+        $.notify("Passwords do not match", { type: "warning", z_index: 5000 });
+        $("#confirmError").html("Passwords do not match");
         $("#confirmError").removeClass('valid');
         $("#password").addClass('is-invalid');
         $("#confirmPassword").addClass('is-invalid');

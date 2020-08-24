@@ -1,4 +1,3 @@
-import { courseDetails } from "../../../helpers";
 
 
 
@@ -226,7 +225,7 @@ const calculateProgress = () => {
         $("#paymcleButton").removeClass("d-none");
         let time = new Date().getTime();
         courseDb.update({ completionTime: time, complete: true });
-        courseData.completionTime = times;
+        courseData.completionTime = time;
     }
     let percentage = (progressNumber / courseNumber) * 100;
     percentage = parseInt(percentage);
@@ -409,6 +408,7 @@ const payWithPaystack = (fee, courseId) => {
                     $("#mcleModal").modal('hide');
                     processingNotification.close();
                     $.notify(response.message, { type: response.status });
+                    window.location.reload();
 
 
                 },
