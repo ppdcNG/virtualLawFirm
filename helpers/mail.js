@@ -55,8 +55,16 @@ exports.inviteEmail = async (email) => {
     text: "Welcome to Lawtrella",
     html
   }
-  await sendgrid.send(messageOptions).catch(e => {
-    console.log(e.message);
+
+  let mailgun = new Mailgun({ apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN })
+  mailgun.messages().send(messageOptions, function (err, body) {
+    console.log(body);
+    if (err) {
+      console.log(err);
+      res.status(304).send({ status: 'failed', err: err, message: err.message });
+      return;
+    }
+    res.send({ status: "success", message: `Invite has been sent` });
   })
 }
 
@@ -73,6 +81,16 @@ exports.sendAdminNewCase = async (email, lawyerName, clientName) => {
   let response = await sendgrid.send(messageOptions).catch(e => {
     console.log(e);
   });
+  let mailgun = new Mailgun({ apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN })
+  mailgun.messages().send(messageOptions, function (err, body) {
+    console.log(body);
+    if (err) {
+      console.log(err);
+      res.status(304).send({ status: 'failed', err: err, message: err.message });
+      return;
+    }
+    res.send({ status: "success", message: `A new Case from ${clientName} has been assigned to ${lawyerName}` });
+  })
 
   console.log(response);
 
@@ -90,7 +108,7 @@ exports.askLawyerMail = async (email, clientName, res) => {
     text: `A client needs to ask you a question; Login as admin to chat with client`,
     html
   }
-
+  let mailgun = new Mailgun({ apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN });
   mailgun.messages().send(messageOptions, function (err, body) {
     console.log(body);
     if (err) {
@@ -104,16 +122,17 @@ exports.askLawyerMail = async (email, clientName, res) => {
 
 }
 
-exports.forgotPasswordMail = async (email, token, res) => {
+exports.forgotPasswordMail = async (email, name, token, res) => {
   let option = {
-    ABS: ABS_PATH,
-    link: ABS_PATH + `resetPassword?token=${token}`
+    image: ABS_PATH + `images/lock.jpeg`,
+    link: ABS_PATH + `resetPassword?token=${token}`,
+    name, email
   }
   let html = resetPassword(option)
   let messageOptions = {
     to: email,
     subject: "Password Recovery",
-    from: 'recovery@lawtrella.com',
+    from: 'Lawtrella <recovery@lawtrella.com>',
     text: `follow this link "${option.link} to reset your password`,
     html
   }

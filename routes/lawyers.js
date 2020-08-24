@@ -23,5 +23,7 @@ router.post('/deleteInvoice', requireLogin, lawyerController.deleteInvoice);
 router.get('/dashboard', requireLawyer, lawyerController.dashboard);
 router.get('/consultation', requireLogin, lawyerController.consultation);
 router.get('/videoCall', requireLogin, lawyerController.callPage);
+router.post('/updateProfilePic', requireLogin, lawyerController.updateProfilePic);
+
 
 module.exports = router;

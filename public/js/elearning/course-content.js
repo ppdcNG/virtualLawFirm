@@ -1,3 +1,4 @@
+import { courseDetails } from "../../../helpers";
 
 
 
@@ -5,18 +6,21 @@ var PROGRESSLIST = {};
 var CONTENTLIST = {};
 var CONTENTORDER = [];
 var currentVideo = null;
+var usertype = $("#userType").val();
 var uid = $("#uid").val();
 var courseId = $("#courseId").val();
 var quizAttempts = {
 
 };
 
+var courseData = null;
+
 $('#videoPreviewModal').on('hidden.bs.modal', function (e) {
     let videoPlayer = document.getElementById('videoPreview');
     videoPlayer.pause();
 })
 
-let courseDb = firebase.firestore().doc(`clients/${uid}/courseList/${courseId}`)
+let courseDb = firebase.firestore().doc(`${usertype}s/${uid}/courseList/${courseId}`)
 $(document).ready(function () {
     fetchCourseContent();
     let videoPlayer = document.getElementById('videoPreview');
@@ -48,7 +52,7 @@ const renderLessonContent = (content, i) => {
     <li class="list-group-item d-flex flex-row justify-content-between">
           <div>
             <h5 data-toggle = "tooltip" title = "${content.title}">${title}<h5>
-            <small class = "small font-weight-light primary-text">Module</small>
+            <small class = "small font-weight-light primary-text">Lesson</small>
           </div>
           <div class = "d-flex flex-row justify-content-between align-items-center">
             ${viewVideo}
@@ -114,7 +118,8 @@ const fetchCourseContent = () => {
             CONTENTLIST = response.contentList;
             PROGRESSLIST = response.userCourseData.progressList ? response.userCourseData.progressList : {};
             quizAttempts = response.userCourseData.quizAttempts ? response.userCourseData.quizAttempts : {};
-            CONTENTORDER = response.contentOrder
+            CONTENTORDER = response.contentOrder;
+            courseData = response.userCourseData;
             $("#numberRated").text(response.count);
             renderContent();
             let realprogress = calculateProgress();
@@ -217,7 +222,11 @@ const calculateProgress = () => {
     let courseNumber = Object.keys(CONTENTLIST).length;
     console.log(progressNumber, courseNumber);
     if (progressNumber == courseNumber) {
-        $("#certButton").removeClass("invisible")
+        $("#certButton").removeClass("invisible");
+        $("#paymcleButton").removeClass("d-none");
+        let time = new Date().getTime();
+        courseDb.update({ completionTime: time, complete: true });
+        courseData.completionTime = times;
     }
     let percentage = (progressNumber / courseNumber) * 100;
     percentage = parseInt(percentage);
@@ -292,9 +301,14 @@ $("#quizForm").submit(async function (e) {
                 $("#input-" + i).removeClass('is-valid').removeClass('is-invalid');
             }
         });
-        await courseDb.update({ quizAttempts: null })
-        markComplete();
+        if (!PROGRESSLIST[form.id]) {
+            quizAttempts = {};
+            await courseDb.update({ quizAttempts: null })
+            markComplete();
+
+        }
         $("#quizNxtBtn").show();
+
 
 
     }
@@ -313,7 +327,9 @@ $("#quizForm").submit(async function (e) {
             quizAttempts.numberOfAttempts = quizAttempts.numberOfAttempts ? quizAttempts.numberOfAttempts + 1 : 1;
             quizAttempts.blocked = quizAttempts.numberOfAttempts >= 3 ? true : false;
             quizAttempts.timeBlocked = quizAttempts.blocked ? new Date().getTime() : "";
-            $("#attempts").text(quizAttempts.numberOfAttempts);
+            let att = quizAttempts.numberOfAttempts || 0;
+            let text = `${att} of 3 attempts`;
+            $("#attemptContainer").text(text);
             await courseDb.update({ quizAttempts });
             if (quizAttempts.numberOfAttempts >= 3) {
                 $("#quizModal").modal('hide');
@@ -327,7 +343,92 @@ $("#quizForm").submit(async function (e) {
 
 });
 
+const payMCLE = () => {
+    let mclePrice = parseInt(courseData.price) * 0.15;
+    mclePrice = mclePrice.toFixed(2);
+    let priceText = "Pay " + "&#8358;" + accounting.formatNumber(mclePrice, 2) + " for MCLE certificate";
+    $("#mcleTitle").html(priceText);
+    $("#mcleButton").html(`Pay &#8358; ${accounting.formatNumber(mclePrice, 2)}`);
+    $("#mcleModal").modal('show');
 
+
+}
+
+const mcle_payment = () => {
+    let mclePrice = parseInt(courseData.price) * 0.15;
+    mclePrice = mclePrice.toFixed(2);
+    payWithPaystack(mclePrice, courseId);
+}
+
+const payWithPaystack = (fee, courseId) => {
+    fee = parseFloat(fee).toFixed(2);
+    console.log(fee);
+    let clientEmail = $('#clientEmail').val();
+    let phoneNumber = $('#phoneNumber').val();
+    let displayName = $("#displayName").val();
+
+
+    var handler = PaystackPop.setup({
+        key: PAYSTACK_KEY,
+        email: clientEmail,
+        amount: fee * 100,
+        currency: "NGN",
+        metadata: {
+            custom_fields: [
+                {
+                    display_name: displayName,
+                    variable_name: "mobile_number",
+                    value: phoneNumber
+                }
+            ]
+        },
+        // on success
+        callback: function (response) {
+            console.log(response);
+            let dataObj = {
+                courseId,
+                paystackRef: response.reference,
+
+            }
+            console.log(dataObj)
+            let req = { 'data': JSON.stringify(dataObj) };
+
+            var processingNotification = $.notify('Please Wait.. while we verify your payment', { type: "info", delay: 0 });
+
+            $.ajax({
+                url: ABS_PATH + "e-learning/verifyMCLE",
+                type: "POST",
+                data: req,
+                success: async function (response) {
+                    console.log("success", response);
+                    if (response.err) {
+                        $.notify(response.message, { type: "warning" });
+                        processingNotification.close();
+                        return;
+                    }
+                    $("#mcleModal").modal('hide');
+                    processingNotification.close();
+                    $.notify(response.message, { type: response.status });
+
+
+                },
+                error: err => {
+                    console.error("error", err)
+                    $.notify(response.message, { type: "warning" });
+                    processingNotification.close();
+                }
+            });
+
+        },
+        onClose: function (response) {
+            console.log('window closed');
+            console.log('closed', response);
+            processingNotification.close();
+            $.notify(response.message, { type: "warning" });
+        }
+    });
+    handler.openIframe();
+}
 
 const downloadCert = () => {
     let progressNumber = Object.keys(PROGRESSLIST).length;
@@ -336,8 +437,8 @@ const downloadCert = () => {
     let docOptions = {
         name: $("#displayName").val(),
         title: $("#courseTitle").val(),
-        date: moment().format("Do MMM YYYY"),
-        author: $("#author").val()
+        date: moment(courseDb.completionTime).format("Do MMMM YYYY"),
+        author: courseData.author
 
     }
 
@@ -417,7 +518,7 @@ const cerDoc = (options) => {
                                     columns: [
                                         {
                                             stack: [
-                                                { text: "Date Awarded" },
+                                                { text: "Date Issued" },
                                                 { text: options.date, style: "boldFooter" }
                                             ],
                                             margin: [30, 0]

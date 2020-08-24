@@ -139,9 +139,14 @@ exports.userLogin = async (req, res) => {
 
 exports.dashboard = async (req, res) => {
     let user = getUserDetails(req);
+    console.log(user.uid);
+    let userDetails = await admin.firestore().doc(`clients/${user.uid}`).get();
+    userDetails = userDetails.data();
+    console.log(userDetails);
+    let { state, phoneNumber, address } = userDetails.contactPoint;
 
     res.render('client/newdashboard', {
-        title: 'Client Dashboard', ABS_PATH, AppName, title: "Client Dashboard", ...user
+        title: 'Client Dashboard', ABS_PATH, AppName, title: "Client Dashboard", ...user, state, phoneNumber, address
     });
 }
 
@@ -214,7 +219,7 @@ exports.updateProfile = async (req, res) => {
     await admin.auth().updateUser(uid, {
         displayName
     });
-    let client = await admin.firestore().collection('clients').doc(uid).update({ contactPoint }).catch((e) => {
+    let client = await admin.firestore().collection('clients').doc(uid).update({ name: displayName, contactPoint }).catch((e) => {
         console.log(e);
         let returnObj = {
             err: e,

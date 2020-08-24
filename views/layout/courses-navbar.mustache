@@ -12,7 +12,7 @@
                 
                 {{#uid}}
                     <li class="nav-item avatar" data-toggle = "tooltip" title = "Click to go to Dashboard">
-                    <a class=" avartar nav-link p-0" href="/client/dashboard/">
+                    <a class=" avartar nav-link p-0" href="/{{usertype}}/dashboard/">
                     
                     </a>
                     </li>
@@ -24,7 +24,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                     aria-labelledby="navbarDropdownMenuLink-55">
-                        <a class="dropdown-item" href="/client/dashboard">Go to Dashboard</a>
+                        <a class="dropdown-item" href="/{{usertype}}/dashboard/">Go to Dashboard</a>
                         <a class="dropdown-item" href="{{ABS_PATH}}e-learning/courseList">My Course List</a>
                     </div>
                     </li>

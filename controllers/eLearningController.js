@@ -42,6 +42,7 @@ exports.courseDetails = async (req, res) => {
         return;
     }
     let valid = verifyCourseSubscripton(id, req);
+    console.log('valid', valid);
     if (valid) {
         res.redirect(`/e-learning/courseContent?id=${id}`);
         return;
@@ -116,6 +117,7 @@ exports.verifyPurchase = async (req, res) => {
     let payload = JSON.parse(req.body.data);
     let { paystackRef, promoCode, courseId } = payload;
     let uid = req.user.uid;
+    let user = getUserDetails(req);
     let claims = req.user.customClaims;
     let time = new Date().getTime();
     let courseRef = await admin.firestore().doc(`courses/${courseId}`).get();
@@ -140,7 +142,7 @@ exports.verifyPurchase = async (req, res) => {
         claims[courseId] = true;
         await admin.auth().setCustomUserClaims(uid, claims).catch((e) => console.log(e));
         let batch = admin.firestore().batch();
-        let userCourses = admin.firestore().doc(`clients/${uid}/courseList/${courseId}`);
+        let userCourses = admin.firestore().doc(`${user.usertype}s/${uid}/courseList/${courseId}`);
         let coursesRef = admin.firestore().doc(`courses/${courseId}`);
         let transactionsRef = admin.firestore().collection('transactions').doc();
         let addValue = admin.firestore.FieldValue.increment(1);
@@ -163,11 +165,54 @@ exports.verifyPurchase = async (req, res) => {
     })
 }
 
+exports.verifyMCLE = async (req, res) => {
+    let payload = JSON.parse(req.body.data);
+    let { paystackRef, courseId } = payload;
+    let uid = req.user.uid;
+    let user = getUserDetails(req);
+    let time = new Date().getTime();
+
+    let payrecord = {
+        type: "MCLE Payments",
+        payer: uid,
+        ref: paystackRef,
+        date: 0 - time,
+        courseId
+    }
+
+
+    var paystack = require('paystack')(PAYSTACK_PUB_KEY);
+    var body = paystack.transaction.verify(paystackRef, async (err, body) => {
+        console.log(err);
+        if (err) {
+            res.send({ status: "failed", err, message: "Transaction Failed" });
+            return;
+        }
+        let batch = admin.firestore().batch();
+        let userCourses = admin.firestore().doc(`${user.usertype}s/${uid}/courseList/${courseId}`);
+        let transactionsRef = admin.firestore().collection('mclePayments').doc();
+        batch.update(userCourses, { mcleVerified: paystackRef });
+
+        batch.set(transactionsRef, payrecord);
+        try {
+            await batch.commit();
+            res.send({ status: 'success', message: "Transaction Successful, Your MCLE payment was successfull. You will be emailed your certificate" });
+        }
+        catch (e) {
+            console.log(e);
+            res.send({ err: 'error', message: e.message });
+
+        }
+
+    })
+}
+
 exports.freeCourse = async (req, res) => {
     var { promoCode, courseId } = req.body;
     let uid = req.user.uid;
+    let user = getUserDetails(req);
     let claims = req.user.customClaims;
-    let usercourseRef = await admin.firestore().doc(`clients/${uid}/courseList/${courseId}`).get();
+    let usercourseRef = await admin.firestore().doc(`${user.usertype}s/${uid}/courseList/${courseId}`).get();
     if (usercourseRef.exists) {
         res.status(200).send({ message: "You are already enrolled in this course. Redirecting to courseList", err: "Already enrolled" });
         return;
@@ -204,7 +249,7 @@ exports.freeCourse = async (req, res) => {
     claims[courseId] = true;
     await admin.auth().setCustomUserClaims(uid, claims).catch((e) => console.log(e));
     let batch = admin.firestore().batch();
-    let userCourses = admin.firestore().doc(`clients/${uid}/courseList/${courseId}`);
+    let userCourses = admin.firestore().doc(`${user.usertype}s/${uid}/courseList/${courseId}`);
     let coursesRef = admin.firestore().doc(`courses/${courseId}`);
     let addValue = admin.firestore.FieldValue.increment(1);
     batch.set(userCourses, courseData);
@@ -235,7 +280,7 @@ exports.courseContent = async (req, res) => {
         res.redirect(`/e-learning/courseDetails?id=${id}`);
         return;
     }
-    let courseData = await admin.firestore().doc(`clients/${user.uid}/courseList/${id}`).get().catch((e) => { console.log(e) });
+    let courseData = await admin.firestore().doc(`${user.usertype}s/${user.uid}/courseList/${id}`).get().catch((e) => { console.log(e) });
     courseData = courseData.data();
     courseData = courseDetails(courseData)
     courseData.courseId = id;
@@ -265,7 +310,7 @@ exports.fetchCourseContent = async (req, res) => {
         count++;
     });
 
-    let userCourseData = await admin.firestore().doc(`clients/${user.uid}/courseList/${id}`).get().catch((e) => { console.log(e) });
+    let userCourseData = await admin.firestore().doc(`${user.usertype}s/${user.uid}/courseList/${id}`).get().catch((e) => { console.log(e) });
     userCourseData = userCourseData.data();
     let dataObj = {
         contentList,

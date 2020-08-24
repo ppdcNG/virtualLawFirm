@@ -1,11 +1,13 @@
 var documents = [];
 
 $("#lawyerContact").submit(async function (e) {
-    console.log("lawyer Contact")
+
     e.preventDefault();
+    console.log("lawyer Contact")
     let form = form2js("lawyerContact", ".");
     let uid = $("#uid").val();
     console.log(uid);
+    buttonLoad('saveContact');
     let file = $("#profilePic")[0].files[0];
     let validImages = ['image/png', 'image/jpg', 'image/jpeg'];
     if (file && validImages.indexOf(file.type) < 0) {
@@ -22,7 +24,6 @@ $("#lawyerContact").submit(async function (e) {
 
         form.photoUrl = url;
     }
-
 
 
     $.ajax({
@@ -52,6 +53,7 @@ $("#updateRecord").submit(async function (e) {
     let form = form2js("updateRecord", ".", false);
     console.log(form);
     form = JSON.stringify(form);
+    buttonLoad('saveRecord');
     $.ajax({
         url: ABS_PATH + "lawyer/updateRecord",
         data: { data: form },
@@ -129,6 +131,7 @@ $("#updateUpload").submit(async function (e) {
     e.preventDefault();
     let form = form2js("updateUpload", ".");
     form = JSON.stringify(form);
+    buttonLoad('saveUpload')
     $.ajax({
         url: ABS_PATH + "lawyer/updateUploads",
         data: { data: form },
@@ -161,10 +164,10 @@ $(document).ready(() => {
         success: function (response) {
             console.log(response);
             let { accountDetails, record, contact, portfolio, docs } = response;
-            documents = is_empty(docs) ? [] : docs;
-            updateContactForm(contact);
-            updateRecordForm(record, accountDetails);
-            updateUploadForm(portfolio)
+            documents = docs ? docs : [];
+            if (contact) updateContactForm(contact);
+            if (record) updateRecordForm(record, accountDetails);
+            if (portfolio) updateUploadForm(portfolio)
 
 
         }

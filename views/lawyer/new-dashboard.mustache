@@ -59,10 +59,12 @@
         display: block;
     }
 </style>
+<link rel="stylesheet" href="{{ABS_PATH}}stylesheets/dashboard.css">
+
 {{> dashboard-nav}}
 
 <main class="row mb-5" id="dashboard-main">
-    <div class="col-md-2" id="sidenav" style="background:#406966;height:100vh">
+    <div class="col-md-2" id="sidenav" style="background:#406966;height">
         <ul class="nav nav-pills mb-3 flex-column sidenav" id="pills-tab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="dashboard-pill-tab" data-toggle="pill" href="#dashboard-pill" role="tab"
@@ -112,6 +114,14 @@
                 <div id = "consultations" class="row row-cols-1 row-cols-md-2 mt-5 pt-3 ml-2" id="fetchMatchingLawyers">
                     
                 </div>
+                {{^profileComplete}}
+                <div class="alert alert-warning alert-dismissible fade show mt-5" role="alert">
+                    <strong>Profile Incomplete</strong> Click <a href="{{ABS_PATH}}lawyer/profile" class="alert-link">Here</a> to complete your profile
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{/profileComplete}}
             </div>
 
            

@@ -65,7 +65,7 @@ const payWithPaystack = (fee, course) => {
             console.log(dataObj)
             let req = { 'data': JSON.stringify(dataObj) };
 
-            var processingNotification = $.notify('Please Wait.. while we verify your payment and set you up payment, please wait', { type: "info", delay: 0 });
+            var processingNotification = $.notify('Congratulations! You have enrolled successfully enrolled for this course, please wait while we verify your payment', { type: "info", delay: 0 });
 
             $.ajax({
                 url: ABS_PATH + "e-learning/verifyPurchase",
@@ -75,6 +75,8 @@ const payWithPaystack = (fee, course) => {
                     console.log("success", response);
                     if (response.err) {
                         $.notify(response.message, { type: "warning" });
+                        clearLoad('enrollButton', 'ENROLL NOW');
+                        processingNotification.close();
                         return;
                     }
                     // $('#verifyStatus').text('Course Added Your List');
@@ -91,6 +93,7 @@ const payWithPaystack = (fee, course) => {
                 error: err => {
                     console.error("error", err)
                     $.notify(response.message, { type: "warning" });
+                    processingNotification.close();
                     clearLoad('enrollButton', 'ENROLL NOW');
                 }
             });
@@ -99,6 +102,8 @@ const payWithPaystack = (fee, course) => {
         onClose: function (response) {
             console.log('window closed');
             console.log('closed', response);
+            clearLoad('enrollButton', 'ENROLL NOW');
+            processingNotification.close();
             $.notify(response.message, { type: "warning" });
         }
     });

@@ -195,7 +195,7 @@ $("#clientRegisterForm").submit(e => {
             } else {
                 $("#signupError").html(response.message);
                 $("#signupError").removeClass('valid');
-                $.notify(response.message, { type: "warning" });
+                $.notify(response.message, { type: "warning", z_index: 5000 });
             }
             clearLoad('clientSignupButton', 'Sign Up');
         },
@@ -233,7 +233,7 @@ $("#recoverForm").submit(e => {
                 $("#recoverError").removeClass('valid');
                 $.notify(response.message, { type: "warning", z_index: 5000 });
             }
-            clearLoad('recoverButton', 'Sign Up');
+            clearLoad('recoverButton', 'RESET');
         },
         error: e => console.log(e)
     });

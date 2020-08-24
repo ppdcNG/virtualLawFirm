@@ -124,6 +124,24 @@ router.post('/recoverPassword', async (req, res) => {
     let user = await admin.auth().getUserByEmail(email).catch((e) => {
 
     });
+    if (!user) {
+      console.log("no user");
+      res.status(200).send({
+        message: "No user with this email found",
+        err: true,
+        status: 'danger'
+      });
+      return;
+    }
+    let passwordToken = {
+      timestamp: new Date().getTime(),
+      email
+    }
+    console.log(user.displayName)
+    let passwordTokenRef = admin.firestore().collection('passwordTokens').doc();
+    await passwordTokenRef.set(passwordToken);
+
+    forgotPasswordMail(email, user.displayName, passwordTokenRef.id, res);
   }
   catch (e) {
     console.log(e);
@@ -140,14 +158,7 @@ router.post('/recoverPassword', async (req, res) => {
     });
     return;
   }
-  let passwordToken = {
-    timestamp: new Date().getTime(),
-    email
-  }
-  let passwordTokenRef = admin.firestore().collection('passwordTokens').doc();
-  await passwordTokenRef.set(passwordToken);
 
-  forgotPasswordMail(email, passwordTokenRef.id, res);
 
 
 });

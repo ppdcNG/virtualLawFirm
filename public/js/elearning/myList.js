@@ -1,6 +1,7 @@
 let uid = $("#uid").val();
+let usertype = $("#userType").val();
 console.log(uid);
-let coursesCollection = firebase.firestore().collection(`clients/${uid}/courseList`);
+let coursesCollection = firebase.firestore().collection(`${usertype}s/${uid}/courseList`);
 let COURSES = {};
 
 $(document).ready(function () {
@@ -33,7 +34,12 @@ const renderCourse = (course, id) => {
     let description = course.title ? (course.title.length > 45 ? course.title.substr(0, 21) + '...' : course.title) : "No Title";
     let price = course.price > 0 ? "&#8358; " + accounting.format(parseInt(course.price)) : 'FREE';
     let rating = course.rating ? course.rating : 'No rating yet'
-    let progress = course.progress ? course.progress : "No started";
+    let author = course.author ? course.author : '';
+    let progress = "Not started";
+    if (course.progress) {
+        progress = parseInt(progress) >= 100 ? "100% Done" : progress + "%";
+    }
+
 
 
     return `
@@ -46,9 +52,9 @@ const renderCourse = (course, id) => {
 
                     <div class="card-body d-flex flex-column">
                         <h4 class="card-title ml-2" data-toggle = "tooltip" title = "${course.description || course.title}" >${course.title}</h4>
-                        <p class = "author ml-2">By : ${course.author}</p>
+                        <p class = "author ml-2">By : ${author}</p>
                         <p class = "author ml-2">Progress : ${progress}</p>
-                        <a href = "/e-learning/courseDetails?id=${id}"  class = "btn lt-btn-accent">Goto Course</a>
+                        <a href = "/e-learning/courseDetails?id=${id}"  class = "btn lt-btn-accent">Go to Course</a>
                     </div>
                 </div>
             </div>

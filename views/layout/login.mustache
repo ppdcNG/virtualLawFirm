@@ -1645,9 +1645,9 @@
         </div>
         <div class="modal-body">
             <div id = "recoverComplete" class = "recover-success d-flex flex-column  align-items-center justify-content-center p-5">
-                <h2 class = "pl-2">Check your Mail</h2>
+                <h2 class = "pl-2">Check your Email</h2>
                 <lottie-player src="{{ABS_PATH}}/assets/lottiefile.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" loop autoplay></lottie-player>
-                <p class = "pl-2">Follow the prompt on your mail to reset your password</p>
+                <p class = "pl-2">We sent you an email with instructions on how to reset your password.If you haven’t received an email within a few minutes, check your social, promotions or spam folder. You can also resend the email once every five minutes. Only the most recent reset email will work</p>
                 <button id="gotsignup" type = "button" onclick = "dismiss('recover')" class = "btn lt-btn-accent btn-expand">Got It</button>
             </div>
             <form id = "recoverForm" class="border border-light p-5" >
@@ -1660,7 +1660,7 @@
             
                 <div class = "d-flex flex-column justify-content-center">
                     
-                    <button  id = "recoverButton" class = "btn lt-btn-accent mt-3" type = "submit">RECOVER</button>
+                    <button  id = "recoverButton" class = "btn lt-btn-accent mt-3" type = "submit">RESET</button>
                 </div>              
             </form>
         </div>
@@ -1683,7 +1683,7 @@
             <div id = "recoverComplete" class = "d-flex flex-column  align-items-center justify-content-center p-5">
                 <h3 id = "verifyStatus" class = "pl-2 mb-3">SUCCESS</h3>
                 <i id = "verifyIcon" class="fas fa-check fa-5x lt-accent-color m-5"></i>
-                <a  id="dashboardButton"  href = "{{ABS_PATH}}e-learning/courseList" class = "btn lt-btn-accent btn-expand">Goto My Courses</a>
+                <a  id="dashboardButton"  href = "{{ABS_PATH}}e-learning/courseList" class = "btn lt-btn-accent btn-expand">Go to My Courses</a>
             </div>
         </div>
       </div>

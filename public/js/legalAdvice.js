@@ -6,34 +6,39 @@ $(document).ready(() => {
 
 
 
-    console.log('lawyer clicked')
-    let uid = $("#uid").val();
-    console.log(uid);
-    if (uid == "false") {
-      $("#loginModal").modal('show');
-      return
-    }
-    let usertype = $("#userType").val();
-    console.log(usertype);
-    if (usertype == 'lawyer') {
-      $.notify("Client account required, Sinup or Signin as a client", { type: "warning", delay: 2500 });
-      return;
-    }
-
-    else {
-      // disclaimer modal pops 
-      $("#disclaimerModal").modal('show');
-
-      // upon agreeing to disclaimer 
-    }
+    askLawyer();
   })
 });
+
+const askLawyer = () => {
+  console.log('lawyer clicked')
+
+  let uid = $("#uid").val();
+  console.log(uid);
+  if (uid == "false") {
+    $("#loginModal").modal('show');
+    return
+  }
+  let usertype = $("#userType").val();
+  console.log(usertype);
+  if (usertype == 'lawyer') {
+    $.notify("Client account required, login or sign up as a client", { type: "warning", delay: 2500 });
+    return;
+  }
+
+  else {
+    // disclaimer modal pops 
+    $("#disclaimerModal").modal('show');
+
+    // upon agreeing to disclaimer 
+  }
+}
 
 $("#disclaimer-agree-btn").click((e) => {
 
   // close disclaimer modal
   $("#disclaimerModal").modal('hide');
-
+  let notification = $.notify('Please Wait...', { type: 'warning', delay: 1200 })
   let clientName = $("#displayName").val();
   let clientId = $("#uid").val();
   let clientPhoto = $("#photoURL").val();
@@ -45,7 +50,8 @@ $("#disclaimer-agree-btn").click((e) => {
     url: url,
     data,
     success: function (response) {
-      console.log("success")
+      console.log("success");
+      notification.close();
       clearLoad('askLawyerButton', 'here');
       window.location = ABS_PATH + "client/dashboard/#chat";
     }
@@ -70,7 +76,7 @@ const handleFetchAdvises = advises => {
     count++
   });
   $("#loadingTasks").css('display', 'none');
-  $("#questionsList").append(advisesHTML);
+  $("#questionsList").html(advisesHTML);
 }
 
 $("#legalAdvice").submit(async (e) => {

@@ -19,7 +19,6 @@ const categoryList = require('./categorylist.json');
 
 
 module.exports = {
-    administrativePublicLaw,
     agriculturalLaw,
     antitrustSection,
     corporateLawSection,

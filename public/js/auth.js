@@ -77,3 +77,18 @@ const truncate = (string, length) => {
   let sub = string.substr(0, length);
   return sub + "...";
 }
+let lastActive = null;
+window.onblur = () => {
+  lastActive = moment();
+  console.log(lastActive);
+}
+window.onfocus = () => {
+  if (lastActive) {
+    let inactivityDuration = moment(lastActive).fromNow();
+    let different = moment().diff(lastActive);
+    console.log(different)
+    if (different > 60 * 60 * 1000 && $("#uid").val()) {
+      window.location = ABS_PATH + 'logout';
+    }
+  }
+}

@@ -22,12 +22,19 @@ $(document).ready((e) => {
 });
 
 const fetchLawyers = async type => {
+
+    let usertype = $("#userType").val();
+    console.log(usertype);
+    if (usertype == 'lawyer') {
+        $.notify("Client account required, login or sign up as a client", { type: "warning", delay: 2500 });
+        return;
+    }
     let categories = CATEGORIES[type];
     categories = categories.slice(0, 10);
     console.log(categories);
     $("#findALawyer").fadeOut();
     $("#loading").fadeIn();
-    let lawyers = await firebase.firestore().collection('lawyers').where('portfolio.tags', 'array-contains-any', categories).get().catch((e) => {
+    let lawyers = await firebase.firestore().collection('lawyers').where('categories', 'array-contains', type).get().catch((e) => {
         console.log(e);
     });
 
@@ -66,11 +73,12 @@ const consultLawyer = (lawyerId) => {
 const renderFoundLawyer = lawyer => {
     let { contact, portfolio, name, authId } = lawyer;
     let fee = accounting.formatNumber(portfolio.consultationFee);
+    let specialization = truncate(portfolio.specialization, 12)
 
     return `
     <div class="col-md-4 mb-4">
        <div class="card h-100" style="background-color: #C8F2EF;">
-          <div class="lawyer-card card-body" onclick = "consultLawyer('${lawyer.authId}')">
+          <div class="lawyer-card card-body flex-row">
             <div class = "row">
                 <div class="col-md-8 d-flex flex-column justify-content-center">
                     <h4 class="card-title font-weight-bold mr-auto mb-3">${name}</h4>
@@ -82,20 +90,21 @@ const renderFoundLawyer = lawyer => {
                   <img src="${contact.photoUrl}" class="rounded-circle z-depth-0" style = "border: 1px solid var(--accent-colr)" alt="avatar image" height="70" width="70">
                 </div>
             </div>
-            <div class = "d-flex flex-row justify-content-between mt-4">
-              <div>
+            <div class = "d-flex row  mt-2">
+              <div class = "col-md-5">
                 <span class = "lawyer-feature-header">Specialization</span>
-                <span class = "lawyer-feature-value">${portfolio.specialization}</span>
+                <span class = "lawyer-feature-value" data-toggle = "tooltip" title = "${portfolio.specialization}">${specialization}</span>
               </div>
-              <div>
+              <div class = "col-md-4">
                 <span class = "lawyer-feature-header">Consultation Fee</span>
                 <span class = "lawyer-feature-value">&#8358; ${fee}</span>
               </div>
-              <div>
+              <div class = "col-md-3">
                 <span class = "lawyer-feature-header">Years of Experience</span>
                 <span class = "lawyer-feature-value">${portfolio.workExperience}</span>
               </div>
             </div>
+            <button class = "btn lt-btn-secondary align-self-end" onclick = "consultLawyer('${lawyer.authId}')">Consult</button>
           </div>
       </div>
     </div>

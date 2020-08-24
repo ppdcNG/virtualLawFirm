@@ -47,7 +47,7 @@ $("#laywerConfirm").submit(function (e) {
         $("#recoverComplete").removeClass('signup-success');
         $.notify("Please Wait...");
 
-        signIn(response.email, password, () => { window.location = ABS_PATH });
+        signIn(response.email, form.password, () => { window.location = ABS_PATH });
       } else {
         $.notify(response.message, { type: "warning", z_index: 5000 });
         $("#confirmError").html(response.message);
