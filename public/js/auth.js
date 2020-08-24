@@ -39,7 +39,6 @@ function ajaxrequest(modal, json_data, to_url, call_back) {
     beforSend: function () { }
   });
 
-
 }
 
 const is_empty = (object) => { return !Object.keys(object).length > 0 }

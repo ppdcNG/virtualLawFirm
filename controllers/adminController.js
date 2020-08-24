@@ -468,6 +468,29 @@ exports.downloadDoc = async (req, res) => {
   });
 
 }
+
+exports.downloadFreeDoc = async (req, res) => {
+  let data = {
+    docId: req.query.docId
+  }
+  var bucketName = require('../config').FIREBASE_STORAGE_BUCKET;
+
+  let docDetails = await admin.firestore().collection('legalDocs').doc(data.docId).get().catch((e) => { console.log(e) });
+  let increment = admin.firestore.FieldValue.increment(1);
+  await admin.firestore().collection('legalDocs').doc(data.docId).update({ download: increment });
+
+  let doc = docDetails.data();
+
+  let bucket = admin.storage().bucket(bucketName);
+  let path = 'legaldocs/' + doc.filename
+  let file = bucket.file(path)
+  console.log(file);
+  res.set('Content-Type', doc.type);
+  res.set('Content-Type', 'application/force-download');
+  res.set('Content-Disposition', `attachment; filename="${doc.filename}"`)
+  file.createReadStream().pipe(res);
+}
+
 exports.videoCall = (req, res) => {
   res.render("admin/video-call", { uid: req.user.uid, token: req.query.token, ABS_PATH });
   console.log(req);

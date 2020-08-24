@@ -30,6 +30,7 @@ router.post('/verifyUserEmail', adminController.verifyUserEmail);
 router.post('/verifyLawyer', requireAdmin, adminController.verifyLawyer);
 router.post('/suspendLawyer', requireAdmin, adminController.suspendLawyer);
 router.get('/downloadLegalDoc', requireLogin, adminController.downloadDoc);
+router.get('/downloadFreeLegalDoc', requireLogin, adminController.downloadFreeDoc);
 router.get('/videoChat', requireLogin, adminController.videoCall);
 
 module.exports = router;

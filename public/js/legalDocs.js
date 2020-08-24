@@ -2,6 +2,9 @@ let LEGAL_DOCS = {};
 let LEGAL_DOCS_ARRAY = [];
 
 const renderDocs = (id, document) => {
+    let price = document.price > 0 ? document.price : 'Free';
+    console.log('price', price);
+
     let description = document.description ? truncate(document.description, 25) : "No description";
     return `
         <div class="col-md-4 mb-4">
@@ -19,6 +22,7 @@ const renderDocs = (id, document) => {
     `
 }
 
+let previewed_doc_price = "";
 const showModal = id => {
     let title = LEGAL_DOCS[id].title;
     let description = LEGAL_DOCS[id].description;
@@ -30,6 +34,8 @@ const showModal = id => {
     $("#docTitle").text(title);
     $("#docPrice").text(price);
     $("#docPreview").html(`<p>${description}</p>`);
+
+    previewed_doc_price = price;
 
 }
 
@@ -61,7 +67,10 @@ $("#downloadDoc").click(() => {
     else {
         buttonLoadSpinner("downloadDoc");
         console.log('paying...');
-        payLegalDoc(doc_id);
+        // payLegalDoc(doc_id);
+        getFreeDoc(doc_id);
+
+        let doc_price = parseInt(previewed_doc_price.replace(",", ""));
     }
     clearLoad("downloadDoc", `<i class="fa fa-download"></i> Download`);
 })
@@ -91,6 +100,37 @@ const fetchDoc = () => {
     });
 }
 fetchDoc();
+
+const getFreeDoc = id => {
+    let doc = LEGAL_DOCS[id];
+
+    let data = {
+        docId: id
+    }
+    let path = `${ABS_PATH}admin/downloadFreeLegalDoc?docId=${id}`;
+    window.location = path;
+
+    $.ajax({
+        url: ABS_PATH + "admin/downloadFreeLegalDoc",
+        type: "POST",
+        data: data,
+        success: function (response) {
+            const url = window.URL.createObjectURL(response);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            // the filename you want
+            a.download = doc.filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        },
+        error: err => {
+            console.error("error", err)
+            $.notify(err.message, { type: "warning" });
+        }
+    });
+};
 
 const payLegalDoc = id => {
     let doc = LEGAL_DOCS[id];
