@@ -157,7 +157,13 @@ const clientSignIn = async (email, password, callback) => {
         });
     } catch (e) {
         console.log(e);
+        let codes = {
+            "auth/wrong-password": "Wrong password. Try again or click Forgot password to reset it.",
+            "auth/user-not-found": `The user ${email} does not exist`,
+        }
         let message = e.code == "auth/wrong-password" ? "Wrong password. Try again or click Forgot password to reset it." : e.message;
+        message = codes[e.code];
+        message = message ? message : "Network Error";
         clearLoad('clientLoginButton', 'Login');
         $("#loginError").html(message);
         $("#loginError").removeClass('valid');

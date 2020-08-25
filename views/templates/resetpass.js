@@ -198,8 +198,8 @@ exports.resetPassword = option => {
             <p style="font-size: 14px; line-height: 160%; text-align: center;">&nbsp;</p>
         <p style="font-size: 14px; line-height: 160%; text-align: center;"><span style="font-size: 22px; line-height: 35.2px;">Hello ${option.name}</span></p>
         <p style="font-size: 14px; line-height: 160%; text-align: center;">&nbsp;</p>
-        <p style="font-size: 14px; line-height: 160%; text-align: center;"><span style="font-size: 22px; line-height: 35.2px;">You are receiving this email because someone requested a password reset for the Lawtrella account registered to  ${option.email}</span></p>
-        <p style="font-size: 14px; line-height: 160%; text-align: center;"><span style="font-size: 22px; line-height: 35.2px;">To reset your password, click <a href = "${option.link}" target = "_blank">here</a></span></p>
+        <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 16px; line-height: 25.6px;">You are receiving this email because someone requested a password reset for the Lawtrella account registered to  ${option.email}</span></p>
+        <p style="font-size: 14px; line-height: 160%;"><span style="font-size: 16px; line-height: 25.6px;">To reset your password, click <a href = "${option.link}" target = "_blank">here</a></span></p>
         </div>
 
             </td>
@@ -252,7 +252,7 @@ exports.resetPassword = option => {
             <td style="overflow-wrap:break-word;word-break:break-word;padding:20px;font-family:'Montserrat',sans-serif;" align="left">
                 
         <div style="color: #000; line-height: 120%; text-align: left; word-wrap: break-word;">
-            <div style="font-family: arial, helvetica, sans-serif;"><span style="font-size: 12px; color: #999999; line-height: 14.4px;">If you did not make this request, please contact us at support@lawtrella.com</span><span style="font-size: 12px; color: #999999; line-height: 14.4px;"> Lawtrella.</span></div>
+            <div style="font-family: arial, helvetica, sans-serif;"><span style="font-size: 10px; color: #999999; line-height: 14.4px;">If you did not make this request, please contact us at support@lawtrella.com</span><span style="font-size: 12px; color: #999999; line-height: 14.4px;"> Lawtrella.</span></div>
         <div style="font-family: arial, helvetica, sans-serif;">&nbsp;</div>
         </div>
 

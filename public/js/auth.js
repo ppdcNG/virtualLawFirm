@@ -78,18 +78,18 @@ const truncate = (string, length) => {
   return sub + "...";
 }
 let lastActive = null;
-// window.onblur = () => {
-//   lastActive = new Date().getTime();
-//   console.log(lastActive);
-// }
-// window.onfocus = () => {
-//   if (lastActive) {
-//     let now = new Date().getTime();
-//     let different = now - lastActive;
-//     let twohours = 60 * 60 * 2 * 1000;
-//     console.log(different)
-//     if (different > twohours && $("#uid").val()) {
-//       window.location = ABS_PATH + 'logout';
-//     }
-//   }
-// }
+window.onblur = () => {
+  lastActive = new Date().getTime();
+  console.log(lastActive);
+}
+window.onfocus = () => {
+  if (lastActive) {
+    let now = new Date().getTime();
+    let different = now - lastActive;
+    let twohours = 60 * 60 * 2 * 1000;
+    console.log(different)
+    if (different > twohours && $("#uid").val()) {
+      window.location = ABS_PATH + 'logout';
+    }
+  }
+}
