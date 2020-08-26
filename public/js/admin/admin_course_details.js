@@ -425,8 +425,8 @@ const editCourse = async  course => {
         await dbRef.update({ ...course });
         notification.close();
         $.notify('Course Edited Succesfully', { type: 'success', delay: 2500 });
-        $("#addCourseForm")[0].reset();
-        $("#tags").trigger('change');
+        // $("#addCourseForm")[0].reset();
+        // $("#tags").trigger('change');
         clearLoad('submitCourseFormButton', 'Save');
         $("#courseModal").modal('hide');
 
