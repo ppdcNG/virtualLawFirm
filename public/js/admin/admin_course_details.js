@@ -441,7 +441,8 @@ const editCourse = async  course => {
 
 $('#addCourseForm').submit(function (e) {
     e.preventDefault();
-    let course = form2js('addCourseForm', '.', false);
+    let course = form2js('addCourseForm', '.', true);
+    if (!course.comingSoon) course.comingSoon = null;
     let mode = $("#courseMode").val();
     editCourse(course);
 });

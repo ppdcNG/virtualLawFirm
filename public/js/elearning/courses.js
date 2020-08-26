@@ -38,7 +38,7 @@ const renderCourse = (course, id) => {
     let price = course.price > 0 ? "&#8358; " + accounting.format(parseInt(course.price)) : 'FREE';
     let rating = course.rating ? course.rating : 'No rating yet'
     let oldprice = course.oldprice ? `<span class = "oldprice text-danger"><del>&#8358;${accounting.format(parseInt(course.oldprice))}</del></span>` : "";
-    let button = course.comingSoon && course.comingSoon == 'on' ? `<button  data-toggle = "popover" data-content = "Coming Soon" class = "btn lt-btn-accent-outline soon disabled">Coming Soon</button>` : `<a href = "/e-learning/courseDetails?id=${id}"  class = "btn lt-btn-accent">View Course</a>`
+    let button = (course.comingSoon && course.comingSoon == 'on') ? `<button  data-toggle = "popover" data-content = "Coming Soon" class = "btn lt-btn-accent-outline soon disabled">Coming Soon</button>` : `<a href = "/e-learning/courseDetails?id=${id}"  class = "btn lt-btn-accent">View Course</a>`
 
 
     return `
