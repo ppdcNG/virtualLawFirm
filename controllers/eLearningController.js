@@ -282,6 +282,11 @@ exports.courseContent = async (req, res) => {
     }
     let courseData = await admin.firestore().doc(`${user.usertype}s/${user.uid}/courseList/${id}`).get().catch((e) => { console.log(e) });
     courseData = courseData.data();
+    console.log(courseData);
+    if (!courseData) {
+        res.redirect(`/e-learning/courseDetails?id=${id}`);
+        return;
+    }
     courseData = courseDetails(courseData)
     courseData.courseId = id;
 
