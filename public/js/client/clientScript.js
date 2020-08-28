@@ -4,13 +4,12 @@ $("#terms").change((e) => {
     let checked = $("#terms").is(':checked');
     if (checked) {
         $("#terms").removeClass('is-invalid');
-        $("#clientCont").attr('title', 'Sign up');
+        $("#clientSignupButton").html('Sign up');
         $("#clientSignupButton").removeClass('disabled');
     }
     else {
         $("#clientSignupButton").addClass("disabled");
-        $("#clientCont").attr('title', 'Accept Terms, Conditions and Privacy Policy to continue');
-
+        $("#clientSignupButton").html('Accept Terms and Conditions to continue');
     }
 
 })
@@ -273,5 +272,17 @@ $("#clientResend").click((e) => {
             $.notify("network Error", { type: "warning", z_index: 5000 });
         }
     });
+});
+$(document).ready(function () {
+    let checked = $("#terms").is(':checked');
+    if (checked) {
+        $("#terms").removeClass('is-invalid');
+        $("#clientSignupButton").html('Sign up');
+        $("#clientSignupButton").removeClass('disabled');
+    }
+    else {
+        $("#clientSignupButton").addClass("disabled");
+        $("#clientSignupButton").html('Accept Terms and Conditions to continue');
+    }
 });
 

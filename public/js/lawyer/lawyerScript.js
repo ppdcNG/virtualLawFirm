@@ -76,12 +76,12 @@ $("#lawyerSignupTerms").change((e) => {
   let checked = $("#lawyerSignupTerms").is(':checked');
   if (checked) {
     $("#lawyerSignupTerms").removeClass('is-invalid');
-    $("#lawyerCont").attr('title', 'Sign up');
+    $("#lawyerSignupButton").html('Sign up');
     $("#lawyerSignupButton").removeClass('disabled');
   }
   else {
     $("#lawyerSignupButton").addClass("disabled");
-    $("#lawyerCont").attr('title', 'Accept Terms, Conditions and Privacy Policy to continue');
+    $("#lawyerSignupButton").text('Accept Terms and Conditions to continue');
 
   }
 
@@ -210,6 +210,21 @@ $("#lawyerResend").click((e) => {
       $.notify('Network Error', { type: "success", z_index: 5000 })
     }
   });
+});
+
+
+$(document).ready(function () {
+  let checked = $("#lawyerSignupTerms").is(':checked');
+  if (checked) {
+    $("#lawyerSignupTerms").removeClass('is-invalid');
+    $("#lawyerSignupButton").html('Sign up');
+    $("#lawyerSignupButton").removeClass('disabled');
+  }
+  else {
+    $("#lawyerSignupButton").addClass("disabled");
+    $("#lawyerSignupButton").text('Accept Terms and Conditions to continue');
+
+  }
 });
 
 
