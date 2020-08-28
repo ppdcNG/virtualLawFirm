@@ -61,7 +61,7 @@
                             </a>
                             
                             {{^mcleVerified}}
-                                <a class = "dropdown-item" id = "paymcleButton" onclick = "payMCLE()" class="btn lt-btn-secondary d-none" >
+                                <a class = "dropdown-item" id = "paymcleButton"  class="btn lt-btn-secondary d-none disabled" >
                                     <button class = "btn btn-success btn-expand w-100"><i class="fas fa-award"></i>
                                     GETMCLE Certificate</button>
                                 </a>
@@ -278,7 +278,7 @@
                 <p class = "pl-2 text-center">Congratulations on completing your Lawtrella Course</p>
 
                 <button id = "congDownloadCert" type = "button" onclick = "downloadCert(true)" class = "btn lt-btn-accent btn-expand">Download Certificate</button>
-                <button id = "congMCLEButton" type = "button" onclick = "payMCLE()" class = "btn lt-btn-secondary">GET MCLCE Certificate</button>
+                <button id = "congMCLEButton" type = "button"  class = "btn lt-btn-secondary disabled">GET MCLCE Certificate</button>
             </div>
         </div>
       </div>
