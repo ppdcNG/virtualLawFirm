@@ -126,8 +126,8 @@ const freecourse = (form) => {
                 clearLoad('enrollButton', 'ENROLL NOW');
                 return
             }
-            $('#verifyStatus').text('Course Added Your List');
-            $("#verifyDescription").text('Course added to your list. Redirecting to course list...');
+            $('#verifyStatus').text('Course Added to Your List');
+            $("#verifyDescription").text('Course has been added to your list. Redirecting to course list...');
             // $("#verifyModal").modal('show')
             clearLoad('enrollButton', 'ENROLL NOW');
             setTimeout(() => {
