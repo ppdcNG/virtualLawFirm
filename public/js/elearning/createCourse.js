@@ -40,11 +40,18 @@ $("#courseDetailsForm").submit(async function (e) {
         clearLoad('submitProposalButton', 'SUBMIT PROPOSAL');
         return;
     });
-
+    $.ajax({
+        type: "post",
+        url: ABS_PATH + 'e-learning/notifyCourseCreation',
+        data,
+        success: function (response) {
+            console.log(response);
+        }
+    });
     console.log('success')
     $("#personalDetailsForm")[0].reset();
     $("#courseDetailsForm")[0].reset();
-    $.notify('Your Proposal has been submitted successfully we will be in touch', { type: "success", delay: 1500 })
+    $.notify('Your Proposal has been submitted successfully we will be in touch', { type: "success", delay: 2500 })
     clearLoad('submitProposalButton', 'SUBMIT PROPOSAL');
     showAbout();
 

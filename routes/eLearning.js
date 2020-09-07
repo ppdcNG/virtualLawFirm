@@ -13,7 +13,8 @@ router.get('/courseList', requireUser, eLearningController.myList);
 router.post('/verifyPurchase', requireLogin, eLearningController.verifyPurchase);
 router.post('/verifyMCLE', requireLogin, eLearningController.verifyMCLE);
 router.post('/freeCourse', requireLogin, eLearningController.freeCourse);
-router.get('/courseContent', requireUser, eLearningController.courseContent)
-router.post('/courseContent', requireUser, eLearningController.fetchCourseContent)
+router.get('/courseContent', requireUser, eLearningController.courseContent);
+router.post('/courseContent', requireUser, eLearningController.fetchCourseContent);
+router.post('/notifyCourseCreation', eLearningController.courseCreation);
 
 module.exports = router;

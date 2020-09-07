@@ -397,6 +397,7 @@ const payWithPaystack = (fee, courseId) => {
             let dataObj = {
                 courseId,
                 paystackRef: response.reference,
+                courseTitle: courseData.title
 
             }
             console.log(dataObj)

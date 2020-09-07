@@ -2,6 +2,8 @@ const { ABS_PATH, AppName } = require("../config");
 
 const { PAYSTACK_PUB_KEY } = require("../config");
 const { getUserDetails, verifyCourseSubscripton, courseDetails } = require("../helpers");
+const { notifyMail } = require("../helpers/mail");
+
 const accounting = require("accounting");
 
 
@@ -125,6 +127,8 @@ exports.verifyPurchase = async (req, res) => {
     let payrecord = {
         type: "course",
         payer: uid,
+        courseTitle: courseData.title,
+        payerName: user.displayName,
         ref: paystackRef,
         date: 0 - time,
         courseId
@@ -167,17 +171,19 @@ exports.verifyPurchase = async (req, res) => {
 
 exports.verifyMCLE = async (req, res) => {
     let payload = JSON.parse(req.body.data);
-    let { paystackRef, courseId } = payload;
+    let { paystackRef, courseId, courseTitle } = payload;
     let uid = req.user.uid;
     let user = getUserDetails(req);
     let time = new Date().getTime();
 
     let payrecord = {
-        type: "MCLE Payments",
+        type: "MCLE",
         payer: uid,
         ref: paystackRef,
         date: 0 - time,
-        courseId
+        courseId,
+        courseTitle,
+        payerName: user.displayName
     }
 
 
@@ -325,4 +331,13 @@ exports.fetchCourseContent = async (req, res) => {
     }
     res.status(200).send(dataObj);
 
+}
+
+exports.courseCreation = async (req, res) => {
+    let { email, name, subject, url } = req.body
+    let options = {
+        title: "Course Creation Request",
+        message: `Mr/Mrs ${name} with email ${email} is requesting to create a course on Lawtrella titled, ${subject}. Click  <a href = "${url}">here</a> the uploaded course synopses<br/> Login to Lawtrella Admin to access full details`
+    }
+    notifyMail(options, res);
 }
