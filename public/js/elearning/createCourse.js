@@ -14,7 +14,8 @@ $("#courseDetailsForm").submit(async function (e) {
     e.preventDefault();
     buttonLoadSpinner('submitProposalButton');
     let course_details = form2js('courseDetailsForm', '.', false);
-    let data = { ...personal_details, ...course_details };
+    let time = 0 - new Date().getTime();
+    let data = { ...personal_details, ...course_details, time };
     let file = $("#synopses")[0].files[0];
     if (!file) {
         $.notify('Please select a file for upload', { type: 'warning' });
@@ -25,7 +26,7 @@ $("#courseDetailsForm").submit(async function (e) {
 
     let ext = file.name.split('.').pop();
     let filename = `propsal-` + personal_details.email;
-    let filePath = `${dbPath}`
+    let filePath = `${dbPath}${filename}.${ext}`;
 
     let uploadTask = await firebase.storage().ref(filePath).put(file).catch(e => {
         console.log(e);
