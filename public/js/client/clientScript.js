@@ -4,13 +4,12 @@ $("#terms").change((e) => {
     let checked = $("#terms").is(':checked');
     if (checked) {
         $("#terms").removeClass('is-invalid');
-        $("#clientCont").attr('title', 'Sign up');
+        $("#clientSignupButton").html('Sign up');
         $("#clientSignupButton").removeClass('disabled');
     }
     else {
         $("#clientSignupButton").addClass("disabled");
-        $("#clientCont").attr('title', 'Accept Terms, Conditions and Privacy Policy to continue');
-
+        $("#clientSignupButton").html('Accept Terms and Conditions to continue');
     }
 
 })
@@ -157,7 +156,13 @@ const clientSignIn = async (email, password, callback) => {
         });
     } catch (e) {
         console.log(e);
+        let codes = {
+            "auth/wrong-password": "Wrong password. Try again or click Forgot password to reset it.",
+            "auth/user-not-found": `The user ${email} does not exist`,
+        }
         let message = e.code == "auth/wrong-password" ? "Wrong password. Try again or click Forgot password to reset it." : e.message;
+        message = codes[e.code];
+        message = message ? message : "Network Error";
         clearLoad('clientLoginButton', 'Login');
         $("#loginError").html(message);
         $("#loginError").removeClass('valid');
@@ -267,5 +272,17 @@ $("#clientResend").click((e) => {
             $.notify("network Error", { type: "warning", z_index: 5000 });
         }
     });
+});
+$(document).ready(function () {
+    let checked = $("#terms").is(':checked');
+    if (checked) {
+        $("#terms").removeClass('is-invalid');
+        $("#clientSignupButton").html('Sign up');
+        $("#clientSignupButton").removeClass('disabled');
+    }
+    else {
+        $("#clientSignupButton").addClass("disabled");
+        $("#clientSignupButton").html('Accept Terms and Conditions to continue');
+    }
 });
 

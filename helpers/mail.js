@@ -17,6 +17,30 @@ exports.sendmail = message => {
   sendgrid.send(message);
 };
 
+exports.notifyMail = (options, res) => {
+
+  let html = notify(options).toString();
+  let messageOptions = {
+    to: "admin@lawtrella.com",
+    subject: "Course Creation Request",
+    from: "Lawtrella <no-reply@lawtrella.com>",
+    text: "Course Creation to Lawtrella",
+    html
+  };
+
+  let mailgun = new Mailgun({ apiKey: MAILGUN_API_KEY, domain: MAILGUN_DOMAIN })
+
+  mailgun.messages().send(messageOptions, function (err, body) {
+    console.log(body);
+    if (err) {
+      console.log(err);
+      res.status(304).send({ status: 'failed', err: err, message: err.message });
+      return;
+    }
+    res.send({ status: "success" });
+  })
+}
+
 exports.welcomeMail = (options, res) => {
   let { name, link, to } = options;
   let templateOptions = {

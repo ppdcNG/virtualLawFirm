@@ -31,15 +31,56 @@
 </style>
 
 {{>courses-navbar}}
-<section class = "container">
+<section class = "mt-4 mb-0">
+     <nav class="navbar navbar-expand-lg navbar-light default-color">
             
-            <hr width="100" align="left"/>
-            <a class="btn btn-sm my-4" href="/e-learning/courseList"><i class="fas fa-arrow-left"></i>Back to Course List</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-angle-down"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <h5 class = "nav-link" id="enroll-status">Progress: <span id = "progress"></span>% Complete</h5>
+                    </li>
+                    {{#mcleVerified}}
+                        <li href = "#" class="nav-item">
+                            <span class = "badge badge-success">
+                            <i class="fas fa-star pr-2"></i> MCLE Certified
+                            </span>
+                        </li>
+                    {{/mcleVerified}}
+                    <li id = "certButton" class="nav-item invisible">
+                        <h5 class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false"><button class = "btn lt-btn-accent-outline w-100"><i class="fas fa-trophy"></i>Get Certificate</button>
+                        </h5>
+                        <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                            aria-labelledby="navbarDropdownMenuLink-55">
+                            <a class="dropdown-item"  onclick = "downloadCert(true)" >
+                            <button class = "btn btn-default btn-expand w-100">Download Certificate</button>
+                            </a>
+                            
+                            {{^mcleVerified}}
+                                <a class = "dropdown-item" id = "paymcleButton"  class="btn lt-btn-secondary d-none disabled" >
+                                    <button class = "btn btn-success btn-expand w-100"><i class="fas fa-award"></i>
+                                    GETMCLE Certificate</button>
+                                </a>
+                            {{/mcleVerified}}
+                        </div>
+                    </li>
+                    
+                </ul>
+            </div>
+        </nav>       
 </section>
-<section class="banner jumbotron default-color mt-0">
-    <div class="container p-3">
+<section class="banner jumbotron lt-soft-bg mt-0">
+    <div class="container p-3 pt-0">
+        
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
+                <a class="btn btn-sm my-4" href="/e-learning/courseList"><i class="fas fa-arrow-left"></i>Back to Course List</a>
+                <hr width="100" align="left"/>
+
                 <h3 class="text-white shadow-text" data-aos="fade-right" data-aos-duration="1500">{{title}}</h3>
                 <hr width="100" align="left"/>
                 <p class="text-muted">
@@ -47,38 +88,6 @@
                     
                     <span class="pl-2 white-text shadow-text" id="numberRated">{{count}}</span>
                 </p>
-            </div>
-            <div class="col-md-2 p-1">
-                <button class="btn white text-muted" >
-                    <h6 class="text-success" id="price">Progress</h6>
-                    <hr class="m-0" />
-                    <h5 id="enroll-status"><span id = "progress"></span> % Complete</h5>
-                </button>
-
-            </div>
-            <div class="col-md-2 p-1">
-                <button id = "certButton" onclick = "downloadCert()" class="btn lt-btn-accent invisible" >
-                    <h3><i class="fas fa-trophy"></i></h3>
-                    <hr class="m-0" />
-                    <h6 id="enroll-status">Download Certificate</h6>
-                </button>
-            </div>
-            <div class="col-md-2 p-1">
-                
-                {{#mcleVerified}}
-                    <button  class="btn btn-success">
-                        <h3><i class="far fa-check-circle"></i></h3>
-                        <hr class="m-0" />
-                        <h6 > MCLE Certified</h6>
-                    </button>
-                {{/mcleVerified}}
-                {{^mcleVerified}}
-                    <button id = "paymcleButton" onclick = "payMCLE()" class="btn lt-btn-secondary d-none " >
-                        <h3><i class="fas fa-award"></i></h3>
-                        <hr class="m-0" />
-                        <h6 id="enroll-status">MCLE Certificate</h6>
-                    </button>
-                {{/mcleVerified}}
             </div>
             
 
@@ -182,7 +191,6 @@
                                 </div>
                             </div>
                             <div class = "d-flex flex-row justify-content-between">
-                            <button class = "btn btn-default" id = "attemptContainer">Attempts : <span id = "attempts">3</span> of 3</button>
                             <button  id = "answerButton" class = "btn lt-btn-accent mt-3" type = "submit">ANSWER</button>
                             </div>
 
@@ -217,7 +225,7 @@
         </div>
       </div>
     </div>
-    {{! Furhter Reading Modal modal end }}
+  
     {{! Wait REading modal }}
     <div class="modal fade white" id="waitModal" tabindex="-1" role="dialog" aria-labelledby="waitModal"
       aria-hidden="true">
@@ -237,7 +245,7 @@
         </div>
       </div>
     </div>
-    {{! Wait modal end }}
+    
     {{! MCLE modal }}
     <div class="modal fade" id="mcleModal" tabindex="-1" role="dialog" aria-labelledby="mcleModal"
       aria-hidden="true">
@@ -249,23 +257,42 @@
           <div class="modal-body text-center">
            <i class="fas fa-award fa-4x"></i>
             <p id =  "mcleTitle" class = "mt-2 mb-5">Pay for an MCLE Certificate at 1500</p>
-            <button id = "mcleButton" type = "button" onclick = "mcle_payment()" class = "btn btn-lg lt-btn-secondary">Pay 1,100</button>
+            <button id = "mcleButton" type = "button" class = "btn btn-lg lt-btn-secondary disabled">Pay 1,100</button>
           </div>
          
         </div>
       </div>
     </div>
-    {{! Wait modal end }}
+   
+
+    {{!Congrats Modal }}
+    <div class="modal fade white" id="congratsModal" tabindex="-1" role="dialog" aria-labelledby="waitModal"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+         
+          <div class="modal-body">
+           <div id = "" class = " d-flex flex-column  justify-content-between align-items-center p-5">
+                <h2 class = "py-3">Congratulations!</h2>
+                <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_fixmre.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+                <p class = "pl-2 text-center">Congratulations on completing your Lawtrella Course</p>
+
+                <button id = "congDownloadCert" type = "button" onclick = "downloadCert(true)" class = "btn lt-btn-accent btn-expand">Download Certificate</button>
+                <button id = "congMCLEButton" type = "button"  class = "btn lt-btn-secondary disabled">GET MCLCE Certificate</button>
+            </div>
+        </div>
+      </div>
+    </div>
 
 
 
 </main>
 
 {{>userdata}}
-
+{{>footer-new}}
 <input type = "hidden" id = "courseTitle" value = "{{title}}"/>
 <input type = "hidden" id = "author" value = "{{author}}"/>
-{{> footer-new}}
+
  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
@@ -291,6 +318,8 @@
         </div>
     </div>
 </div>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
 <script src="{{ABS_PATH}}js/libraries/form2js.js"></script>
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>

@@ -3,8 +3,6 @@ var CODES = {};
 
 const listenForCourse = () => {
     courseDb.onSnapshot((snapshot) => {
-
-
         let course = snapshot.data();
         if (!course.contentString) {
             $("#contentList2").html("<li class = 'list-group-item'>No content Added Yet</li>");

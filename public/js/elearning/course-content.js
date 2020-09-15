@@ -119,12 +119,19 @@ const fetchCourseContent = () => {
             quizAttempts = response.userCourseData.quizAttempts ? response.userCourseData.quizAttempts : {};
             CONTENTORDER = response.contentOrder;
             courseData = response.userCourseData;
+
+
+            // MLCE Verified
+            if (courseData.mcleVerified) {
+                $("#congMCLEButton").hide();
+            }
             $("#numberRated").text(response.count);
             renderContent();
-            let realprogress = calculateProgress();
+            let realprogress = await calculateProgress();
 
             if (realprogress !== response.userCourseData.progress) {
                 console.log('upating real progress')
+                console.log('real progress', realprogress)
                 await courseDb.update({ progress: realprogress });
             }
 
@@ -182,8 +189,9 @@ const markComplete = async (e) => {
     if (!PROGRESSLIST[currentVideo]) {
         console.log(PROGRESSLIST);
         PROGRESSLIST[currentVideo] = true;
-        let progress = calculateProgress();
-        await courseDb.update({ progressList: PROGRESSLIST, progress });
+        let progress = await calculateProgress();
+        console.log(progress);
+        courseDb.update({ progressList: PROGRESSLIST, progress });
         renderContent();
 
     }
@@ -216,7 +224,7 @@ const nextContent = () => {
     if (nextCourse) setTimeout(() => { contentType[nextCourse.type](nextId); }, 800)
 }
 
-const calculateProgress = () => {
+const calculateProgress = async () => {
     let progressNumber = Object.keys(PROGRESSLIST).length;
     let courseNumber = Object.keys(CONTENTLIST).length;
     console.log(progressNumber, courseNumber);
@@ -224,8 +232,10 @@ const calculateProgress = () => {
         $("#certButton").removeClass("invisible");
         $("#paymcleButton").removeClass("d-none");
         let time = new Date().getTime();
-        courseDb.update({ completionTime: time, complete: true });
+        await courseDb.update({ completionTime: time, complete: true });
+        if (!courseData.complete) $("#congratsModal").modal('show');
         courseData.completionTime = time;
+        courseData.complete = true;
     }
     let percentage = (progressNumber / courseNumber) * 100;
     percentage = parseInt(percentage);
@@ -236,7 +246,7 @@ const calculateProgress = () => {
 const renderOption = (option, i) => {
     return `<div class="custom-control custom-checkbox mb-3 p-2">
                 <input type="checkbox" name = "answers[]" value = "${option}" class="custom-control-input" id="input-${i}" >
-                <label class="custom-control-label" for="input-${i}">${option}</label>
+                <label class="custom-control-label pl-3" style = "font-size:18px" for="input-${i}">${option}</label>
                 <span class = "invalid-feedback">Incorrect Answer</span>
                 <span class = "valid-feedback">Correct Answer</span>
             </div>`
@@ -251,34 +261,34 @@ const showQuiz = async (i) => {
     let question = CONTENTLIST[i];
     let optionsHTML = "";
     currentVideo = i;
-    if (quizAttempts.quizId && quizAttempts.quizId == i && quizAttempts.blocked) {
-        console.log("trials exceed wait 8 hours");
-        console.log(quizAttempts);
-        let now = new Date().getTime();
-        let eighhours = 60 * 60 * 1 * 1000;
+    // if (quizAttempts.quizId && quizAttempts.quizId == i && quizAttempts.blocked) {
+    //     console.log("trials exceed wait 8 hours");
+    //     console.log(quizAttempts);
+    //     let now = new Date().getTime();
+    //     let eighhours = 60 * 60 * 1 * 1000;
 
-        if (now - parseInt(quizAttempts.timeBlocked) < eighhours) {
-            let timepassed = (quizAttempts.timeBlocked + eighhours) - now;
-            let hours = Math.floor(timepassed / (60 * 60 * 1000))
-            let minutes = Math.floor((timepassed % (60 * 60 * 1000)) / (60 * 1000));
-            $("#hoursRemaining").text(`${hours}hr : ${minutes}min`);
-            $("#waitModal").modal('show');
-            console.log(hours, minutes)
-            return
+    //     if (now - parseInt(quizAttempts.timeBlocked) < eighhours) {
+    //         let timepassed = (quizAttempts.timeBlocked + eighhours) - now;
+    //         let hours = Math.floor(timepassed / (60 * 60 * 1000))
+    //         let minutes = Math.floor((timepassed % (60 * 60 * 1000)) / (60 * 1000));
+    //         $("#hoursRemaining").text(`${hours}hr : ${minutes}min`);
+    //         $("#waitModal").modal('show');
+    //         console.log(hours, minutes)
+    //         return
 
-        }
-        quizAttempts.blocked = false;
-        quizAttempts.timeBlocked = "";
-        quizAttempts.numberOfAttempts = 0;
-        await courseDb.update({ quizAttempts });
-    }
+    //     }
+    //     quizAttempts.blocked = false;
+    //     quizAttempts.timeBlocked = "";
+    //     quizAttempts.numberOfAttempts = 0;
+    //     await courseDb.update({ quizAttempts });
+    // }
     question.options.forEach((value, i) => {
         optionsHTML += renderOption(value, i)
     });
-    let att = quizAttempts.numberOfAttempts || 0;
-    let text = `${att} of 3 attempts`;
-    $("#attemptContainer").html(text);
-    if (PROGRESSLIST[i]) $("#attemptContainer").html(`<i class = "fa fa-check"></i> Quiz Completed`);
+    // let att = quizAttempts.numberOfAttempts || 0;
+    // let text = `${att} of 3 attempts`;
+    // $("#attemptContainer").html(text);
+    // if (PROGRESSLIST[i]) $("#attemptContainer").html(`<i class = "fa fa-check"></i> Quiz Completed`);
     $("#quizQuestion").text(question.title)
     $("#quizOptions").html(optionsHTML);
     $("#quizId").val(i);
@@ -301,8 +311,7 @@ $("#quizForm").submit(async function (e) {
             }
         });
         if (!PROGRESSLIST[form.id]) {
-            quizAttempts = {};
-            await courseDb.update({ quizAttempts: null })
+
             markComplete();
 
         }
@@ -321,20 +330,20 @@ $("#quizForm").submit(async function (e) {
             }
         });
 
-        if (!PROGRESSLIST[form.id]) {
-            quizAttempts.quizId = form.id;
-            quizAttempts.numberOfAttempts = quizAttempts.numberOfAttempts ? quizAttempts.numberOfAttempts + 1 : 1;
-            quizAttempts.blocked = quizAttempts.numberOfAttempts >= 3 ? true : false;
-            quizAttempts.timeBlocked = quizAttempts.blocked ? new Date().getTime() : "";
-            let att = quizAttempts.numberOfAttempts || 0;
-            let text = `${att} of 3 attempts`;
-            $("#attemptContainer").text(text);
-            await courseDb.update({ quizAttempts });
-            if (quizAttempts.numberOfAttempts >= 3) {
-                $("#quizModal").modal('hide');
-                $("#waitModal").modal('show');
-            }
-        }
+        // if (!PROGRESSLIST[form.id]) {
+        //     quizAttempts.quizId = form.id;
+        //     quizAttempts.numberOfAttempts = quizAttempts.numberOfAttempts ? quizAttempts.numberOfAttempts + 1 : 1;
+        //     quizAttempts.blocked = quizAttempts.numberOfAttempts >= 3 ? true : false;
+        //     quizAttempts.timeBlocked = quizAttempts.blocked ? new Date().getTime() : "";
+        //     let att = quizAttempts.numberOfAttempts || 0;
+        //     let text = `${att} of 3 attempts`;
+        //     $("#attemptContainer").text(text);
+        //     await courseDb.update({ quizAttempts });
+        //     if (quizAttempts.numberOfAttempts >= 3) {
+        //         $("#quizModal").modal('hide');
+        //         $("#waitModal").modal('show');
+        //     }
+        // }
 
 
 
@@ -343,6 +352,7 @@ $("#quizForm").submit(async function (e) {
 });
 
 const payMCLE = () => {
+    $('.modal').modal('hide');
     let mclePrice = parseInt(courseData.price) * 0.15;
     mclePrice = mclePrice.toFixed(2);
     let priceText = "Pay " + "&#8358;" + accounting.formatNumber(mclePrice, 2) + " for MCLE certificate";
@@ -387,6 +397,7 @@ const payWithPaystack = (fee, courseId) => {
             let dataObj = {
                 courseId,
                 paystackRef: response.reference,
+                courseTitle: courseData.title
 
             }
             console.log(dataObj)
@@ -430,7 +441,7 @@ const payWithPaystack = (fee, courseId) => {
     handler.openIframe();
 }
 
-const downloadCert = () => {
+const downloadCert = (download) => {
     let progressNumber = Object.keys(PROGRESSLIST).length;
     let courseNumber = Object.keys(CONTENTLIST).length;
     // if (progressNumber !== courseNumber) return;
@@ -455,7 +466,7 @@ const downloadCert = () => {
             normal: ABS_PATH + 'fonts/Sacramento-Regular.ttf'
         },
     }
-    pdfMake.createPdf(doc, null, fonts).open();
+    download ? pdfMake.createPdf(doc, null, fonts).download() : pdfMake.createPdf(doc, null, fonts).open();
 }
 
 const cerDoc = (options) => {

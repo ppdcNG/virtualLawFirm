@@ -92,18 +92,18 @@
                         <div class="card-body">
                             {{#wrongcode}}
                             <div class="d-flex flex-column text-center justify-content-center">
-                                <button type = "button"    class = "btn btn-danger py-3 disabled" style = "font-size: 16px">WRONG PROMO CODE APPLIED</button>
+                                <button type = "button"    class = "btn btn-danger py-3 disabled" style = "font-size: 16px">WRONG DISCOUNT CODE APPLIED</button>
                             </div>
                             {{/wrongcode}}
                             {{#code}}
                             <div class="d-flex flex-column text-center justify-content-center">
-                                <button type = "button"    class = "btn btn-success py-3 disabled" style = "font-size: 16px"><i class = "fa fa-check pr-2"></i> PROMO CODE APPLIED</button>
+                                <button type = "button"    class = "btn btn-success py-3 disabled" style = "font-size: 16px"><i class = "fa fa-check pr-2"></i> DISCOUNT CODE APPLIED</button>
                                 <input id = "promoCode" name = "promoCode" type="hidden"  value = "{{code}}">
                             </div>
                             {{/code}} 
                             {{^code}}
                                 <h4 class="card-title mt-3">Do you have a Promo Code</h4>
-                                <input id = "promoCode" name = "promoCode" placeholder = "Enter Promo Code" type="text"  class="form-control mb-3 mt-5">
+                                <input id = "promoCode" name = "promoCode" placeholder = "Enter Discount Code" type="text"  class="form-control mb-3 mt-5">
                                 <button id = "promoButton" type = "submit" class = "btn lt-btn-secondary mb-5">APPLY</button>
                                 <h4 class = "card-title mb-3">Order Preview</h4>
                                 <p>{{title}}</p>
@@ -134,7 +134,7 @@
                         <div class="md-v-line"></div><i class="fas fa-laptop mr-4 pr-3"></i> Self paced course
                     </li>
                     <li class="list-group-item">
-                        <div class="md-v-line"></div><i class="fas fa-video mr-5"></i> {{contentCount}} Lessons
+                        <div class="md-v-line"></div><i class="fas fa-video mr-5"></i> Video Lessons
                     </li>
                     <li class="list-group-item">
                         <div class="md-v-line"></div><i class="fas fa-language mr-5"></i>  Quizzes
@@ -145,24 +145,13 @@
                 </ul>
             </div>
             <div class = "border p-4">
-                <h3>Course By: {{author}}</h3>
+                <h4>Course By: {{author}}</h4>
                 <p>{{authorDetails}}</p>
             </div>
 
         </div>
 
-        {{! MODALS SECTION }}
-        <div class="modal fade" id="lessonModal" tabindex="-1" role="dialog" aria-labelledby="lessonModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/y881t8ilMyc" frameborder="0" allowfullscreen></iframe>
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
 </main>
 
@@ -178,6 +167,8 @@
      <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-storage.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
 
 {{> footer-new}}
 

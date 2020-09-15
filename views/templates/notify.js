@@ -194,7 +194,7 @@ exports.notify = option => {
         <tr>
             <td style="padding-right: 0px;padding-left: 0px;" align="center">
             
-            <img align="center" border="0" src="images/image-1.jpeg" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;width: 100%;max-width: 580px;" width="580"/>
+            <img align="center" border="0" src="https://www.lawtrella.com/images/mail.jpeg" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: block !important;border: none;height: auto;float: none;width: 100%;max-width: 580px;" width="580"/>
             
             </td>
         </tr>

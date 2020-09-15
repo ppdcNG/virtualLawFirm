@@ -37,7 +37,7 @@ const renderCourse = (course, id) => {
     let author = course.author ? course.author : '';
     let progress = "Not started";
     if (course.progress) {
-        progress = parseInt(progress) >= 100 ? "100% Done" : progress + "%";
+        progress = parseInt(course.progress) >= 100 ? "100% Done" : course.progress + "%";
     }
 
 
