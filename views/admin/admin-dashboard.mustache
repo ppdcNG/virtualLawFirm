@@ -155,25 +155,27 @@ img.rounded-circle {
     
       </form>
 
+      <section class="mb-5 pb-5" style="height: 70vh;overflow-y:scroll">
+        <div class="table-responsive">
+          <table class="table table-bordered tale-striped" id="lawyersTable">
+            <thead class="black white-text">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody id="lawyersTable">
 
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-      <table class="table table-bordered tale-striped" id="lawyersTable">
-        <thead class="black white-text">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody id="lawyersTable">
-
-        </tbody>
-      </table>
-
-      <div class="text-right">
+      {{! <div class="text-right">
         <button class="btn btn-default">Next <i class="fa fa-arrow-right"></i></button>
-      </div>
+      </div> }}
 
     </div>
     <div class="tab-pane fade" id="profile-ex" role="tabpanel" aria-labelledby="profile-tab-ex">
