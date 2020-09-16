@@ -223,3 +223,22 @@ exports.tags2Category = (tags) => {
   })
   return mycategories
 }
+
+// notary public 
+exports.notaryPublic = () => {
+  let notaryHTML = '';
+  let notaryPublicList = require('../config/notary-public.json');
+
+  notaryPublicList.forEach((value, index) => {
+    notaryHTML += `<div class="col-md-4 py-3">
+                      <div class="card border-warning shadow h-100">
+                          <div class="card-body">
+                              <h5 class="card-title"><strong>Name</strong>: ${value.Name}</h5>
+                              <p class="card-text"><span class="h5"><strong>Address</strong></span>: ${value.Address}</p>
+                          </div>
+                      </div>
+                  </div>`;
+  });
+
+  return notaryHTML;
+}
