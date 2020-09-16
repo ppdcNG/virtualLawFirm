@@ -69,7 +69,6 @@ const fetchClients = async () => {
   //   documents[doc.id] = doc.data();
   // });
   // console.log(documents);
-  // FirebaseError: Missing or insufficient permissions.
 }
 fetchClients();
 
