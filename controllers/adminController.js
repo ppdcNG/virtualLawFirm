@@ -275,7 +275,8 @@ exports.fetchLawyers = async (req, res) => {
 
   limit = parseInt(limit)
   let lawyerList = {};
-  let lawyersRef = admin.firestore().collection('lawyers')
+  let lawyersRef = admin.firestore().collection('lawyers');
+
   switch (param) {
     case 'status':
       if (lastId) {

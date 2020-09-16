@@ -1,5 +1,4 @@
 
-
 const sendLawyerInviteEndPoint = "admin/sendLawyerInvite";
 const fetchLawyersEndPoint = 'admin/fetchLawyers';
 var TASKS = {};
@@ -24,6 +23,7 @@ $(document).ready(() => {
   fetchLawyers();
   fetchCases();
   fetchquestions();
+
 })
 
 $("#filterCases").submit(async function (e) {
@@ -41,15 +41,37 @@ const fetchLawyers = () => {
       lawyers = response;
       console.log(lawyers);
 
-      for (var i in lawyers) {
-        $("#lawyersTable").append(renderTable(i, lawyers[i]));
-      }
+      let lawyersTable = $('.lawyers-data-table').DataTable({
+        data: lawyers,
+        paging: false,
+        searching: false,
+        dom: 'Bfrtip',
+        buttons: [
+          'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+      });
+
+      $.each(lawyers, function (i, lawyer) {
+        lawyersTable.row.add([Object.keys(lawyers).indexOf(i) + 1, lawyer.name, lawyer.status, `<a onclick="viewSummary('${i}')" class="btn btn-sm text-dark" data-toggle="modal" data-target="#detailsModal">View</a>`]);
+      });
+
+      lawyersTable.draw();
 
     },
     error: err => console.log("error", err)
   })
 }
 
+const fetchClients = async () => {
+  // const snapshot = await firebase.firestore().collection('clients').get()
+  // const documents = [];
+  // snapshot.forEach(doc => {
+  //   documents[doc.id] = doc.data();
+  // });
+  // console.log(documents);
+  // FirebaseError: Missing or insufficient permissions.
+}
+fetchClients();
 
 const viewSummary = (id) => {
   let name = id;
