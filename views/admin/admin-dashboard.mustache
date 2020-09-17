@@ -108,11 +108,7 @@ img.rounded-circle {
           </div>
       </div>  
 
-      <div class="row justify-content-between">
-        <div class="col-4">
-          <p class="h4 text-uppercase">Laywers</p>
-        </div>
-
+      <div class="row justify-content-end">
         <div class="col-4">
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-default float-right" data-toggle="modal" data-target="#lawyerModal">
@@ -155,7 +151,12 @@ img.rounded-circle {
     
       </form>
 
-      <section class="mb-5 pb-5" style="height: 70vh;overflow-y:scroll">
+      <div class="d-flex justify-content-between mb-5">
+        <p class="h4 text-uppercase" id="current-table">Laywers</p>
+        <button onclick="switchTable()" id="clients-lawyer-table" class="btn btn-default">View Clients</button>
+      </div>
+
+      <section class="mb-5 pb-5" style="height: 70vh;overflow-y:scroll" id="lawyers-section">
         <div class="table-responsive">
           <table class="table table-bordered table-striped lawyers-data-table" id="lawyersTable">
             <thead class="black white-text">
@@ -167,6 +168,24 @@ img.rounded-circle {
               </tr>
             </thead>
             <tbody id="lawyersTable">
+
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mb-5 pb-5" style="height: 70vh;overflow-y:scroll;display:none" id="clients-section">
+        <div class="table-responsive">
+          <table class="table table-bordered w-100 table-striped clients-data-table" id="clientsTable">
+            <thead class="black white-text">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone Number</th>
+              </tr>
+            </thead>
+            <tbody id="clientsTable">
 
             </tbody>
           </table>

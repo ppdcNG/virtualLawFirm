@@ -63,14 +63,56 @@ const fetchLawyers = () => {
 }
 
 const fetchClients = async () => {
-  // const snapshot = await firebase.firestore().collection('clients').get()
-  // const documents = [];
-  // snapshot.forEach(doc => {
-  //   documents[doc.id] = doc.data();
+  const snapshot = await firebase.firestore().collection('clients').get()
+  const documents = [];
+  snapshot.forEach(doc => {
+    documents[doc.id] = doc.data();
+  });
+  clients = documents;
+  console.log(clients);
+
+  let clientsTable = $('.clients-data-table').DataTable({
+    data: clients,
+    paging: false,
+    searching: false,
+    dom: 'Bfrtip',
+    buttons: [
+      'copy', 'csv', 'excel', 'pdf', 'print'
+    ]
+  });
+
+  for (var client in clients) {
+    let { name, email, phoneNumber } = clients[client];
+    if (!phoneNumber) {
+      phoneNumber = "N/A";
+    }
+    clientsTable.row.add([Object.keys(clients).indexOf(client) + 1, name, email, phoneNumber]);
+  }
+
+  // $.each(clients, function (i, client) {
+  //   clientsTable.row.add([Object.keys(clients).indexOf(i) + 1, client.name, client.email, client.phoneNumber]);
   // });
-  // console.log(documents);
+
+  clientsTable.draw();
+
 }
 fetchClients();
+
+const switchTable = () => {
+  let btnText = $("#clients-lawyer-table").text();
+
+  if (btnText === 'View Clients') {
+    btnText = 'View Lawyers';
+    $("#current-table").text('Clients');
+    $("#lawyers-section").css('display', 'none');
+    $("#clients-section").css('display', 'block');
+  } else if (btnText === 'View Lawyers') {
+    btnText = 'View Clients';
+    $("#current-table").text('Lawyers');
+    $("#clients-section").css('display', 'none');
+    $("#lawyers-section").css('display', 'block');
+  }
+};
 
 const viewSummary = (id) => {
   let name = id;
